@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Póster de hábitat · personalizar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px; flex: none">
+<a href="RecompensasPosteres.dc.html" aria-label="Volver a pósteres" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700; line-height: 1.15">Póster · {{nombre}}</h1>
+<span style="font-size: 12.5px; color: #4E5E5C">{{done}} de {{total}} especies · A3</span>
+</div>
+</header>
+
+<div role="group" aria-label="Hábitat" style="flex: none; margin: 2px 0 0; padding: 0 16px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none">
+<sc-for list="{{habs}}" as="h" hint-placeholder-count="5">
+<button aria-pressed="{{h.pressed}}" onClick="{{h.pick}}" style="flex: none; min-height: 40px; box-sizing: border-box; border-radius: 999px; border: {{h.border}}; background: {{h.bg}}; color: {{h.color}}; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 12px; cursor: pointer">{{h.label}}</button>
+</sc-for>
+</div>
+
+<div style="margin: 10px 16px 0; height: 300px; flex: none; border-radius: 20px; background: #E7DFCF; display: flex; align-items: center; justify-content: center">
+<div style="position: relative; width: 202px; height: 286px; overflow: hidden; border-radius: 3px; box-shadow: 0 2px 4px rgba(20,48,47,0.2), 0 14px 30px rgba(20,48,47,0.2)">
+<div style="position: absolute; left: 0; top: 0; width: 1123px; height: 1587px; transform: scale(0.17988); transform-origin: 0 0">
+<dc-import name="PosterHabitat" habitat="{{hab}}" tema="{{tema}}" orden="{{orden}}" fotos="{{fotos}}" seed="{{seed}}" hint-size="1123px,1587px"></dc-import>
+</div>
+</div>
+</div>
+
+<section aria-label="Personalizar" style="flex: none; margin: 10px 16px 0; padding: 12px 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Fondo</span>
+<div role="group" aria-label="Fondo" style="padding: 3px; background: #E7DFCF; border-radius: 12px; display: flex; gap: 3px">
+<sc-for list="{{temas}}" as="t" hint-placeholder-count="2">
+<button aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="min-height: 38px; border: 0; border-radius: 9px; background: {{t.bg}}; box-shadow: {{t.shadow}}; color: #14302F; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 14px; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Orden</span>
+<div role="group" aria-label="Orden" style="padding: 3px; background: #E7DFCF; border-radius: 12px; display: flex; gap: 3px">
+<sc-for list="{{ordenes}}" as="o" hint-placeholder-count="3">
+<button aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="min-height: 38px; border: 0; border-radius: 9px; background: {{o.bg}}; box-shadow: {{o.shadow}}; color: #14302F; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 0 10px; cursor: pointer">{{o.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span id="lbl-misfotos" style="font-size: 14px; font-weight: 700">Usar mis fotos</span>
+<button role="switch" aria-checked="{{fotosAria}}" aria-labelledby="lbl-misfotos" onClick="{{toggleFotos}}" style="position: relative; width: 52px; height: 32px; border: 0; border-radius: 999px; background: {{trackBg}}; cursor: pointer; padding: 0">
+<span aria-hidden="true" style="position: absolute; top: 3px; left: {{knob}}px; width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.25)"></span>
+</button>
+</div>
+</section>
+
+<section aria-label="Descargar" style="flex: none; margin: 10px 16px 0; padding: 12px 14px; border-radius: 16px; border: 1.5px dashed #B9AE99; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Se habilita al completar el hábitat</span>
+<span style="font-size: 13px; font-weight: 700">{{done}} de {{total}}</span>
+</div>
+<div style="height: 6px; border-radius: 3px; background: #E3DACA; overflow: hidden"><div style="width: {{pct}}%; height: 100%; border-radius: 3px; background: #14302F"></div></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button aria-disabled="true" style="min-height: 44px; border: 0; border-radius: 12px; background: #E7DFCF; color: #5F5B54; font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: not-allowed">PNG</button>
+<button aria-disabled="true" style="min-height: 44px; border: 0; border-radius: 12px; background: #E7DFCF; color: #5F5B54; font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: not-allowed">PDF A3 para imprimir</button>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hab: 'LIT', tema: 'claro', orden: 'numero', fotos: false, seed: 7 };
+  }
+  renderVals() {
+    const H = [
+      { id: 'LIT', label: 'Litoral', nombre: 'Litoral y mar', done: 8, total: 43 },
+      { id: 'HUM', label: 'Humedales', nombre: 'Humedales', done: 3, total: 42 },
+      { id: 'DES', label: 'Desierto', nombre: 'Desierto y valles', done: 1, total: 63 },
+      { id: 'AND', label: 'Sierra', nombre: 'Sierra y puna', done: 0, total: 107 },
+      { id: 'PEL', label: 'Mar abierto', nombre: 'Mar abierto', done: 0, total: 34 }
+    ];
+    const st = this.state;
+    const h = H.filter(function (x) { return x.id === st.hab; })[0];
+    const on = '#FBF8F2';
+    const sh = '0 1px 2px rgba(20,48,47,0.14)';
+    const seg = (list, key) => list.map((x) => ({
+      label: x.label,
+      pressed: st[key] === x.id ? 'true' : 'false',
+      bg: st[key] === x.id ? on : 'transparent',
+      shadow: st[key] === x.id ? sh : 'none',
+      pick: () => {
+        const ns = {}; ns[key] = x.id;
+        if (key === 'orden' && x.id === 'azar') ns.seed = (st.seed * 31 + 17) % 9973 || 3;
+        this.setState(ns);
+      }
+    }));
+    return {
+      hab: st.hab, tema: st.tema, orden: st.orden, fotos: st.fotos, seed: st.seed,
+      nombre: h.nombre, done: h.done, total: h.total,
+      pct: Math.round(h.done / h.total * 1000) / 10,
+      habs: H.map((x) => ({
+        label: x.label,
+        pressed: st.hab === x.id ? 'true' : 'false',
+        bg: st.hab === x.id ? '#14302F' : 'transparent',
+        color: st.hab === x.id ? '#FFFFFF' : '#14302F',
+        border: st.hab === x.id ? '1.5px solid #14302F' : '1px solid #C9BEA9',
+        pick: () => this.setState({ hab: x.id })
+      })),
+      temas: seg([{ id: 'claro', label: 'Claro' }, { id: 'oscuro', label: 'Oscuro' }], 'tema'),
+      ordenes: seg([{ id: 'numero', label: 'Número' }, { id: 'mias', label: 'Mis aves' }, { id: 'azar', label: 'Al azar' }], 'orden'),
+      fotosAria: st.fotos ? 'true' : 'false',
+      trackBg: st.fotos ? '#14302F' : '#C9BEA9',
+      knob: st.fotos ? 23 : 3,
+      toggleFotos: () => this.setState({ fotos: !st.fotos })
+    };
+  }
+}
+</script>
+</body>
+</html>

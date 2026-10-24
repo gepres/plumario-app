@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Medalla</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; flex: none; width: {{w}}px; height: {{h}}px; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; color: #14302F">
+<div style="position: absolute; left: 0; top: 0; width: 200px; height: 240px; transform: scale({{scale}}); transform-origin: 0 0">
+<svg width="200" height="120" viewBox="0 0 200 120" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<polygon points="52,0 94,0 126,104 94,112" fill="{{ribbonA}}" stroke="{{ribStroke}}" stroke-width="2" stroke-dasharray="{{ribDash}}"></polygon>
+<line x1="73" y1="0" x2="110" y2="108" stroke="{{stripe}}" stroke-width="4"></line>
+<polygon points="106,0 148,0 106,112 74,104" fill="{{ribbonB}}" stroke="{{ribStroke}}" stroke-width="2" stroke-dasharray="{{ribDash}}"></polygon>
+<line x1="127" y1="0" x2="90" y2="108" stroke="{{stripe}}" stroke-width="4"></line>
+</svg>
+<div style="position: absolute; left: 24px; top: 84px; width: 152px; height: 152px; box-sizing: border-box; border-radius: 50%; background: {{rim}}; border: {{rimBorder}}; box-shadow: {{rimShadow}}"></div>
+<div style="position: absolute; left: 35px; top: 95px; width: 130px; height: 130px; border-radius: 50%; background: {{enamel}}; box-shadow: {{enamelShadow}}"></div>
+<div style="position: absolute; left: 44px; top: 104px; width: 112px; height: 112px; box-sizing: border-box; border-radius: 50%; border: {{ringBorder}}"></div>
+<sc-if value="{{isPrimera}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M36 48 L36 12 M36 48 L14 26 M36 48 L58 26 M36 48 L36 62" fill="none" stroke="{{mark}}" stroke-width="5" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isExplorador}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<circle cx="22" cy="46" r="12" fill="none" stroke="{{mark}}" stroke-width="4"></circle>
+<circle cx="50" cy="46" r="12" fill="none" stroke="{{mark}}" stroke-width="4"></circle>
+<path d="M12 40 L18 18 H28 L32 36 M60 40 L54 18 H44 L40 36 M32 30 H40" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isLitoral}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M24 26 A12 12 0 0 1 48 26" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round"></path>
+<path d="M8 40 C14 34 20 34 26 40 C32 46 40 46 46 40 C52 34 58 34 64 40 M8 54 C14 48 20 48 26 54 C32 60 40 60 46 54 C52 48 58 48 64 54" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isHumedales}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M10 62 H62 M22 62 C22 50 21 40 19 30 M36 62 V30 M50 62 C50 50 51 40 53 30" fill="none" stroke="{{mark}}" stroke-width="3.5" stroke-linecap="round"></path>
+<rect x="15" y="14" width="8" height="18" rx="4" fill="{{mark}}"></rect>
+<rect x="32" y="10" width="8" height="20" rx="4" fill="{{mark}}"></rect>
+<rect x="49" y="14" width="8" height="18" rx="4" fill="{{mark}}"></rect>
+</svg>
+</sc-if>
+<sc-if value="{{isDesierto}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<circle cx="47" cy="22" r="8" fill="none" stroke="{{mark}}" stroke-width="4"></circle>
+<path d="M6 52 C18 38 30 36 40 44 C48 38 58 38 66 44 M6 62 H66" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isSierra}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M6 58 L26 24 L36 38 L46 20 L66 58 Z" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linejoin="round"></path>
+<path d="M20 34 L26 24 L32 34 M40 30 L46 20 L52 30" fill="none" stroke="{{mark}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isMar}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M20 28 C26 20 32 20 36 28 C40 20 46 20 52 28" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M8 48 C14 42 20 42 26 48 C32 54 40 54 46 48 C52 42 58 42 64 48 M8 60 C14 54 20 54 26 60 C32 66 40 66 46 60 C52 54 58 54 64 60" fill="none" stroke="{{mark}}" stroke-width="4" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isCompleto}}" hint-placeholder-val="{{ false }}">
+<svg width="76" height="76" viewBox="0 0 72 72" aria-hidden="true" style="position: absolute; left: 62px; top: 122px">
+<path d="M8 22 C18 17 28 17 36 24 C44 17 54 17 64 22 V54 C54 49 44 49 36 56 C28 49 18 49 8 54 Z M36 24 V56" fill="none" stroke="{{mark}}" stroke-width="3.5" stroke-linejoin="round"></path>
+<path d="M15 31 H28 M15 39 H28 M44 31 H57 M44 39 H57" fill="none" stroke="{{mark}}" stroke-width="2.5" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+<sc-if value="{{isHito}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 24px; top: 84px; width: 152px; height: 152px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 60px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: {{mark}}">{{numero}}</span>
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: {{mark}}">especies</span>
+</div>
+</sc-if>
+<div style="position: absolute; left: 24px; top: 84px; width: 152px; height: 152px; border-radius: 50%; background: {{sheen}}"></div>
+<sc-if value="{{showArc}}" hint-placeholder-val="{{ false }}">
+<svg width="152" height="152" viewBox="0 0 152 152" aria-hidden="true" style="position: absolute; left: 24px; top: 84px">
+<circle cx="76" cy="76" r="70" fill="none" stroke="#DCD2C0" stroke-width="8"></circle>
+<circle cx="76" cy="76" r="70" fill="none" stroke="{{arcColor}}" stroke-width="8" stroke-linecap="round" stroke-dasharray="{{arcDash}}" transform="rotate(-90 76 76)"></circle>
+</svg>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["primera","explorador","hito","litoral","humedales","desierto","sierra","mar","completo"],"default":"hito"},"numero":{"editor":"int","default":10,"min":10,"max":300,"step":10},"size":{"editor":"int","default":200,"min":32,"max":600},"locked":{"editor":"boolean","default":false},"progreso":{"editor":"range","default":0.6,"min":0,"max":1,"step":0.01},"$preview":{"width":200,"height":240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pewter = 'linear-gradient(135deg, #F2F4F5 0%, #A9B3B9 30%, #E7EAEC 52%, #87929A 78%, #D3D8DB 100%)';
+    const K = {
+      primera: { a: '#A0541F', b: '#E7C9A0', s: '#F3EDE2', rim: pewter, enamel: '#A0541F', mark: '#FBF3E4', arc: '#A0541F' },
+      explorador: { a: '#6B5B2A', b: '#E4C766', s: '#F3EDE2', rim: pewter, enamel: '#6B5B2A', mark: '#F3E2A6', arc: '#6B5B2A' },
+      hito: { a: '#E4C766', b: '#14302F', s: '#F3EDE2', rim: pewter, enamel: '#14302F', mark: '#F3E2A6', arc: '#14302F' },
+      litoral: { a: '#2C6A86', b: '#BFD9E5', s: '#FFFFFF', rim: pewter, enamel: '#2C6A86', mark: '#FFFFFF', arc: '#2C6A86' },
+      humedales: { a: '#3D7A55', b: '#C9E2CF', s: '#FFFFFF', rim: pewter, enamel: '#3D7A55', mark: '#FFFFFF', arc: '#3D7A55' },
+      desierto: { a: '#B07A28', b: '#EAD9B5', s: '#FFFFFF', rim: pewter, enamel: '#B07A28', mark: '#FFF6E2', arc: '#9A6A20' },
+      sierra: { a: '#5D5A7A', b: '#D9D6E6', s: '#FFFFFF', rim: pewter, enamel: '#5D5A7A', mark: '#FFFFFF', arc: '#5D5A7A' },
+      mar: { a: '#1F4E6E', b: '#B8CFE0', s: '#FFFFFF', rim: pewter, enamel: '#1F4E6E', mark: '#FFFFFF', arc: '#1F4E6E' },
+      completo: { a: '#14302F', b: '#A8683A', s: '#E9C9A4', rim: 'linear-gradient(135deg, #F0C9A0 0%, #A8683A 30%, #E2AE7C 52%, #7A4522 78%, #C78F5D 100%)', enamel: 'linear-gradient(145deg, #C88B57 0%, #9A5C30 45%, #D49E6C 70%, #8A4F27 100%)', mark: '#5A3216', arc: '#A8683A' }
+    };
+    const kind = K[this.props.kind] ? this.props.kind : 'hito';
+    const k = K[kind];
+    const w = Number(this.props.size ?? 200) || 200;
+    const locked = this.props.locked === true || this.props.locked === 'true';
+    const p = Math.max(0, Math.min(1, Number(this.props.progreso ?? 0) || 0));
+    const circ = 2 * Math.PI * 70;
+    const flags = {
+      isPrimera: kind === 'primera',
+      isExplorador: kind === 'explorador',
+      isHito: kind === 'hito',
+      isLitoral: kind === 'litoral',
+      isHumedales: kind === 'humedales',
+      isDesierto: kind === 'desierto',
+      isSierra: kind === 'sierra',
+      isMar: kind === 'mar',
+      isCompleto: kind === 'completo'
+    };
+    const base = { w: w, h: Math.round(w * 1.2), scale: w / 200, numero: String(this.props.numero ?? 10) };
+    if (locked) {
+      return Object.assign(base, flags, {
+        ribbonA: '#ECE5D7', ribbonB: '#ECE5D7', stripe: 'transparent', ribStroke: '#B9AE99', ribDash: '5 4',
+        rim: '#ECE5D7', rimBorder: '2px dashed #B9AE99', rimShadow: 'none',
+        enamel: '#F3EDE2', enamelShadow: 'inset 0 1px 3px rgba(20,48,47,0.10)',
+        ringBorder: '1.5px dashed rgba(20,48,47,0.16)',
+        mark: '#ADA28C', sheen: 'none',
+        showArc: p > 0,
+        arcColor: k.arc,
+        arcDash: (circ * p).toFixed(1) + ' ' + circ.toFixed(1)
+      });
+    }
+    return Object.assign(base, flags, {
+      ribbonA: k.a, ribbonB: k.b, stripe: k.s, ribStroke: 'none', ribDash: 'none',
+      rim: k.rim, rimBorder: '0', rimShadow: '0 2px 3px rgba(20,48,47,0.22), 0 10px 20px rgba(20,48,47,0.14)',
+      enamel: k.enamel, enamelShadow: 'inset 0 2px 5px rgba(0,0,0,0.24)',
+      ringBorder: '2px ' + (kind === 'completo' ? 'dotted rgba(90,50,22,0.55)' : 'dashed rgba(255,255,255,0.45)'),
+      mark: k.mark,
+      sheen: 'linear-gradient(125deg, rgba(255,255,255,0) 36%, rgba(255,255,255,0.34) 48%, rgba(255,255,255,0) 60%)',
+      showArc: false,
+      arcColor: k.arc,
+      arcDash: '0 1'
+    });
+  }
+}
+</script>
+</body>
+</html>

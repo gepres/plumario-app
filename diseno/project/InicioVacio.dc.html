@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Inicio · primer uso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; padding: 14px 12px 0 20px; display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2C6A86">Álbum de aves · Edición inicial</span>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 27px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1"><a href="RegionMapa.dc.html" aria-label="Aves de Ica. Cambiar de región" style="display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: #14302F; text-decoration: none">Aves de Ica<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 3px"><path d="M6 9l6 6 6-6"></path></svg></a></h1>
+</div>
+<a href="Album.dc.html" aria-label="Buscar un ave en el álbum" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+</a>
+</header>
+
+<section aria-label="Tu progreso" style="flex: none; margin: 12px 16px 0; padding: 14px 16px; background: #14302F; color: #F3EDE2; border-radius: 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; gap: 6px">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1">0</span>
+<span style="font-size: 15px; font-weight: 600">de 289 especies de Ica</span>
+</div>
+<div style="height: 8px; box-sizing: border-box; border-radius: 4px; border: 1.5px dashed rgba(243,237,226,0.4)"></div>
+</section>
+
+<section style="flex: none; margin: 10px 16px 0; padding: 16px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; display: flex; flex-direction: column; gap: 6px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 21px; font-weight: 800; letter-spacing: -0.01em">Registra tu primera ave</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.4; color: #3F504E">Fotografía cualquier ave que veas. La primera te da la medalla Mi primera ave.</p>
+<a href="RegistrarCamara.dc.html" style="margin-top: 8px; min-height: 52px; border-radius: 14px; background: #14302F; color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>Registrar ave
+</a>
+</section>
+
+<section aria-labelledby="como" style="flex: none; margin: 12px 20px 0; display: flex; flex-direction: column; gap: 10px">
+<h2 id="como" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 17px; font-weight: 700">Cómo funciona</h2>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: flex-start; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 50%; background: #D2E4EC; color: #14302F; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">1</span>
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Completa stickers con tus fotos</span><span style="font-size: 13px; line-height: 1.35; color: #4E5E5C">Toca una silueta del álbum o usa Registrar.</span></span>
+</li>
+<li style="display: flex; align-items: flex-start; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 50%; background: conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6); color: #14302F; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">2</span>
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Consigue cromos</span><span style="font-size: 13px; line-height: 1.35; color: #4E5E5C">Al azar al completar, con 5 fotos o intercambiando.</span></span>
+</li>
+<li style="display: flex; align-items: flex-start; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 50%; background: #E4C766; color: #14302F; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">3</span>
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Medallas y pósteres</span><span style="font-size: 13px; line-height: 1.35; color: #4E5E5C">Medalla y póster cada 10 especies, y un póster por hábitat completo.</span></span>
+</li>
+</ol>
+</section>
+
+<section aria-labelledby="faciles" style="flex: none; margin: 12px 16px 0; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 id="faciles" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 17px; font-weight: 700">Fáciles de ver en la ciudad</h2>
+<a href="Album.dc.html" style="min-height: 32px; display: flex; align-items: center; font-size: 13.5px; font-weight: 700; color: #2C6A86; text-decoration: none">Ver las 289</a>
+</div>
+<div style="display: flex; justify-content: space-between; padding: 0 6px">
+<dc-import name="StickerAve" img="/_blob/bd33d7ef45c2158cdd8113e62ee29b1f" nombre="Gorrión de Collar Rufo" num="132" sombra="true" size="92" hint-size="92px,118px"></dc-import>
+<dc-import name="StickerAve" img="/_blob/53239f140a3d5f5fbee940ee877cf0f4" nombre="Tórtola Melódica" num="087" sombra="true" size="92" hint-size="92px,118px"></dc-import>
+<dc-import name="StickerAve" img="/_blob/be5f9b84baa8bc6c9ae1858d2b36e745" nombre="Gallinazo de Cabeza Negra" num="099" sombra="true" size="92" hint-size="92px,118px"></dc-import>
+</div>
+</section>
+
+<div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 104px"><dc-import name="BarraNav" activo="inicio" hint-size="390px,104px"></dc-import></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

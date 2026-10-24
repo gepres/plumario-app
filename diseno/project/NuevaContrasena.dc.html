@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nueva contraseña</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="OlvideEnviado.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+</header>
+
+<main style="flex: 1; min-height: 0; padding: 8px 16px 18px; display: flex; flex-direction: column; gap: 14px">
+<div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 24px; background: #EADFCB; display: flex; align-items: center; justify-content: center; color: #14302F"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h14v10H5zM8 11V8a4 4 0 0 1 8 0v3M12 15v2"></path></svg></div>
+<h1 style="margin: 6px 2px 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.015em">Crea una nueva contraseña</h1>
+<p style="margin: 0 2px; font-size: 15px; line-height: 1.5; color: #3F504E">Para la cuenta coleccionista@ejemplo.com.</p>
+<dc-import name="Campo" etiqueta="Nueva contraseña" tipo="contrasena" valor="aves2026" placeholder="" hint-size="358px,76px"></dc-import>
+<ul aria-label="Requisitos" style="margin: -2px 2px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
+<li style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: {{r.ink}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.icon}}"></path></svg>{{r.t}}</li>
+</sc-for>
+</ul>
+<dc-import name="Campo" etiqueta="Repite la contraseña" tipo="contrasena" valor="aves2025" placeholder="" error="No coincide con la anterior." hint-size="358px,98px"></dc-import>
+<dc-import name="Boton" texto="Guardar y entrar" variante="deshabilitado" href="Inicio.dc.html" hint-size="358px,52px"></dc-import>
+<span style="margin: -4px 2px 0; font-size: 12.5px; color: #4E5E5C">Se activa cuando las dos contraseñas coinciden.</span>
+</main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+const OK = 'M5 12.5l4.5 4.5L19 7.5';
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      reqs: [
+        { t: 'Al menos 8 caracteres', icon: OK, ink: '#2D5F41' },
+        { t: 'Una letra', icon: OK, ink: '#2D5F41' },
+        { t: 'Un número', icon: OK, ink: '#2D5F41' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

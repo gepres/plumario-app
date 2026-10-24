@@ -1,0 +1,455 @@
+PLUMARIO | Verificación de contraste WCAG 2.x
+Texto: mínimo 4.5:1. Navegación, borde y silueta del logo: mínimo 3:1.
+rgba se compone sobre su fondo antes de calcular la luminancia relativa.
+Se evalúan todas las paradas declaradas; los sólidos se repiten como dos paradas.
+La decisión usa el valor completo; la salida muestra cuatro decimales.
+A/B no tienen exenciones: sus fallos también producen código de salida 1.
+
+a-claro | Pacífico | Claro | 31/34 cumplen
+  OK    ink sobre bg: 13.3803:1 >= 4.5:1
+  OK    ink sobre sup: 14.8619:1 >= 4.5:1
+  OK    ink sobre sup2: 12.2655:1 >= 4.5:1
+  OK    ink sobre campo: 14.8619:1 >= 4.5:1
+  OK    txt2 sobre bg: 5.8443:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.4915:1 >= 4.5:1
+  OK    pri sobre bg: 6.5140:1 >= 4.5:1
+  OK    pri sobre sup: 7.2353:1 >= 4.5:1
+  OK    priInk sobre pri: 7.2353:1 >= 4.5:1
+  OK    acentoInk sobre acento: 4.7511:1 >= 4.5:1
+  OK    solInk sobre sol: 8.8559:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #0F5E7A: 7.2353:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #0F5E7A: 7.2353:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #0F5E7A: 5.5838:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #0F5E7A: 5.5838:1 >= 4.5:1
+  FALLO revelarTxt2 sobre revelar[1] #1C6E8C: 4.4299:1 < 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #0A3346: 10.2906:1 >= 4.5:1
+  OK    exito sobre bg: 4.5008:1 >= 4.5:1
+  OK    exito sobre sup: 4.9992:1 >= 4.5:1
+  OK    aviso sobre bg: 4.8721:1 >= 4.5:1
+  OK    aviso sobre sup: 5.4116:1 >= 4.5:1
+  OK    error sobre bg: 4.6250:1 >= 4.5:1
+  OK    error sobre sup: 5.1371:1 >= 4.5:1
+  FALLO fabTinta sobre fab[1] #2A92B5: 3.5731:1 < 4.5:1
+  OK    fabTinta sobre fab[2] #0F5E7A: 7.2353:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #0B4A61: 9.6937:1 >= 4.5:1
+  OK    navTrazo sobre barra: 14.8619:1 >= 3.0:1
+  OK    navInactivo sobre barra: 4.7836:1 >= 3.0:1
+  FALLO borde sobre campo: 1.6758:1 < 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 10.6174:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.8268:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #0F5E7A: 6.6656:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #0F5E7A: 6.6656:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 6.6656:1 >= 3.0:1
+
+a-oscuro | Pacífico | Oscuro | 32/34 cumplen
+  OK    ink sobre bg: 15.7157:1 >= 4.5:1
+  OK    ink sobre sup: 13.2733:1 >= 4.5:1
+  OK    ink sobre sup2: 11.2961:1 >= 4.5:1
+  OK    ink sobre campo: 14.4463:1 >= 4.5:1
+  OK    txt2 sobre bg: 8.1958:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.9221:1 >= 4.5:1
+  OK    pri sobre bg: 8.7690:1 >= 4.5:1
+  OK    pri sobre sup: 7.4063:1 >= 4.5:1
+  OK    priInk sobre pri: 8.7690:1 >= 4.5:1
+  OK    acentoInk sobre acento: 7.9286:1 >= 4.5:1
+  OK    solInk sobre sol: 11.6239:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #165E7B: 7.1888:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #0F3F55: 11.2752:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #165E7B: 4.7646:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #0F3F55: 7.4731:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #17405A: 7.2590:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #07121A: 12.5339:1 >= 4.5:1
+  OK    exito sobre bg: 8.6540:1 >= 4.5:1
+  OK    exito sobre sup: 7.3091:1 >= 4.5:1
+  OK    aviso sobre bg: 8.8034:1 >= 4.5:1
+  OK    aviso sobre sup: 7.4353:1 >= 4.5:1
+  OK    error sobre bg: 7.6928:1 >= 4.5:1
+  OK    error sobre sup: 6.4973:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #7FD3EE: 10.4885:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #3BA7CB: 6.3798:1 >= 4.5:1
+  FALLO fabTinta sobre fab[3] #1F86A8: 4.2391:1 < 4.5:1
+  OK    navTrazo sobre barra: 9.8174:1 >= 3.0:1
+  OK    navInactivo sobre barra: 6.0648:1 >= 3.0:1
+  FALLO borde sobre campo: 2.2901:1 < 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 11.1726:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.9286:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #165E7B: 6.1696:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #0F3F55: 9.6767:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 9.6767:1 >= 3.0:1
+
+b-claro | Índigo colibrí | Claro | 29/33 cumplen
+  OK    ink sobre bg: 14.9715:1 >= 4.5:1
+  OK    ink sobre sup: 16.4955:1 >= 4.5:1
+  OK    ink sobre sup2: 13.6553:1 >= 4.5:1
+  OK    ink sobre campo: 16.4955:1 >= 4.5:1
+  OK    txt2 sobre bg: 5.9579:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.5643:1 >= 4.5:1
+  OK    pri sobre bg: 5.6381:1 >= 4.5:1
+  OK    pri sobre sup: 6.2120:1 >= 4.5:1
+  OK    priInk sobre pri: 6.2120:1 >= 4.5:1
+  OK    acentoInk sobre acento: 4.9711:1 >= 4.5:1
+  OK    solInk sobre sol: 9.3887:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #4347C9: 7.0390:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #3A63C4: 5.5825:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #4347C9: 5.4131:1 >= 4.5:1
+  FALLO heroTxt2 sobre hero[2] #3A63C4: 4.2931:1 < 4.5:1
+  FALLO revelarTxt2 sobre revelar[1] #4C4FC9: 4.4868:1 < 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #1B1A4A: 11.3420:1 >= 4.5:1
+  OK    exito sobre bg: 4.5118:1 >= 4.5:1
+  OK    exito sobre sup: 4.9711:1 >= 4.5:1
+  OK    aviso sobre bg: 4.5854:1 >= 4.5:1
+  OK    aviso sobre sup: 5.0522:1 >= 4.5:1
+  OK    error sobre bg: 4.5434:1 >= 4.5:1
+  OK    error sobre sup: 5.0058:1 >= 4.5:1
+  FALLO fabTinta sobre fab[1] #5C8BE8: 3.3263:1 < 4.5:1
+  OK    fabTinta sobre fab[2] #4A4FD6: 6.2120:1 >= 4.5:1
+  OK    navTrazo sobre barra: 16.4955:1 >= 3.0:1
+  OK    navInactivo sobre barra: 4.3791:1 >= 3.0:1
+  FALLO borde sobre campo: 1.7456:1 < 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 8.8937:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 9.3887:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #4347C9: 6.3778:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #3A63C4: 5.0581:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 5.6284:1 >= 3.0:1
+
+b-oscuro | Índigo colibrí | Oscuro | 31/33 cumplen
+  OK    ink sobre bg: 15.6498:1 >= 4.5:1
+  OK    ink sobre sup: 14.0474:1 >= 4.5:1
+  OK    ink sobre sup2: 12.1638:1 >= 4.5:1
+  OK    ink sobre campo: 14.7079:1 >= 4.5:1
+  OK    txt2 sobre bg: 7.9502:1 >= 4.5:1
+  OK    txt2 sobre sup: 7.1361:1 >= 4.5:1
+  OK    pri sobre bg: 6.5572:1 >= 4.5:1
+  OK    pri sobre sup: 5.8857:1 >= 4.5:1
+  OK    priInk sobre pri: 6.5572:1 >= 4.5:1
+  OK    acentoInk sobre acento: 10.4294:1 >= 4.5:1
+  OK    solInk sobre sol: 11.8059:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #3A3DB3: 8.4056:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #2B4C9E: 7.9841:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #3A3DB3: 5.5882:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #2B4C9E: 5.3080:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #2E2D7A: 7.8764:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #0B0A1F: 12.9579:1 >= 4.5:1
+  OK    exito sobre bg: 10.4294:1 >= 4.5:1
+  OK    exito sobre sup: 9.3615:1 >= 4.5:1
+  OK    aviso sobre bg: 10.3347:1 >= 4.5:1
+  OK    aviso sobre sup: 9.2765:1 >= 4.5:1
+  OK    error sobre bg: 7.3475:1 >= 4.5:1
+  OK    error sobre sup: 6.5951:1 >= 4.5:1
+  FALLO fabTinta sobre fab[1] #7C80FF: 3.2871:1 < 4.5:1
+  OK    fabTinta sobre fab[2] #5458E0: 5.4557:1 >= 4.5:1
+  OK    navTrazo sobre barra: 7.9036:1 >= 3.0:1
+  OK    navInactivo sobre barra: 6.1427:1 >= 3.0:1
+  FALLO borde sobre campo: 2.1083:1 < 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 11.0101:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 10.4294:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #3A3DB3: 7.3099:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #2B4C9E: 6.9434:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 6.9434:1 >= 3.0:1
+
+c-claro | Huacachina | Claro | 34/34 cumplen
+  OK    ink sobre bg: 13.0076:1 >= 4.5:1
+  OK    ink sobre sup: 14.0799:1 >= 4.5:1
+  OK    ink sobre sup2: 11.0564:1 >= 4.5:1
+  OK    ink sobre campo: 13.7651:1 >= 4.5:1
+  OK    txt2 sobre bg: 6.0210:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.5173:1 >= 4.5:1
+  OK    pri sobre bg: 5.9604:1 >= 4.5:1
+  OK    pri sobre sup: 6.4517:1 >= 4.5:1
+  OK    priInk sobre pri: 6.4008:1 >= 4.5:1
+  OK    acentoInk sobre acento: 6.1582:1 >= 4.5:1
+  OK    solInk sobre sol: 7.7305:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #874021: 7.3576:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #623448: 9.7403:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #874021: 5.8423:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #623448: 7.7342:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #663D3E: 6.6551:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #251B28: 12.1005:1 >= 4.5:1
+  OK    exito sobre bg: 5.6870:1 >= 4.5:1
+  OK    exito sobre sup: 6.1558:1 >= 4.5:1
+  OK    aviso sobre bg: 5.7045:1 >= 4.5:1
+  OK    aviso sobre sup: 6.1748:1 >= 4.5:1
+  OK    error sobre bg: 5.7286:1 >= 4.5:1
+  OK    error sobre sup: 6.2009:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #9F4724: 6.0262:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #793722: 8.6019:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #67333C: 9.6879:1 >= 4.5:1
+  OK    navTrazo sobre barra: 6.4517:1 >= 3.0:1
+  OK    navInactivo sobre barra: 5.1598:1 >= 3.0:1
+  OK    borde sobre campo: 3.6948:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 7.8432:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.7305:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #874021: 6.7548:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #623448: 8.9422:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 5.9160:1 >= 3.0:1
+
+c-oscuro | Huacachina | Oscuro | 34/34 cumplen
+  OK    ink sobre bg: 15.4467:1 >= 4.5:1
+  OK    ink sobre sup: 13.5338:1 >= 4.5:1
+  OK    ink sobre sup2: 11.1689:1 >= 4.5:1
+  OK    ink sobre campo: 14.6506:1 >= 4.5:1
+  OK    txt2 sobre bg: 9.0674:1 >= 4.5:1
+  OK    txt2 sobre sup: 7.9445:1 >= 4.5:1
+  OK    pri sobre bg: 9.1326:1 >= 4.5:1
+  OK    pri sobre sup: 8.0016:1 >= 4.5:1
+  OK    priInk sobre pri: 8.7848:1 >= 4.5:1
+  OK    acentoInk sobre acento: 7.7628:1 >= 4.5:1
+  OK    solInk sobre sol: 10.1038:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #6D321D: 9.1484:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #503045: 10.5055:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #6D321D: 6.6816:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #503045: 7.6728:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #523237: 7.1588:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #161116: 11.8914:1 >= 4.5:1
+  OK    exito sobre bg: 9.0104:1 >= 4.5:1
+  OK    exito sobre sup: 7.8945:1 >= 4.5:1
+  OK    aviso sobre bg: 9.5881:1 >= 4.5:1
+  OK    aviso sobre sup: 8.4007:1 >= 4.5:1
+  OK    error sobre bg: 8.5110:1 >= 4.5:1
+  OK    error sobre sup: 7.4570:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #F3C080: 10.0459:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #E8A563: 7.9284:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #D68B51: 6.0859:1 >= 4.5:1
+  OK    navTrazo sobre barra: 8.0016:1 >= 3.0:1
+  OK    navInactivo sobre barra: 6.7636:1 >= 3.0:1
+  OK    borde sobre campo: 4.2970:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 7.8432:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.7628:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #6D321D: 8.8575:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #503045: 10.1715:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 8.8575:1 >= 3.0:1
+
+d-claro | Totoral | Claro | 34/34 cumplen
+  OK    ink sobre bg: 11.9572:1 >= 4.5:1
+  OK    ink sobre sup: 12.9952:1 >= 4.5:1
+  OK    ink sobre sup2: 10.5868:1 >= 4.5:1
+  OK    ink sobre campo: 12.9561:1 >= 4.5:1
+  OK    txt2 sobre bg: 5.6420:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.1317:1 >= 4.5:1
+  OK    pri sobre bg: 6.2130:1 >= 4.5:1
+  OK    pri sobre sup: 6.7523:1 >= 4.5:1
+  OK    priInk sobre pri: 6.8730:1 >= 4.5:1
+  OK    acentoInk sobre acento: 5.7920:1 >= 4.5:1
+  OK    solInk sobre sol: 7.4613:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #3F552A: 8.1905:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #294D42: 9.3256:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #3F552A: 6.7067:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #294D42: 7.6361:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #344D38: 7.2620:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #142820: 12.1452:1 >= 4.5:1
+  OK    exito sobre bg: 5.7323:1 >= 4.5:1
+  OK    exito sobre sup: 6.2299:1 >= 4.5:1
+  OK    aviso sobre bg: 5.2421:1 >= 4.5:1
+  OK    aviso sobre sup: 5.6971:1 >= 4.5:1
+  OK    error sobre bg: 5.4387:1 >= 4.5:1
+  OK    error sobre sup: 5.9108:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #607532: 5.0975:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #4A612D: 6.8571:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #335344: 8.4655:1 >= 4.5:1
+  OK    navTrazo sobre barra: 8.0654:1 >= 3.0:1
+  OK    navInactivo sobre barra: 4.7285:1 >= 3.0:1
+  OK    borde sobre campo: 3.4826:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 7.1716:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.4613:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #3F552A: 7.1716:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #294D42: 8.1656:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 7.1716:1 >= 3.0:1
+
+d-oscuro | Totoral | Oscuro | 34/34 cumplen
+  OK    ink sobre bg: 15.4552:1 >= 4.5:1
+  OK    ink sobre sup: 13.0641:1 >= 4.5:1
+  OK    ink sobre sup2: 10.4939:1 >= 4.5:1
+  OK    ink sobre campo: 14.2476:1 >= 4.5:1
+  OK    txt2 sobre bg: 9.8324:1 >= 4.5:1
+  OK    txt2 sobre sup: 8.3112:1 >= 4.5:1
+  OK    pri sobre bg: 10.6931:1 >= 4.5:1
+  OK    pri sobre sup: 9.0388:1 >= 4.5:1
+  OK    priInk sobre pri: 9.6571:1 >= 4.5:1
+  OK    acentoInk sobre acento: 7.9018:1 >= 4.5:1
+  OK    solInk sobre sol: 8.9298:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #3A5028: 8.7130:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #244A3C: 9.6923:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #3A5028: 6.7741:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #244A3C: 7.5354:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #2F4534: 8.1347:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #0B180F: 14.2787:1 >= 4.5:1
+  OK    exito sobre bg: 10.0133:1 >= 4.5:1
+  OK    exito sobre sup: 8.4641:1 >= 4.5:1
+  OK    aviso sobre bg: 10.1035:1 >= 4.5:1
+  OK    aviso sobre sup: 8.5403:1 >= 4.5:1
+  OK    error sobre bg: 8.6048:1 >= 4.5:1
+  OK    error sobre sup: 7.2735:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #CFDD9A: 10.7193:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #ACCA78: 8.5041:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #91B46B: 6.6298:1 >= 4.5:1
+  OK    navTrazo sobre barra: 10.9480:1 >= 3.0:1
+  OK    navInactivo sobre barra: 7.3870:1 >= 3.0:1
+  OK    borde sobre campo: 4.9096:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 8.7417:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 7.9018:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #3A5028: 7.9274:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #244A3C: 8.8183:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 8.3655:1 >= 3.0:1
+
+e-claro | Vendimia | Claro | 34/34 cumplen
+  OK    ink sobre bg: 13.1026:1 >= 4.5:1
+  OK    ink sobre sup: 14.2002:1 >= 4.5:1
+  OK    ink sobre sup2: 11.3549:1 >= 4.5:1
+  OK    ink sobre campo: 13.9153:1 >= 4.5:1
+  OK    txt2 sobre bg: 5.9914:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.4933:1 >= 4.5:1
+  OK    pri sobre bg: 7.5760:1 >= 4.5:1
+  OK    pri sobre sup: 8.2106:1 >= 4.5:1
+  OK    priInk sobre pri: 8.1906:1 >= 4.5:1
+  OK    acentoInk sobre acento: 6.3412:1 >= 4.5:1
+  OK    solInk sobre sol: 8.2754:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #76223F: 9.5681:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #582E51: 10.2957:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #76223F: 7.3824:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #582E51: 7.9438:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #5A2C48: 7.6910:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #231323: 12.2175:1 >= 4.5:1
+  OK    exito sobre bg: 5.9166:1 >= 4.5:1
+  OK    exito sobre sup: 6.4123:1 >= 4.5:1
+  OK    aviso sobre bg: 5.4791:1 >= 4.5:1
+  OK    aviso sobre sup: 5.9381:1 >= 4.5:1
+  OK    error sobre bg: 5.3397:1 >= 4.5:1
+  OK    error sobre sup: 5.7870:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #943455: 6.8764:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #832E50: 8.0166:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #643350: 9.2972:1 >= 4.5:1
+  OK    navTrazo sobre barra: 8.2106:1 >= 3.0:1
+  OK    navInactivo sobre barra: 5.1104:1 >= 3.0:1
+  OK    borde sobre campo: 3.5918:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 9.1690:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 8.2754:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #76223F: 9.1690:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #582E51: 9.8662:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 7.6822:1 >= 3.0:1
+
+e-oscuro | Vendimia | Oscuro | 34/34 cumplen
+  OK    ink sobre bg: 15.9592:1 >= 4.5:1
+  OK    ink sobre sup: 13.9020:1 >= 4.5:1
+  OK    ink sobre sup2: 11.5194:1 >= 4.5:1
+  OK    ink sobre campo: 14.9207:1 >= 4.5:1
+  OK    txt2 sobre bg: 9.1867:1 >= 4.5:1
+  OK    txt2 sobre sup: 8.0025:1 >= 4.5:1
+  OK    pri sobre bg: 8.9588:1 >= 4.5:1
+  OK    pri sobre sup: 7.8040:1 >= 4.5:1
+  OK    priInk sobre pri: 8.3227:1 >= 4.5:1
+  OK    acentoInk sobre acento: 8.3906:1 >= 4.5:1
+  OK    solInk sobre sol: 9.3042:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #64253F: 10.5494:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #4E2B49: 11.2219:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #64253F: 7.7370:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #4E2B49: 8.2302:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #492A40: 8.6023:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #160E19: 13.0743:1 >= 4.5:1
+  OK    exito sobre bg: 10.3583:1 >= 4.5:1
+  OK    exito sobre sup: 9.0231:1 >= 4.5:1
+  OK    aviso sobre bg: 10.0074:1 >= 4.5:1
+  OK    aviso sobre sup: 8.7175:1 >= 4.5:1
+  OK    error sobre bg: 8.7112:1 >= 4.5:1
+  OK    error sobre sup: 7.5883:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #EAB0C6: 8.9990:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #DF91B0: 6.8832:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #CF7E9E: 5.5686:1 >= 4.5:1
+  OK    navTrazo sobre barra: 7.8040:1 >= 3.0:1
+  OK    navInactivo sobre barra: 6.9911:1 >= 3.0:1
+  OK    borde sobre campo: 4.5522:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 9.1690:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 8.3906:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #64253F: 10.1093:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #4E2B49: 10.7538:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 10.1093:1 >= 3.0:1
+
+f-claro | Ribera | Claro | 34/34 cumplen
+  OK    ink sobre bg: 14.9763:1 >= 4.5:1
+  OK    ink sobre sup: 13.9548:1 >= 4.5:1
+  OK    ink sobre sup2: 12.5951:1 >= 4.5:1
+  OK    ink sobre campo: 14.9763:1 >= 4.5:1
+  OK    txt2 sobre bg: 6.4835:1 >= 4.5:1
+  OK    txt2 sobre sup: 6.0413:1 >= 4.5:1
+  OK    pri sobre bg: 6.3611:1 >= 4.5:1
+  OK    pri sobre sup: 5.9272:1 >= 4.5:1
+  OK    priInk sobre pri: 6.3611:1 >= 4.5:1
+  OK    acentoInk sobre acento: 6.2245:1 >= 4.5:1
+  OK    solInk sobre sol: 8.1401:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #44682E: 6.4311:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #2B5A4B: 7.8747:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #44682E: 5.3011:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #2B5A4B: 6.4910:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #375A3B: 6.2748:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #13271D: 12.6285:1 >= 4.5:1
+  OK    exito sobre bg: 6.1268:1 >= 4.5:1
+  OK    exito sobre sup: 5.7089:1 >= 4.5:1
+  OK    aviso sobre bg: 6.1283:1 >= 4.5:1
+  OK    aviso sobre sup: 5.7103:1 >= 4.5:1
+  OK    error sobre bg: 6.0104:1 >= 4.5:1
+  OK    error sobre sup: 5.6005:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #4F7A31: 5.0473:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #3E6A2B: 6.3611:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #2B5A4B: 7.8747:1 >= 4.5:1
+  OK    navTrazo sobre barra: 7.9728:1 >= 3.0:1
+  OK    navInactivo sobre barra: 4.9554:1 >= 3.0:1
+  OK    borde sobre campo: 3.6715:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 8.6871:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 8.1401:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #44682E: 6.1809:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #2B5A4B: 7.5682:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 6.1136:1 >= 3.0:1
+
+f-oscuro | Ribera | Oscuro | 34/34 cumplen
+  OK    ink sobre bg: 16.9155:1 >= 4.5:1
+  OK    ink sobre sup: 15.4227:1 >= 4.5:1
+  OK    ink sobre sup2: 13.2602:1 >= 4.5:1
+  OK    ink sobre campo: 16.2229:1 >= 4.5:1
+  OK    txt2 sobre bg: 8.7076:1 >= 4.5:1
+  OK    txt2 sobre sup: 7.9392:1 >= 4.5:1
+  OK    pri sobre bg: 10.7338:1 >= 4.5:1
+  OK    pri sobre sup: 9.7865:1 >= 4.5:1
+  OK    priInk sobre pri: 9.7443:1 >= 4.5:1
+  OK    acentoInk sobre acento: 8.6673:1 >= 4.5:1
+  OK    solInk sobre sol: 10.0076:1 >= 4.5:1
+  OK    heroInk sobre hero[1] #25452F: 10.1290:1 >= 4.5:1
+  OK    heroInk sobre hero[2] #173538: 12.4558:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[1] #25452F: 7.7482:1 >= 4.5:1
+  OK    heroTxt2 sobre hero[2] #173538: 9.5281:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[1] #25402E: 8.5993:1 >= 4.5:1
+  OK    revelarTxt2 sobre revelar[2] #070C09: 14.9417:1 >= 4.5:1
+  OK    exito sobre bg: 10.4888:1 >= 4.5:1
+  OK    exito sobre sup: 9.5632:1 >= 4.5:1
+  OK    aviso sobre bg: 11.1932:1 >= 4.5:1
+  OK    aviso sobre sup: 10.2054:1 >= 4.5:1
+  OK    error sobre bg: 9.1552:1 >= 4.5:1
+  OK    error sobre sup: 8.3473:1 >= 4.5:1
+  OK    fabTinta sobre fab[1] #C1E39A: 11.8979:1 >= 4.5:1
+  OK    fabTinta sobre fab[2] #A3D27A: 9.7443:1 >= 4.5:1
+  OK    fabTinta sobre fab[3] #82BB68: 7.4815:1 >= 4.5:1
+  OK    navTrazo sobre barra: 12.0647:1 >= 3.0:1
+  OK    navInactivo sobre barra: 7.1319:1 >= 3.0:1
+  OK    borde sobre campo: 4.7386:1 >= 3.0:1
+  OK    logoTrazo sobre logoTarjeta: 10.3063:1 >= 4.5:1
+  OK    logoEstrella sobre logoSello: 10.0076:1 >= 4.5:1
+  OK    logoTarjeta sobre hero[1] #25452F: 9.6124:1 >= 3.0:1
+  OK    logoTarjeta sobre hero[2] #173538: 11.8205:1 >= 3.0:1
+  OK    logoTarjeta sobre logoIcono: 11.8205:1 >= 3.0:1
+
+RESULTADO
+395/406 comprobaciones de contraste cumplen; 8/12 temas completos cumplen.
+Fallos en claves de A/B: 11. Fallos en C–F o logos: 0.
+
+INCUMPLIMIENTOS
+  a-claro: revelarTxt2 sobre revelar[1] #1C6E8C = 4.4299:1; mínimo 4.5:1.
+  a-claro: fabTinta sobre fab[1] #2A92B5 = 3.5731:1; mínimo 4.5:1.
+  a-claro: borde sobre campo = 1.6758:1; mínimo 3.0:1.
+  a-oscuro: fabTinta sobre fab[3] #1F86A8 = 4.2391:1; mínimo 4.5:1.
+  a-oscuro: borde sobre campo = 2.2901:1; mínimo 3.0:1.
+  b-claro: heroTxt2 sobre hero[2] #3A63C4 = 4.2931:1; mínimo 4.5:1.
+  b-claro: revelarTxt2 sobre revelar[1] #4C4FC9 = 4.4868:1; mínimo 4.5:1.
+  b-claro: fabTinta sobre fab[1] #5C8BE8 = 3.3263:1; mínimo 4.5:1.
+  b-claro: borde sobre campo = 1.7456:1; mínimo 3.0:1.
+  b-oscuro: fabTinta sobre fab[1] #7C80FF = 3.2871:1; mínimo 4.5:1.
+  b-oscuro: borde sobre campo = 2.1083:1; mínimo 3.0:1.
+
+Código de salida: 1

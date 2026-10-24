@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Se deniega todo: el modelo de datos aún no está diseñado y tiene su propia tarjeta.
+    match /{archivo=**} {
+      allow read, write: if false;
+    }
+  }
+}

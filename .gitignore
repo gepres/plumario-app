@@ -1,0 +1,32 @@
+# Dependencias
+node_modules/
+
+# Firebase: salidas locales que no deben versionarse
+functions/lib/
+.firebase/
+firebase-debug*.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+pubsub-debug.log
+
+# Turbo
+.turbo/
+
+# Configuración de Firebase de las apps: se baja de la consola, nunca se versiona (en ninguna carpeta)
+google-services.json
+GoogleService-Info.plist
+
+# Variables de entorno: solo se versiona el ejemplo
+.env
+.env*.local
+
+# Expo y Metro (cada app ignora además lo suyo)
+.expo/
+dist/
+web-build/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log

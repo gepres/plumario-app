@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sticker normal, cromado y en sombra</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 880px; box-sizing: border-box; overflow: hidden; padding: 56px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">Un sticker por especie, en tres estados</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.4; color: #4E5E5C">El sticker especial ya no es una pieza aparte: es la versión cromada del sticker de la especie, ocupa su misma casilla y su acabado depende de la categoría de la especie.</p>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+<dc-import name="StickerAve" img="/_blob/95828bd5b7fe0dda93d787c2e178af86" nombre="Gaviota Peruana" num="022" tint="#D2E4EC" acabado="normal" size="176" hint-size="176px,226px"></dc-import>
+<div style="align-self: stretch; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 700">Normal</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15.5px; line-height: 1.4; color: #3F504E">
+<li>Al completar el sticker con tu primera foto</li>
+<li>Borde blanco fino y acabado mate</li>
+<li>Figura general, igual para todos; tus fotos van a su galería</li>
+</ul>
+</div>
+</section>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+<dc-import name="StickerAve" img="/_blob/cdb078ae3f20d0b791f60aa76ef64daf" nombre="Gaviotín Zarcillo" num="025" tint="#D2E4EC" acabado="plata" size="176" hint-size="176px,226px"></dc-import>
+<div style="align-self: stretch; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 700">Cromado</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15.5px; line-height: 1.4; color: #3F504E">
+<li>Al completar (al azar, 1 de 8), con 5 fotos validadas o por intercambio</li>
+<li>Acabado según la categoría: holográfico, plata, oro, rubí o diamante</li>
+<li>Sello de su categoría; misma casilla que el normal</li>
+</ul>
+</div>
+</section>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+<dc-import name="StickerAve" img="/_blob/95828bd5b7fe0dda93d787c2e178af86" nombre="Gaviota Dominicana" num="023" sombra="true" size="176" hint-size="176px,226px"></dc-import>
+<div style="align-self: stretch; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 700">En sombra</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15.5px; line-height: 1.4; color: #3F504E">
+<li>Especie que aún no registras</li>
+<li>Silueta de su grupo y nombre visible</li>
+<li>Borde punteado, sin color ni brillo</li>
+</ul>
+</div>
+</section>
+
+</div>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 24px; padding: 20px 28px; display: flex; align-items: center; gap: 36px">
+<h2 style="margin: 0; flex: none; width: 200px; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700; line-height: 1.2">Tamaños de uso</h2>
+<div style="display: flex; align-items: flex-end; gap: 12px"><dc-import name="StickerAve" img="/_blob/700e5a92d8dae9ed43cb6af87296da4a" nombre="Playero Arenero" num="011" tint="#D2E4EC" acabado="cromado" size="108" hint-size="108px,138px"></dc-import><span style="font-size: 13.5px; color: #3F504E; padding-bottom: 4px">Álbum<br>108</span></div>
+<div style="display: flex; align-items: flex-end; gap: 12px"><dc-import name="StickerAve" img="/_blob/700e5a92d8dae9ed43cb6af87296da4a" nombre="Playero Arenero" num="011" tint="#D2E4EC" acabado="cromado" size="72" hint-size="72px,92px"></dc-import><span style="font-size: 13.5px; color: #3F504E; padding-bottom: 4px">Listas<br>72</span></div>
+<div style="display: flex; align-items: flex-end; gap: 12px"><dc-import name="StickerAve" img="/_blob/700e5a92d8dae9ed43cb6af87296da4a" nombre="Playero Arenero" num="011" tint="#D2E4EC" acabado="cromado" size="40" hint-size="40px,51px"></dc-import><span style="font-size: 13.5px; color: #3F504E; padding-bottom: 4px">Tablas<br>40</span></div>
+<p style="margin: 0 0 0 auto; max-width: 300px; font-size: 14.5px; line-height: 1.45; color: #4E5E5C">Por debajo de 72 px el nombre deja de leerse: acompáñalo con texto real al lado.</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":880}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

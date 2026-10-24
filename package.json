@@ -1,0 +1,30 @@
+{
+  "name": "plumario",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @plumario/mobile start",
+    "android": "pnpm --filter @plumario/mobile android",
+    "web": "pnpm --filter @plumario/mobile web",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "test": "turbo test",
+    "bundle-check": "turbo bundle-check",
+    "check": "turbo lint type-check test && node scripts/check-architecture.mjs",
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "tokens": "pnpm --filter @plumario/tokens generate",
+    "icons": "pnpm --filter @plumario/mobile icons",
+    "viewer": "node herramientas/visor/construir.mjs",
+    "emulators": "pnpm functions:build && node scripts/firebase-emulators.mjs",
+    "functions:build": "pnpm --filter @plumario/functions build"
+  },
+  "devDependencies": {
+    "firebase-tools": "15.34.1",
+    "turbo": "2.11.10",
+    "typescript": "~6.0.3"
+  }
+}

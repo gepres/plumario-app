@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Registrar · tomar o elegir foto</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F3EDE2}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0B1414; color: #F3EDE2; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif">
+
+<div aria-label="Vista de la cámara" role="img" style="position: absolute; left: 0; top: 0; width: 390px; height: 652px; overflow: hidden; background: linear-gradient(180deg, #A9C0C6 0%, #93B1BA 38%, #6F95A0 39%, #7FA2AC 58%, #C2B496 59%, #B3A383 100%)">
+<img src="/_blob/31adf2ccfda616d427f1071e70cab14c" alt="" style="position: absolute; left: 92px; top: 236px; width: 210px; height: 210px; filter: saturate(0.75) contrast(0.95)">
+<svg width="236" height="236" viewBox="0 0 236 236" aria-hidden="true" style="position: absolute; left: 79px; top: 222px">
+<path d="M2 36 V2 H36 M200 2 H234 V36 M234 200 V234 H200 M36 234 H2 V200" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 120px; background: linear-gradient(180deg, rgba(11,20,20,0.55), rgba(11,20,20,0))"></div>
+
+<header style="position: absolute; left: 0; right: 0; top: 8px; height: 56px; padding: 0 8px; display: flex; align-items: center; justify-content: space-between">
+<a href="Inicio.dc.html" aria-label="Cerrar" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(11,20,20,0.35); display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</a>
+<span style="font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: rgba(11,20,20,0.45)">Registrar ave</span>
+<button aria-label="Flash" style="width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(11,20,20,0.35); color: #F3EDE2; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 13h6l-1 8 8-10h-6z"></path></svg>
+</button>
+</header>
+
+<p style="position: absolute; left: 24px; right: 24px; top: 588px; margin: 0; display: flex; justify-content: center">
+<span style="font-size: 13px; font-weight: 600; text-align: center; padding: 8px 14px; border-radius: 999px; background: rgba(11,20,20,0.6)">Toma la foto; luego la IA te ayuda a identificarla</span>
+</p>
+
+<section aria-label="Controles de la cámara" style="position: absolute; left: 0; right: 0; bottom: 0; height: 192px; box-sizing: border-box; padding: 18px 28px 30px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: center; gap: 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">
+<span style="color: #E4C766">Foto</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="RegistrarIdentificar.dc.html" style="width: 72px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 12px; font-weight: 600">
+<span style="width: 52px; height: 52px; box-sizing: border-box; border-radius: 12px; border: 2px solid rgba(243,237,226,0.7); background: linear-gradient(180deg, #93B1BA 0%, #7FA2AC 55%, #C2B496 56%)"></span>Galería
+</a>
+<a href="RegistrarIdentificar.dc.html" aria-label="Tomar foto" style="width: 78px; height: 78px; box-sizing: border-box; border-radius: 50%; border: 4px solid #F3EDE2; display: flex; align-items: center; justify-content: center">
+<span style="width: 62px; height: 62px; border-radius: 50%; background: #F3EDE2"></span>
+</a>
+<a href="Album.dc.html" style="width: 72px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 12px; font-weight: 600">
+<span style="width: 52px; height: 52px; box-sizing: border-box; border-radius: 12px; border: 2px solid rgba(243,237,226,0.7); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C7 4 10 4 12 6c2-2 5-2 8-.5V19c-3-1.5-6-1.5-8 .5-2-2-5-2-8-.5z"></path><path d="M12 6v13.5"></path></svg></span>Desde el álbum
+</a>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Flujo del póster cada 10 especies</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1760px; height: 900px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+
+<header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 1060px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">Flujo del póster cada 10 especies</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.45; color: #4E5E5C; text-wrap: pretty">Al llegar a 10, 20, 30… especies se desbloquea un póster nuevo junto con la medalla del hito. Se arma con 10 de tus stickers al azar, lo puedes mezclar antes de guardarlo y después queda fijo con su número y fecha.</p>
+</div>
+<div style="flex: none; display: flex; gap: 20px">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 8px; align-items: center">
+<div style="position: relative; width: 116px; height: 164px; overflow: hidden; border-radius: 3px; box-shadow: 0 1px 2px rgba(20,48,47,0.22), 0 8px 18px rgba(20,48,47,0.16)"><div style="position: absolute; left: 0; top: 0; width: 1123px; height: 1587px; transform: scale(0.10329); transform-origin: 0 0"><dc-import name="Poster10" numero="1" estado="listo" hint-size="1123px,1587px"></dc-import></div></div>
+<figcaption style="font-size: 13px; font-weight: 700">Póster 1 · guardado</figcaption>
+</figure>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 8px; align-items: center">
+<div style="position: relative; width: 116px; height: 164px; overflow: hidden; border-radius: 3px; box-shadow: 0 1px 2px rgba(20,48,47,0.22)"><div style="position: absolute; left: 0; top: 0; width: 1123px; height: 1587px; transform: scale(0.10329); transform-origin: 0 0"><dc-import name="Poster10" numero="2" estado="en_camino" hint-size="1123px,1587px"></dc-import></div></div>
+<figcaption style="font-size: 13px; font-weight: 700">Póster 2 · 12 de 20</figcaption>
+</figure>
+</div>
+</header>
+
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; align-items: stretch">
+<sc-for list="{{pasos}}" as="p" hint-placeholder-count="6">
+<li style="flex: 1 1 0; min-width: 0; display: flex; align-items: stretch">
+<div style="flex: 1; min-width: 0; background: #FBF8F2; border: {{p.borde}}; border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+<span aria-hidden="true" style="width: 30px; height: 30px; border-radius: 50%; background: {{p.circulo}}; color: {{p.circuloInk}}; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{p.n}}</span>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 19px; font-weight: 700; line-height: 1.2">{{p.titulo}}</span>
+<span style="font-size: 14.5px; line-height: 1.45; color: #3F504E">{{p.texto}}</span>
+<span style="margin-top: auto; padding-top: 8px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2C6A86">{{p.pantalla}}</span>
+</div>
+<sc-if value="{{p.flecha}}" hint-placeholder-val="{{ true }}">
+<span aria-hidden="true" style="flex: none; width: 36px; display: flex; align-items: center; justify-content: center; color: #6F7F7C"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M14 7l5 5-5 5"></path></svg></span>
+</sc-if>
+</li>
+</sc-for>
+</ol>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{reglas}}" as="r" hint-placeholder-count="3">
+<section style="background: {{r.bg}}; border: {{r.borde}}; border-radius: 18px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 19px; font-weight: 700">{{r.titulo}}</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; line-height: 1.45; color: #3F504E">
+<sc-for list="{{r.items}}" as="it" hint-placeholder-count="4">
+<li>{{it}}</li>
+</sc-for>
+</ul>
+</section>
+</sc-for>
+</div>
+
+<div style="background: #14302F; color: #F3EDE2; border-radius: 14px; padding: 16px 24px; display: flex; align-items: center; gap: 16px; font-size: 16px; line-height: 1.45">
+<span style="flex: none; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E4C766">Aparte</span>
+<span><b>Póster por hábitat:</b> se ve siempre en vista previa, con las aves que faltan en sombra. La descarga se habilita solo al completar todas las especies de ese hábitat.</span>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pasos = [
+      { titulo: 'Registras la especie 10, 20, 30…', texto: 'La foto completa el sticker y suma al contador de especies.', pantalla: 'Registrar · completado' },
+      { titulo: 'Celebración doble', texto: 'Medalla del hito y póster desbloqueado a la vez, con el botón «Generar mi póster».', pantalla: 'Celebración', fuerte: true },
+      { titulo: 'Se eligen 10 stickers', texto: 'El sistema toma 10 de tus especies al azar y los acomoda en el póster.', pantalla: 'Automático' },
+      { titulo: 'Personalizas', texto: 'Mezclar las veces que quieras, fondo claro u oscuro y título.', pantalla: 'Generar póster', fuerte: true },
+      { titulo: 'Guardas', texto: 'Queda fijo con su número y fecha en Mis recompensas › Pósteres.', pantalla: 'Póster guardado' },
+      { titulo: 'Descargas o compartes', texto: 'PNG en alta, PDF A3 con sangrado para imprenta o imagen para redes.', pantalla: 'Guardado · Impresión' }
+    ];
+    return {
+      pasos: pasos.map((p, i) => Object.assign({}, p, {
+        n: String(i + 1),
+        flecha: i < pasos.length - 1,
+        borde: p.fuerte ? '1.5px solid #14302F' : '1px solid #D6CCBA',
+        circulo: p.fuerte ? '#14302F' : '#E3DACA',
+        circuloInk: p.fuerte ? '#F3EDE2' : '#14302F'
+      })),
+      reglas: [
+        { titulo: 'Cómo se eligen los 10', bg: '#FBF8F2', borde: '1px solid #E3DACA', items: [
+          'Póster 1: entran tus 10 primeras especies; mezclar solo cambia el orden.',
+          'Desde el póster 2: 10 al azar entre todas tus especies, con al menos una de cada hábitat que tengas.',
+          'Propuesta: dar prioridad a las que no salieron en pósteres anteriores.',
+          'Los cromos salen con el acabado de su categoría.'
+        ] },
+        { titulo: 'Qué se puede cambiar', bg: '#FBF8F2', borde: '1px solid #E3DACA', items: [
+          'Antes de guardar: mezclar sin límite, fondo claro u oscuro y título de hasta 22 caracteres.',
+          'Después de guardar: queda fijo. Se puede descargar y compartir siempre.',
+          'Hay 28 pósteres posibles, de las 10 a las 280 especies.'
+        ] },
+        { titulo: 'Mientras no llegas', bg: '#ECE5D7', borde: '1px solid transparent', items: [
+          'Inicio y Recompensas muestran el próximo póster con sus 10 espacios en sombra y el avance: 12 de 20.',
+          'Si no lo generas en el momento, queda pendiente en Pósteres con un aviso. No se pierde.',
+          'La medalla del hito se entrega igual, aunque el póster quede pendiente.'
+        ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

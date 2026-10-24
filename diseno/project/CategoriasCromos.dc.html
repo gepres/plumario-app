@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cromos por categoría</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1360px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 780px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">Cromos por categoría</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.4; color: #4E5E5C; text-wrap: pretty">Cada especie tiene una categoría fija según su estado de conservación, si es endémica o si es emblemática. El cromo sale por las mismas tres vías; lo que cambia es su acabado.</p>
+</div>
+<p style="margin: 0; max-width: 300px; font-size: 13px; line-height: 1.45; color: #4E5E5C; text-align: right">El sticker normal no cambia: la categoría solo se ve cuando la especie sale en cromo.</p>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{tiers}}" as="t" hint-placeholder-count="5">
+<article style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 204px; border-radius: 14px; background: {{t.stage}}; display: flex; align-items: center; justify-content: center">
+<dc-import name="StickerAve" img="{{t.img}}" nombre="{{t.ave}}" num="{{t.num}}" tint="{{t.tint}}" acabado="{{t.acabado}}" size="140" hint-size="140px,179px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 0 4px">
+<span style="align-self: flex-start; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: {{t.ink}}; background: {{t.pill}}; border-radius: 999px; padding: 3px 9px">{{t.motivo}}</span>
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.01em">{{t.nombre}}</h2>
+<p style="margin: 0; min-height: 76px; font-size: 13.5px; line-height: 1.4; color: #3F504E">{{t.criterio}}</p>
+<div style="display: flex; align-items: baseline; gap: 6px; padding-top: 8px; border-top: 1px solid #E3DACA">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 30px; font-weight: 800; line-height: 1">{{t.n}}</span>
+<span style="font-size: 13px; color: #4E5E5C">especies · {{t.pct}}</span>
+</div>
+<p style="margin: 0; font-size: 12.5px; line-height: 1.45; color: #4E5E5C">{{t.ejemplos}}</p>
+</div>
+</article>
+</sc-for>
+</div>
+
+<section aria-label="Reparto de las 289 especies" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 18px; font-weight: 700">Reparto de las 289 especies de Ica</h2>
+<span style="font-size: 13px; color: #4E5E5C">1 de cada 5 especies tiene categoría especial</span>
+</div>
+<div role="img" aria-label="Holográfico 231, Plata 21, Oro 12, Rubí 4, Diamante 21" style="height: 22px; border-radius: 6px; overflow: hidden; display: flex; gap: 2px">
+<sc-for list="{{tiers}}" as="t" hint-placeholder-count="5">
+<div style="flex: {{t.n}} 0 0; background: {{t.bar}}"></div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 28px; font-size: 13px; color: #3F504E">
+<sc-for list="{{tiers}}" as="t" hint-placeholder-count="5">
+<span style="display: flex; align-items: center; gap: 7px"><span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 3px; background: {{t.bar}}"></span><b style="color: #14302F">{{t.nombre}}</b> {{t.n}}</span>
+</sc-for>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 20px; flex: 1; min-height: 0">
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Si cumple varias, gana la más alta</h2>
+<p style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.01em">Diamante › Rubí › Oro › Plata › Holográfico</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{casos}}" as="c" hint-placeholder-count="3">
+<li style="display: flex; flex-direction: column; gap: 3px; padding-bottom: 10px; border-bottom: 1px solid #E3DACA">
+<span style="font-size: 14.5px; font-weight: 700">{{c.ave}}</span>
+<span style="font-size: 13px; line-height: 1.4; color: #3F504E">{{c.cumple}} → <b style="color: #14302F">{{c.queda}}</b></span>
+</li>
+</sc-for>
+</ul>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #4E5E5C">Lo demás queda como sello en la ficha de la especie. Migratoria también va como sello.</p>
+</section>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Reglas</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px">
+<sc-for list="{{reglas}}" as="r" hint-placeholder-count="5">
+<li style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; font-weight: 700">{{r.t}}</span>
+<span style="font-size: 13px; line-height: 1.42; color: #3F504E">{{r.d}}</span>
+</li>
+</sc-for>
+</ul>
+</section>
+
+<section style="background: #ECE5D7; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Otras opciones que evaluamos</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px">
+<sc-for list="{{opciones}}" as="o" hint-placeholder-count="6">
+<li style="font-size: 13px; line-height: 1.42; color: #3F504E"><b style="color: #14302F">{{o.t}}</b> · {{o.d}}</li>
+</sc-for>
+</ul>
+</section>
+
+</div>
+
+<p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4E5E5C">Fuentes: categoría UICN global según Avibase, checklist de Ica (octubre 2026) · Endémicas: Plenge, Lista de las aves del Perú · Emblemáticas: lista editorial, a validar con el cliente.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = '/_blob/';
+    const HOLO = 'linear-gradient(90deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2)';
+    return {
+      tiers: [
+        { nombre: 'Holográfico', motivo: 'Base', acabado: 'cromado', ave: 'Playero Arenero', num: '011', img: B + '700e5a92d8dae9ed43cb6af87296da4a', tint: '#D2E4EC',
+          stage: '#EEEFF4', pill: '#E3E6F0', ink: '#3A4258', bar: HOLO, n: 231, pct: '80 %',
+          criterio: 'El resto de especies. Es el cromo que ya existe: cromado con reflejo de colores.',
+          ejemplos: 'Playero Arenero, Gaviota Peruana, Garcita Blanca' },
+        { nombre: 'Plata', motivo: 'Casi amenazada', acabado: 'plata', ave: 'Gaviotín Zarcillo', num: '025', img: B + 'cdb078ae3f20d0b791f60aa76ef64daf', tint: '#D2E4EC',
+          stage: '#ECEEF0', pill: '#DFE3E7', ink: '#2F3B43', bar: '#A7B1B9', n: 21, pct: '7 %',
+          criterio: 'Casi amenazada (NT) en la Lista Roja de la UICN.',
+          ejemplos: 'Gaviotín Zarcillo, Potoyunco Peruano, Vuelvepiedras Rojizo' },
+        { nombre: 'Oro', motivo: 'Endémica', acabado: 'oro', ave: 'Churrete Marisquero', num: '042', img: B + '18a594851a3daeba964a8c03ebaaf837', tint: '#D2E4EC',
+          stage: '#F6EED8', pill: '#F1E2B8', ink: '#5A3F0E', bar: '#D9A93E', n: 12, pct: '4 %',
+          criterio: 'Endémica: en el mundo solo vive en el Perú.',
+          ejemplos: 'Churrete Marisquero, Minero Peruano, Canastero de los Cactus' },
+        { nombre: 'Rubí', motivo: 'Emblemática', acabado: 'rubi', ave: 'Flamenco Chileno', num: '050', img: B + '134f420a8833e17a10978048f13b57fd', tint: '#D9EADB',
+          stage: '#F4E3E5', pill: '#F0D3D8', ink: '#7A1226', bar: '#A51E36', n: 4, pct: '1 %',
+          criterio: 'Símbolo de Ica o del Perú: la parihuana de Paracas y las aves guaneras.',
+          ejemplos: 'Flamenco Chileno, Pelícano Peruano, Piquero Peruano, Cormorán Guanay' },
+        { nombre: 'Diamante', motivo: 'Amenazada', acabado: 'diamante', ave: 'Cóndor Andino', num: '184', img: B + '5162866b42675093ef5daa43287e76d2', tint: '#E0DDEA',
+          stage: '#E6F1F6', pill: '#D3E8F1', ink: '#16324A', bar: '#16324A', n: 21, pct: '7 %',
+          criterio: 'Vulnerable, En Peligro o En Peligro Crítico en la Lista Roja de la UICN.',
+          ejemplos: 'Gaviotín Peruano (EN), Pingüino de Humboldt (VU), Churrete de Vientre Blanco (CR)' }
+      ],
+      casos: [
+        { ave: 'Churrete de Vientre Blanco', cumple: 'Endémica + En Peligro Crítico', queda: 'Diamante, con sello Endémica' },
+        { ave: 'Pingüino de Humboldt', cumple: 'Emblemática + Vulnerable', queda: 'Diamante, con sello Emblemática' },
+        { ave: 'Pelícano Peruano', cumple: 'Emblemática + Casi amenazada', queda: 'Rubí, con sello Casi amenazada' }
+      ],
+      reglas: [
+        { t: 'Misma probabilidad para todas', d: 'Al completar sale cromo 1 de cada 8, sea cual sea la categoría. La rareza ya la pone el ave. Valor configurable.' },
+        { t: '5 fotos validadas', d: 'Vale en todas. En amenazadas la IA no acepta fotos de nidos ni pichones.' },
+        { t: 'Intercambio parejo', d: 'Uno por uno, dando un cromo de la misma categoría o superior a la que pides.' },
+        { t: 'Sin ubicación en amenazadas', d: 'Nunca se muestra dónde se registró, tampoco en la tarjeta para compartir.' },
+        { t: 'Revisión anual', d: 'La categoría se actualiza con la Lista Roja. El cromo ya ganado guarda su acabado.' }
+      ],
+      opciones: [
+        { t: 'Migratoria', d: '75 especies. Como categoría haría especial a 1 de cada 4; funciona mejor como sello o edición de temporada.' },
+        { t: 'Edición de evento', d: 'Marco con fecha si registras en el Global Big Day o el Día Mundial de las Aves Migratorias.' },
+        { t: 'Pelágica', d: '34 especies que solo se ven desde bote. Acabado perla.' },
+        { t: 'Nocturna', d: 'Lechuzas y chotacabras. Acabado obsidiana.' },
+        { t: 'Lista nacional', d: 'Cruzar con el D. S. 004-2014-MINAGRI: podría subir de categoría a algunas aves guaneras.' },
+        { t: 'Ave nacional', d: 'El gallito de las rocas no vive en Ica. Si el álbum suma regiones, entraría como Rubí.' },
+        { t: 'Rareza por registros', d: 'Cambia con los datos de eBird. No la recomendamos para la edición inicial.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

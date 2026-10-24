@@ -1,0 +1,112 @@
+# Plumario
+
+App móvil de aves de Ica: registras un ave con una foto, la IA sugiere la especie, la pegas en el
+álbum y ganas cromos, medallas y pósteres por hábitat. Stack en
+`docs/architecture/adr-0001-stack.md`, arquitectura en `docs/architecture/adr-0002-hexagonal-architecture.md`,
+entorno en `docs/environment.md`.
+
+## Convenciones
+
+- **Código en inglés, comentarios en español.** Archivos, carpetas de código, rutas, funciones,
+  tipos, variables y claves en inglés. Comentarios, documentación y textos de la interfaz (la app es
+  en español) en español con tildes. La zona de diseño heredada (`diseno/`, `herramientas/`,
+  `visor/`) sigue en español.
+- **Arquitectura hexagonal.** El dominio y los casos de uso viven en `@plumario/core` y no
+  dependen de nada. Las pantallas piden casos de uso con `useDependencies()`; solo
+  `apps/mobile/src/infrastructure/` toca Firebase o cualquier adaptador. Una función nueva empieza
+  por el núcleo (regla + caso de uso + puerto, con pruebas) y termina en adaptador y pantalla.
+- **Componentes reutilizables en `@plumario/ui`.** Solo presentación: sin dominio, sin rutas, sin
+  Firebase, y los textos visibles por props. Antes de crear un componente en la app, mira si es de
+  la guía (`diseno/project/GuiaComponentes.dc.html`): entonces va en `packages/ui`.
+- `pnpm check` corre lint, tipos, pruebas y `scripts/check-architecture.mjs`, que falla si una capa
+  importa lo que no debe. Córrelo antes de dar algo por terminado.
+
+## De dónde sale cada cosa
+
+- **El diseño manda.** `diseno/project/*.dc.html` son los 64 artboards del canvas de Claude Design
+  (origen y formato en `diseno/README.md`). Para verlos: `visor/index.html` con doble clic. Cada
+  pantalla pendiente dice qué artboards la definen (`ComingSoon`).
+- **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `diseno/paletas/paletas.json`
+  (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
+  es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
+- **Las claves del diseño se traducen** con `designKeyMap` (en `colors.ts`): `{{t.sup}}` en un
+  artboard es `colors.surface` en la app; `pri` → `primary`, `ink` → `text`, `txt2` →
+  `textSecondary`, `hab` → `habitats`…
+
+## Estructura
+
+```
+apps/mobile/                 app Expo (instrucciones de Expo en apps/mobile/AGENTS.md)
+  src/app/                   rutas de expo-router — SOLO rutas (adaptadores de entrada)
+  src/screens/               el cuerpo de las pantallas
+  src/components/            componentes propios de la app (adaptadores de navegación, avisos)
+  src/hooks/                 hooks que llaman a los casos de uso
+  src/infrastructure/        adaptadores de salida y la raíz de composición (dependencies.tsx)
+  scripts/generate-icons.mjs íconos desde el logo del diseño
+packages/core/               @plumario/core: dominio, puertos, casos de uso
+packages/ui/                 @plumario/ui: componentes reutilizables, tema y fuentes
+packages/tokens/             @plumario/tokens: paleta, letra, espacio, cromos (generados)
+functions/                   Cloud Functions (TypeScript)
+firebase/                    reglas e índices de Firestore y Storage
+scripts/                     check-architecture y firebase-emulators
+diseno/  visor/  herramientas/   el diseño, su visor y sus scripts (heredados, en español)
+docs/                        ADR y entorno
+```
+
+## Comandos (desde la raíz)
+
+```
+pnpm install          instala todo el monorepo
+pnpm dev              servidor de desarrollo de la app
+pnpm android          compila e instala el build de desarrollo en el emulador
+pnpm web              la app en el navegador (para revisar diseño; Firebase no corre ahí)
+pnpm check            lint + tipos + pruebas + reglas de arquitectura
+pnpm bundle-check     empaqueta la app para Android: caza los fallos de resolución
+pnpm emulators        emuladores de Firebase con el proyecto demo-plumario
+pnpm tokens           regenera los colores desde diseno/paletas/paletas.json
+pnpm icons            regenera los íconos de la app desde el logo del diseño
+pnpm viewer           regenera visor/index.html desde diseno/
+```
+
+## Reglas
+
+- Las dependencias de la app se agregan con `pnpm expo install <paquete>` dentro de `apps/mobile`:
+  elige la versión que corresponde al SDK. Con `pnpm add` a secas se cuelan versiones que no casan.
+- Antes de tocar una API de Expo, React Native o React Native Firebase, lee la documentación de la
+  versión instalada (SDK 58, RN 0.88, RNFB 27): cambian en cada versión.
+- Lo que se mueve (revelado de cromos, transiciones) se hace con Reanimated y se juzga en el
+  teléfono, en build de publicación. Carga la skill `expo-animation` antes.
+- Nada de secretos en la app: lo que necesite una clave (la IA) va en una Cloud Function.
+- `android/` e `ios/` se generan (`expo prebuild`); no se editan ni se versionan. Lo nativo se
+  configura en `app.config.ts` y con config plugins.
+
+## Lo que ya mordió
+
+- **ESLint 10 rompe `eslint-plugin-react`** (`contextOrFilename.getFilename is not a function`).
+  `expo install` lo trae si no se fija: la app usa ESLint 9.
+- **TypeScript 6 ya no incluye los `@types` solos.** `app.config.ts` corre en Node y lo declara con
+  `/// <reference types="node" />`; el código de la app no debe ver los tipos de Node.
+- **`Link asChild` de expo-router no acepta un arreglo de estilos en el hijo**: lanza un error al
+  renderizar. Aplanarlo con `StyleSheet.flatten` o navegar con `router.push`.
+- **En web, un `<svg>` sin posición queda tapado por un hermano con posición absoluta.**
+  `GradientView` abre su contexto de apilado y manda el degradado al fondo; no lo quites.
+- **Los tipos de rutas (`.expo/types`) se regeneran al arrancar Metro.** Tras renombrar una ruta,
+  `tsc` falla con la ruta vieja hasta correr `pnpm dev` una vez.
+- **No toques `metro.config.js` para el monorepo.** Expo lo configura solo; desactivar la búsqueda
+  jerárquica rompió el empaquetado en `archetypes-mobile`.
+- **React Native Firebase 27 pide Kotlin 2.4** (su SDK de Android viene compilado con él); Expo trae
+  el 2.2. `app.config.ts` lo fija con `expo-build-properties`.
+- **Windows y las rutas de más de 260 caracteres:** el ninja del CMake 3.22.1 rompe el C++ de
+  Reanimated (`ninja: error: mkdir(…)`). `plugins/with-windows-cmake.js` fija un CMake ≥ 3.30 en
+  `local.properties` en cada prebuild; no lo quites.
+- **La primera compilación de Android es lenta en esta máquina:** la caché de Gradle está en `C:`
+  y el proyecto en `D:`, y no hay enlaces duros entre discos. *"Hard link … failed. Doing a slower
+  copy instead"* no es un error.
+- **Los emuladores de Firebase piden Java 21+ y Android usa el 17.** `pnpm emulators` le pasa a la
+  CLI de Firebase el Java de Android Studio sin tocar `JAVA_HOME`; no corras `firebase` a secas.
+- **Emulador sin servidor:** `adb reverse tcp:8081 tcp:8081`.
+
+## Tablero
+
+El trabajo se refleja en el tablero «Plumario · app» de Foundry (clave PA). Carga la skill
+`foundry-tablero` antes de operarlo.

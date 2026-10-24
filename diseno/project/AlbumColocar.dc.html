@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Colocar sticker en el álbum</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px; flex: none">
+<a href="StickerDetalle.dc.html" aria-label="Cancelar y volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Colocar sticker</h1>
+</header>
+
+<p style="margin: 0 20px 12px; display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #3F504E; flex: none">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"></path></svg>
+Arrastra el sticker hasta un espacio decorativo.
+</p>
+
+<section aria-label="Página del álbum: Aves del litoral" style="position: relative; flex: none; margin: 0 16px; box-sizing: border-box; padding: 14px; background: #FBF8F2; border-radius: 8px; box-shadow: 0 1px 2px rgba(20,48,47,0.12), 0 10px 24px rgba(20,48,47,0.08); outline: 1px dashed #D6CCBA; outline-offset: -7px">
+<div style="height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 4px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 19px; font-weight: 700">Aves del litoral</h2>
+<span style="display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #FFFFFF; background: #2C6A86; border-radius: 999px; padding: 4px 10px">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>8 de 8
+</span>
+</div>
+<div style="margin-top: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{aves}}" as="ave" hint-placeholder-count="8">
+<div style="height: 132px; box-sizing: border-box; background: #FFFFFF; border-radius: 10px; padding: 4px; box-shadow: 0 1px 2px rgba(20,48,47,0.2); display: flex; flex-direction: column; gap: 5px">
+<div style="position: relative; height: 86px; border-radius: 7px; background: {{ave.tint}}; display: flex; align-items: center; justify-content: center; overflow: hidden">
+<img src="{{ave.img}}" alt="" style="width: 84px; height: 84px">
+<span style="position: absolute; left: 4px; top: 4px; font-size: 10.5px; font-weight: 700; color: #14302F; background: #FFFFFF; border-radius: 999px; padding: 1px 6px">{{ave.n}}</span>
+</div>
+<span style="font-size: 11.5px; font-weight: 700; line-height: 1.15; text-align: center; padding: 0 2px">{{ave.name}}</span>
+</div>
+</sc-for>
+<div style="height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+<div style="position: relative; width: 94px; height: 94px; box-sizing: border-box; border-radius: 50%; border: 2px dashed #2C6A86; background: rgba(44,106,134,0.06); box-shadow: 0 0 0 6px rgba(44,106,134,0.14)">
+<svg width="120" height="60" viewBox="0 0 120 60" aria-hidden="true" style="position: absolute; left: -15px; top: 66px">
+<path d="M30 10 C26 18 30 26 38 28 M40 18 C36 26 40 34 48 34 M90 10 C94 18 90 26 82 28 M80 18 C84 26 80 34 72 34" fill="none" stroke="#2C6A86" stroke-width="1.8" stroke-linecap="round"></path>
+</svg>
+</div>
+<span style="font-size: 11px; font-weight: 700; color: #2C6A86">Espacio decorativo</span>
+</div>
+</div>
+
+<div style="position: absolute; left: 226px; top: 338px; transform: rotate(-9deg); filter: drop-shadow(0 14px 14px rgba(20,48,47,0.28))">
+<dc-import name="Sticker" kind="litoral" size="98" hint-size="98px,98px"></dc-import>
+</div>
+</section>
+
+<section aria-labelledby="bandeja" style="margin-top: auto; flex: none; background: #E7DFCF; border-radius: 22px 22px 0 0; padding: 14px 16px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="bandeja" style="margin: 0; font-size: 13.5px; font-weight: 700">Tus stickers especiales</h2>
+<span style="font-size: 12.5px; color: #3F504E">3 obtenidos</span>
+</div>
+<div style="display: flex; gap: 14px">
+<div style="width: 80px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<dc-import name="Sticker" kind="primera" size="60" hint-size="60px,60px"></dc-import>
+<span style="font-size: 11px; font-weight: 600; color: #2D5F41">En el álbum</span>
+</div>
+<div style="width: 80px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<dc-import name="Sticker" kind="explorador" size="60" hint-size="60px,60px"></dc-import>
+<span style="font-size: 11px; font-weight: 600; color: #3F504E">Disponible</span>
+</div>
+<div style="width: 80px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; border: 2px dashed #8E8677"></div>
+<span style="font-size: 11px; font-weight: 600; color: #2C6A86">Colocando…</span>
+</div>
+</div>
+<a href="RecompensasStickers.dc.html" style="min-height: 48px; border-radius: 14px; background: #14302F; color: #FFFFFF; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Listo</a>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      aves: [
+        { n: '01', name: 'Pingüino de Humboldt', img: '/_blob/5fc0580c91c07a04c8b7ce42a3c9a6d2', tint: '#D2E4EC' },
+        { n: '02', name: 'Pelícano peruano', img: '/_blob/92d0b07d7a6b9d699e834111a098ce4a', tint: '#EADFCB' },
+        { n: '03', name: 'Zarcillo', img: '/_blob/cdb078ae3f20d0b791f60aa76ef64daf', tint: '#D2E4EC' },
+        { n: '04', name: 'Piquero peruano', img: '/_blob/48f636337e470379dd8bdaa2851aa67e', tint: '#EADFCB' },
+        { n: '05', name: 'Gaviota peruana', img: '/_blob/95828bd5b7fe0dda93d787c2e178af86', tint: '#D2E4EC' },
+        { n: '06', name: 'Ostrero negruzco', img: '/_blob/ad333582f63fc034b5502953c14b64de', tint: '#EADFCB' },
+        { n: '07', name: 'Gaviotín peruano', img: '/_blob/4872b8efc92794f43c266dd9d5443ff9', tint: '#D2E4EC' },
+        { n: '08', name: 'Playero blanco', img: '/_blob/700e5a92d8dae9ed43cb6af87296da4a', tint: '#EADFCB' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

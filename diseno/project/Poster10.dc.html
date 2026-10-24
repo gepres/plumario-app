@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Póster cada 10 especies</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 1123px; height: 1587px; box-sizing: border-box; overflow: hidden; padding: 72px; background: {{fondo}}; color: {{ink}}; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; justify-content: space-between">
+
+<header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+<span style="font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: {{acento}}">Álbum Aves de Ica · Edición inicial</span>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 90px; font-weight: 800; line-height: 1; letter-spacing: -0.025em; white-space: nowrap">{{titulo}}</h1>
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 30px; line-height: 1.2; color: {{ink2}}">{{subtitulo}}</span>
+</div>
+<div style="flex: none; width: 150px; height: 150px; box-sizing: border-box; border-radius: 50%; background: {{selloBg}}; color: {{selloInk}}; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: {{selloRing}}">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase">Póster</span>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 62px; font-weight: 800; line-height: 1; color: #E4C766">{{numero}}</span>
+<span style="font-size: 13px; font-weight: 600">{{meta}}</span>
+</div>
+</header>
+
+<div style="position: relative; width: 979px; height: 1080px">
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="10">
+<div style="position: absolute; left: {{s.x}}px; top: {{s.y}}px; transform: rotate({{s.rot}}deg)">
+<sc-if value="{{s.lleno}}" hint-placeholder-val="{{ true }}">
+<dc-import name="StickerAve" img="{{s.img}}" nombre="{{s.nombre}}" num="{{s.num}}" tint="{{s.tint}}" acabado="{{s.acabado}}" size="{{s.w}}" hint-size="{{s.hint}}"></dc-import>
+</sc-if>
+<sc-if value="{{s.vacio}}" hint-placeholder-val="{{ false }}">
+<div style="width: {{s.w}}px; height: {{s.h}}px; box-sizing: border-box; border-radius: 18px; border: 3px dashed {{vacioBorde}}; background: {{vacioBg}}; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 72px; font-weight: 800; color: {{vacioInk}}">?</div>
+</sc-if>
+</div>
+</sc-for>
+<sc-if value="{{enCamino}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 359px; top: 410px; width: 260px; height: 260px; box-sizing: border-box; border-radius: 50%; background: {{circuloBg}}; border: 4px solid {{ink}}; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 12px 30px rgba(20,48,47,0.18)">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 76px; font-weight: 800; line-height: 1; letter-spacing: -0.03em">{{progreso}}</span>
+<span style="font-size: 18px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{ink2}}">especies</span>
+</div>
+</sc-if>
+</div>
+
+<footer style="border-top: 2px solid {{ink}}; padding-top: 16px; display: flex; justify-content: space-between; gap: 24px; font-size: 16px; color: {{ink2}}">
+<span style="font-weight: 700; color: {{ink}}">[Nombre del coleccionista]</span>
+<span>{{pie}}</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"numero":{"editor":"int","default":1,"min":1,"max":28},"estado":{"editor":"enum","options":["listo","en_camino"],"default":"listo"},"tema":{"editor":"enum","options":["claro","oscuro"],"default":"claro"},"titulo":{"editor":"text","default":"Mis aves de Ica"},"seed":{"editor":"int","default":7,"min":1,"max":9999},"$preview":{"width":1123,"height":1587}}'>
+// Póster que se arma al llegar a 10, 20, 30… especies con 10 stickers al azar.
+// Póster 1: las 10 primeras especies (solo cambia el orden). Desde el 2: 10 al azar entre todas.
+// Los cromos salen con el acabado de su categoría.
+const B = id => '/_blob/' + id;
+const T = { LIT: '#D2E4EC', HUM: '#D9EADB', DES: '#EADFCB' };
+const MIAS = [
+  { num: '005', nombre: 'Ostrero Negruzco', img: B('ad333582f63fc034b5502953c14b64de'), tint: T.LIT, orden: 1 },
+  { num: '038', nombre: 'Pelícano Peruano', img: B('92d0b07d7a6b9d699e834111a098ce4a'), tint: T.LIT, orden: 2 },
+  { num: '022', nombre: 'Gaviota Peruana', img: B('95828bd5b7fe0dda93d787c2e178af86'), tint: T.LIT, orden: 3 },
+  { num: '025', nombre: 'Gaviotín Zarcillo', img: B('cdb078ae3f20d0b791f60aa76ef64daf'), tint: T.LIT, orden: 4, acabado: 'plata' },
+  { num: '035', nombre: 'Piquero Peruano', img: B('48f636337e470379dd8bdaa2851aa67e'), tint: T.LIT, orden: 5 },
+  { num: '077', nombre: 'Garcita Blanca', img: B('d2e03e73fd6b3ebda1ddb6b5afcc6dbb'), tint: T.HUM, orden: 6 },
+  { num: '032', nombre: 'Pingüino de Humboldt', img: B('5fc0580c91c07a04c8b7ce42a3c9a6d2'), tint: T.LIT, orden: 7 },
+  { num: '050', nombre: 'Flamenco Chileno', img: B('134f420a8833e17a10978048f13b57fd'), tint: T.HUM, orden: 8 },
+  { num: '024', nombre: 'Gaviotín Peruano', img: B('4872b8efc92794f43c266dd9d5443ff9'), tint: T.LIT, orden: 9 },
+  { num: '061', nombre: 'Cigüeñuela de Cuello Negro', img: B('6296ffe1eefbe10536c55645e57fd551'), tint: T.HUM, orden: 10 },
+  { num: '106', nombre: 'Lechuza Terrestre', img: B('380612587e53c68fbb5b4ef6dac14ce7'), tint: T.DES, orden: 11 },
+  { num: '011', nombre: 'Playero Arenero', img: B('700e5a92d8dae9ed43cb6af87296da4a'), tint: T.LIT, orden: 12, acabado: 'cromado' }
+];
+const POS = [
+  { x: 20, y: 0, w: 270, rot: -5 },
+  { x: 345, y: 30, w: 250, rot: 3 },
+  { x: 650, y: 0, w: 290, rot: -3 },
+  { x: 0, y: 380, w: 220, rot: 4 },
+  { x: 245, y: 400, w: 230, rot: -6 },
+  { x: 500, y: 385, w: 220, rot: 5 },
+  { x: 745, y: 400, w: 225, rot: -4 },
+  { x: 40, y: 700, w: 280, rot: 3 },
+  { x: 360, y: 720, w: 260, rot: -4 },
+  { x: 660, y: 690, w: 290, rot: 5 }
+];
+const TEMA = {
+  claro: { fondo: 'radial-gradient(circle, rgba(20,48,47,0.09) 1.3px, rgba(20,48,47,0) 1.7px) 0 0 / 28px 28px, #F3EDE2', ink: '#14302F', ink2: '#4E5E5C', acento: '#2C6A86',
+    selloBg: '#14302F', selloInk: '#F3EDE2', selloRing: '0 0 0 6px #F3EDE2, 0 0 0 8px #14302F', vacioBorde: '#B9AE99', vacioBg: 'rgba(251,248,242,0.55)', vacioInk: '#C9BEA9', circuloBg: '#FBF8F2' },
+  oscuro: { fondo: 'radial-gradient(circle, rgba(243,237,226,0.08) 1.3px, rgba(243,237,226,0) 1.7px) 0 0 / 28px 28px, #11292A', ink: '#F3EDE2', ink2: '#B9C9C6', acento: '#E4C766',
+    selloBg: '#F3EDE2', selloInk: '#14302F', selloRing: '0 0 0 6px #11292A, 0 0 0 8px #F3EDE2', vacioBorde: '#4E6664', vacioBg: 'rgba(243,237,226,0.05)', vacioInk: '#4E6664', circuloBg: '#173634' }
+};
+
+class Component extends DCLogic {
+  renderVals() {
+    const numero = Number(this.props.numero ?? 1) || 1;
+    const enCamino = (this.props.estado ?? 'listo') === 'en_camino';
+    const tema = TEMA[this.props.tema] || TEMA.claro;
+    let a = (Number(this.props.seed ?? 7) || 7) >>> 0;
+    const rand = () => {
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    const pool = (numero === 1 ? MIAS.filter(s => s.orden <= 10) : MIAS).slice();
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+    }
+    const slots = POS.map((p, i) => {
+      const sp = pool[i];
+      const h = Math.round(p.w * 205 / 160);
+      return {
+        x: p.x, y: p.y, w: p.w, h, rot: p.rot, hint: p.w + 'px,' + h + 'px',
+        lleno: !enCamino, vacio: enCamino,
+        img: sp.img, nombre: sp.nombre, num: sp.num, tint: sp.tint, acabado: sp.acabado || 'normal'
+      };
+    });
+    const meta = numero * 10;
+    return Object.assign({}, tema, {
+      slots,
+      enCamino,
+      numero: String(numero),
+      titulo: this.props.titulo || 'Mis aves de Ica',
+      progreso: '12/' + meta,
+      meta: enCamino ? 'en camino' : meta + ' especies',
+      subtitulo: enCamino
+        ? 'Se arma al llegar a ' + meta + ' especies, con 10 de tus stickers al azar'
+        : (numero === 1 ? 'Mis 10 primeras especies · marzo a octubre de 2026' : '10 de mis stickers, elegidos al azar'),
+      pie: enCamino ? 'Te faltan ' + (meta - 12) + ' especies' : 'Póster ' + numero + ' · 9 oct 2026 · ' + meta + ' especies'
+    });
+  }
+}
+</script>
+</body>
+</html>

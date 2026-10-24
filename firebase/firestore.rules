@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Se deniega todo: el modelo de datos aún no está diseñado y tiene su propia tarjeta.
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}

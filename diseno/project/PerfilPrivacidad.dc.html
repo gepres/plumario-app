@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Privacidad</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="Perfil.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Privacidad</h1>
+</header>
+
+<p style="flex: none; margin: 0 20px 12px; font-size: 14px; line-height: 1.45; color: #3F504E">Tú decides qué se ve de tu álbum. Tus fotos y su ubicación son tuyas.</p>
+
+<main style="flex: 1; min-height: 0; padding: 0 16px; display: flex; flex-direction: column; gap: 14px">
+
+<section aria-labelledby="ubic" style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="ubic" style="margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4E5E5C">Ubicación de tus fotos</h2>
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px">
+<div style="min-height: 64px; box-sizing: border-box; padding: 10px 14px; display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span id="l-ubic" style="font-size: 14.5px; font-weight: 700">Guardar la ubicación</span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Solo sirve para asignar la foto a su región. Nadie más la ve.</span></span>
+<button role="switch" aria-checked="{{ubicAria}}" aria-labelledby="l-ubic" onClick="{{toggleUbic}}" style="flex: none; position: relative; width: 52px; height: 32px; border: 0; border-radius: 999px; background: {{ubicTrack}}; cursor: pointer; padding: 0"><span aria-hidden="true" style="position: absolute; top: 3px; left: {{ubicKnob}}px; width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.25)"></span></button>
+</div>
+<div style="min-height: 60px; box-sizing: border-box; padding: 10px 14px; border-top: 1px solid #E3DACA; display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 34px; height: 34px; border-radius: 10px; background: #D3E8F1; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16324A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14.5px; font-weight: 700">Especies amenazadas</span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Su ubicación se oculta siempre, también al compartir.</span></span>
+<span style="flex: none; font-size: 12px; font-weight: 700; color: #2D5F41">Siempre</span>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="album" style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="album" style="margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4E5E5C">Tu álbum</h2>
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px">
+<div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14.5px; font-weight: 700">Quién puede ver tu álbum</span>
+<div role="group" aria-label="Quién puede ver tu álbum" style="padding: 3px; background: #E7DFCF; border-radius: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px">
+<sc-for list="{{visibilidad}}" as="v" hint-placeholder-count="3">
+<button aria-pressed="{{v.pressed}}" onClick="{{v.pick}}" style="min-height: 38px; border: 0; border-radius: 9px; background: {{v.bg}}; box-shadow: {{v.shadow}}; color: #14302F; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">{{v.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">{{visNota}}</span>
+</div>
+<div style="min-height: 64px; box-sizing: border-box; padding: 10px 14px; border-top: 1px solid #E3DACA; display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span id="l-nombre" style="font-size: 14.5px; font-weight: 700">Tu nombre en lo que compartes</span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">En pósteres y tarjetas. Apagado, sale tu usuario.</span></span>
+<button role="switch" aria-checked="{{nombreAria}}" aria-labelledby="l-nombre" onClick="{{toggleNombre}}" style="flex: none; position: relative; width: 52px; height: 32px; border: 0; border-radius: 999px; background: {{nombreTrack}}; cursor: pointer; padding: 0"><span aria-hidden="true" style="position: absolute; top: 3px; left: {{nombreKnob}}px; width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.25)"></span></button>
+</div>
+<div style="min-height: 64px; box-sizing: border-box; padding: 10px 14px; border-top: 1px solid #E3DACA; display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span id="l-ia" style="font-size: 14.5px; font-weight: 700">Usar tus fotos para mejorar la IA</span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Ayuda a reconocer mejor las aves. Puedes apagarlo cuando quieras.</span></span>
+<button role="switch" aria-checked="{{iaAria}}" aria-labelledby="l-ia" onClick="{{toggleIa}}" style="flex: none; position: relative; width: 52px; height: 32px; border: 0; border-radius: 999px; background: {{iaTrack}}; cursor: pointer; padding: 0"><span aria-hidden="true" style="position: absolute; top: 3px; left: {{iaKnob}}px; width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.25)"></span></button>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="datos" style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="datos" style="margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4E5E5C">Tus datos</h2>
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px">
+<a href="PerfilPrivacidad.dc.html" style="min-height: 56px; box-sizing: border-box; padding: 8px 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #14302F">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Descargar tus datos</span><span style="font-size: 12.5px; color: #4E5E5C">Fotos, registros y recompensas en un archivo</span></span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E5E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+<a href="PerfilPrivacidad.dc.html" style="min-height: 56px; box-sizing: border-box; padding: 8px 14px; border-top: 1px solid #E3DACA; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #A33A2B">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Eliminar tu cuenta</span><span style="font-size: 12.5px; color: #4E5E5C">Borra tu álbum y tus fotos. No se puede deshacer.</span></span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+</div>
+</section>
+
+<a href="PerfilPrivacidad.dc.html" style="align-self: center; min-height: 44px; display: flex; align-items: center; font-size: 13.5px; font-weight: 700">Política de privacidad</a>
+
+</main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ubic: true, nombre: true, ia: false, vis: 'enlace' };
+  }
+  renderVals() {
+    const st = this.state;
+    const sw = (key) => ({
+      [key + 'Aria']: st[key] ? 'true' : 'false',
+      [key + 'Track']: st[key] ? '#14302F' : '#C9BEA9',
+      [key + 'Knob']: st[key] ? 23 : 3,
+      ['toggle' + key.charAt(0).toUpperCase() + key.slice(1)]: () => this.setState({ [key]: !st[key] })
+    });
+    const NOTAS = {
+      yo: 'Nadie más ve tu álbum. Los intercambios siguen funcionando por enlace o QR.',
+      enlace: 'Lo ve quien reciba tu enlace. No aparece en búsquedas.',
+      todos: 'Cualquier persona puede ver tus stickers y medallas. Nunca tus fotos ni su ubicación.'
+    };
+    return Object.assign({}, sw('ubic'), sw('nombre'), sw('ia'), {
+      visNota: NOTAS[st.vis],
+      visibilidad: [{ id: 'yo', label: 'Solo yo' }, { id: 'enlace', label: 'Con enlace' }, { id: 'todos', label: 'Todos' }].map(v => ({
+        label: v.label,
+        pressed: st.vis === v.id ? 'true' : 'false',
+        bg: st.vis === v.id ? '#FBF8F2' : 'transparent',
+        shadow: st.vis === v.id ? '0 1px 2px rgba(20,48,47,0.14)' : 'none',
+        pick: () => this.setState({ vis: v.id })
+      }))
+    });
+  }
+}
+</script>
+</body>
+</html>

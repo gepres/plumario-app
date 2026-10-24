@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Guía UI · fundamentos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1520px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+
+<header style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2C6A86">Guía UI · 1 de 2</span>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">Fundamentos: color, letra, espacio e íconos</h1>
+<p style="margin: 0; max-width: 980px; font-size: 18px; line-height: 1.45; color: #4E5E5C">Un álbum de papel: fondo cálido, tinta verde oscuro y color solo donde suma, en las aves, los hábitats y los cromos. Los valores de contraste son sobre el fondo papel, salvo que se indique otro.</p>
+</header>
+
+<section aria-labelledby="color" style="display: flex; flex-direction: column; gap: 14px">
+<h2 id="color" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 800">Color</h2>
+<div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px">
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 700">Base</h3>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px">
+<sc-for list="{{base}}" as="c" hint-placeholder-count="8">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 12px; background: {{c.hex}}; box-shadow: inset 0 0 0 1px rgba(20,48,47,0.14)"></span>
+<span style="min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700">{{c.n}} <span style="font-weight: 500; color: #4E5E5C">{{c.hex}}</span></span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">{{c.uso}}</span></span>
+</div>
+</sc-for>
+</div>
+<h3 style="margin: 10px 0 0; padding-top: 14px; border-top: 1px solid #E3DACA; font-size: 15px; font-weight: 700">Sombras</h3>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 4px 4px 8px">
+<sc-for list="{{sombras}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span aria-hidden="true" style="height: 52px; border-radius: {{s.r}}; background: {{s.bg}}; box-shadow: {{s.v}}"></span>
+<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C"><b style="color: #14302F">{{s.n}}</b> · {{s.uso}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 700">Acentos y estados</h3>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px">
+<sc-for list="{{acentos}}" as="c" hint-placeholder-count="6">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="flex: none; width: 36px; height: 36px; border-radius: 10px; background: {{c.hex}}"></span>
+<span style="min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13.5px; font-weight: 700">{{c.n}} <span style="font-weight: 500; color: #4E5E5C">{{c.hex}}</span></span><span style="font-size: 12px; line-height: 1.35; color: #4E5E5C">{{c.uso}}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 700">Hábitats y categorías de cromo</h3>
+<div style="display: flex; gap: 8px">
+<sc-for list="{{habitats}}" as="h" hint-placeholder-count="5">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span aria-hidden="true" style="height: 30px; border-radius: 8px; background: {{h.hex}}"></span><span style="font-size: 11.5px; font-weight: 600; color: #3F504E">{{h.n}}</span></span>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px">
+<sc-for list="{{cromos}}" as="h" hint-placeholder-count="5">
+<span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span aria-hidden="true" style="height: 30px; border-radius: 8px; background: {{h.bg}}"></span><span style="font-size: 11.5px; font-weight: 600; color: #3F504E">{{h.n}}</span></span>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px">
+<section aria-labelledby="letra" style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px">
+<h2 id="letra" style="margin: 0 0 4px; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 800">Letra</h2>
+<sc-for list="{{tipos}}" as="t" hint-placeholder-count="9">
+<div style="display: grid; grid-template-columns: 1fr 210px; align-items: baseline; gap: 16px; padding-bottom: 8px; border-bottom: 1px solid #EFE8DA">
+<span style="font-family: {{t.familia}}; font-size: {{t.px}}px; font-weight: {{t.peso}}; font-style: {{t.estilo}}; letter-spacing: {{t.track}}; text-transform: {{t.caja}}; line-height: 1.15; white-space: nowrap; overflow: hidden">{{t.muestra}}</span>
+<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C"><b style="color: #14302F">{{t.n}}</b> · {{t.spec}}</span>
+</div>
+</sc-for>
+</section>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<section aria-labelledby="espacio" style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="espacio" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 800">Espacio y forma</h2>
+<div style="display: flex; align-items: flex-end; gap: 14px">
+<sc-for list="{{espacios}}" as="e" hint-placeholder-count="6">
+<span style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span aria-hidden="true" style="width: {{e}}px; height: {{e}}px; border-radius: 3px; background: #2C6A86"></span><span style="font-size: 12px; font-weight: 600">{{e}}</span></span>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #3F504E">Margen lateral 16 en tarjetas y 20 en textos. Entre bloques 10 a 16. Encabezado de 56 y barra inferior de 104.</p>
+<div style="display: flex; gap: 12px; align-items: flex-end">
+<sc-for list="{{radios}}" as="r" hint-placeholder-count="5">
+<span style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 52px; height: 40px; border: 2px solid #14302F; border-radius: {{r.v}}px"></span><span style="font-size: 11.5px; line-height: 1.25; text-align: center; color: #3F504E"><b style="color: #14302F">{{r.v}}</b><br>{{r.uso}}</span></span>
+</sc-for>
+</div>
+</section>
+<section aria-labelledby="iconos" style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="iconos" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 24px; font-weight: 800">Íconos</h2>
+<div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{iconos}}" as="i" hint-placeholder-count="16">
+<span title="{{i.n}}" style="height: 40px; border-radius: 10px; background: #F3EDE2; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14302F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-label="{{i.n}}"><path d="{{i.d}}"></path></svg></span>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #3F504E">Línea de 1,8 a 2 sobre una grilla de 24, puntas redondas. La pestaña activa se rellena con sello y tinta.</p>
+</section>
+</div>
+</div>
+
+<section aria-labelledby="reglas" style="background: #14302F; color: #F3EDE2; border-radius: 20px; padding: 20px 24px; display: grid; grid-template-columns: 200px 1fr 1fr 1fr; gap: 24px">
+<h2 id="reglas" style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 22px; font-weight: 800; line-height: 1.15">Reglas que no se rompen</h2>
+<sc-for list="{{reglas}}" as="r" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14.5px; font-weight: 700; color: #E4C766">{{r.t}}</span><span style="font-size: 13.5px; line-height: 1.45; color: #C9D8D4">{{r.d}}</span></div>
+</sc-for>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1520}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const BR = "'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif";
+    const IN = "'Instrument Sans', 'Segoe UI', system-ui, sans-serif";
+    const SE = "'Instrument Serif', Georgia, serif";
+    const t = (n, muestra, familia, px, peso, spec, extra) => Object.assign({ n, muestra, familia, px, peso, spec, estilo: 'normal', track: 'normal', caja: 'none' }, extra || {});
+    return {
+      base: [
+        { n: 'Tinta', hex: '#14302F', uso: 'Texto principal, botón primario, botón Registrar. 12,1:1' },
+        { n: 'Papel', hex: '#F3EDE2', uso: 'Fondo de todas las pantallas' },
+        { n: 'Tarjeta', hex: '#FBF8F2', uso: 'Tarjetas, hojas y paneles' },
+        { n: 'Blanco', hex: '#FFFFFF', uso: 'Campos, barra inferior y sticker normal' },
+        { n: 'Arena', hex: '#ECE5D7', uso: 'Filas y superficies secundarias' },
+        { n: 'Línea', hex: '#E3DACA', uso: 'Bordes de tarjeta y separadores' },
+        { n: 'Borde', hex: '#C9BEA9', uso: 'Bordes de campos, botón terciario, sombras punteadas' },
+        { n: 'Texto 2', hex: '#4E5E5C', uso: 'Textos de apoyo. 5,9:1 (o #3F504E, 7,3:1)' }
+      ],
+      acentos: [
+        { n: 'Océano', hex: '#2C6A86', uso: 'Acción secundaria, litoral, disponible. 5,1:1' },
+        { n: 'Óxido', hex: '#A0541F', uso: 'Etiqueta «Nuevo», bajada del logo. 4,8:1' },
+        { n: 'Sello', hex: '#E4C766', uso: 'Pestaña activa, estrella. Solo sobre tinta' },
+        { n: 'Éxito', hex: '#2D5F41', uso: 'Obtenido, confirmaciones. 6,4:1' },
+        { n: 'Aviso', hex: '#8A4F12', uso: 'Pendiente, por definir. 5,6:1' },
+        { n: 'Error', hex: '#A33A2B', uso: 'Campos con error. 5,6:1' }
+      ],
+      habitats: [
+        { n: 'Litoral', hex: '#D2E4EC' }, { n: 'Humedales', hex: '#D9EADB' }, { n: 'Desierto', hex: '#EADFCB' }, { n: 'Sierra', hex: '#E0DDEA' }, { n: 'Mar abierto', hex: '#CFDCE8' }
+      ],
+      cromos: [
+        { n: 'Holográfico', bg: 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)' },
+        { n: 'Plata', bg: 'linear-gradient(135deg, #F2F4F6, #8F9BA4 50%, #E9EDF0)' },
+        { n: 'Oro', bg: 'linear-gradient(135deg, #FFF4C9, #B9872A 50%, #F5D987)' },
+        { n: 'Rubí', bg: 'linear-gradient(135deg, #E37A8C, #7A1226 50%, #C9566A)' },
+        { n: 'Diamante', bg: 'conic-gradient(from 22deg, #F7FCFF, #B5D2E2, #FFFFFF, #A9C8DA, #F7FCFF)' }
+      ],
+      tipos: [
+        t('Hoja de sistema', 'Categorías', BR, 40, 800, 'Bricolage 40 · ExtraBold', { track: '-0.02em' }),
+        t('Revelado', 'Playero Arenero', BR, 32, 800, 'Bricolage 32 · ExtraBold', { track: '-0.015em' }),
+        t('Título principal', 'Mis recompensas', BR, 27, 800, 'Bricolage 27 · ExtraBold', { track: '-0.02em' }),
+        t('Encabezado', 'Elige tu región', BR, 20, 700, 'Bricolage 20 · Bold'),
+        t('Botón', 'Guardar póster', IN, 15.5, 700, 'Instrument Sans 15,5 · Bold'),
+        t('Cuerpo', 'Cada especie tiene una categoría.', IN, 15, 400, 'Instrument Sans 15 · Regular'),
+        t('Ayuda', 'Así aparece en tus pósteres.', IN, 12.5, 400, 'Instrument Sans 12,5 · Regular'),
+        t('Antetítulo', 'Medalla desbloqueada', IN, 12, 700, 'Instrument Sans 12 · Bold · +0,1 em', { track: '0.1em', caja: 'uppercase' }),
+        t('Nombre científico', 'Calidris alba', SE, 20, 400, 'Instrument Serif 20 · Itálica', { estilo: 'italic' })
+      ],
+      sombras: [
+        { n: 'Tarjeta', uso: 'sticker y miniaturas', bg: '#FFFFFF', r: '14px', v: '0 1px 2px rgba(20,48,47,0.2), 0 4px 10px rgba(20,48,47,0.08)' },
+        { n: 'Flotante', uso: 'barra inferior y hojas', bg: '#FFFFFF', r: '18px', v: '0 10px 22px rgba(20,48,47,0.13), 0 1px 2px rgba(20,48,47,0.08)' },
+        { n: 'Brillo', uso: 'botón Registrar', bg: 'linear-gradient(150deg, #3C7F9C, #14302F)', r: '999px', v: '0 10px 22px rgba(44,106,134,0.38)' }
+      ],
+      espacios: [4, 8, 12, 16, 20, 24],
+      radios: [
+        { v: 10, uso: 'ícono' }, { v: 14, uso: 'botón, campo, sticker' }, { v: 18, uso: 'tarjeta' }, { v: 24, uso: 'hoja' }, { v: 999, uso: 'pastilla' }
+      ],
+      iconos: [
+        { n: 'Inicio', d: 'M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z' },
+        { n: 'Álbum', d: 'M4 5.5C7 4 10 4 12 6c2-2 5-2 8-.5V19c-3-1.5-6-1.5-8 .5-2-2-5-2-8-.5zM12 6v13.5' },
+        { n: 'Recompensas', d: 'M12 9a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zM8.6 10.2L6 3h4l2 4.5L14 3h4l-2.6 7.2' },
+        { n: 'Perfil', d: 'M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21c1-4 4.5-6 8-6s7 2 8 6' },
+        { n: 'Registrar', d: 'M4 8h3l2-3h6l2 3h3v11H4zM12 9.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z' },
+        { n: 'Buscar', d: 'M11 4.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM16 16l4.5 4.5' },
+        { n: 'Volver', d: 'M15 5l-7 7 7 7' },
+        { n: 'Cerrar', d: 'M6 6l12 12M18 6L6 18' },
+        { n: 'Compartir', d: 'M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7' },
+        { n: 'Descargar', d: 'M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14' },
+        { n: 'Intercambio', d: 'M4 8h14l-3-3M20 16H6l3 3' },
+        { n: 'Bloqueado', d: 'M5 11h14v10H5zM8 11V8a4 4 0 0 1 8 0v3' },
+        { n: 'Aviso', d: 'M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0' },
+        { n: 'Ubicación', d: 'M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12zM12 6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z' },
+        { n: 'Protección', d: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z' },
+        { n: 'Listo', d: 'M5 12.5l4.5 4.5L19 7.5' }
+      ],
+      reglas: [
+        { t: 'Tocar sin fallar', d: 'Todo lo que se toca mide al menos 44 × 44. Los textos cumplen contraste AA sobre su fondo.' },
+        { t: 'Nunca solo color', d: 'Categorías, estados y pestañas llevan ícono, forma o texto además del color.' },
+        { t: 'Hablamos de tú', d: 'Español claro y corto. Nombres comunes de aves con mayúscula inicial; el científico en itálica.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

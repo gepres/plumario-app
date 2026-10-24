@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Revisa tu correo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="OlvideContrasena.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+</header>
+
+<main style="flex: 1; min-height: 0; padding: 8px 16px 18px; display: flex; flex-direction: column; gap: 14px">
+<div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 24px; background: #D9EADB; display: flex; align-items: center; justify-content: center; color: #14302F"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6h17v12h-17zM3.5 6l8.5 7 8.5-7"></path></svg></div>
+<h1 style="margin: 6px 2px 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.015em">Revisa tu correo</h1>
+<p style="margin: 0 2px; font-size: 15px; line-height: 1.5; color: #3F504E; text-wrap: pretty">Enviamos un enlace a <b style="color: #14302F">coleccionista@ejemplo.com</b>. Ábrelo desde este celular; vence en 30 minutos.</p>
+<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 10px">
+<dc-import name="Boton" texto="Abrir mi correo" variante="primario" href="NuevaContrasena.dc.html" hint-size="358px,52px"></dc-import>
+<button onClick="{{reenviar}}" aria-disabled="{{bloqueado}}" style="min-height: 48px; box-sizing: border-box; border-radius: 14px; border: {{borde}}; background: transparent; color: {{tinta}}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: {{cursor}}">{{label}}</button>
+</div>
+<div style="margin-top: 4px; padding: 12px 14px; border-radius: 14px; background: #ECE5D7; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45; color: #3F504E">
+<span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 50%; background: #DCD3C3; color: #14302F; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center">i</span>
+<span>¿No llega? Revisa la carpeta de spam o <a href="OlvideContrasena.dc.html" style="font-weight: 700">escribe otro correo</a>.</span>
+</div>
+<p style="margin: auto 0 0; text-align: center; font-size: 14px; color: #3F504E"><a href="Login.dc.html" style="display: inline-flex; min-height: 44px; align-items: center; font-weight: 700">Volver a iniciar sesión</a></p>
+</main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { enviado: false };
+  }
+  renderVals() {
+    const e = this.state.enviado;
+    return {
+      label: e ? 'Enlace reenviado' : 'Reenviar en 0:45',
+      bloqueado: 'true',
+      borde: '1.5px solid #C9BEA9',
+      tinta: '#5F5B54',
+      cursor: 'not-allowed',
+      reenviar: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>

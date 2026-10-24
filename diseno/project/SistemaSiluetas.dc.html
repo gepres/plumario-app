@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Siluetas por grupo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 720px; box-sizing: border-box; overflow: hidden; padding: 56px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+
+<header style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">Siluetas para las aves en sombra</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.4; color: #4E5E5C">24 grupos cubren las 289 especies. Cada especie usa la silueta de su grupo hasta que la registras; el número indica cuántas la comparten.</p>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{grupos}}" as="g" hint-placeholder-count="24">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="height: 104px; border-radius: 12px; background: #E7E1D5; display: flex; align-items: center; justify-content: center">
+<img src="{{g.img}}" alt="" style="width: 96px; height: 96px; filter: brightness(0); opacity: 0.62">
+</div>
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 6px">
+<span style="font-size: 14px; font-weight: 700">{{g.nombre}}</span>
+<span style="font-size: 13px; color: #4E5E5C">{{g.n}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      grupos: [
+        { nombre: 'Pájaro', n: 102, img: '/_blob/bd33d7ef45c2158cdd8113e62ee29b1f' },
+        { nombre: 'Playero', n: 38, img: '/_blob/700e5a92d8dae9ed43cb6af87296da4a' },
+        { nombre: 'Ave marina', n: 23, img: '/_blob/2b893819fa418d69436c6fc4cbcb458d' },
+        { nombre: 'Gaviota', n: 14, img: '/_blob/95828bd5b7fe0dda93d787c2e178af86' },
+        { nombre: 'Golondrina', n: 12, img: '/_blob/dd47676ec4b8dac0070c427770484a02' },
+        { nombre: 'Gaviotín', n: 11, img: '/_blob/4872b8efc92794f43c266dd9d5443ff9' },
+        { nombre: 'Pato', n: 11, img: '/_blob/a502131de354f9ff111cefd6fc3bf5f7' },
+        { nombre: 'Garza', n: 10, img: '/_blob/d2e03e73fd6b3ebda1ddb6b5afcc6dbb' },
+        { nombre: 'Rapaz', n: 10, img: '/_blob/628e046e3078c302a31829e5497b15eb' },
+        { nombre: 'Paloma', n: 9, img: '/_blob/53239f140a3d5f5fbee940ee877cf0f4' },
+        { nombre: 'Colibrí', n: 9, img: '/_blob/3bf57018dbc1bb9858f8771245a61246' },
+        { nombre: 'Lechuza', n: 6, img: '/_blob/380612587e53c68fbb5b4ef6dac14ce7' },
+        { nombre: 'Gallareta', n: 5, img: '/_blob/413db6bc5ae615df7234f1ea3e58ad54' },
+        { nombre: 'Piquero', n: 4, img: '/_blob/48f636337e470379dd8bdaa2851aa67e' },
+        { nombre: 'Zambullidor', n: 4, img: '/_blob/28eb48ed7ad693b999617c0a4092f292' },
+        { nombre: 'Cormorán', n: 3, img: '/_blob/324eb365f7661bc4b510461415b5d31f' },
+        { nombre: 'Flamenco', n: 3, img: '/_blob/134f420a8833e17a10978048f13b57fd' },
+        { nombre: 'Gallinazo', n: 3, img: '/_blob/be5f9b84baa8bc6c9ae1858d2b36e745' },
+        { nombre: 'Loro', n: 3, img: '/_blob/f06f9bb6899166065ffde5bc687c308c' },
+        { nombre: 'Perdiz', n: 3, img: '/_blob/4d15a0df0cb76874cf395a7310506358' },
+        { nombre: 'Ostrero', n: 2, img: '/_blob/ad333582f63fc034b5502953c14b64de' },
+        { nombre: 'Cigüeñuela', n: 2, img: '/_blob/6296ffe1eefbe10536c55645e57fd551' },
+        { nombre: 'Pingüino', n: 1, img: '/_blob/5fc0580c91c07a04c8b7ce42a3c9a6d2' },
+        { nombre: 'Pelícano', n: 1, img: '/_blob/92d0b07d7a6b9d699e834111a098ce4a' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

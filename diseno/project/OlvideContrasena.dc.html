@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Olvidé mi contraseña</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="Login.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+</header>
+
+<main style="flex: 1; min-height: 0; padding: 8px 16px 18px; display: flex; flex-direction: column; gap: 14px">
+<div aria-hidden="true" style="width: 72px; height: 72px; border-radius: 24px; background: #D2E4EC; display: flex; align-items: center; justify-content: center; color: #14302F"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM10.9 12.6L3.5 20v1.5h3v-2h2v-2h2l1.4-1.4M15.5 8.5h.01"></path></svg></div>
+<h1 style="margin: 6px 2px 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.015em">¿Olvidaste tu contraseña?</h1>
+<p style="margin: 0 2px; font-size: 15px; line-height: 1.5; color: #3F504E; text-wrap: pretty">Escribe el correo de tu cuenta y te enviaremos un enlace para crear una nueva.</p>
+<div style="margin-top: 8px"><dc-import name="Campo" etiqueta="Correo" tipo="correo" valor="coleccionista@ejemplo.com" placeholder="tucorreo@ejemplo.com" hint-size="358px,76px"></dc-import></div>
+<dc-import name="Boton" texto="Enviar enlace" variante="primario" href="OlvideEnviado.dc.html" icono="correo" hint-size="358px,52px"></dc-import>
+<p style="margin: auto 0 0; text-align: center; font-size: 14px; color: #3F504E"><a href="Login.dc.html" style="display: inline-flex; min-height: 44px; align-items: center; font-weight: 700">Volver a iniciar sesión</a></p>
+</main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

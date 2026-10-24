@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Varias regiones · propuesta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1040px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px">
+
+<header style="display: flex; align-items: center; gap: 28px">
+<img src="/_blob/fc39c40516225ad148949b232187bb58" alt="" style="flex: none; width: 72px; height: 100px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em">Varias regiones: un álbum por región</h1>
+<p style="margin: 0; max-width: 960px; font-size: 18px; line-height: 1.4; color: #4E5E5C; text-wrap: pretty">Ica es la primera edición. Cuando se sumen otras regiones, cada una será un álbum con sus aves, medallas y pósteres. Se cambia desde el mapa del Perú o desde una lista con búsqueda.</p>
+</div>
+</header>
+
+<section aria-labelledby="entradas" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="entradas" style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2C6A86">Cómo se llega al selector</h2>
+<div style="display: flex; align-items: stretch; gap: 0">
+<div style="flex: 3; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{entradas}}" as="e" hint-placeholder-count="4">
+<div style="background: #FBF8F2; border: 1px solid #D6CCBA; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 700">{{e.t}}</span>
+<span style="font-size: 13.5px; line-height: 1.45; color: #3F504E">{{e.d}}</span>
+</div>
+</sc-for>
+</div>
+<span aria-hidden="true" style="flex: none; width: 48px; display: flex; align-items: center; justify-content: center; color: #6F7F7C"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M14 7l5 5-5 5"></path></svg></span>
+<div style="flex: 1; background: #14302F; color: #F3EDE2; border-radius: 14px; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 700">Mapa o lista</span>
+<span style="font-size: 13.5px; line-height: 1.45; color: #C9D8D4">Se toca la región y una hoja muestra su estado: abrir su álbum o pedir aviso.</span>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 20px; flex: 1; min-height: 0">
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Reglas del álbum por región</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.45; color: #3F504E">
+<sc-for list="{{reglas}}" as="r" hint-placeholder-count="5">
+<li>{{r}}</li>
+</sc-for>
+</ul>
+</section>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">El mapa</h2>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.45; color: #3F504E">
+<sc-for list="{{mapa}}" as="m" hint-placeholder-count="5">
+<li>{{m}}</li>
+</sc-for>
+</ul>
+</section>
+
+<section style="background: #ECE5D7; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">La hoja de la región, en tres estados</h2>
+<sc-for list="{{estados}}" as="s" hint-placeholder-count="3">
+<div style="background: #FBF8F2; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: {{s.ink}}">{{s.estado}}</span>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 18px; font-weight: 800">{{s.region}}</span>
+<span style="font-size: 13px; line-height: 1.4; color: #4E5E5C">{{s.texto}}</span>
+<span style="align-self: flex-start; margin-top: 2px; font-size: 13px; font-weight: 700; color: {{s.btnInk}}; background: {{s.btnBg}}; border: {{s.btnBorde}}; border-radius: 10px; padding: 7px 12px">{{s.boton}}</span>
+</div>
+</sc-for>
+</section>
+
+</div>
+
+<p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4E5E5C">Mapa: límites de Natural Earth (dominio público) a través del paquete datamaps (licencia MIT), simplificados. Lima y Callao se unen en un solo álbum.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      entradas: [
+        { t: 'Título de Inicio', d: '«Aves de Ica ▾» abre el selector de región.' },
+        { t: 'Perfil › Mi región', d: 'Muestra la región actual con el botón Cambiar.' },
+        { t: 'Al registrar', d: 'Si la foto es de otra región disponible: «Esta foto es de Arequipa. ¿Abrir su álbum?».' },
+        { t: 'Primera vez', d: 'Sugerimos la región por ubicación. Si aún no está, se empieza en Ica con aviso activado.' }
+      ],
+      reglas: [
+        'Cada región tiene su lista de especies, sus hábitats, sus medallas y sus pósteres.',
+        'Una especie vista en dos regiones cuenta en los dos álbumes.',
+        'La foto va a la región donde se tomó, según su ubicación. Sin ubicación, va a la región activa.',
+        'Las fotos de regiones que aún no abren se guardan en espera y se suman cuando abre su álbum.',
+        'Plata, Oro y Diamante son iguales en todo el país. Rubí, las emblemáticas, se define en cada región.',
+        'En Perfil se puede sumar más adelante un total del Perú: especies distintas en todas las regiones.'
+      ],
+      mapa: [
+        '24 zonas: 23 departamentos más Lima y Callao como un solo álbum.',
+        'Tumbes, Moquegua o Tacna son pequeñas para tocar: la lista con búsqueda está a un toque y el mapa admite zoom con dos dedos.',
+        'Colores: disponible en azul, próximamente en arena y la elegida con borde oscuro.',
+        '«Avísame» guarda un aviso por región; se gestiona en Perfil › Notificaciones.',
+        'Evaluamos un dibujo por región en lugar del mapa: es más vistoso, pero no ubica al usuario. Lo usamos en la hoja de la región, con su ave emblema.'
+      ],
+      estados: [
+        { estado: 'Tu álbum actual', region: 'Ica', texto: '289 especies · 5 hábitats · llevas 12', boton: 'Seguir en Ica', ink: '#2D5F41', btnBg: '#14302F', btnInk: '#FFFFFF', btnBorde: '0' },
+        { estado: 'Disponible', region: 'Arequipa (ejemplo futuro)', texto: 'Tu álbum de Ica se guarda tal cual; puedes volver cuando quieras.', boton: 'Abrir álbum de Arequipa', ink: '#2C6A86', btnBg: '#14302F', btnInk: '#FFFFFF', btnBorde: '0' },
+        { estado: 'Próximamente', region: 'Lima y Callao', texto: 'Tus fotos de aquí se guardan y contarán cuando abra.', boton: 'Avísame cuando esté', ink: '#8A4F12', btnBg: 'transparent', btnInk: '#14302F', btnBorde: '1.5px solid #14302F' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

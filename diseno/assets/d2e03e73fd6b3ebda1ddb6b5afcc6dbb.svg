@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <path d="M142 146 L136 220 M154 146 L160 220" fill="none" stroke="#202226" stroke-width="4" stroke-linecap="round"></path>
+  <path d="M124 222 H146 M150 222 H172" fill="none" stroke="#E2C23A" stroke-width="4" stroke-linecap="round"></path>
+  <path d="M112 110 C124 94 170 94 196 114 C208 124 204 138 186 144 C162 152 128 148 116 134 C110 126 108 118 112 110 Z" fill="#FBFBF8"></path>
+  <path d="M140 108 C170 104 196 116 204 130 C186 134 160 136 142 130 Z" fill="#ECEAE3"></path>
+  <path d="M176 112 C200 116 216 130 228 152 M182 118 C202 124 214 138 222 156" fill="none" stroke="#E2DFD7" stroke-width="2" stroke-linecap="round"></path>
+  <path d="M120 116 C96 108 90 86 102 70 C110 58 108 46 96 44" fill="none" stroke="#FBFBF8" stroke-width="10" stroke-linecap="round"></path>
+  <circle cx="95" cy="44" r="10" fill="#FBFBF8"></circle>
+  <path d="M100 38 C112 34 124 38 130 48 M100 41 C110 40 118 44 122 52" fill="none" stroke="#E2DFD7" stroke-width="2" stroke-linecap="round"></path>
+  <path d="M86 41 L52 49 L86 47 Z" fill="#202226"></path>
+  <path d="M88 40 L84 43.5 L88 46 Z" fill="#E2C23A"></path>
+  <circle cx="91" cy="42" r="2.2" fill="#E2C23A"></circle>
+  <circle cx="91" cy="42" r="1" fill="#1A1A1D"></circle>
+</svg>

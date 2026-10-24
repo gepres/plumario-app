@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Editar perfil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="Perfil.dc.html" aria-label="Volver sin guardar" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Editar perfil</h1>
+</header>
+
+<section aria-labelledby="ave-fav" style="flex: none; margin: 0 16px; padding: 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="position: relative; flex: none; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; background: {{favTint}}; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 4px #DCD3C3">
+<img src="{{favImg}}" alt="" style="position: absolute; left: 5px; top: 7px; width: 66px; height: 66px">
+</div>
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span id="ave-fav" style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2C6A86">Tu ave favorita</span>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 19px; font-weight: 800; line-height: 1.15">{{favNombre}}</span>
+<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Es tu foto de perfil. Elige entre las aves que ya registraste.</span>
+</span>
+</div>
+<div role="radiogroup" aria-labelledby="ave-fav" style="display: flex; justify-content: space-between">
+<sc-for list="{{aves}}" as="a" hint-placeholder-count="6">
+<button role="radio" aria-checked="{{a.checked}}" aria-label="{{a.nombre}}" onClick="{{a.pick}}" style="position: relative; width: 50px; height: 50px; padding: 0; border: 0; border-radius: 50%; overflow: hidden; background: {{a.tint}}; box-shadow: {{a.anillo}}; cursor: pointer">
+<img src="{{a.img}}" alt="" style="position: absolute; left: 4px; top: 5px; width: 42px; height: 42px">
+</button>
+</sc-for>
+</div>
+</section>
+
+<main style="flex: 1; min-height: 0; padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 12px">
+<dc-import name="Campo" etiqueta="Nombre" tipo="texto" valor="[Nombre del coleccionista]" placeholder="Cómo te llamas" ayuda="Así aparece en tus pósteres." hint-size="358px,98px"></dc-import>
+<dc-import name="Campo" etiqueta="Usuario" tipo="usuario" valor="usuario" placeholder="tu_usuario" ayuda="Se puede cambiar una vez cada 30 días." hint-size="358px,98px"></dc-import>
+<dc-import name="Campo" etiqueta="Correo" tipo="correo" valor="coleccionista@ejemplo.com" placeholder="tucorreo@ejemplo.com" ayuda="Para entrar y recuperar tu contraseña." hint-size="358px,98px"></dc-import>
+<a href="NuevaContrasena.dc.html" style="min-height: 52px; box-sizing: border-box; padding: 6px 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #14302F">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M5 11h14v10H5zM8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+<span style="flex: 1; font-size: 14.5px; font-weight: 700">Cambiar contraseña</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E5E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+<a href="Perfil.dc.html" style="margin-top: auto; min-height: 52px; border-radius: 14px; background: #14302F; color: #FFFFFF; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Guardar cambios</a>
+</main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+const B = id => '/_blob/' + id;
+const AVES = [
+  { id: 'zarcillo', nombre: 'Gaviotín Zarcillo', img: B('cdb078ae3f20d0b791f60aa76ef64daf'), tint: '#D2E4EC' },
+  { id: 'pelicano', nombre: 'Pelícano Peruano', img: B('92d0b07d7a6b9d699e834111a098ce4a'), tint: '#D2E4EC' },
+  { id: 'flamenco', nombre: 'Flamenco Chileno', img: B('134f420a8833e17a10978048f13b57fd'), tint: '#D9EADB' },
+  { id: 'pinguino', nombre: 'Pingüino de Humboldt', img: B('5fc0580c91c07a04c8b7ce42a3c9a6d2'), tint: '#D2E4EC' },
+  { id: 'playero', nombre: 'Playero Arenero', img: B('700e5a92d8dae9ed43cb6af87296da4a'), tint: '#D2E4EC' },
+  { id: 'lechuza', nombre: 'Lechuza Terrestre', img: B('380612587e53c68fbb5b4ef6dac14ce7'), tint: '#EADFCB' }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { fav: 'zarcillo' };
+  }
+  renderVals() {
+    const fav = AVES.filter(a => a.id === this.state.fav)[0];
+    return {
+      favImg: fav.img, favNombre: fav.nombre, favTint: fav.tint,
+      aves: AVES.map(a => Object.assign({}, a, {
+        checked: a.id === fav.id ? 'true' : 'false',
+        anillo: a.id === fav.id ? '0 0 0 2px #FBF8F2, 0 0 0 4.5px #14302F' : 'inset 0 0 0 1px rgba(20,48,47,0.12)',
+        pick: () => this.setState({ fav: a.id })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

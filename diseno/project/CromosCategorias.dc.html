@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mis cromos por categoría</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="RecompensasStickers.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Categorías de cromos</h1>
+</header>
+
+<p style="flex: none; margin: 0 20px 14px; font-size: 14px; line-height: 1.45; color: #3F504E; text-wrap: pretty">Cada especie tiene una categoría. Si su cromo sale, sale con ese acabado.</p>
+
+<ul style="flex: none; margin: 0 16px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<li style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px">
+<div style="flex: none; opacity: {{c.op}}"><dc-import name="StickerAve" img="{{c.img}}" nombre="" num="{{c.num}}" tint="{{c.tint}}" acabado="{{c.acabado}}" size="60" hint-size="60px,77px"></dc-import></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 17px; font-weight: 700">{{c.nombre}}</h2>
+<span style="font-size: 13px; font-weight: 700; white-space: nowrap">{{c.tienes}} de {{c.n}}</span>
+</div>
+<span style="font-size: 12.5px; color: #4E5E5C">{{c.criterio}}</span>
+<div style="height: 5px; border-radius: 3px; background: #E3DACA; overflow: hidden"><div style="width: {{c.pct}}%; min-width: {{c.min}}px; height: 100%; border-radius: 3px; background: {{c.bar}}"></div></div>
+<span style="font-size: 12.5px; line-height: 1.35; color: #3F504E">{{c.tuyas}}</span>
+</div>
+</li>
+</sc-for>
+</ul>
+
+<div style="flex: none; margin: 14px 20px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; color: #4E5E5C">
+<span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 50%; background: #E3DACA; color: #14302F; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center">i</span>
+<span>Todas tienen la misma probabilidad de salir en cromo: 1 de cada 8 al completar. Si una especie cumple varias categorías, se queda con la más alta.</span>
+</div>
+
+<div style="margin-top: auto; padding: 0 16px 22px; flex: none">
+<a href="RecompensasStickers.dc.html" style="min-height: 52px; border-radius: 14px; background: #14302F; color: #FFFFFF; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Listo</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = '/_blob/';
+    const HOLO = 'linear-gradient(90deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2)';
+    const cats = [
+      { nombre: 'Holográfico', criterio: 'Especies comunes', acabado: 'cromado', img: B + '700e5a92d8dae9ed43cb6af87296da4a', num: '011', tint: '#D2E4EC',
+        n: 231, tienes: 1, bar: HOLO, tuyas: 'Playero Arenero. Registraste 6 de esta categoría.' },
+      { nombre: 'Plata', criterio: 'Casi amenazadas', acabado: 'plata', img: B + 'cdb078ae3f20d0b791f60aa76ef64daf', num: '025', tint: '#D2E4EC',
+        n: 21, tienes: 1, bar: '#8F9BA4', tuyas: 'Gaviotín Zarcillo. Es la única que registraste.' },
+      { nombre: 'Oro', criterio: 'Endémicas del Perú', acabado: 'oro', img: B + '18a594851a3daeba964a8c03ebaaf837', num: '042', tint: '#D2E4EC',
+        n: 12, tienes: 0, bar: '#D9A93E', tuyas: 'Aún no registras endémicas. La más cerca: el Churrete Marisquero, en orillas rocosas.' },
+      { nombre: 'Rubí', criterio: 'Emblemáticas de Ica y del Perú', acabado: 'rubi', img: B + '92d0b07d7a6b9d699e834111a098ce4a', num: '038', tint: '#D2E4EC',
+        n: 4, tienes: 0, bar: '#A51E36', tuyas: 'Pelícano Peruano a 1 foto de su cromo. También tienes Piquero y Flamenco.' },
+      { nombre: 'Diamante', criterio: 'Amenazadas', acabado: 'diamante', img: B + '5fc0580c91c07a04c8b7ce42a3c9a6d2', num: '032', tint: '#D2E4EC',
+        n: 21, tienes: 0, bar: '#16324A', tuyas: 'Gaviotín Peruano y Pingüino de Humboldt, aún sin cromo.' }
+    ];
+    return {
+      cats: cats.map(c => Object.assign({}, c, {
+        pct: Math.round(c.tienes / c.n * 1000) / 10,
+        min: c.tienes > 0 ? 8 : 0,
+        op: c.tienes > 0 ? 1 : 0.5
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

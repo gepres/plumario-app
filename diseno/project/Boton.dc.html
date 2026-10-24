@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Botón</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<a href="{{href}}" aria-disabled="{{deshabilitado}}" style="width: {{ancho}}px; min-height: {{alto}}px; box-sizing: border-box; border-radius: 14px; border: {{borde}}; background: {{fondo}}; color: {{tinta}}; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; text-decoration: none; cursor: {{cursor}}">
+<sc-if value="{{conIcono}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{icono}}"></path></svg></sc-if>{{texto}}
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"texto":{"editor":"text","default":"Entrar"},"variante":{"editor":"enum","options":["primario","secundario","terciario","claro","deshabilitado"],"default":"primario"},"href":{"editor":"text","default":"Inicio.dc.html"},"icono":{"editor":"enum","options":["ninguno","camara","compartir","descargar","correo","flecha"],"default":"ninguno"},"ancho":{"editor":"int","default":358,"min":120,"max":600},"$preview":{"width":358,"height":52}}'>
+const ICONOS = {
+  camara: 'M4 8h3l2-3h6l2 3h3v11H4zM12 9.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z',
+  compartir: 'M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7',
+  descargar: 'M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14',
+  correo: 'M3.5 6h17v12h-17zM3.5 6l8.5 7 8.5-7',
+  flecha: 'M5 12h14M13 6l6 6-6 6'
+};
+const V = {
+  primario: { fondo: '#14302F', tinta: '#FFFFFF', borde: '0', alto: 52 },
+  secundario: { fondo: 'transparent', tinta: '#14302F', borde: '1.5px solid #14302F', alto: 48 },
+  terciario: { fondo: 'transparent', tinta: '#14302F', borde: '1.5px solid #C9BEA9', alto: 48 },
+  claro: { fondo: '#F3EDE2', tinta: '#14302F', borde: '0', alto: 52 },
+  deshabilitado: { fondo: '#E7DFCF', tinta: '#5F5B54', borde: '0', alto: 52 }
+};
+class Component extends DCLogic {
+  renderVals() {
+    const variante = this.props.variante ?? 'primario';
+    const v = V[variante] || V.primario;
+    const icono = ICONOS[this.props.icono] || '';
+    return Object.assign({}, v, {
+      texto: this.props.texto ?? 'Entrar',
+      href: variante === 'deshabilitado' ? '#' : (this.props.href || '#'),
+      deshabilitado: variante === 'deshabilitado' ? 'true' : 'false',
+      cursor: variante === 'deshabilitado' ? 'not-allowed' : 'pointer',
+      ancho: Number(this.props.ancho ?? 358) || 358,
+      conIcono: !!icono,
+      icono
+    });
+  }
+}
+</script>
+</body>
+</html>

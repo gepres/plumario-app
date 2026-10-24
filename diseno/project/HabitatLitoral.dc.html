@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Álbum · Litoral y mar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="width: 390px; height: 2480px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 16px 0 8px">
+<a href="Album.dc.html" aria-label="Volver al álbum" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="flex: 1; margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.01em">Litoral y mar</h1>
+<span style="font-size: 14px; font-weight: 700">8 de 43</span>
+</header>
+
+<section style="flex: none; margin: 4px 16px 0; padding: 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px; display: flex; align-items: center; gap: 14px">
+<dc-import name="Medalla" kind="litoral" size="56" locked="true" progreso="0.186" hint-size="56px,67px"></dc-import>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 15px; font-weight: 700">Medalla del litoral</span>
+<span style="font-size: 13px; line-height: 1.35; color: #4E5E5C">Registra las 43 especies de playas, islas y acantilados.</span>
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 2px">
+<div style="flex: 1; height: 6px; border-radius: 3px; background: #E3DACA; overflow: hidden"><div style="width: 18.6%; height: 100%; border-radius: 3px; background: #2C6A86"></div></div>
+<span style="font-size: 12.5px; font-weight: 700; white-space: nowrap">8 de 43 especies</span>
+</div>
+</div>
+</section>
+
+<div role="group" aria-label="Filtrar especies" style="flex: none; margin: 12px 16px 0; display: flex; gap: 8px">
+<button aria-pressed="true" style="min-height: 40px; border: 0; border-radius: 999px; background: #14302F; color: #FFFFFF; font-family: inherit; font-size: 13.5px; font-weight: 700; padding: 0 16px; cursor: pointer">Todas · 43</button>
+<button aria-pressed="false" style="min-height: 40px; box-sizing: border-box; border: 1px solid #C9BEA9; border-radius: 999px; background: transparent; color: #14302F; font-family: inherit; font-size: 13.5px; font-weight: 600; padding: 0 16px; cursor: pointer">Tengo · 8</button>
+<button aria-pressed="false" style="min-height: 40px; box-sizing: border-box; border: 1px solid #C9BEA9; border-radius: 999px; background: transparent; color: #14302F; font-family: inherit; font-size: 13.5px; font-weight: 600; padding: 0 16px; cursor: pointer">Me faltan · 35</button>
+</div>
+
+<div style="flex: none; margin: 16px 0 0; padding: 0 21px; display: grid; grid-template-columns: repeat(3, 108px); justify-content: space-between; row-gap: 10px">
+<sc-for list="{{aves}}" as="ave" hint-placeholder-count="43">
+<a href="{{ave.href}}" aria-label="{{ave.label}}" style="display: block; border-radius: 14px; text-decoration: none"><dc-import name="StickerAve" img="{{ave.img}}" nombre="{{ave.nombre}}" num="{{ave.n}}" tint="#D2E4EC" acabado="{{ave.acabado}}" sombra="{{ave.sombra}}" size="108" hint-size="108px,138px"></dc-import></a>
+</sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2480}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const I = {
+      playero: '/_blob/700e5a92d8dae9ed43cb6af87296da4a',
+      ostrero: '/_blob/ad333582f63fc034b5502953c14b64de',
+      gaviota: '/_blob/95828bd5b7fe0dda93d787c2e178af86',
+      gaviotin: '/_blob/4872b8efc92794f43c266dd9d5443ff9',
+      zarcillo: '/_blob/cdb078ae3f20d0b791f60aa76ef64daf',
+      pinguino: '/_blob/5fc0580c91c07a04c8b7ce42a3c9a6d2',
+      piquero: '/_blob/48f636337e470379dd8bdaa2851aa67e',
+      pelicano: '/_blob/92d0b07d7a6b9d699e834111a098ce4a',
+      garcita: '/_blob/d2e03e73fd6b3ebda1ddb6b5afcc6dbb',
+      marina: '/_blob/2b893819fa418d69436c6fc4cbcb458d',
+      cormoran: '/_blob/324eb365f7661bc4b510461415b5d31f',
+      rapaz: '/_blob/628e046e3078c302a31829e5497b15eb',
+      pajaro: '/_blob/bd33d7ef45c2158cdd8113e62ee29b1f',
+      golondrina: '/_blob/dd47676ec4b8dac0070c427770484a02'
+    };
+    const aves = [
+      { n: '001', nombre: 'Chorlo Gris', img: I.playero, ok: false },
+      { n: '002', nombre: 'Chorlo Semipalmado', img: I.playero, ok: false },
+      { n: '003', nombre: 'Chorlo Nevado', img: I.playero, ok: false },
+      { n: '004', nombre: 'Ostrero Americano', img: I.ostrero, ok: false },
+      { n: '005', nombre: 'Ostrero Negruzco', img: I.ostrero, ok: true },
+      { n: '006', nombre: 'Zarapito Trinador', img: I.playero, ok: false },
+      { n: '007', nombre: 'Aguja Moteada', img: I.playero, ok: false },
+      { n: '008', nombre: 'Vuelvepiedras Rojizo', img: I.playero, ok: false },
+      { n: '009', nombre: 'Playero de Pecho Rufo', img: I.playero, ok: false },
+      { n: '010', nombre: 'Chorlo de las Rompientes', img: I.playero, ok: false },
+      { n: '011', nombre: 'Playero Arenero', img: I.playero, ok: true, cromo: 'cromado' },
+      { n: '012', nombre: 'Playerito Semipalmado', img: I.playero, ok: false },
+      { n: '013', nombre: 'Playerito Occidental', img: I.playero, ok: false },
+      { n: '014', nombre: 'Agujeta de Pico Corto', img: I.playero, ok: false },
+      { n: '015', nombre: 'Playero Vagabundo', img: I.playero, ok: false },
+      { n: '016', nombre: 'Playero de Ala Blanca', img: I.playero, ok: false },
+      { n: '017', nombre: 'Rayador Negro', img: I.gaviotin, ok: false },
+      { n: '018', nombre: 'Gaviota de Capucha Gris', img: I.gaviota, ok: false },
+      { n: '019', nombre: 'Gaviota Gris', img: I.gaviota, ok: false },
+      { n: '020', nombre: 'Gaviota Reidora', img: I.gaviota, ok: false },
+      { n: '021', nombre: 'Gaviota de Franklin', img: I.gaviota, ok: false },
+      { n: '022', nombre: 'Gaviota Peruana', img: I.gaviota, ok: true },
+      { n: '023', nombre: 'Gaviota Dominicana', img: I.gaviota, ok: false },
+      { n: '024', nombre: 'Gaviotín Peruano', img: I.gaviotin, ok: true },
+      { n: '025', nombre: 'Gaviotín Zarcillo', img: I.zarcillo, ok: true, cromo: 'plata' },
+      { n: '026', nombre: 'Gaviotín Negro', img: I.gaviotin, ok: false },
+      { n: '027', nombre: 'Gaviotín Común', img: I.gaviotin, ok: false },
+      { n: '028', nombre: 'Gaviotín Sudamericano', img: I.gaviotin, ok: false },
+      { n: '029', nombre: 'Gaviotín Elegante', img: I.gaviotin, ok: false },
+      { n: '030', nombre: 'Gaviotín de Pata Negra', img: I.gaviotin, ok: false },
+      { n: '031', nombre: 'Gaviotín Real', img: I.gaviotin, ok: false },
+      { n: '032', nombre: 'Pingüino de Humboldt', img: I.pinguino, ok: true },
+      { n: '033', nombre: 'Potoyunco Peruano', img: I.marina, ok: false },
+      { n: '034', nombre: 'Piquero de Pata Azul', img: I.piquero, ok: false },
+      { n: '035', nombre: 'Piquero Peruano', img: I.piquero, ok: true },
+      { n: '036', nombre: 'Cormorán de Pata Roja', img: I.cormoran, ok: false },
+      { n: '037', nombre: 'Cormorán Guanay', img: I.cormoran, ok: false },
+      { n: '038', nombre: 'Pelícano Peruano', img: I.pelicano, ok: true },
+      { n: '039', nombre: 'Huaco de Corona Amarilla', img: I.garcita, ok: false },
+      { n: '040', nombre: 'Águila Pescadora', img: I.rapaz, ok: false },
+      { n: '041', nombre: 'Halcón Peregrino', img: I.rapaz, ok: false },
+      { n: '042', nombre: 'Churrete Marisquero', img: I.pajaro, ok: false },
+      { n: '043', nombre: 'Martín Peruano', img: I.golondrina, ok: false }
+    ];
+    return {
+      aves: aves.map(function (a) {
+        return { n: a.n, nombre: a.nombre, img: a.img, sombra: !a.ok, acabado: a.cromo || 'normal', href: a.ok ? 'GaleriaEspecie.dc.html' : 'AlbumSilueta.dc.html', label: a.nombre + (a.ok ? ', ver galería' : ', sticker vacío: completar con una foto') };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

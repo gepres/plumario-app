@@ -1,0 +1,911 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Album.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Álbum · figuras por hábitat",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "AlbumColocar.dc.html": {
+      "h": 844,
+      "page": "v1",
+      "title": "Colocar en espacios decorativos (v1)",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "AlbumSilueta.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Opción B · tocar un sticker vacío",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "BarraNav.dc.html": {
+      "h": 104,
+      "title": "BarraNav (componente)",
+      "w": 390,
+      "x": 2720,
+      "y": -4360
+    },
+    "Boton.dc.html": {
+      "h": 52,
+      "title": "Boton (componente)",
+      "w": 358,
+      "x": 2720,
+      "y": -4176
+    },
+    "Campo.dc.html": {
+      "h": 104,
+      "title": "Campo (componente)",
+      "w": 358,
+      "x": 2720,
+      "y": -4044
+    },
+    "CatalogoLogros.dc.html": {
+      "h": 940,
+      "title": "Catálogo de logros",
+      "w": 1280,
+      "x": 1840,
+      "y": 11256
+    },
+    "CategoriasCromos.dc.html": {
+      "h": 1300,
+      "title": "Cromos por categoría · criterios y reglas",
+      "w": 1280,
+      "x": 3980,
+      "y": 4290
+    },
+    "Celebracion.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Celebración · medalla de 10 especies",
+      "w": 390,
+      "x": 1410,
+      "y": 6040
+    },
+    "CompartirTarjeta.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Compartir · agregar mi foto",
+      "w": 390,
+      "x": 1410,
+      "y": 4290
+    },
+    "CromosCategorias.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mis cromos por categoría",
+      "w": 390,
+      "x": 3040,
+      "y": 4290
+    },
+    "FlujoLogros.dc.html": {
+      "h": 1000,
+      "title": "Flujo de logros",
+      "w": 1760,
+      "x": 0,
+      "y": 11256
+    },
+    "FlujoPoster10.dc.html": {
+      "h": 900,
+      "title": "Flujo del póster cada 10 especies",
+      "w": 1760,
+      "x": 0,
+      "y": 7284
+    },
+    "FlujoRegistrar.dc.html": {
+      "h": 1010,
+      "title": "Flujo de Registrar",
+      "w": 1760,
+      "x": 2350,
+      "y": 2880
+    },
+    "GaleriaEspecie.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Galería · cromo con 5 fotos validadas",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "GuiaComponentes.dc.html": {
+      "h": 2240,
+      "title": "Guía UI · componentes",
+      "w": 1280,
+      "x": 1360,
+      "y": -4360
+    },
+    "GuiaFundamentos.dc.html": {
+      "h": 1520,
+      "title": "Guía UI · fundamentos",
+      "w": 1280,
+      "x": 0,
+      "y": -4360
+    },
+    "HabitatLitoral.dc.html": {
+      "h": 2480,
+      "is_interactive": true,
+      "title": "Álbum · Litoral y mar (43 figuras)",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "Inicio.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Inicio · con avance",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "InicioVacio.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Inicio · primer uso",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "IntercambioProponer.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Intercambio · pedir un cromo",
+      "w": 390,
+      "x": 470,
+      "y": 4290
+    },
+    "IntercambioRecibido.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Intercambio · lo que ve la otra persona",
+      "w": 390,
+      "x": 940,
+      "y": 4290
+    },
+    "Login.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Iniciar sesión",
+      "w": 390,
+      "x": 1360,
+      "y": -1720
+    },
+    "Logo.dc.html": {
+      "h": 1320,
+      "title": "Logo · propuesta",
+      "w": 1280,
+      "x": 0,
+      "y": -1720
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mis recompensas · Medallas",
+      "w": 390,
+      "x": 0,
+      "y": 6040
+    },
+    "Medalla.dc.html": {
+      "h": 240,
+      "title": "Componente · Medalla",
+      "w": 200,
+      "x": 6160,
+      "y": 11256
+    },
+    "NuevaContrasena.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Nueva contraseña (con error de ejemplo)",
+      "w": 390,
+      "x": 3240,
+      "y": -1720
+    },
+    "OlvideContrasena.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Olvidé mi contraseña",
+      "w": 390,
+      "x": 2300,
+      "y": -1720
+    },
+    "OlvideEnviado.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Revisa tu correo («Abrir mi correo» simula el enlace)",
+      "w": 390,
+      "x": 2770,
+      "y": -1720
+    },
+    "Perfil.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Perfil",
+      "w": 390,
+      "x": 2820,
+      "y": 0
+    },
+    "PerfilAyuda.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Ayuda y comentarios",
+      "w": 390,
+      "x": 4230,
+      "y": 1440
+    },
+    "PerfilBuenasPracticas.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Buenas prácticas de observación",
+      "w": 390,
+      "x": 3760,
+      "y": 1440
+    },
+    "PerfilComentario.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Enviar un comentario (formulario y gracias)",
+      "w": 390,
+      "x": 4700,
+      "y": 1440
+    },
+    "PerfilEditar.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Editar perfil (ave favorita como foto)",
+      "w": 390,
+      "x": 2820,
+      "y": 1440
+    },
+    "PerfilPrivacidad.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Privacidad",
+      "w": 390,
+      "x": 3290,
+      "y": 1440
+    },
+    "Poster10.dc.html": {
+      "h": 1587,
+      "title": "Póster 1 · 10 especies (componente A3)",
+      "w": 1123,
+      "x": 2780,
+      "y": 7284
+    },
+    "Poster10Camino.dc.html": {
+      "h": 1587,
+      "title": "Póster 2 · en camino (12 de 20)",
+      "w": 1123,
+      "x": 3983,
+      "y": 7284
+    },
+    "PosterGenerado.dc.html": {
+      "h": 1587,
+      "page": "v1",
+      "title": "Póster al azar cada 10 especies (v1.5)",
+      "w": 1123,
+      "x": 3156,
+      "y": 0
+    },
+    "PosterGenerar.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Generar póster 1 (mezclar, fondo, título)",
+      "w": 390,
+      "x": 1840,
+      "y": 7284
+    },
+    "PosterHabitat.dc.html": {
+      "h": 1587,
+      "title": "Póster · Litoral y mar · fondo claro (A3)",
+      "w": 1123,
+      "x": 470,
+      "y": 9171
+    },
+    "PosterHabitatOscuro.dc.html": {
+      "h": 1587,
+      "title": "Póster · fondo oscuro, mis aves primero, con mis fotos (A3)",
+      "w": 1123,
+      "x": 1673,
+      "y": 9171
+    },
+    "PosterImpresion.dc.html": {
+      "h": 1685,
+      "title": "Póster · versión para imprenta (sangrado y marcas de corte)",
+      "w": 1221,
+      "x": 2876,
+      "y": 9171
+    },
+    "PosterListo.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Póster guardado · descargar y compartir",
+      "w": 390,
+      "x": 2310,
+      "y": 7284
+    },
+    "PosterLitoral.dc.html": {
+      "h": 1587,
+      "page": "v1",
+      "title": "Póster temático · Aves del litoral (v1)",
+      "w": 1123,
+      "x": 470,
+      "y": 0
+    },
+    "PosterLitoralFotos.dc.html": {
+      "h": 1587,
+      "page": "v1",
+      "title": "Póster temático con mis fotos (v1)",
+      "w": 1123,
+      "x": 1673,
+      "y": 0
+    },
+    "PosterVista.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Póster de hábitat · personalizar",
+      "w": 390,
+      "x": 0,
+      "y": 9171
+    },
+    "RecompensasPosteres.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mis recompensas · Pósteres por hábitat",
+      "w": 390,
+      "x": 940,
+      "y": 6040
+    },
+    "RecompensasStickers.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mis recompensas · Cromos",
+      "w": 390,
+      "x": 470,
+      "y": 6040
+    },
+    "RegionLista.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Elegir región · lista y búsqueda",
+      "w": 390,
+      "x": 3760,
+      "y": 0
+    },
+    "RegionMapa.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Elegir región · mapa del Perú",
+      "w": 390,
+      "x": 3290,
+      "y": 0
+    },
+    "RegistrarCamara.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Registrar 1 · tomar o elegir foto",
+      "w": 390,
+      "x": 0,
+      "y": 2880
+    },
+    "RegistrarColocar.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Registrar 3 · colocar y guardar la foto",
+      "w": 390,
+      "x": 940,
+      "y": 2880
+    },
+    "RegistrarCompletado.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Registrar 4 · sticker completado (salió normal)",
+      "w": 390,
+      "x": 1410,
+      "y": 2880
+    },
+    "RegistrarIdentificar.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Registrar 2 · la IA sugiere el sticker",
+      "w": 390,
+      "x": 470,
+      "y": 2880
+    },
+    "Registro.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Crear cuenta",
+      "w": 390,
+      "x": 1830,
+      "y": -1720
+    },
+    "RevelarCromado.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Registrar 4 · ¡salió cromado!",
+      "w": 390,
+      "x": 1880,
+      "y": 2880
+    },
+    "RevelarDiamante.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Revelado · cromo diamante (especie amenazada)",
+      "w": 390,
+      "x": 3510,
+      "y": 4290
+    },
+    "SistemaRegiones.dc.html": {
+      "h": 1040,
+      "title": "Varias regiones · propuesta",
+      "w": 1280,
+      "x": 4230,
+      "y": 0
+    },
+    "SistemaSiluetas.dc.html": {
+      "h": 720,
+      "title": "Siluetas por grupo",
+      "w": 1280,
+      "x": 4560,
+      "y": 11256
+    },
+    "SistemaStickers.dc.html": {
+      "h": 880,
+      "title": "Sticker normal, cromado y en sombra",
+      "w": 1280,
+      "x": 3200,
+      "y": 11256
+    },
+    "Sticker.dc.html": {
+      "h": 200,
+      "page": "v1",
+      "title": "Sticker especial por logro (v1)",
+      "w": 200,
+      "x": 2876,
+      "y": 0
+    },
+    "StickerAve.dc.html": {
+      "h": 205,
+      "title": "Componente · Sticker de especie",
+      "w": 160,
+      "x": 5920,
+      "y": 11256
+    },
+    "StickerDetalle.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Detalle del sticker cromado",
+      "w": 390,
+      "x": 0,
+      "y": 4290
+    },
+    "TarjetaLogro.dc.html": {
+      "h": 1350,
+      "title": "Tarjeta para compartir (con o sin foto propia)",
+      "w": 1080,
+      "x": 1880,
+      "y": 4290
+    },
+    "PaletaAClaro.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción A · Pacífico · claro",
+      "page": "paletas"
+    },
+    "PaletaAOscuro.dc.html": {
+      "x": 0,
+      "y": 1340,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción A · Pacífico · oscuro",
+      "page": "paletas"
+    },
+    "PaletaBClaro.dc.html": {
+      "x": 0,
+      "y": 2980,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción B · Índigo colibrí · claro",
+      "page": "paletas"
+    },
+    "PaletaBOscuro.dc.html": {
+      "x": 0,
+      "y": 4320,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción B · Índigo colibrí · oscuro",
+      "page": "paletas"
+    },
+    "TemaLogin.dc.html": {
+      "x": 0,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaLogin (componente con prop tema)",
+      "page": "paletas"
+    },
+    "TemaInicio.dc.html": {
+      "x": 470,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaInicio (componente con prop tema)",
+      "page": "paletas"
+    },
+    "TemaAlbum.dc.html": {
+      "x": 940,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaAlbum (componente con prop tema)",
+      "page": "paletas"
+    },
+    "TemaRevelar.dc.html": {
+      "x": 1410,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaRevelar (componente con prop tema)",
+      "page": "paletas"
+    },
+    "TemaRecompensas.dc.html": {
+      "x": 1880,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaRecompensas (componente con prop tema)",
+      "page": "paletas"
+    },
+    "TemaPerfil.dc.html": {
+      "x": 2350,
+      "y": 5960,
+      "w": 390,
+      "h": 844,
+      "title": "TemaPerfil (componente con prop tema)",
+      "page": "paletas"
+    },
+    "PaletaCClaro.dc.html": {
+      "x": 0,
+      "y": 7204,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción C · Huacachina · claro",
+      "page": "paletas"
+    },
+    "PaletaCOscuro.dc.html": {
+      "x": 0,
+      "y": 8544,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción C · Huacachina · oscuro",
+      "page": "paletas"
+    },
+    "PaletaDClaro.dc.html": {
+      "x": 0,
+      "y": 10184,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción D · Totoral · claro",
+      "page": "paletas"
+    },
+    "PaletaDOscuro.dc.html": {
+      "x": 0,
+      "y": 11524,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción D · Totoral · oscuro",
+      "page": "paletas"
+    },
+    "PaletaEClaro.dc.html": {
+      "x": 0,
+      "y": 16144,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción E · Vendimia · claro",
+      "page": "paletas"
+    },
+    "PaletaEOscuro.dc.html": {
+      "x": 0,
+      "y": 17484,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción E · Vendimia · oscuro",
+      "page": "paletas"
+    },
+    "TemaLogo.dc.html": {
+      "x": 2820,
+      "y": 5960,
+      "w": 120,
+      "h": 120,
+      "title": "TemaLogo (componente con los colores del tema)",
+      "page": "paletas"
+    },
+    "PaletaFClaro.dc.html": {
+      "x": 0,
+      "y": 13164,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción F · Ribera · claro",
+      "page": "paletas"
+    },
+    "PaletaFOscuro.dc.html": {
+      "x": 0,
+      "y": 14504,
+      "w": 2668,
+      "h": 1240,
+      "title": "Opción F · Ribera · oscuro",
+      "page": "paletas"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-24T04:05:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "t-acceso": {
+      "kind": "title1",
+      "maxW": 2270,
+      "text": "Acceso: entrar, crear cuenta y recuperar contraseña",
+      "w": 240,
+      "x": 1360,
+      "y": -2020
+    },
+    "t-cromos": {
+      "kind": "title1",
+      "maxW": 5260,
+      "text": "Cromos: categorías, intercambio y compartir",
+      "w": 240,
+      "x": 0,
+      "y": 3990
+    },
+    "t-guia": {
+      "kind": "title1",
+      "maxW": 3110,
+      "text": "Guía UI: fundamentos y componentes",
+      "w": 240,
+      "x": 0,
+      "y": -4660
+    },
+    "t-inicio": {
+      "kind": "title1",
+      "maxW": 5510,
+      "text": "Inicio, álbum, perfil y regiones",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t-marca": {
+      "kind": "title1",
+      "maxW": 1280,
+      "text": "Marca",
+      "w": 240,
+      "x": 0,
+      "y": -2020
+    },
+    "t-perfil": {
+      "kind": "title1",
+      "maxW": 2270,
+      "text": "Dentro del perfil: editar, privacidad, buenas prácticas y ayuda",
+      "w": 240,
+      "x": 2820,
+      "y": 1140
+    },
+    "t-posteres": {
+      "kind": "title1",
+      "maxW": 5106,
+      "text": "Póster cada 10 especies",
+      "w": 240,
+      "x": 0,
+      "y": 6984
+    },
+    "t-posteres-hab": {
+      "kind": "title1",
+      "maxW": 4097,
+      "text": "Pósteres por hábitat: se habilitan al completar el hábitat",
+      "w": 240,
+      "x": 0,
+      "y": 8871
+    },
+    "t-recompensas": {
+      "kind": "title1",
+      "maxW": 1800,
+      "text": "Mis recompensas",
+      "w": 240,
+      "x": 0,
+      "y": 5740
+    },
+    "t-registro": {
+      "kind": "title1",
+      "maxW": 4110,
+      "text": "Registrar: foto primero, o desde el álbum",
+      "w": 240,
+      "x": 0,
+      "y": 2580
+    },
+    "t-sistema": {
+      "kind": "title1",
+      "maxW": 6360,
+      "text": "Sistema y componentes",
+      "w": 240,
+      "x": 0,
+      "y": 10956
+    },
+    "t-v1": {
+      "kind": "title1",
+      "maxW": 4279,
+      "page": "v1",
+      "text": "Versión 1 · reemplazada por el sistema v2",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t-pal-a": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción A · Pacífico: océano, parihuana y sol",
+      "x": 0,
+      "y": -300
+    },
+    "t-pal-b": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción B · Índigo colibrí: índigo, verde colibrí y ámbar",
+      "x": 0,
+      "y": 2680
+    },
+    "t-pal-comp": {
+      "kind": "title1",
+      "maxW": 2940,
+      "page": "paletas",
+      "text": "Pantallas de muestra (cambian de paleta con la prop tema)",
+      "x": 0,
+      "y": 5660
+    },
+    "t-pal-c": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción C · Huacachina: terracota, arena y malva",
+      "x": 0,
+      "y": 6904
+    },
+    "t-pal-d": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción D · Totoral: totora, salvia y junco",
+      "x": 0,
+      "y": 9884
+    },
+    "t-pal-e": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción E · Vendimia: granate, vid y ámbar",
+      "x": 0,
+      "y": 15844
+    },
+    "t-pal-f": {
+      "kind": "title1",
+      "maxW": 2668,
+      "page": "paletas",
+      "text": "Opción F · Ribera: garza blanca, totora y junco",
+      "x": 0,
+      "y": 12864
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "RecompensasStickers.dc.html",
+    "RecompensasPosteres.dc.html",
+    "Celebracion.dc.html",
+    "Inicio.dc.html",
+    "InicioVacio.dc.html",
+    "Album.dc.html",
+    "HabitatLitoral.dc.html",
+    "AlbumSilueta.dc.html",
+    "GaleriaEspecie.dc.html",
+    "RegistrarCamara.dc.html",
+    "RegistrarIdentificar.dc.html",
+    "RegistrarColocar.dc.html",
+    "RegistrarCompletado.dc.html",
+    "RevelarCromado.dc.html",
+    "FlujoRegistrar.dc.html",
+    "StickerDetalle.dc.html",
+    "IntercambioProponer.dc.html",
+    "IntercambioRecibido.dc.html",
+    "CompartirTarjeta.dc.html",
+    "TarjetaLogro.dc.html",
+    "PosterVista.dc.html",
+    "PosterHabitat.dc.html",
+    "PosterHabitatOscuro.dc.html",
+    "PosterImpresion.dc.html",
+    "FlujoLogros.dc.html",
+    "CatalogoLogros.dc.html",
+    "SistemaStickers.dc.html",
+    "SistemaSiluetas.dc.html",
+    "StickerAve.dc.html",
+    "Medalla.dc.html",
+    "AlbumColocar.dc.html",
+    "PosterLitoral.dc.html",
+    "PosterLitoralFotos.dc.html",
+    "Sticker.dc.html",
+    "PosterGenerado.dc.html",
+    "CromosCategorias.dc.html",
+    "RevelarDiamante.dc.html",
+    "CategoriasCromos.dc.html",
+    "FlujoPoster10.dc.html",
+    "PosterGenerar.dc.html",
+    "PosterListo.dc.html",
+    "Poster10.dc.html",
+    "Poster10Camino.dc.html",
+    "Logo.dc.html",
+    "Perfil.dc.html",
+    "RegionMapa.dc.html",
+    "RegionLista.dc.html",
+    "SistemaRegiones.dc.html",
+    "GuiaFundamentos.dc.html",
+    "GuiaComponentes.dc.html",
+    "BarraNav.dc.html",
+    "Boton.dc.html",
+    "Campo.dc.html",
+    "Login.dc.html",
+    "Registro.dc.html",
+    "OlvideContrasena.dc.html",
+    "OlvideEnviado.dc.html",
+    "NuevaContrasena.dc.html",
+    "PerfilEditar.dc.html",
+    "PerfilPrivacidad.dc.html",
+    "PerfilBuenasPracticas.dc.html",
+    "PerfilAyuda.dc.html",
+    "PerfilComentario.dc.html",
+    "PaletaAClaro.dc.html",
+    "PaletaAOscuro.dc.html",
+    "PaletaBClaro.dc.html",
+    "PaletaBOscuro.dc.html",
+    "TemaLogin.dc.html",
+    "TemaInicio.dc.html",
+    "TemaAlbum.dc.html",
+    "TemaRevelar.dc.html",
+    "TemaRecompensas.dc.html",
+    "TemaPerfil.dc.html",
+    "PaletaCClaro.dc.html",
+    "PaletaCOscuro.dc.html",
+    "PaletaDClaro.dc.html",
+    "PaletaDOscuro.dc.html",
+    "PaletaEClaro.dc.html",
+    "PaletaEOscuro.dc.html",
+    "TemaLogo.dc.html",
+    "PaletaFClaro.dc.html",
+    "PaletaFOscuro.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "v2",
+      "name": "Sistema v2"
+    },
+    {
+      "id": "v1",
+      "name": "Versión 1"
+    },
+    {
+      "id": "paletas",
+      "name": "Paletas"
+    }
+  ],
+  "title": "Sistema de recompensas · Aves de Ica"
+}

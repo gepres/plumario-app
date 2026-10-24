@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Póster de hábitat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 1123px; height: 1587px; overflow: hidden; background: {{p.sky}}; color: {{ink}}; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif">
+
+<sc-if value="{{isLIT}}" hint-placeholder-val="{{ true }}">
+<svg width="1123" height="1587" viewBox="0 0 1123 1587" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<rect x="0" y="0" width="1123" height="1587" fill="{{p.sky}}"></rect>
+<circle cx="900" cy="200" r="96" fill="{{p.sun}}"></circle>
+<path d="M520 560 L560 488 L610 470 L640 430 L700 440 L728 488 L736 560 Z" fill="{{p.far}}"></path>
+<path d="M770 560 L790 500 L838 478 L890 486 L922 522 L940 560 Z" fill="{{p.far}}"></path>
+<rect x="0" y="556" width="1123" height="1031" fill="{{p.sea}}"></rect>
+<rect x="0" y="880" width="1123" height="707" fill="{{p.sea2}}"></rect>
+<path d="M-20 640 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-50 760 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-20 980 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-50 1160 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M0 1400 C260 1352 520 1372 760 1342 C900 1324 1020 1330 1123 1312 L1123 1587 L0 1587 Z" fill="{{p.sand}}"></path>
+<path d="M0 1400 C260 1352 520 1372 760 1342 C900 1324 1020 1330 1123 1312" fill="none" stroke="{{p.wave}}" stroke-width="6"></path>
+<path d="M560 1587 C720 1490 940 1474 1123 1500 L1123 1587 Z" fill="{{p.sand2}}"></path>
+</svg>
+</sc-if>
+
+<sc-if value="{{isHUM}}" hint-placeholder-val="{{ false }}">
+<svg width="1123" height="1587" viewBox="0 0 1123 1587" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<rect x="0" y="0" width="1123" height="1587" fill="{{p.sky}}"></rect>
+<circle cx="860" cy="210" r="90" fill="{{p.sun}}"></circle>
+<path d="M0 600 C180 520 360 540 520 580 C680 520 900 500 1123 570 L1123 640 L0 640 Z" fill="{{p.far}}"></path>
+<rect x="0" y="620" width="1123" height="967" fill="{{p.water}}"></rect>
+<rect x="0" y="960" width="1123" height="627" fill="{{p.water2}}"></rect>
+<path d="M80 700 h120 M320 724 h90 M600 694 h140 M880 716 h110 M140 820 h90 M420 840 h130 M760 812 h100 M200 1020 h120 M520 1050 h90 M820 1030 h130 M120 1180 h100 M460 1200 h120 M780 1170 h90" fill="none" stroke="{{p.wave}}" stroke-width="4" stroke-linecap="round"></path>
+<path d="M30 1587 L36 1300 M58 1587 L60 1340 M86 1587 L94 1280 M112 1587 L112 1360 M140 1587 L150 1310 M168 1587 L166 1380 M196 1587 L206 1330 M224 1587 L228 1390 M930 1587 L924 1340 M956 1587 L962 1290 M982 1587 L980 1360 M1008 1587 L1016 1310 M1034 1587 L1032 1370 M1060 1587 L1068 1300 M1088 1587 L1086 1350 M1114 1587 L1118 1320" fill="none" stroke="{{p.reed}}" stroke-width="6" stroke-linecap="round"></path>
+<rect x="31" y="1296" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="89" y="1276" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="145" y="1306" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="201" y="1326" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="957" y="1286" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="1011" y="1306" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<rect x="1063" y="1296" width="10" height="56" rx="5" fill="{{p.reed2}}"></rect>
+<path d="M0 1520 C300 1490 800 1500 1123 1480 L1123 1587 L0 1587 Z" fill="{{p.mud}}"></path>
+</svg>
+</sc-if>
+
+<sc-if value="{{isDES}}" hint-placeholder-val="{{ false }}">
+<svg width="1123" height="1587" viewBox="0 0 1123 1587" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<rect x="0" y="0" width="1123" height="1587" fill="{{p.sky}}"></rect>
+<circle cx="880" cy="230" r="120" fill="{{p.sun}}"></circle>
+<path d="M0 640 C200 560 380 600 560 620 C760 560 960 560 1123 600 L1123 1587 L0 1587 Z" fill="{{p.far}}"></path>
+<path d="M0 900 C260 760 520 820 760 900 C900 940 1020 920 1123 880 L1123 1587 L0 1587 Z" fill="{{p.dune}}"></path>
+<path d="M0 900 C260 760 520 820 760 900 C900 940 1020 920 1123 880" fill="none" stroke="{{p.shade}}" stroke-width="5"></path>
+<path d="M0 1260 C240 1180 520 1220 760 1300 C920 1350 1040 1340 1123 1310 L1123 1587 L0 1587 Z" fill="{{p.dune2}}"></path>
+<path d="M0 1260 C240 1180 520 1220 760 1300" fill="none" stroke="{{p.shade}}" stroke-width="5"></path>
+<path d="M150 1587 C152 1520 144 1470 126 1430 M150 1500 C176 1470 204 1452 232 1442" fill="none" stroke="{{p.tree}}" stroke-width="14" stroke-linecap="round"></path>
+<ellipse cx="104" cy="1404" rx="92" ry="40" fill="{{p.tree2}}"></ellipse>
+<ellipse cx="214" cy="1416" rx="80" ry="34" fill="{{p.tree2}}"></ellipse>
+<ellipse cx="160" cy="1372" rx="70" ry="32" fill="{{p.tree2}}"></ellipse>
+</svg>
+</sc-if>
+
+<sc-if value="{{isAND}}" hint-placeholder-val="{{ false }}">
+<svg width="1123" height="1587" viewBox="0 0 1123 1587" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<rect x="0" y="0" width="1123" height="1587" fill="{{p.sky}}"></rect>
+<circle cx="880" cy="200" r="80" fill="{{p.sun}}"></circle>
+<path d="M0 620 L120 520 L220 580 L340 450 L460 560 L560 480 L680 590 L800 430 L920 540 L1020 470 L1123 540 L1123 760 L0 760 Z" fill="{{p.far}}"></path>
+<path d="M340 450 L374 482 L354 478 L340 494 L326 480 L306 484 Z" fill="{{p.snow}}"></path>
+<path d="M800 430 L838 466 L816 462 L800 478 L784 464 L762 468 Z" fill="{{p.snow}}"></path>
+<path d="M560 480 L588 506 L570 504 L560 516 L548 504 L532 508 Z" fill="{{p.snow}}"></path>
+<path d="M0 760 L160 640 L300 720 L460 600 L620 720 L780 640 L940 740 L1123 650 L1123 900 L0 900 Z" fill="{{p.mid}}"></path>
+<rect x="0" y="880" width="1123" height="707" fill="{{p.near}}"></rect>
+<path d="M0 1340 C200 1280 420 1300 600 1340 C800 1300 980 1290 1123 1320 L1123 1587 L0 1587 Z" fill="{{p.grass}}"></path>
+</svg>
+</sc-if>
+
+<sc-if value="{{isPEL}}" hint-placeholder-val="{{ false }}">
+<svg width="1123" height="1587" viewBox="0 0 1123 1587" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<rect x="0" y="0" width="1123" height="1587" fill="{{p.sky}}"></rect>
+<circle cx="300" cy="400" r="70" fill="{{p.sun}}"></circle>
+<rect x="0" y="460" width="1123" height="1127" fill="{{p.sea}}"></rect>
+<rect x="0" y="820" width="1123" height="767" fill="{{p.sea2}}"></rect>
+<rect x="0" y="1200" width="1123" height="387" fill="{{p.deep}}"></rect>
+<path d="M0 460 H1123" fill="none" stroke="{{p.wave}}" stroke-width="3"></path>
+<path d="M-20 540 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-50 700 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-20 940 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-50 1120 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-20 1320 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M-50 1480 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="{{p.wave}}" stroke-width="3" stroke-linecap="round"></path>
+</svg>
+</sc-if>
+
+<div style="position: absolute; left: 0; top: 0; width: 1123px; height: 1587px; box-sizing: border-box; padding: 72px; display: flex; flex-direction: column; gap: 24px">
+
+<header style="flex: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+<span style="font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: {{accent}}">Álbum Aves de Ica · Póster de hábitat</span>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 88px; font-weight: 800; line-height: 1; letter-spacing: -0.025em; white-space: nowrap">{{nombre}}</h1>
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 30px; line-height: 1.2; color: {{sub}}">{{done}} de {{total}} especies · [Nombre del coleccionista]</span>
+</div>
+<div style="flex: none; width: 150px; height: 150px; box-sizing: border-box; border-radius: 50%; background: {{cardBg}}; border: 3px solid {{accent}}; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 44px; font-weight: 800; line-height: 1; color: {{accent}}">{{done}}/{{total}}</span>
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase">especies</span>
+</div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: repeat({{cols}}, minmax(0, 1fr)); gap: 10px; align-content: center">
+<sc-for list="{{cells}}" as="s" hint-placeholder-count="43">
+<div style="box-sizing: border-box; border-radius: 14px; background: {{s.cardBg}}; padding: 8px 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0">
+<div style="width: {{s.fig}}px; height: {{s.fig}}px; box-sizing: border-box; border-radius: {{s.wrapRadius}}; padding: 3px; background: {{s.ring}}">
+<sc-if value="{{s.showFig}}" hint-placeholder-val="{{ false }}">
+<div style="width: 100%; height: 100%; border-radius: 50%; background: {{s.tint}}; display: flex; align-items: center; justify-content: center; overflow: hidden"><img src="{{s.img}}" alt="" style="width: {{s.figIn}}px; height: {{s.figIn}}px"></div>
+</sc-if>
+<sc-if value="{{s.showFoto}}" hint-placeholder-val="{{ false }}">
+<div style="width: 100%; height: 100%; border-radius: 11px; background: {{s.fotoBg}}; display: flex; align-items: center; justify-content: center; color: #14302F"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></div>
+</sc-if>
+<sc-if value="{{s.showSombra}}" hint-placeholder-val="{{ true }}">
+<div style="width: 100%; height: 100%; box-sizing: border-box; border-radius: 50%; background: {{s.sombraBg}}; border: {{s.sombraBorder}}; display: flex; align-items: center; justify-content: center; overflow: hidden"><img src="{{s.img}}" alt="" style="width: {{s.figIn}}px; height: {{s.figIn}}px; filter: {{s.sombraFilter}}; opacity: {{s.sombraOpacity}}"></div>
+</sc-if>
+</div>
+<span style="font-size: 13px; font-weight: 700; color: {{s.numColor}}">{{s.num}}</span>
+<sc-if value="{{s.names}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 14px; font-weight: 600; line-height: 17px; height: 34px; overflow: hidden; text-align: center; color: {{s.nameColor}}">{{s.nombre}}</span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<footer style="flex: none; border-radius: 14px; background: {{cardBg}}; padding: 12px 18px; display: flex; justify-content: space-between; gap: 24px; font-size: 16px; color: {{sub}}">
+<span>{{pie}}</span>
+<span style="font-weight: 700; color: {{ink}}">Álbum Aves de Ica · Edición inicial</span>
+</footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"habitat":{"editor":"enum","options":["LIT","HUM","DES","AND","PEL"],"default":"LIT"},"tema":{"editor":"enum","options":["claro","oscuro"],"default":"claro"},"orden":{"editor":"enum","options":["numero","mias","azar"],"default":"numero"},"fotos":{"editor":"boolean","default":false},"seed":{"editor":"int","default":7,"min":1,"max":9999},"$preview":{"width":1123,"height":1587}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = function (id) { return '/_blob/' + id; };
+    const IMG = {
+      playero: B('700e5a92d8dae9ed43cb6af87296da4a'), ostrero: B('ad333582f63fc034b5502953c14b64de'),
+      gaviota: B('95828bd5b7fe0dda93d787c2e178af86'), gaviotin: B('4872b8efc92794f43c266dd9d5443ff9'),
+      zarcillo: B('cdb078ae3f20d0b791f60aa76ef64daf'), pinguino: B('5fc0580c91c07a04c8b7ce42a3c9a6d2'),
+      piquero: B('48f636337e470379dd8bdaa2851aa67e'), pelicano: B('92d0b07d7a6b9d699e834111a098ce4a'),
+      flamenco: B('134f420a8833e17a10978048f13b57fd'), ciguenuela: B('6296ffe1eefbe10536c55645e57fd551'),
+      garcita: B('d2e03e73fd6b3ebda1ddb6b5afcc6dbb'), lechuza: B('380612587e53c68fbb5b4ef6dac14ce7'),
+      pato: B('a502131de354f9ff111cefd6fc3bf5f7'), zambullidor: B('28eb48ed7ad693b999617c0a4092f292'),
+      gallareta: B('413db6bc5ae615df7234f1ea3e58ad54'), paloma: B('53239f140a3d5f5fbee940ee877cf0f4'),
+      colibri: B('3bf57018dbc1bb9858f8771245a61246'), pajaro: B('bd33d7ef45c2158cdd8113e62ee29b1f'),
+      golondrina: B('dd47676ec4b8dac0070c427770484a02'), rapaz: B('628e046e3078c302a31829e5497b15eb'),
+      gallinazo: B('be5f9b84baa8bc6c9ae1858d2b36e745'), cormoran: B('324eb365f7661bc4b510461415b5d31f'),
+      marina: B('2b893819fa418d69436c6fc4cbcb458d'), loro: B('f06f9bb6899166065ffde5bc687c308c'),
+      perdiz: B('4d15a0df0cb76874cf395a7310506358')
+    };
+    const ILL = { 5: 'ostrero', 11: 'playero', 22: 'gaviota', 24: 'gaviotin', 25: 'zarcillo', 32: 'pinguino', 35: 'piquero', 38: 'pelicano', 50: 'flamenco', 61: 'ciguenuela', 77: 'garcita', 106: 'lechuza' };
+    const CROMO = { 11: 'cromado', 25: 'plata' };
+    const DATA = {
+      LIT: [[1,'Chorlo Gris','playero'],[2,'Chorlo Semipalmado','playero'],[3,'Chorlo Nevado','playero'],[4,'Ostrero Americano','ostrero'],[5,'Ostrero Negruzco','ostrero'],[6,'Zarapito Trinador','playero'],[7,'Aguja Moteada','playero'],[8,'Vuelvepiedras Rojizo','playero'],[9,'Playero de Pecho Rufo','playero'],[10,'Chorlo de las Rompientes','playero'],[11,'Playero Arenero','playero'],[12,'Playerito Semipalmado','playero'],[13,'Playerito Occidental','playero'],[14,'Agujeta de Pico Corto','playero'],[15,'Playero Vagabundo','playero'],[16,'Playero de Ala Blanca','playero'],[17,'Rayador Negro','gaviotin'],[18,'Gaviota de Capucha Gris','gaviota'],[19,'Gaviota Gris','gaviota'],[20,'Gaviota Reidora','gaviota'],[21,'Gaviota de Franklin','gaviota'],[22,'Gaviota Peruana','gaviota'],[23,'Gaviota Dominicana','gaviota'],[24,'Gaviotín Peruano','gaviotin'],[25,'Gaviotín Zarcillo','gaviotin'],[26,'Gaviotín Negro','gaviotin'],[27,'Gaviotín Común','gaviotin'],[28,'Gaviotín Sudamericano','gaviotin'],[29,'Gaviotín Elegante','gaviotin'],[30,'Gaviotín de Pata Negra','gaviotin'],[31,'Gaviotín Real','gaviotin'],[32,'Pingüino de Humboldt','pinguino'],[33,'Potoyunco Peruano','marina'],[34,'Piquero de Pata Azul','piquero'],[35,'Piquero Peruano','piquero'],[36,'Cormorán de Pata Roja','cormoran'],[37,'Cormorán Guanay','cormoran'],[38,'Pelícano Peruano','pelicano'],[39,'Huaco de Corona Amarilla','garcita'],[40,'Águila Pescadora','rapaz'],[41,'Halcón Peregrino','rapaz'],[42,'Churrete Marisquero','pajaro'],[43,'Martín Peruano','golondrina']],
+      HUM: [[44,'Pato de Ala Azul','pato'],[45,'Pato Colorado','pato'],[46,'Pato Gargantillo','pato'],[47,'Pato Jergón','pato'],[48,'Pato Morado','pato'],[49,'Pato Rana','pato'],[50,'Flamenco Chileno','flamenco'],[51,'Zambullidor Pimpollo','zambullidor'],[52,'Zambullidor de Pico Grueso','zambullidor'],[53,'Zambullidor Grande','zambullidor'],[54,'Rascón Menor','gallareta'],[55,'Rascón Plomizo','gallareta'],[56,'Polla de Agua Común','gallareta'],[57,'Gallareta Andina','gallareta'],[58,'Chorlo Dorado Americano','playero'],[59,'Chorlo Gritón','playero'],[60,'Chorlo Acollarado','playero'],[61,'Cigüeñuela de Cuello Negro','ciguenuela'],[62,'Aguja de Mar','playero'],[63,'Playero de Pata Larga','playero'],[64,'Playerito de Baird','playero'],[65,'Playerito Menudo','playero'],[66,'Playerito de Lomo Blanco','playero'],[67,'Playero Pectoral','playero'],[68,'Faláropo Tricolor','playero'],[69,'Playero Coleador','playero'],[70,'Playero Solitario','playero'],[71,'Playero Pata Amarilla Mayor','playero'],[72,'Playero Pata Amarilla Menor','playero'],[73,'Gaviotín de Pico Negro','gaviotin'],[74,'Cormorán Neotropical','cormoran'],[75,'Mirasol Leonado','garcita'],[76,'Garcita Azul','garcita'],[77,'Garcita Blanca','garcita'],[78,'Huaco Común','garcita'],[79,'Garcita Estriada','garcita'],[80,'Garcita Bueyera','garcita'],[81,'Garza Grande','garcita'],[82,'Martín Pescador Verde','pajaro'],[83,'Junquero','pajaro'],[84,'Golondrina Ribereña','golondrina'],[85,'Reinita Equinoccial','pajaro']],
+      DES: [[86,'Paloma Doméstica','paloma'],[87,'Tórtola Melódica','paloma'],[88,'Tórtola Orejuda','paloma'],[89,'Tortolita Peruana','paloma'],[90,'Garrapatero de Pico Estriado','pajaro'],[91,'Cuclillo de Pico Oscuro','pajaro'],[92,'Chotacabras Menor','golondrina'],[93,'Estrellita de Collar Púrpura','colibri'],[94,'Colibrí de Oasis','colibri'],[95,'Colibrí de Cora','colibri'],[96,'Colibrí de Vientre Rufo','colibri'],[97,'Alcaraván Huerequeque','playero'],[98,'Agachona Chica','playero'],[99,'Gallinazo de Cabeza Negra','gallinazo'],[100,'Gallinazo de Cabeza Roja','gallinazo'],[101,'Gavilán Mixto','rapaz'],[102,'Aguilucho Variable','rapaz'],[103,'Aguilucho de Cola Fajeada','rapaz'],[104,'Lechuza de Campanario Americana','lechuza'],[105,'Lechucita Peruana','lechuza'],[106,'Lechuza Terrestre','lechuza'],[107,'Búho Listado','lechuza'],[108,'Lechuza de Oreja Corta','lechuza'],[109,'Carpintero de Cuello Negro','pajaro'],[110,'Cernícalo Americano','rapaz'],[111,'Periquito Esmeralda','loro'],[112,'Cotorra Cordillerana','loro'],[113,'Minero Peruano','pajaro'],[114,'Minero Gris','pajaro'],[115,'Canastero de los Cactus','pajaro'],[116,'Fío-Fío de Cresta Blanca','pajaro'],[117,'Mosquerito Silbador del Pacífico','pajaro'],[118,'Dormilona de Cola Corta','pajaro'],[119,'Tirano Tropical','pajaro'],[120,'Mosquerito de Pecho Rayado','pajaro'],[121,'Mosquero Bermellón','pajaro'],[122,'Pibí Tropical','pajaro'],[123,'Golondrina Azul y Blanca','golondrina'],[124,'Golondrina Tijereta','golondrina'],[125,'Golondrina Risquera','golondrina'],[126,'Golondrina de Collar Castaño','golondrina'],[127,'Cucarachero Común Sureño','pajaro'],[128,'Calandria de Cola Larga','pajaro'],[129,'Gorrión Casero','pajaro'],[130,'Cachirla Amarillenta','pajaro'],[131,'Jilguero Encapuchado','pajaro'],[132,'Gorrión de Collar Rufo','pajaro'],[133,'Pastorero Peruano','pajaro'],[134,'Tordo Brilloso','pajaro'],[135,'Tordo de Matorral','pajaro'],[136,'Picogrueso Dorado','pajaro'],[137,'Pico-de-Cono Cinéreo','pajaro'],[138,'Chirigüe Azafranado','pajaro'],[139,'Chirigüe Común','pajaro'],[140,'Chirigüe de Raimondi','pajaro'],[141,'Semillerito Negro Azulado','pajaro'],[142,'Espiguero Pico de Loro','pajaro'],[143,'Espiguero de Garganta Castaña','pajaro'],[144,'Espiguero Simple','pajaro'],[145,'Saltador Rayado','pajaro'],[146,'Fringilo Apizarrado','pajaro'],[147,'Monterita Acollarada','pajaro'],[148,'Semillero Pardo','pajaro']],
+      AND: [[149,'Perdiz Cordillerana','perdiz'],[150,'Perdiz Andina','perdiz'],[151,'Perdiz de la Puna','perdiz'],[152,'Cauquén Huallata','pato'],[153,'Pato de los Torrentes','pato'],[154,'Pato Crestón','pato'],[155,'Pato de la Puna','pato'],[156,'Pato Barcino','pato'],[157,'Parina Grande','flamenco'],[158,'Parina Chica','flamenco'],[159,'Zambullidor Plateado','zambullidor'],[160,'Paloma de Ala Moteada','paloma'],[161,'Paloma de Nuca Blanca','paloma'],[162,'Tortolita Moteada','paloma'],[163,'Tortolita de Ala Negra','paloma'],[164,'Tortolita de Puntos Dorados','paloma'],[165,'Chotacabras de Ala Bandeada','golondrina'],[166,'Vencejo de Collar Blanco','golondrina'],[167,'Vencejo Andino','golondrina'],[168,'Oreja-Violeta de Vientre Azul','colibri'],[169,'Cometa de Cola Bronceada','colibri'],[170,'Estrella Andina','colibri'],[171,'Colibrí Negro','colibri'],[172,'Colibrí Gigante Sureño','colibri'],[173,'Gallareta Gigante','gallareta'],[174,'Chorlo de Campo','playero'],[175,'Chorlo Cordillerano','playero'],[176,'Avefría Andina','playero'],[177,'Chorlo de la Puna','playero'],[178,'Avoceta Andina','ciguenuela'],[179,'Agachona de Vientre Rufo','playero'],[180,'Agachona de Pecho Gris','playero'],[181,'Gaviota Andina','gaviota'],[182,'Ibis de la Puna','garcita'],[183,'Bandurria de Cara Negra','garcita'],[184,'Cóndor Andino','gallinazo'],[185,'Aguilucho Cenizo','rapaz'],[186,'Aguilucho de Pecho Negro','rapaz'],[187,'Búho de Magallanes','lechuza'],[188,'Carpintero Andino','pajaro'],[189,'Caracara Cordillerano','rapaz'],[190,'Halcón Aplomado','rapaz'],[191,'Perico Cordillerano','loro'],[192,'Minero de Pico Largo','pajaro'],[193,'Minero Común','pajaro'],[194,'Minero de la Puna','pajaro'],[195,'Minero de Pico Grueso','pajaro'],[196,'Bandurrita de Pecho Anteado','pajaro'],[197,'Churrete de Ala Crema','pajaro'],[198,'Churrete de Vientre Blanco','pajaro'],[199,'Churrete de Ala Blanca','pajaro'],[200,'Tijeral de Manto Llano','pajaro'],[201,'Tijeral de Corona Castaña','pajaro'],[202,'Tijeral Listado','pajaro'],[203,'Tijeral Andino','pajaro'],[204,'Canastero de Pecho Cremoso','pajaro'],[205,'Canastero de Garganta Rayada','pajaro'],[206,'Canastero Cordillerano','pajaro'],[207,'Canastero de Quebradas','pajaro'],[208,'Cotinga de Mejilla Blanca','pajaro'],[209,'Torito de Cresta Pintada','pajaro'],[210,'Torito de Pecho Cenizo','pajaro'],[211,'Torito de Pico Amarillo','pajaro'],[212,'Pitajo de d’Orbigny','pajaro'],[213,'Pitajo de Ceja Blanca','pajaro'],[214,'Negrito Andino','pajaro'],[215,'Dormilona Chica','pajaro'],[216,'Dormilona de Taczanowski','pajaro'],[217,'Dormilona de la Puna','pajaro'],[218,'Dormilona de Frente Blanca','pajaro'],[219,'Dormilona de Nuca Rojiza','pajaro'],[220,'Dormilona de Cara Oscura','pajaro'],[221,'Dormilona de Vientre Canela','pajaro'],[222,'Dormilona de Frente Negra','pajaro'],[223,'Ala-Rufa Canelo','pajaro'],[224,'Arriero de Pico Negro','pajaro'],[225,'Arriero de Cola Blanca','pajaro'],[226,'Ala-Rufa de Garganta Rayada','pajaro'],[227,'Siete Colores de la Totora','pajaro'],[228,'Golondrina de Vientre Pardo','golondrina'],[229,'Golondrina Andina','golondrina'],[230,'Mirlo Acuático de Gorro Blanco','pajaro'],[231,'Zorzal Chiguanco','pajaro'],[232,'Cachirla Correndera','pajaro'],[233,'Cachirla del Páramo','pajaro'],[234,'Jilguero de Pico Grueso','pajaro'],[235,'Jilguero Negro','pajaro'],[236,'Jilguero Cordillerano','pajaro'],[237,'Matorralero de Vientre Rojizo','pajaro'],[238,'Pico-de-Cono Gigante','pajaro'],[239,'Chirigüe de la Puna','pajaro'],[240,'Chirigüe de Lomo Brillante','pajaro'],[241,'Chirigüe Verdoso','pajaro'],[242,'Fringilo de Capucha Negra','pajaro'],[243,'Fringilo Peruano','pajaro'],[244,'Fringilo Plomizo','pajaro'],[245,'Fringilo de Pecho Cenizo','pajaro'],[246,'Fringilo de Pecho Negro','pajaro'],[247,'Fringilo de Cola Bandeada','pajaro'],[248,'Fringilo Glaciar','pajaro'],[249,'Semillero de Cola Bandeada','pajaro'],[250,'Semillero Simple','pajaro'],[251,'Pinchaflor de Garganta Negra','pajaro'],[252,'Saltador de Pico Dorado','pajaro'],[253,'Monterita de Pecho Rufo','pajaro'],[254,'Fringilo-Inca Grande','pajaro'],[255,'Tangara Azul y Amarilla','pajaro']],
+      PEL: [[256,'Faláropo de Pico Fino','playero'],[257,'Faláropo de Pico Grueso','playero'],[258,'Salteador Chileno','gaviota'],[259,'Salteador del Polo Sur','gaviota'],[260,'Salteador Pomarino','gaviota'],[261,'Salteador Parásito','gaviota'],[262,'Salteador de Cola Larga','gaviota'],[263,'Gaviota Tijereta','gaviota'],[264,'Gaviota de Sabine','gaviota'],[265,'Gaviotín Ártico','gaviotin'],[266,'Albatros de las Galápagos','marina'],[267,'Albatros de Ceja Negra','marina'],[268,'Albatros de Buller','marina'],[269,'Golondrina de Mar de Wilson','marina'],[270,'Golondrina de Mar Chica','marina'],[271,'Golondrina de Mar Peruana','marina'],[272,'Golondrina de Mar de Markham','marina'],[273,'Golondrina de Mar de Hornby','marina'],[274,'Golondrina de Mar Negra','marina'],[275,'Petrel Gigante Sureño','marina'],[276,'Petrel Gigante Norteño','marina'],[277,'Petrel Plateado','marina'],[278,'Petrel Damero','marina'],[279,'Petrel de Cook','marina'],[280,'Petrel Chileno','marina'],[281,'Petrel-Azul Antártico','marina'],[282,'Petrel-Azul de Pico Delgado','marina'],[283,'Petrel de Mentón Blanco','marina'],[284,'Petrel de Parkinson','marina'],[285,'Pardela de Buller','marina'],[286,'Pardela Oscura','marina'],[287,'Pardela de Pata Rosada','marina'],[288,'Piquero Enmascarado','piquero'],[289,'Piquero de Nazca','piquero']]
+    };
+    const CFG = {
+      LIT: { nombre: 'Litoral y mar', cols: 7, names: true, tint: '#D2E4EC', claro: '#2C6A86', oscuro: '#9CC7DA' },
+      HUM: { nombre: 'Humedales', cols: 7, names: true, tint: '#D9EADB', claro: '#3D7A55', oscuro: '#9FD0B0' },
+      DES: { nombre: 'Desierto y valles', cols: 9, names: false, tint: '#EADFCB', claro: '#8A5E18', oscuro: '#E3C07E' },
+      AND: { nombre: 'Sierra y puna', cols: 11, names: false, tint: '#E0DDEA', claro: '#5D5A7A', oscuro: '#B9B5DA' },
+      PEL: { nombre: 'Mar abierto', cols: 6, names: true, tint: '#CFDCE8', claro: '#1F4E6E', oscuro: '#9DBFE0' }
+    };
+    const PAL = {
+      LIT: { claro: { sky: '#DCEAF0', sun: '#F3E3B5', far: '#B8CDD5', sea: '#BFD8E2', sea2: '#ADCCD9', wave: '#E8F2F5', sand: '#EADFCB', sand2: '#DDCFB4' },
+             oscuro: { sky: '#0E2230', sun: '#E9E2C6', far: '#1C3A48', sea: '#143546', sea2: '#10303F', wave: '#2A5466', sand: '#2A3836', sand2: '#22302E' } },
+      HUM: { claro: { sky: '#E3EDE4', sun: '#F1E4B8', far: '#C3D6C6', water: '#C4DCD5', water2: '#B4D2C8', wave: '#E6F1EC', reed: '#7FA27E', reed2: '#5F8762', mud: '#DCD3BC' },
+             oscuro: { sky: '#10221D', sun: '#E5DFC5', far: '#1E3A30', water: '#183B35', water2: '#13312C', wave: '#2B5249', reed: '#2F5A40', reed2: '#3C6E50', mud: '#28342D' } },
+      DES: { claro: { sky: '#F1E6D2', sun: '#F2C989', far: '#E6D2AE', dune: '#DDBE8E', dune2: '#CDA772', shade: '#C19A64', tree: '#6E5E3E', tree2: '#7F8A4F' },
+             oscuro: { sky: '#1E1A24', sun: '#E7D9B5', far: '#352D38', dune: '#4A3D3A', dune2: '#3D3230', shade: '#5A4A44', tree: '#151310', tree2: '#20261B' } },
+      AND: { claro: { sky: '#E2E8EF', sun: '#F0E3BC', far: '#C4CCDA', snow: '#FFFFFF', mid: '#A9B3C6', near: '#B8B89A', grass: '#C9C79F' },
+             oscuro: { sky: '#0F1626', sun: '#E4E0CC', far: '#1E2740', snow: '#C9D2E3', mid: '#263252', near: '#27302F', grass: '#2C3530' } },
+      PEL: { claro: { sky: '#DDE8F0', sun: '#F2E4BC', sea: '#9DBFD3', sea2: '#8DB3CA', deep: '#7AA5BF', wave: '#D9E8F0' },
+             oscuro: { sky: '#0B1A28', sun: '#E6E0C8', sea: '#12304A', sea2: '#0F2A42', deep: '#0B2238', wave: '#24496A' } }
+    };
+    const hab = CFG[this.props.habitat] ? this.props.habitat : 'LIT';
+    const tema = this.props.tema === 'oscuro' ? 'oscuro' : 'claro';
+    const dark = tema === 'oscuro';
+    const fotos = this.props.fotos === true || this.props.fotos === 'true';
+    const orden = this.props.orden || 'numero';
+    const c = CFG[hab];
+    const p = PAL[hab][tema];
+    const accent = c[tema];
+    let list = DATA[hab].map(function (r) { return { n: r[0], nombre: r[1], sil: r[2], done: !!ILL[r[0]], cromo: CROMO[r[0]] || false }; });
+    if (orden === 'mias') {
+      list.sort(function (a, b) { return (Number(b.done) - Number(a.done)) || (a.n - b.n); });
+    } else if (orden === 'azar') {
+      let s = (Number(this.props.seed ?? 7) || 7) >>> 0;
+      const rnd = function () {
+        s = (s + 0x6D2B79F5) | 0;
+        let t = Math.imul(s ^ (s >>> 15), 1 | s);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(rnd() * (i + 1));
+        const tmp = list[i]; list[i] = list[j]; list[j] = tmp;
+      }
+    }
+    const rows = Math.ceil(list.length / c.cols);
+    const cellW = (979 - (c.cols - 1) * 10) / c.cols;
+    const fig = c.names ? (rows <= 6 ? 100 : 84) : Math.round(cellW - 18);
+    const figIn = Math.round(fig * 0.86);
+    const holo = 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)';
+    const cardBg = dark ? 'rgba(10,24,28,0.8)' : 'rgba(251,248,242,0.9)';
+    const done = list.filter(function (a) { return a.done; }).length;
+    const cells = list.map(function (a) {
+      return {
+        num: String(a.n).padStart(3, '0'),
+        nombre: a.nombre,
+        names: c.names,
+        showFig: a.done && !fotos,
+        showFoto: a.done && fotos,
+        showSombra: !a.done,
+        img: a.done ? IMG[ILL[a.n]] : IMG[a.sil],
+        fig: fig,
+        figIn: figIn,
+        wrapRadius: a.done && fotos ? '14px' : '50%',
+        ring: a.cromo === 'plata' ? 'linear-gradient(135deg, #F2F4F6, #8F9BA4 50%, #E9EDF0)' : (a.cromo ? holo : 'transparent'),
+        tint: c.tint,
+        cardBg: cardBg,
+        fotoBg: 'linear-gradient(180deg, #A9C0C6 0%, #93B1BA 45%, #7FA2AC 46%, #C2B496 70%)',
+        numColor: a.done ? accent : (dark ? '#8E9C99' : '#6F695F'),
+        nameColor: a.done ? (dark ? '#F3EDE2' : '#14302F') : (dark ? '#AEB9B6' : '#5F5B54'),
+        sombraBg: dark ? 'rgba(243,237,226,0.06)' : '#ECE6DA',
+        sombraBorder: dark ? '2px dashed rgba(243,237,226,0.35)' : '2px dashed #B9AE99',
+        sombraFilter: dark ? 'brightness(0) invert(1)' : 'brightness(0)',
+        sombraOpacity: dark ? 0.3 : 0.2
+      };
+    });
+    return {
+      p: p,
+      isLIT: hab === 'LIT', isHUM: hab === 'HUM', isDES: hab === 'DES', isAND: hab === 'AND', isPEL: hab === 'PEL',
+      nombre: c.nombre,
+      cols: c.cols,
+      cells: cells,
+      done: done,
+      total: list.length,
+      accent: accent,
+      cardBg: cardBg,
+      ink: dark ? '#F3EDE2' : '#14302F',
+      sub: dark ? '#C9D8D4' : '#3F504E',
+      pie: fotos ? 'Con tus fotos · las figuras en sombra aún no están en tu álbum' : 'Las figuras en sombra aún no están en tu álbum'
+    };
+  }
+}
+</script>
+</body>
+</html>

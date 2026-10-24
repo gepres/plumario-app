@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Campo de formulario</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<label style="width: {{ancho}}px; display: flex; flex-direction: column; gap: 6px; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; color: #14302F">
+<span style="font-size: 13.5px; font-weight: 700">{{etiqueta}}</span>
+<span style="min-height: 52px; box-sizing: border-box; border-radius: 14px; border: {{borde}}; background: #FFFFFF; display: flex; align-items: center; gap: 8px; padding: 0 6px 0 14px">
+<sc-if value="{{conPrefijo}}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px; font-weight: 600; color: #4E5E5C">{{prefijo}}</span></sc-if>
+<input type="{{tipoInput}}" value="{{valor}}" placeholder="{{placeholder}}" aria-invalid="{{invalido}}" style="flex: 1; min-width: 0; min-height: 48px; border: 0; background: transparent; color: #14302F; font-family: inherit; font-size: 15px; outline-offset: 2px">
+<sc-if value="{{esClave}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{alternar}}" aria-label="{{ojoLabel}}" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 10px; background: transparent; color: #4E5E5C; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ojo}}"></path></svg></button>
+</sc-if>
+</span>
+<sc-if value="{{conNota}}" hint-placeholder-val="{{ false }}">
+<span style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; line-height: 1.4; color: {{notaColor}}; font-weight: {{notaPeso}}">
+<sc-if value="{{conError}}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5h.01"></path></svg></sc-if>{{nota}}
+</span>
+</sc-if>
+</label>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"etiqueta":{"editor":"text","default":"Correo"},"tipo":{"editor":"enum","options":["texto","correo","contrasena","usuario"],"default":"correo"},"valor":{"editor":"text","default":""},"placeholder":{"editor":"text","default":"tucorreo@ejemplo.com"},"ayuda":{"editor":"text","default":""},"error":{"editor":"text","default":""},"ancho":{"editor":"int","default":358,"min":160,"max":600},"$preview":{"width":358,"height":104}}'>
+const OJO = 'M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z';
+const OJO_NO = 'M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.6 6.6C3.9 8.3 2.5 12 2.5 12s3.5 6 9.5 6c1.6 0 3-.4 4.2-1M9.9 9.9a2.5 2.5 0 0 0 3.5 3.5';
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { visible: false };
+  }
+  renderVals() {
+    const tipo = this.props.tipo ?? 'correo';
+    const error = this.props.error || '';
+    const ayuda = this.props.ayuda || '';
+    const esClave = tipo === 'contrasena';
+    const vis = this.state.visible;
+    return {
+      etiqueta: this.props.etiqueta ?? 'Correo',
+      valor: this.props.valor ?? '',
+      placeholder: this.props.placeholder ?? '',
+      ancho: Number(this.props.ancho ?? 358) || 358,
+      tipoInput: esClave ? (vis ? 'text' : 'password') : (tipo === 'correo' ? 'email' : 'text'),
+      esClave,
+      ojo: vis ? OJO_NO : OJO,
+      ojoLabel: vis ? 'Ocultar contraseña' : 'Mostrar contraseña',
+      alternar: () => this.setState({ visible: !vis }),
+      conPrefijo: tipo === 'usuario',
+      prefijo: '@',
+      borde: error ? '2px solid #A33A2B' : '1px solid #C9BEA9',
+      invalido: error ? 'true' : 'false',
+      conNota: !!(error || ayuda),
+      conError: !!error,
+      nota: error || ayuda,
+      notaColor: error ? '#A33A2B' : '#4E5E5C',
+      notaPeso: error ? 600 : 400
+    };
+  }
+}
+</script>
+</body>
+</html>

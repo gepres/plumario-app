@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sticker especial</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; flex: none; width: {{px}}px; height: {{px}}px; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; color: #14302F">
+<div style="position: absolute; left: 0; top: 0; width: 200px; height: 200px; transform: scale({{scale}}); transform-origin: 0 0; filter: {{filter}}; opacity: {{opacity}}">
+<div style="position: absolute; left: 0; top: 0; width: 200px; height: 200px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 2px rgba(20,48,47,0.20), 0 8px 18px rgba(20,48,47,0.16)"></div>
+<div style="position: absolute; left: 9px; top: 9px; width: 182px; height: 182px; border-radius: 50%; background: {{ring}}"></div>
+<div style="position: absolute; left: 16px; top: 16px; width: 168px; height: 168px; border-radius: 50%; overflow: hidden; background: {{plate}}">
+<div style="position: absolute; left: 7px; top: 7px; width: 154px; height: 154px; box-sizing: border-box; border-radius: 50%; border: 1.5px dashed rgba(20,48,47,0.28)"></div>
+<img src="{{bird}}" alt="" style="position: absolute; left: 20px; top: 6px; width: 128px; height: 128px">
+<div style="position: absolute; left: 0; top: 0; width: 168px; height: 168px; background: {{sheen}}"></div>
+</div>
+<div style="position: absolute; left: 12px; top: 134px; width: 176px; height: 32px; background: #FFFFFF; clip-path: polygon(0 0, 100% 0, 93% 50%, 100% 100%, 0 100%, 7% 50%)"></div>
+<div style="position: absolute; left: 17px; top: 137px; width: 166px; height: 26px; background: {{banner}}; clip-path: polygon(0 0, 100% 0, 93% 50%, 100% 100%, 0 100%, 7% 50%); display: flex; align-items: center; justify-content: center">
+<span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FFFFFF; white-space: nowrap">{{label}}</span>
+</div>
+<div style="position: absolute; left: 154px; top: 6px; width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(20,48,47,0.24); display: flex; align-items: center; justify-content: center">
+<div style="width: 31px; height: 31px; border-radius: 50%; background: {{ring}}; display: flex; align-items: center; justify-content: center">
+<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.7 6.1 6.6.6-5 4.4 1.5 6.5L12 16.8 6.2 20.1l1.5-6.5-5-4.4 6.6-.6z" fill="{{star}}"></path></svg>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["primera","explorador","litoral","humedales","completo"],"default":"litoral"},"size":{"editor":"int","default":200,"min":40,"max":640},"locked":{"editor":"boolean","default":false},"$preview":{"width":200,"height":200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = {
+      zarcillo: '/_blob/cdb078ae3f20d0b791f60aa76ef64daf',
+      lechuza: '/_blob/380612587e53c68fbb5b4ef6dac14ce7',
+      pinguino: '/_blob/5fc0580c91c07a04c8b7ce42a3c9a6d2',
+      flamenco: '/_blob/134f420a8833e17a10978048f13b57fd',
+      pelicano: '/_blob/92d0b07d7a6b9d699e834111a098ce4a'
+    };
+    const F = {
+      metal: {
+        ring: 'linear-gradient(135deg, #F5F7F8 0%, #B4BDC3 24%, #EEF1F3 46%, #8E99A0 72%, #DDE2E5 100%)',
+        sheen: 'linear-gradient(125deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.42) 48%, rgba(255,255,255,0) 58%)',
+        banner: '#3F4B52'
+      },
+      holo: {
+        ring: 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)',
+        sheen: 'linear-gradient(125deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.38) 44%, rgba(255,255,255,0) 56%), conic-gradient(from 120deg at 30% 70%, rgba(244,198,214,0.26), rgba(197,217,245,0.26), rgba(195,238,220,0.26), rgba(242,234,184,0.26), rgba(244,198,214,0.26))',
+        banner: '#14302F'
+      },
+      gold: {
+        ring: 'linear-gradient(135deg, #F8E9AC 0%, #C9A23F 26%, #F4DE8E 50%, #A77B22 76%, #EBD382 100%)',
+        sheen: 'linear-gradient(125deg, rgba(255,247,214,0) 34%, rgba(255,247,214,0.5) 47%, rgba(255,247,214,0) 60%)',
+        banner: '#6B4B12'
+      }
+    };
+    const K = {
+      primera: { label: 'Primera ave', bird: B.zarcillo, plate: '#DCE7EC', finish: 'metal' },
+      explorador: { label: 'Explorador', bird: B.lechuza, plate: '#F0E2CB', finish: 'metal' },
+      litoral: { label: 'Litoral', bird: B.pinguino, plate: '#D2E4EC', finish: 'holo' },
+      humedales: { label: 'Humedales', bird: B.flamenco, plate: '#D9EADB', finish: 'holo' },
+      completo: { label: 'Álbum completo', bird: B.pelicano, plate: '#F2E6C6', finish: 'gold' }
+    };
+    const k = K[this.props.kind] || K.litoral;
+    const f = F[k.finish];
+    const size = Number(this.props.size ?? 200) || 200;
+    const locked = this.props.locked === true || this.props.locked === 'true';
+    return {
+      px: size,
+      scale: size / 200,
+      label: k.label,
+      bird: k.bird,
+      plate: k.plate,
+      ring: locked ? '#D9D4CA' : f.ring,
+      sheen: locked ? 'none' : f.sheen,
+      banner: locked ? '#5F5B54' : f.banner,
+      star: locked ? '#5F5B54' : f.banner,
+      filter: locked ? 'grayscale(1)' : 'none',
+      opacity: locked ? 0.5 : 1
+    };
+  }
+}
+</script>
+</body>
+</html>

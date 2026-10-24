@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Registrar · colocar y guardar la foto</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+input::placeholder{color:#5F5B54}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="RegistrarIdentificar.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Colocar foto</h1>
+</header>
+
+<div style="position: relative; flex: none; margin: 0 16px; height: 300px; border-radius: 22px; background: #E7DFCF; overflow: hidden">
+<div style="position: absolute; left: 34px; top: 34px">
+<dc-import name="StickerAve" img="/_blob/95828bd5b7fe0dda93d787c2e178af86" nombre="Gaviota Dominicana" num="023" sombra="true" size="176" hint-size="176px,226px"></dc-import>
+</div>
+<div role="img" aria-label="Tu foto" style="position: absolute; left: 170px; top: 92px; width: 164px; height: 124px; box-sizing: border-box; padding: 6px; background: #FFFFFF; transform: rotate(6deg); box-shadow: 0 2px 4px rgba(20,48,47,0.22), 0 14px 28px rgba(20,48,47,0.22)">
+<div style="position: relative; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(180deg, #A9C0C6 0%, #93B1BA 38%, #6F95A0 39%, #7FA2AC 58%, #C2B496 59%, #B3A383 100%)">
+<img src="/_blob/31adf2ccfda616d427f1071e70cab14c" alt="" style="position: absolute; left: 38px; top: 6px; width: 104px; height: 104px; filter: saturate(0.75)">
+</div>
+</div>
+<span style="position: absolute; left: 186px; top: 236px; font-size: 12px; font-weight: 700; color: #14302F; background: #FBF8F2; border-radius: 999px; padding: 4px 10px">Tu foto, completa</span>
+</div>
+
+<div style="flex: none; margin: 14px 16px 0; padding: 12px 14px; border-radius: 16px; background: #E3EEE6; display: flex; align-items: center; gap: 10px; color: #234F37">
+<span aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 50%; background: #2D5F41; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700">La IA confirma: Gaviota Dominicana</span><span style="font-size: 12.5px">Larus dominicanus · coincidencia alta</span></span>
+</div>
+
+<div style="flex: none; margin: 14px 16px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<label for="foto-fecha" style="font-size: 12.5px; font-weight: 700; color: #3F504E">Fecha</label>
+<input id="foto-fecha" type="text" value="24 oct 2026" style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #D9CFBC; background: #FBF8F2; padding: 0 12px; font-family: inherit; font-size: 14.5px; color: #14302F">
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<label for="foto-lugar" style="font-size: 12.5px; font-weight: 700; color: #3F504E">Lugar</label>
+<input id="foto-lugar" type="text" placeholder="Ej.: Paracas" style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #D9CFBC; background: #FBF8F2; padding: 0 12px; font-family: inherit; font-size: 14.5px; color: #14302F">
+</div>
+</div>
+
+<p style="flex: none; margin: 12px 20px 0; font-size: 13px; line-height: 1.4; color: #4E5E5C">Tu foto se guarda en la galería del ave. En el álbum se verá su figura, igual para todos.</p>
+
+<div style="margin-top: auto; padding: 0 16px 22px; flex: none; display: flex; flex-direction: column; gap: 10px">
+<a href="RegistrarCompletado.dc.html" style="min-height: 52px; border-radius: 14px; background: #14302F; color: #FFFFFF; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Guardar y completar sticker</a>
+<a href="RegistrarCamara.dc.html" style="min-height: 48px; box-sizing: border-box; border-radius: 14px; border: 1.5px solid #C9BEA9; color: #14302F; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Cambiar foto</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

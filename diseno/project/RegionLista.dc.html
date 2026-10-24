@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Elegir región · lista</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 12px 0 8px">
+<a href="Perfil.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="flex: 1; margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Elige tu región</h1>
+<div role="group" aria-label="Vista" style="padding: 3px; background: #E7DFCF; border-radius: 12px; display: flex; gap: 3px">
+<a href="RegionMapa.dc.html" style="min-height: 36px; box-sizing: border-box; border-radius: 9px; display: flex; align-items: center; padding: 0 12px; font-size: 13px; font-weight: 600; color: #3F504E; text-decoration: none">Mapa</a>
+<span aria-current="true" style="min-height: 36px; box-sizing: border-box; border-radius: 9px; background: #FBF8F2; box-shadow: 0 1px 2px rgba(20,48,47,0.14); display: flex; align-items: center; padding: 0 12px; font-size: 13px; font-weight: 700">Lista</span>
+</div>
+</header>
+
+<div style="flex: none; margin: 4px 16px 0; display: flex; flex-direction: column; gap: 8px">
+<button style="min-height: 56px; box-sizing: border-box; padding: 8px 14px; border: 1.5px solid #14302F; border-radius: 14px; background: transparent; color: #14302F; font-family: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+<span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14.5px; font-weight: 700">Usar mi ubicación</span><span style="font-size: 12.5px; color: #4E5E5C">Te sugerimos el álbum de donde estás</span></span>
+</button>
+<label style="min-height: 48px; box-sizing: border-box; padding: 0 14px; border: 1px solid #C9BEA9; border-radius: 14px; background: #FFFFFF; display: flex; align-items: center; gap: 10px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E5E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)">Buscar región</span>
+<input type="search" placeholder="Buscar región" style="flex: 1; min-width: 0; border: 0; outline-offset: 4px; background: transparent; color: #14302F; font-family: inherit; font-size: 15px">
+</label>
+</div>
+
+<section aria-labelledby="disp" style="flex: none; margin: 14px 16px 0; display: flex; flex-direction: column; gap: 8px">
+<h2 id="disp" style="margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2D5F41">Disponible</h2>
+<a href="Inicio.dc.html" aria-current="true" style="padding: 10px 14px 10px 10px; background: #FBF8F2; border: 1.5px solid #14302F; border-radius: 16px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #14302F">
+<img src="/_blob/fc39c40516225ad148949b232187bb58" alt="" style="flex: none; width: 34px; height: 47px">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 16px; font-weight: 700">Ica</span><span style="font-size: 12.5px; color: #4E5E5C">289 especies · tu álbum, llevas 12</span></span>
+<span aria-hidden="true" style="flex: none; width: 26px; height: 26px; border-radius: 50%; background: #14302F; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+</a>
+</section>
+
+<section aria-labelledby="prox" style="flex: 1; min-height: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="margin: 0 20px; display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="prox" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A4F12">Próximamente</h2>
+<span style="font-size: 12.5px; color: #4E5E5C">23 regiones · {{nAvisos}}</span>
+</div>
+<ul style="flex: 1; min-height: 0; margin: 0; padding: 0 16px 24px; list-style: none; overflow-y: auto; scrollbar-width: none; display: flex; flex-direction: column; gap: 4px">
+<sc-for list="{{proximas}}" as="r" hint-placeholder-count="10">
+<li style="flex: none; min-height: 52px; box-sizing: border-box; padding: 4px 6px 4px 14px; border-radius: 14px; background: #ECE5D7; display: flex; align-items: center; gap: 10px">
+<span style="flex: 1; font-size: 15px; font-weight: 600">{{r.nombre}}</span>
+<button onClick="{{r.toggle}}" aria-pressed="{{r.pressed}}" aria-label="{{r.aria}}" style="min-height: 44px; border: 0; border-radius: 12px; background: {{r.bg}}; color: {{r.ink}}; font-family: inherit; font-size: 13px; font-weight: 700; padding: 0 12px; display: flex; align-items: center; gap: 6px; cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.icon}}"></path></svg>{{r.label}}
+</button>
+</li>
+</sc-for>
+</ul>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: linear-gradient(rgba(243,237,226,0), #F3EDE2)"></div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+const NOMBRES = ['Amazonas', 'Áncash', 'Apurímac', 'Arequipa', 'Ayacucho', 'Cajamarca', 'Cusco', 'Huancavelica', 'Huánuco', 'Junín', 'La Libertad', 'Lambayeque', 'Lima y Callao', 'Loreto', 'Madre de Dios', 'Moquegua', 'Pasco', 'Piura', 'Puno', 'San Martín', 'Tacna', 'Tumbes', 'Ucayali'];
+const BELL = 'M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0';
+const CHECK = 'M5 12.5l4.5 4.5L19 7.5';
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { avisos: { 'Arequipa': true } };
+  }
+  renderVals() {
+    const av = this.state.avisos;
+    const n = Object.keys(av).filter(k => av[k]).length;
+    return {
+      nAvisos: n === 1 ? '1 aviso activo' : n + ' avisos activos',
+      proximas: NOMBRES.map(nombre => {
+        const on = !!av[nombre];
+        return {
+          nombre,
+          pressed: on ? 'true' : 'false',
+          aria: (on ? 'Quitar aviso de ' : 'Avísame cuando esté ') + nombre,
+          label: on ? 'Te avisaremos' : 'Avísame',
+          icon: on ? CHECK : BELL,
+          bg: on ? 'transparent' : '#FBF8F2',
+          ink: on ? '#2D5F41' : '#14302F',
+          toggle: () => { const a = Object.assign({}, av); a[nombre] = !a[nombre]; this.setState({ avisos: a }); }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

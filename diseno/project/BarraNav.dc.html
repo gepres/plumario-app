@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Barra de navegación</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<nav aria-label="Navegación principal" style="position: relative; width: 390px; height: 104px; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif">
+<svg width="358" height="70" viewBox="0 0 358 70" aria-hidden="true" style="position: absolute; left: 16px; top: 26px; overflow: visible; filter: {{sombra}}">
+<path d="M28 8 H113 C 131 8 135 12 141 24 C 149 41 162 50 179 50 C 196 50 209 41 217 24 C 223 12 227 8 245 8 H330 A28 28 0 0 1 358 36 V42 A28 28 0 0 1 330 70 H28 A28 28 0 0 1 0 42 V36 A28 28 0 0 1 28 8 Z" fill="{{barra}}"></path>
+</svg>
+<sc-for list="{{izq}}" as="t" hint-placeholder-count="2">
+<a href="{{t.href}}" aria-label="{{t.label}}" aria-current="{{t.current}}" style="position: absolute; left: {{t.x}}px; top: 41px; width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center">
+<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.relleno}}" fill="{{t.fill}}" stroke="none"></path><path d="{{t.trazo}}" stroke="{{t.stroke}}" stroke-width="{{t.sw}}"></path></svg>
+</a>
+</sc-for>
+<a href="RegistrarCamara.dc.html" aria-label="Registrar un ave" style="position: absolute; left: 166px; top: 8px; width: 58px; height: 58px; border-radius: 50%; background: {{fab}}; box-shadow: {{fabSombra}}; display: flex; align-items: center; justify-content: center; color: {{fabTinta}}">
+<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+</a>
+<sc-for list="{{der}}" as="t" hint-placeholder-count="2">
+<a href="{{t.href}}" aria-label="{{t.label}}" aria-current="{{t.current}}" style="position: absolute; left: {{t.x}}px; top: 41px; width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center">
+<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.relleno}}" fill="{{t.fill}}" stroke="none"></path><path d="{{t.trazo}}" stroke="{{t.stroke}}" stroke-width="{{t.sw}}"></path></svg>
+</a>
+</sc-for>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"activo":{"editor":"enum","options":["inicio","album","recompensas","perfil","ninguno"],"default":"inicio"},"barra":{"editor":null},"inactivo":{"editor":null},"activoTrazo":{"editor":null},"activoRelleno":{"editor":null},"fab":{"editor":null},"fabTinta":{"editor":null},"oscuro":{"editor":"boolean","default":false},"$preview":{"width":390,"height":104}}'>
+// Barra flotante con muesca para el botón Registrar. La pestaña activa se rellena (dos tonos), sin texto.
+const TABS = [
+  { id: 'inicio', label: 'Inicio', href: 'Inicio.dc.html', x: 37,
+    trazo: 'M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z',
+    relleno: 'M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z' },
+  { id: 'album', label: 'Álbum', href: 'Album.dc.html', x: 101,
+    trazo: 'M4 5.5C7 4 10 4 12 6c2-2 5-2 8-.5V19c-3-1.5-6-1.5-8 .5-2-2-5-2-8-.5zM12 6v13.5',
+    relleno: 'M4 5.5C7 4 10 4 12 6c2-2 5-2 8-.5V19c-3-1.5-6-1.5-8 .5-2-2-5-2-8-.5z' },
+  { id: 'recompensas', label: 'Recompensas', href: 'Main.dc.html', x: 237,
+    trazo: 'M12 9a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zM8.6 10.2L6 3h4l2 4.5L14 3h4l-2.6 7.2',
+    relleno: 'M12 9a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z' },
+  { id: 'perfil', label: 'Perfil', href: 'Perfil.dc.html', x: 301,
+    trazo: 'M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21c1-4 4.5-6 8-6s7 2 8 6',
+    relleno: 'M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21c1-4 4.5-6 8-6s7 2 8 6z' }
+];
+class Component extends DCLogic {
+  renderVals() {
+    const activo = this.props.activo ?? 'inicio';
+    const pr = this.props;
+    const oscuro = pr.oscuro === true || pr.oscuro === 'true';
+    const C = {
+      barra: pr.barra || '#FFFFFF',
+      inactivo: pr.inactivo || '#6F7F7C',
+      activoTrazo: pr.activoTrazo || '#14302F',
+      activoRelleno: pr.activoRelleno || '#E4C766',
+      fab: pr.fab || 'linear-gradient(150deg, #3C7F9C 0%, #1E4D5C 55%, #14302F 100%)',
+      fabTinta: pr.fabTinta || '#FFFFFF'
+    };
+    const tabs = TABS.map(t => {
+      const on = t.id === activo;
+      return Object.assign({}, t, {
+        current: on ? 'page' : 'false',
+        fill: on ? C.activoRelleno : 'none',
+        stroke: on ? C.activoTrazo : C.inactivo,
+        sw: on ? 2 : 1.8
+      });
+    });
+    return {
+      izq: tabs.slice(0, 2), der: tabs.slice(2),
+      barra: C.barra, fab: C.fab, fabTinta: C.fabTinta,
+      sombra: oscuro ? 'drop-shadow(0 10px 22px rgba(0,0,0,0.45))' : 'drop-shadow(0 10px 22px rgba(20,48,47,0.13)) drop-shadow(0 1px 2px rgba(20,48,47,0.08))',
+      fabSombra: oscuro ? '0 10px 22px rgba(0,0,0,0.5)' : '0 10px 22px rgba(44,106,134,0.38), 0 2px 4px rgba(20,48,47,0.25)'
+    };
+  }
+}
+</script>
+</body>
+</html>
