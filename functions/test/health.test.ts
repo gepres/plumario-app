@@ -6,6 +6,6 @@ it('identifica el servicio y la región sin depender de Firebase', () => {
   expect(getHealth()).toEqual({
     ok: true,
     service: 'plumario',
-    region: 'southamerica-west1',
+    region: 'us-central1',
   });
 });

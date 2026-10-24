@@ -80,8 +80,9 @@ esa forma.
   `GoogleService-Info.plist`. Mientras no estén, la app compila sin los plugins nativos de
   Firebase (`app.config.ts`) y los emuladores corren con el proyecto `demo-plumario`.
 - Cloud Functions exige el plan Blaze (pago por uso).
-- La región de Functions (`southamerica-west1`, Santiago, la más cercana a Perú) tiene que
-  coincidir con la ubicación de Firestore que se elija al crear el proyecto, y esa ubicación no se
-  puede cambiar después.
+- La base de Firestore quedó en `nam5` (multirregión en EE. UU.): la consola no dejó elegir otra
+  ubicación al crearla, y el usuario decidió conservarla (24 oct 2026). Desde Perú cada consulta tarda
+  algo más, lo que disimula la caché sin conexión; a cambio hay más disponibilidad. Las Functions van
+  en `us-central1`, junto a la base, que es también la región con más modelos de IA.
 - iOS: frameworks dinámicos (`expo-build-properties`), porque el SDK de Firebase para Apple 13+ solo
   se distribuye por SPM. Compilar iOS en local exigiría Xcode 26.2 en macOS 15.

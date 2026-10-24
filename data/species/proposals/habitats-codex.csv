@@ -1,0 +1,335 @@
+nombre_cientifico,habitat,confianza,motivo
+Circus cinereus,Humedales,media,Caza sobre totorales y pastizales húmedos costeros.
+Geranoaetus melanoleucus,Sierra,media,Rapaz de laderas rocosas; también visita lomas costeras.
+Geranoaetus polyosoma,Desierto,media,Caza en pampas desérticas y lomas; también en sierra.
+Parabuteo unicinctus,Desierto,alta,Rapaz habitual de valles agrícolas y matorrales áridos.
+Pandion haliaetus,Litoral,media,Pesca en bahías y aguas costeras; también en lagunas.
+Anas bahamensis,Humedales,alta,Pato de lagunas costeras y desembocaduras salobres.
+Anas flavirostris,Sierra,media,Predomina en lagunas altoandinas; también desciende a humedales costeros.
+Anas georgica,Humedales,media,Frecuenta lagunas costeras y campos anegados; también lagunas andinas.
+Lophonetta specularioides,Sierra,alta,Pato característico de lagunas y ríos altoandinos.
+Merganetta armata,Sierra,alta,Especialista de ríos torrentosos en quebradas andinas.
+Oressochen melanopterus,Sierra,alta,Pasta en bofedales y orillas de lagunas altoandinas.
+Oxyura jamaicensis,Humedales,media,Lagunas con vegetación acuática; también habita lagunas andinas.
+Sarkidiornis sylvicola,Humedales,baja,Visitante raro de lagunas y campos inundados.
+Spatula cyanoptera,Humedales,alta,Pato frecuente en lagunas someras y pantanos costeros.
+Spatula discors,Humedales,media,Migrante escaso en lagunas y campos inundados.
+Spatula puna,Sierra,alta,Pato propio de lagunas y bofedales de puna.
+Aeronautes andecolus,Sierra,alta,Vencejo asociado a roquedales y quebradas de vertientes andinas.
+Chaetura pelagica,Desierto,media,Migrante aéreo sobre poblados y valles de tierras bajas.
+Streptoprocne zonaris,Sierra,media,Vencejo de quebradas y acantilados andinos; realiza amplios desplazamientos.
+Amazilis amazilia,Desierto,alta,Jardines y arboledas de valles costeros con flores.
+Colibri coruscans,Sierra,alta,Colibrí habitual de matorrales y jardines de altura.
+Metallura phoebe,Sierra,alta,Colibrí de matorrales y quebradas altoandinas.
+Myrtis fanny,Desierto,media,Matorrales de valles secos y laderas occidentales bajas.
+Patagona gigas,Sierra,media,Colibrí de laderas andinas; también visita valles y lomas.
+Polyonymus caroli,Sierra,media,Quebradas y matorrales de media montaña con flores.
+Rhodopis vesper,Desierto,alta,Colibrí característico de oasis y valles agrícolas costeros.
+Thaumastura cora,Desierto,alta,Colibrí de jardines y matorrales de la costa árida.
+Balaenoptera physalus,Mar abierto,alta,Ballena que se alimenta en aguas marinas de surgencia.
+Megaptera novaeangliae,Mar abierto,alta,Ballena migratoria de aguas marinas frente a Ica.
+Lama guanicoe,Desierto,media,Utiliza lomas y quebradas áridas; también laderas andinas.
+Hippocamelus antisensis,Sierra,alta,Cérvido de laderas rocosas y pastizales altoandinos.
+Delphinus delphis,Mar abierto,alta,Delfín gregario de aguas marinas productivas.
+Grampus griseus,Mar abierto,alta,Delfín asociado a aguas profundas del talud continental.
+Lagenorhynchus obscurus,Mar abierto,alta,Delfín marino que se alimenta en aguas de surgencia.
+Steno bredanensis,Mar abierto,baja,Delfín de aguas cálidas; aparición regional ocasional.
+Tursiops truncatus,Mar abierto,alta,Delfín de aguas marinas costeras y oceánicas.
+Phocoena spinipinnis,Mar abierto,alta,Cetáceo de aguas marinas sobre la plataforma continental.
+Mesoplodon peruvianus,Mar abierto,media,Zifio de aguas oceánicas profundas; observaciones escasas.
+Chordeiles acutipennis,Desierto,alta,Caza insectos sobre campos abiertos y poblados costeros.
+Quechuavis decussata,Desierto,media,Chotacabras de matorrales secos y quebradas occidentales bajas.
+Systellura longirostris,Sierra,media,Chotacabras de laderas abiertas andinas; también baja a costa.
+Lycalopex culpaeus,Sierra,media,Zorro de laderas y puna; también ocupa ambientes costeros.
+Lycalopex griseus,Desierto,baja,Zorro de ambientes áridos; identidad regional incierta.
+Leopardus garleppi,Desierto,media,Felino de lomas y matorrales costeros; también ocupa puna.
+Conepatus chinga,Desierto,media,Forrajea en valles y lomas; también habita laderas andinas.
+Lontra felina,Litoral,alta,Nutria especializada en costas rocosas y rompientes.
+Arctocephalus australis,Litoral,alta,Descansa y se reproduce en islas y roquedales costeros.
+Arctocephalus philippii,Litoral,baja,Visitante excepcional en apostaderos de lobos marinos costeros.
+Otaria flavescens,Litoral,alta,Forma colonias en playas e islas del litoral.
+Cathartes aura,Desierto,alta,Carroñero habitual de pampas y valles costeros.
+Coragyps atratus,Desierto,alta,Carroñero de poblados y áreas agrícolas de tierras bajas.
+Vultur gryphus,Sierra,alta,Rapaz andina de grandes laderas y roquedales.
+Hesperoburhinus superciliaris,Desierto,alta,Ave terrestre de pampas áridas y campos agrícolas.
+Anarhynchus alticola,Sierra,alta,Chorlo de pastizales y orillas de lagunas de puna.
+Anarhynchus collaris,Humedales,media,Prefiere bancos arenosos de ríos y desembocaduras.
+Anarhynchus falklandicus,Litoral,alta,Migrante austral de playas y planicies costeras.
+Anarhynchus mongolus,Litoral,baja,Visitante excepcional de playas y zonas intermareales.
+Anarhynchus nivosus,Litoral,alta,Chorlo de playas arenosas y salinas junto al mar.
+Anarhynchus wilsonia,Litoral,media,Playas y planicies intermareales; presencia regional escasa.
+Charadrius semipalmatus,Litoral,alta,Migrante frecuente en playas y orillas marinas.
+Charadrius vociferus,Humedales,media,Orillas y campos húmedos de los valles costeros.
+Oreopholus ruficollis,Desierto,alta,Migrante austral que ocupa pampas desérticas abiertas.
+Pluvialis dominica,Humedales,media,Migrante de pastizales húmedos y campos anegados.
+Pluvialis squatarola,Litoral,alta,Chorlo de playas y planicies intermareales de bahías.
+Vanellus resplendens,Sierra,alta,Avefría de pastizales húmedos y bofedales altoandinos.
+Zonibyx modestus,Litoral,alta,Migrante austral de playas y planicies costeras.
+Haematopus ater,Litoral,alta,Ostrero especializado en roquedales intermareales.
+Haematopus palliatus,Litoral,alta,Ostrero de playas arenosas y orillas marinas.
+Chlidonias niger,Litoral,media,Migrante que pesca en bahías y aguas costeras.
+Chroicocephalus cirrocephalus,Litoral,media,Gaviota de bahías y playas; también utiliza lagunas costeras.
+Chroicocephalus maculipennis,Litoral,media,Gaviota austral de bahías; también frecuenta lagunas costeras.
+Chroicocephalus serranus,Sierra,media,Gaviota de lagunas altoandinas; también desciende a la costa.
+Creagrus furcatus,Mar abierto,media,Gaviota pelágica que se alimenta mar adentro.
+Gelochelidon nilotica,Humedales,media,Caza sobre marismas y lagunas costeras someras.
+Larosterna inca,Litoral,alta,Gaviotín de islas guaneras y aguas costeras.
+Larus belcheri,Litoral,alta,Gaviota característica de playas y puertos peruanos.
+Larus dominicanus,Litoral,alta,Gaviota habitual de playas y costas rocosas.
+Leucophaeus atricilla,Litoral,media,Gaviota costera escasa en el sur peruano.
+Leucophaeus modestus,Litoral,alta,Se alimenta en playas y aguas costeras someras.
+Leucophaeus pipixcan,Litoral,alta,Migrante abundante en playas y bahías costeras.
+Phaetusa simplex,Humedales,baja,Gaviotín fluvial de aparición excepcional en la costa.
+Rynchops niger,Litoral,alta,Descansa en playas y pesca en bahías someras.
+Sterna hirundinacea,Litoral,alta,Gaviotín de bahías y aguas próximas a la costa.
+Sterna hirundo,Litoral,alta,Migrante que pesca en bahías y aguas costeras.
+Sterna paradisaea,Mar abierto,media,Migrante principalmente pelágico frente a la costa peruana.
+Sterna trudeaui,Humedales,media,Gaviotín de lagunas y desembocaduras; también aguas costeras.
+Sternula antillarum,Litoral,media,Migrante escaso de playas y aguas costeras someras.
+Sternula lorata,Litoral,alta,Pesca cerca de playas; anida en pampas costeras.
+Thalasseus elegans,Litoral,alta,Gaviotín de playas y bahías con abundantes peces.
+Thalasseus maximus,Litoral,alta,Gaviotín que pesca en bahías y aguas costeras.
+Thalasseus sandvicensis,Litoral,baja,Visitante excepcional de playas y bahías.
+Xema sabini,Mar abierto,alta,Gaviota migratoria pelágica de aguas de surgencia.
+Himantopus mexicanus,Humedales,alta,Vadea lagunas someras y campos inundados.
+Actitis macularius,Humedales,media,Orillas de ríos y lagunas; también costas rocosas.
+Arenaria interpres,Litoral,alta,Busca invertebrados en roquedales y playas intermareales.
+Bartramia longicauda,Desierto,baja,Visitante raro de pastizales y campos agrícolas abiertos.
+Calidris alba,Litoral,alta,Playero característico de playas arenosas con rompiente.
+Calidris bairdii,Humedales,media,Migrante de orillas de lagunas y terrenos húmedos.
+Calidris canutus,Litoral,media,Migrante escaso en playas y bancos intermareales.
+Calidris ferruginea,Humedales,baja,Visitante excepcional de fangales y lagunas salobres.
+Calidris fuscicollis,Humedales,media,Migrante de orillas fangosas y pastizales húmedos.
+Calidris himantopus,Humedales,alta,Vadea lagunas someras y fangales salobres.
+Calidris mauri,Humedales,alta,Playerito de fangales y lagunas costeras salobres.
+Calidris melanotos,Humedales,alta,Prefiere pastizales inundados y orillas pantanosas.
+Calidris minutilla,Humedales,alta,Busca alimento en márgenes fangosos con vegetación.
+Calidris pusilla,Humedales,alta,Migrante de fangales y lagunas costeras someras.
+Calidris virgata,Litoral,alta,Especialista de roquedales golpeados por el oleaje.
+Limnodromus griseus,Humedales,media,Sondea fango en estuarios y lagunas salobres.
+Limosa fedoa,Litoral,media,Playas y planicies intermareales; migrante escaso.
+Limosa haemastica,Humedales,media,Lagunas someras y fangales durante su migración.
+Limosa lapponica,Litoral,baja,Visitante excepcional de playas y planicies intermareales.
+Numenius americanus,Litoral,baja,Zarapito de aparición excepcional en playas costeras.
+Numenius phaeopus,Litoral,alta,Forrajea en playas y roquedales intermareales.
+Phalaropus fulicarius,Mar abierto,alta,Faláropo pelágico asociado a aguas marinas de surgencia.
+Phalaropus lobatus,Mar abierto,alta,Pasa la temporada migratoria alimentándose en el mar.
+Phalaropus tricolor,Humedales,alta,Migrante de lagunas someras y salinas.
+Tringa flavipes,Humedales,alta,Vadea orillas fangosas y campos inundados.
+Tringa incana,Litoral,media,Playero escaso especializado en costas rocosas.
+Tringa melanoleuca,Humedales,alta,Busca presas en lagunas y fangales someros.
+Tringa semipalmata,Litoral,alta,Playero de playas y planicies intermareales de bahías.
+Tringa solitaria,Humedales,media,Migrante escaso de charcas y márgenes fluviales.
+Stercorarius chilensis,Mar abierto,alta,Salteador marino de aguas de la corriente de Humboldt.
+Stercorarius longicaudus,Mar abierto,alta,Migrante pelágico que se alimenta mar adentro.
+Stercorarius maccormicki,Mar abierto,alta,Salteador pelágico visitante de aguas oceánicas.
+Stercorarius parasiticus,Mar abierto,alta,Persigue aves marinas en aguas costeras y oceánicas.
+Stercorarius pomarinus,Mar abierto,alta,Salteador migratorio de aguas marinas productivas.
+Thinocorus rumicivorus,Desierto,alta,Ave terrestre de pampas desérticas y lomas bajas.
+Molossus molossus,Desierto,media,Se refugia en construcciones de poblados y valles costeros.
+Tadarida brasiliensis,Desierto,alta,Usa cuevas y construcciones; caza sobre valles y poblados.
+Artibeus fraterculus,Desierto,media,Murciélago frugívoro de arboledas y cultivos en valles costeros.
+Desmodus rotundus,Desierto,media,Refugios próximos a ganado en valles y quebradas bajas.
+Jabiru mycteria,Humedales,baja,Visitante excepcional de pantanos y lagunas someras.
+Columba livia,Desierto,alta,Paloma urbana de poblados y construcciones.
+Columbina cruziana,Desierto,alta,Tortolita común en jardines y valles agrícolas áridos.
+Metriopelia aymara,Sierra,alta,Tortolita de pastizales y planicies de puna.
+Metriopelia ceciliae,Sierra,media,Laderas pedregosas andinas; también ocupa lomas de baja altitud.
+Metriopelia melanoptera,Sierra,alta,Tortolita de pastizales y quebradas altoandinas.
+Patagioenas maculosa,Sierra,media,Paloma de valles y laderas andinas con cultivos.
+Zenaida auriculata,Desierto,media,Tórtola de campos agrícolas; también habita valles andinos.
+Zenaida meloda,Desierto,alta,Tórtola habitual de jardines y arboledas de valles costeros.
+Chloroceryle americana,Humedales,media,Pesca desde ramas sobre ríos y acequias.
+Crotophaga sulcirostris,Desierto,alta,Campos agrícolas y matorrales de valles costeros.
+Falco femoralis,Desierto,media,Caza en pampas y campos abiertos; también en sierra.
+Falco peregrinus,Litoral,media,Caza aves concentradas en playas y acantilados costeros.
+Falco sparverius,Desierto,alta,Rapaz de cultivos y terrenos abiertos de los valles.
+Phalcoboenus megalopterus,Sierra,alta,Caracara característico de puna y laderas altoandinas.
+Fulica ardesiaca,Humedales,media,Gallareta común en lagunas costeras; también lagunas andinas.
+Fulica gigantea,Sierra,alta,Gallareta de lagunas de gran altitud.
+Fulica rufifrons,Humedales,alta,Gallareta de lagunas con vegetación emergente.
+Gallinula galeata,Humedales,alta,Lagunas y canales con abundante vegetación acuática.
+Pardirallus sanguinolentus,Humedales,alta,Rascón de totorales y pantanos con vegetación densa.
+Porphyrio martinica,Humedales,baja,Visitante raro de pantanos con vegetación flotante.
+Pheucticus chrysogaster,Desierto,media,Arboledas y matorrales de valles secos; también laderas andinas.
+Cinclus leucocephalus,Sierra,alta,Especialista de ríos pedregosos y torrentosos andinos.
+Spinus atratus,Sierra,alta,Jilguero de puna y laderas altoandinas.
+Spinus crassirostris,Sierra,alta,Jilguero de bosques de queñual y matorrales altoandinos.
+Spinus magellanicus,Desierto,media,Arboledas y cultivos costeros; también laderas andinas.
+Asthenes dorbignyi,Sierra,alta,Canastero de matorrales secos en laderas andinas.
+Asthenes pudibunda,Sierra,alta,Canastero de quebradas rocosas y matorrales de altura.
+Cinclodes albiventris,Sierra,alta,Churrete de pastizales y arroyos altoandinos.
+Cinclodes atacamensis,Sierra,alta,Churrete asociado a cauces rocosos de ríos andinos.
+Cinclodes taczanowskii,Litoral,alta,Especialista de orillas rocosas y rompientes marinas.
+Geositta crassirostris,Desierto,media,Lomas y laderas pedregosas de baja y media altitud.
+Geositta cunicularia,Sierra,media,Minero de pajonales de puna y vertientes occidentales.
+Geositta maritima,Desierto,alta,Minero de pampas áridas pedregosas y arenosas.
+Geositta peruviana,Desierto,alta,Minero característico del desierto costero y las lomas.
+Geositta tenuirostris,Sierra,alta,Minero de pastizales abiertos de gran altitud.
+Leptasthenura striata,Sierra,media,Matorrales secos de laderas andinas; también quebradas bajas.
+Phleocryptes melanops,Humedales,alta,Especialista de totorales y juncales de lagunas.
+Pseudasthenes cactorum,Desierto,alta,Canastero de cactales y quebradas áridas costeras.
+Hirundo rustica,Desierto,media,Migrante que caza sobre campos agrícolas y espacios abiertos.
+Orochelidon andecola,Sierra,alta,Golondrina de puna y laderas altoandinas.
+Orochelidon murina,Sierra,alta,Golondrina de valles y pastizales de altura.
+Petrochelidon pyrrhonota,Desierto,media,Migrante sobre campos abiertos y poblados de valles costeros.
+Petrochelidon rufocollaris,Desierto,alta,Golondrina de poblados y campos agrícolas de la costa.
+Progne murphyi,Litoral,alta,Martín asociado a acantilados e islas costeras.
+Progne tapera,Desierto,media,Migrante sobre campos abiertos de los valles.
+Pygochelidon cyanoleuca,Desierto,media,Golondrina común sobre poblados y valles; también en sierra.
+Riparia riparia,Humedales,media,Migrante que caza sobre ríos y humedales costeros.
+Dives warczewiczi,Desierto,alta,Tordo de cultivos y arboledas de valles costeros.
+Dolichonyx oryzivorus,Desierto,baja,Migrante raro en pastizales y campos agrícolas costeros.
+Leistes bellicosus,Desierto,alta,Ave terrestre de cultivos y pastizales costeros.
+Molothrus bonariensis,Desierto,alta,Tordo de jardines y áreas agrícolas costeras.
+Mimus longicaudatus,Desierto,alta,Calandria de matorrales secos y jardines costeros.
+Anthus peruvianus,Desierto,media,Pastizales bajos y campos abiertos de la costa.
+Geothlypis aequinoctialis,Humedales,media,Vegetación densa de pantanos y márgenes de acequias.
+Setophaga ruticilla,Desierto,baja,Visitante excepcional de arboledas y vegetación ribereña.
+Atlapetes nationi,Sierra,alta,Matorralero de quebradas y arbustos de vertientes andinas.
+Zonotrichia capensis,Desierto,media,Común en jardines y cultivos; también en los Andes.
+Passer domesticus,Desierto,alta,Gorrión introducido de poblados y construcciones.
+Asemospiza obscura,Desierto,media,Matorrales y hierbas de valles y laderas bajas.
+Catamenia analis,Sierra,media,Semillero de matorrales andinos; también baja a valles costeros.
+Catamenia inornata,Sierra,alta,Semillero de pastizales y matorrales altoandinos.
+Conirostrum cinereum,Desierto,media,Arboledas y jardines costeros; también vegetación andina.
+Diglossa brunneiventris,Sierra,alta,Pinchaflor de matorrales floridos en laderas altoandinas.
+Geospizopsis plebejus,Sierra,alta,Fringilo de laderas abiertas y pastizales andinos.
+Geospizopsis unicolor,Sierra,alta,Fringilo de puna y terrenos pedregosos altoandinos.
+Phrygilus atriceps,Sierra,alta,Fringilo de matorrales y quebradas de altura.
+Phrygilus punensis,Sierra,alta,Fringilo de pastizales y matorrales altoandinos.
+Poospiza hispaniolensis,Desierto,alta,Monterita de matorrales secos y vegetación de valles costeros.
+Rauenia bonariensis,Sierra,media,Arboledas y matorrales de valles andinos; también jardines bajos.
+Rhopospina alaudina,Sierra,media,Pastizales y laderas andinas; desciende estacionalmente a lomas.
+Rhopospina fruticeti,Sierra,media,Matorrales secos andinos; también ocupa lomas costeras.
+Saltator aurantiirostris,Sierra,alta,Saltador de matorrales secos y valles interandinos.
+Saltator striatipectus,Desierto,alta,Saltador de arboledas y matorrales de valles costeros.
+Sicalis flaveola,Desierto,alta,Chirigüe de poblados y campos agrícolas de tierras bajas.
+Sicalis lutea,Sierra,alta,Chirigüe propio de pastizales de puna.
+Sicalis luteola,Desierto,media,Chirigüe de pastizales y cultivos irrigados de los valles.
+Sicalis olivascens,Sierra,alta,Chirigüe de laderas áridas y pastizales andinos.
+Sicalis raimondii,Desierto,alta,Chirigüe característico de lomas y quebradas costeras áridas.
+Sicalis uropygialis,Sierra,alta,Chirigüe de puna y orillas de lagunas altoandinas.
+Sporophila peruviana,Desierto,alta,Espiguero de hierbas y matorrales de valles costeros.
+Sporophila simplex,Desierto,alta,Espiguero de matorrales secos y áreas agrícolas bajas.
+Sporophila telasco,Desierto,alta,Espiguero de campos agrícolas y vegetación ribereña costera.
+Volatinia jacarina,Desierto,alta,Semillero de hierbas y cultivos de valles bajos.
+Xenospingus concolor,Desierto,alta,Especialista de matorrales ribereños en valles costeros áridos.
+Troglodytes musculus,Desierto,alta,Cucarachero de jardines y matorrales de valles costeros.
+Turdus chiguanco,Sierra,media,Zorzal de valles andinos; también ocupa jardines costeros.
+Agriornis montanus,Sierra,alta,Tiránido de laderas rocosas y matorrales altoandinos.
+Anairetes flavirostris,Sierra,media,Matorrales secos andinos; también utiliza quebradas bajas.
+Anairetes reguloides,Desierto,media,Matorrales de quebradas áridas costeras y laderas occidentales bajas.
+Cnemarchus rufipennis,Sierra,alta,Tiránido de puna y matorrales de gran altitud.
+Elaenia albiceps,Desierto,media,Arboledas y matorrales de valles costeros durante sus desplazamientos.
+Lessonia oreas,Sierra,alta,Busca insectos en bofedales y orillas de lagunas altoandinas.
+Muscigralla brevicauda,Desierto,alta,Dormilona de campos abiertos y pampas costeras.
+Muscisaxicola albifrons,Sierra,alta,Dormilona de puna alta y terrenos próximos a nevados.
+Muscisaxicola capistratus,Sierra,media,Migrante austral de pastizales andinos y pampas de altura.
+Muscisaxicola frontalis,Sierra,alta,Dormilona migratoria de pastizales y roquedales altoandinos.
+Muscisaxicola griseus,Sierra,alta,Dormilona de pastizales y laderas occidentales andinas.
+Muscisaxicola juninensis,Sierra,alta,Dormilona de puna y bordes de bofedales.
+Muscisaxicola maclovianus,Litoral,media,Migrante austral en playas y bordes costeros abiertos.
+Muscisaxicola maculirostris,Sierra,media,Dormilona de laderas andinas; también baja a valles costeros.
+Muscisaxicola rufivertex,Sierra,alta,Dormilona de pastizales y laderas pedregosas altoandinas.
+Myiophobus rufescens,Desierto,alta,Mosquerito de matorrales y arboledas de valles costeros.
+Myiotheretes striaticollis,Sierra,alta,Tiránido de matorrales y claros en laderas andinas.
+Ochthoeca leucophrys,Sierra,media,Pitajo de matorrales secos andinos; también quebradas bajas.
+Ochthoeca oenanthoides,Sierra,alta,Pitajo de matorrales y quebradas de gran altitud.
+Pyrocephalus rubinus,Desierto,alta,Mosquero de jardines y campos agrícolas de los valles.
+Tachuris rubrigastra,Humedales,alta,Especialista de totorales y vegetación palustre.
+Tyrannus melancholicus,Desierto,alta,Tirano de arboledas y cultivos de valles costeros.
+Tyrannus savana,Desierto,baja,Visitante raro de campos abiertos y arboledas costeras.
+Tyrannus tyrannus,Desierto,baja,Migrante excepcional en arboledas de valles costeros.
+Ardea alba,Humedales,alta,Garza de lagunas y márgenes de ríos.
+Ardea cocoi,Humedales,alta,Garza de lagunas someras y desembocaduras.
+Ardea ibis,Desierto,alta,Se alimenta en cultivos y pastizales con ganado.
+Butorides striata,Humedales,alta,Pesca en orillas vegetadas de ríos y lagunas.
+Egretta caerulea,Humedales,alta,Vadea lagunas someras y desembocaduras fangosas.
+Egretta thula,Humedales,alta,Garza habitual de pantanos y orillas someras.
+Egretta tricolor,Humedales,media,Garza costera escasa de lagunas y estuarios.
+Nyctanassa violacea,Litoral,media,Busca crustáceos en orillas rocosas y zonas intermareales.
+Nycticorax nycticorax,Humedales,alta,Garza nocturna de lagunas y riberas vegetadas.
+Pelecanus occidentalis,Litoral,media,Pelícano escaso en bahías y puertos del sur peruano.
+Pelecanus thagus,Litoral,alta,Pelícano característico de bahías y puertos de Ica.
+Platalea ajaja,Humedales,baja,Visitante excepcional de lagunas someras y pantanos costeros.
+Plegadis ridgwayi,Humedales,media,Ibis presente en pantanos y campos inundados costeros.
+Theristicus melanopis,Humedales,baja,Visitante raro de pastizales húmedos y campos anegados.
+Phaethon aethereus,Mar abierto,media,Ave marina pelágica de aparición escasa frente a Ica.
+Phoenicoparrus andinus,Humedales,media,Descenso ocasional a salinas y lagunas salobres costeras.
+Phoenicoparrus jamesi,Humedales,baja,Visitante excepcional de salinas y lagunas costeras.
+Phoenicopterus chilensis,Humedales,alta,Flamenco de lagunas salobres y salinas costeras.
+Colaptes atricollis,Desierto,media,Carpintero de valles secos y cactales; también laderas andinas.
+Colaptes rupicola,Sierra,alta,Carpintero terrestre de pastizales y roquedales altoandinos.
+Podiceps major,Humedales,alta,Zambullidor de lagunas costeras y aguas someras protegidas.
+Podiceps occipitalis,Sierra,media,Lagunas altoandinas; algunas poblaciones bajan a la costa.
+Podilymbus podiceps,Humedales,alta,Zambullidor de lagunas y canales con vegetación acuática.
+Rollandia rolland,Humedales,media,Zambullidor de lagunas vegetadas costeras; también lagunas andinas.
+Phoebastria irrorata,Mar abierto,alta,Albatros pelágico de aguas productivas frente al Perú.
+Thalassarche bulleri,Mar abierto,alta,Albatros que se alimenta mar adentro.
+Thalassarche eremita,Mar abierto,media,Albatros oceánico de aparición escasa frente a Ica.
+Thalassarche melanophris,Mar abierto,alta,Albatros pelágico de la corriente de Humboldt.
+Thalassarche salvini,Mar abierto,alta,Albatros pelágico que visita aguas peruanas.
+Hydrobates hornbyi,Mar abierto,alta,Se alimenta en mar abierto aunque nidifica en desiertos.
+Hydrobates markhami,Mar abierto,alta,Ave pelágica; las colonias reproductivas están en el desierto.
+Hydrobates melania,Mar abierto,media,Golondrina marina de aguas oceánicas cálidas; presencia regional variable.
+Hydrobates tethys,Mar abierto,alta,Golondrina marina que busca alimento en aguas de surgencia.
+Fregetta grallaria,Mar abierto,media,Golondrina marina oceánica de observación escasa.
+Oceanites gracilis,Mar abierto,alta,Ave pelágica que se alimenta sobre la plataforma continental.
+Oceanites oceanicus,Mar abierto,alta,Migrante pelágica de aguas marinas productivas.
+Pelagodroma marina,Mar abierto,media,Golondrina marina oceánica de presencia regional escasa.
+Ardenna bulleri,Mar abierto,alta,Pardela migratoria que se alimenta mar adentro.
+Ardenna creatopus,Mar abierto,alta,Pardela pelágica de aguas de la corriente de Humboldt.
+Ardenna grisea,Mar abierto,alta,Pardela gregaria abundante en aguas marinas de surgencia.
+Daption capense,Mar abierto,alta,Petrel de aguas marinas frías y productivas.
+Fulmarus glacialoides,Mar abierto,media,Petrel oceánico austral de presencia regional escasa.
+Macronectes giganteus,Mar abierto,alta,Petrel marino carroñero de aguas costeras y oceánicas.
+Macronectes halli,Mar abierto,media,Petrel oceánico austral escaso frente a la costa peruana.
+Pachyptila belcheri,Mar abierto,baja,Petrel pelágico austral de aparición excepcional frente a Ica.
+Pachyptila desolata,Mar abierto,baja,Petrel antártico de aparición excepcional en aguas peruanas.
+Pelecanoides garnotii,Mar abierto,alta,Bucea en aguas marinas; se reproduce en islas costeras.
+Procellaria aequinoctialis,Mar abierto,alta,Petrel pelágico de aguas frías y productivas.
+Procellaria parkinsoni,Mar abierto,media,Petrel oceánico de presencia escasa frente a Ica.
+Pterodroma cookii,Mar abierto,alta,Petrel migratorio de aguas oceánicas alejadas de tierra.
+Pterodroma defilippiana,Mar abierto,alta,Petrel pelágico del Pacífico suroriental.
+Pterodroma externa,Mar abierto,alta,Petrel migratorio que se alimenta en aguas oceánicas.
+Forpus coelestis,Desierto,media,Periquito de parques y arboledas de valles costeros.
+Pionus menstruus,Desierto,baja,Especie amazónica; presencia local probablemente ligada a cautiverio.
+Psilopsiagon aurifrons,Sierra,media,Perico de quebradas andinas; también visita lomas y valles.
+Psittacara frontatus,Desierto,media,Bosques secos y arboledas de valles; también laderas.
+Cavia aperea,Humedales,baja,Cuy de pastizales húmedos; identidad y presencia regional inciertas.
+Cavia porcellus,Desierto,alta,Especie doméstica de viviendas y explotaciones agrícolas.
+Cavia tschudii,Humedales,media,Cuy silvestre de vegetación palustre; también pastizales andinos.
+Aegialomys xanthaeolus,Desierto,alta,Roedor de matorrales secos y cultivos de valles costeros.
+Phyllotis amicus,Desierto,alta,Ratón de lomas y matorrales de la costa árida.
+Phyllotis limatus,Desierto,media,Roedor de desiertos y laderas áridas occidentales.
+Spheniscus humboldti,Litoral,alta,Pingüino de islas y roquedales de la costa peruana.
+Ctenoblepharys adspersa,Desierto,alta,Lagartija especializada en dunas y arenales costeros.
+Phyllodactylus angustidigitus,Desierto,alta,Gecko de suelos áridos y roquedales de Paracas.
+Phyllodactylus microphyllus,Desierto,baja,Gecko de desiertos costeros; presencia regional incierta.
+Phyllodactylus sentosus,Desierto,baja,Gecko de huacas costeras; registro fuera de Lima dudoso.
+Dicrodon heterolepis,Desierto,alta,Lagartija de arenales y matorrales secos costeros.
+Microlophus tigris,Desierto,alta,Lagartija de lomas y terrenos rocosos áridos.
+Bothrops pictus,Desierto,alta,Víbora de lomas y quebradas áridas costeras.
+Asio clamator,Desierto,media,Búho de arboledas y campos de valles costeros.
+Asio flammeus,Humedales,media,Caza sobre pantanos y pastizales húmedos costeros.
+Athene cunicularia,Desierto,alta,Lechuza de pampas arenosas y campos agrícolas abiertos.
+Glaucidium peruanum,Desierto,alta,Lechucita de arboledas y matorrales de valles costeros.
+Tyto furcata,Desierto,alta,Lechuza de construcciones y terrenos agrícolas.
+Fregata magnificens,Litoral,media,Sobrevuela bahías y puertos; visitante de aguas cálidas.
+Fregata minor,Mar abierto,baja,Fragata oceánica de aparición excepcional frente a Ica.
+Phalacrocorax bougainvillii,Litoral,alta,Cormorán de islas guaneras y aguas próximas a costa.
+Phalacrocorax gaimardi,Litoral,alta,Cormorán asociado a acantilados y costas rocosas.
+Sula brewsteri,Litoral,baja,Piquero de aguas cálidas; visitante excepcional de islas costeras.
+Sula dactylatra,Litoral,baja,Piquero de islas oceánicas; aparición regional excepcional.
+Sula granti,Litoral,media,Piquero visitante de islas y aguas costeras.
+Sula nebouxii,Litoral,alta,Piquero de islas y aguas costeras productivas.
+Sula sula,Litoral,baja,Piquero tropical de aparición excepcional en islas costeras.
+Sula variegata,Litoral,alta,Piquero característico de islas guaneras y bahías peruanas.
+Chelonia mydas,Mar abierto,alta,Tortuga marina que se alimenta en aguas del Pacífico.
+Eretmochelys imbricata,Mar abierto,media,Tortuga de aguas marinas cálidas; presencia regional escasa.
+Lepidochelys olivacea,Mar abierto,alta,Tortuga marina de aguas costeras y oceánicas.
+Dermochelys coriacea,Mar abierto,alta,Tortuga pelágica que consume medusas en aguas oceánicas.
+Nothoprocta ornata,Sierra,alta,Perdiz de pajonales y laderas de puna.
+Nothoprocta pentlandii,Sierra,media,Perdiz de laderas andinas; también habita lomas costeras.
+Tinamotis pentlandii,Sierra,alta,Perdiz especializada en pastizales y planicies de puna.

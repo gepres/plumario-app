@@ -1,0 +1,335 @@
+nombre_cientifico,habitat,confianza,motivo
+Circus cinereus,Sierra,media,pastizales de puna y marismas
+Geranoaetus melanoleucus,Sierra,alta,vertientes andinas abiertas
+Geranoaetus polyosoma,Desierto,media,"desierto, lomas y valles costeros; también Andes"
+Parabuteo unicinctus,Desierto,alta,valles y matorral seco costero
+Pandion haliaetus,Litoral,media,"pesca en bahías, desembocaduras y lagunas"
+Anas bahamensis,Humedales,alta,lagunas costeras salobres
+Anas flavirostris,Sierra,alta,lagunas altoandinas
+Anas georgica,Humedales,media,lagunas costeras y altoandinas
+Lophonetta specularioides,Sierra,alta,lagunas de puna
+Merganetta armata,Sierra,alta,ríos torrentosos andinos
+Oressochen melanopterus,Sierra,alta,bofedales y lagunas de puna
+Oxyura jamaicensis,Sierra,media,"lagunas altoandinas; rara en la costa"
+Sarkidiornis sylvicola,Humedales,baja,divagante en humedales costeros
+Spatula cyanoptera,Humedales,media,lagunas costeras y andinas
+Spatula discors,Humedales,alta,migratorio boreal en lagunas costeras
+Spatula puna,Sierra,alta,lagunas de puna
+Aeronautes andecolus,Sierra,media,quebradas y vertientes andinas
+Chaetura pelagica,Desierto,baja,migratorio raro sobre valles
+Streptoprocne zonaris,Sierra,media,vuela sobre vertientes andinas
+Amazilis amazilia,Desierto,alta,jardines y valles costeros
+Colibri coruscans,Sierra,alta,jardines y matorral andino
+Metallura phoebe,Sierra,alta,matorral andino de altura
+Myrtis fanny,Sierra,media,matorral de vertientes occidentales
+Patagona gigas,Sierra,alta,vertientes andinas con cactus
+Polyonymus caroli,Sierra,alta,vertientes occidentales medias
+Rhodopis vesper,Desierto,alta,oasis y valles costeros
+Thaumastura cora,Desierto,alta,jardines y valles costeros
+Balaenoptera physalus,Mar abierto,alta,cetáceo de mar adentro
+Megaptera novaeangliae,Mar abierto,alta,cetáceo migratorio en mar abierto
+Lama guanicoe,Sierra,media,pastizales y laderas altoandinas
+Hippocamelus antisensis,Sierra,alta,laderas rocosas altoandinas
+Delphinus delphis,Mar abierto,alta,delfín de mar abierto
+Grampus griseus,Mar abierto,alta,delfín de aguas profundas
+Lagenorhynchus obscurus,Mar abierto,alta,delfín de aguas costeras y oceánicas
+Steno bredanensis,Mar abierto,alta,delfín oceánico
+Tursiops truncatus,Mar abierto,media,aguas costeras y oceánicas
+Phocoena spinipinnis,Mar abierto,media,marsopa de aguas cercanas a la costa
+Mesoplodon peruvianus,Mar abierto,alta,zifio de aguas profundas
+Chordeiles acutipennis,Desierto,alta,desierto y matorral costero
+Quechuavis decussata,Desierto,alta,desierto y lomas costeras
+Systellura longirostris,Sierra,media,laderas andinas abiertas
+Lycalopex culpaeus,Sierra,media,Andes y lomas
+Lycalopex griseus,Desierto,media,desierto y lomas costeras
+Leopardus garleppi,Sierra,alta,pajonales altoandinos
+Conepatus chinga,Sierra,media,matorral andino y valles
+Lontra felina,Litoral,alta,orilla rocosa marina
+Arctocephalus australis,Litoral,alta,roqueríos e islas costeras
+Arctocephalus philippii,Mar abierto,baja,divagante oceánico
+Otaria flavescens,Litoral,alta,loberas en islas y puntas
+Cathartes aura,Desierto,media,"desierto, valles y orilla"
+Coragyps atratus,Desierto,alta,pueblos y valles
+Vultur gryphus,Sierra,media,"Andes; visita la costa de Paracas"
+Hesperoburhinus superciliaris,Desierto,alta,matorral seco y campos costeros
+Anarhynchus alticola,Sierra,alta,orillas de lagunas de puna
+Anarhynchus collaris,Litoral,media,playas y orillas arenosas
+Anarhynchus falklandicus,Litoral,baja,migratorio austral raro en playas
+Anarhynchus mongolus,Litoral,baja,divagante en playas
+Anarhynchus nivosus,Litoral,alta,playas arenosas
+Anarhynchus wilsonia,Litoral,media,playas y lodazales costeros
+Charadrius semipalmatus,Litoral,alta,playas y lodazales
+Charadrius vociferus,Humedales,media,campos húmedos y orillas
+Oreopholus ruficollis,Desierto,media,lomas y desierto en invierno
+Pluvialis dominica,Humedales,baja,migratorio en campos y humedales
+Pluvialis squatarola,Litoral,alta,playas y lodazales
+Vanellus resplendens,Sierra,alta,pastizales y bofedales de puna
+Zonibyx modestus,Litoral,baja,migratorio austral raro
+Haematopus ater,Litoral,alta,orilla rocosa
+Haematopus palliatus,Litoral,alta,playas arenosas
+Chlidonias niger,Litoral,media,aguas costeras y lagunas
+Chroicocephalus cirrocephalus,Litoral,media,playas y lagunas costeras
+Chroicocephalus maculipennis,Litoral,baja,migratorio austral raro
+Chroicocephalus serranus,Sierra,media,"lagunas andinas; baja a la costa en invierno"
+Creagrus furcatus,Mar abierto,alta,gaviota pelágica nocturna
+Gelochelidon nilotica,Humedales,media,lagunas y playas
+Larosterna inca,Litoral,alta,acantilados e islas costeras
+Larus belcheri,Litoral,alta,orilla marina y puertos
+Larus dominicanus,Litoral,alta,orilla marina y puertos
+Leucophaeus atricilla,Litoral,alta,playas y orilla
+Leucophaeus modestus,Litoral,alta,"playas; anida en el desierto"
+Leucophaeus pipixcan,Litoral,alta,playas y lagunas costeras
+Phaetusa simplex,Humedales,baja,divagante desde ríos amazónicos
+Rynchops niger,Humedales,media,"desembocaduras, lagunas y playas"
+Sterna hirundinacea,Litoral,alta,aguas costeras
+Sterna hirundo,Litoral,alta,migratorio en playas y aguas costeras
+Sterna paradisaea,Mar abierto,media,migratorio oceánico
+Sterna trudeaui,Litoral,baja,raro en la costa
+Sternula antillarum,Litoral,media,playas y aguas costeras
+Sternula lorata,Litoral,alta,"playas; anida en el desierto costero"
+Thalasseus elegans,Litoral,alta,playas y aguas costeras
+Thalasseus maximus,Litoral,alta,playas y aguas costeras
+Thalasseus sandvicensis,Litoral,alta,playas y aguas costeras
+Xema sabini,Mar abierto,alta,gaviota migratoria pelágica
+Himantopus mexicanus,Humedales,alta,lagunas y pozas costeras
+Actitis macularius,Humedales,media,"orillas de ríos, lagunas y roqueríos"
+Arenaria interpres,Litoral,alta,orilla rocosa y playas
+Bartramia longicauda,Desierto,baja,migratorio raro en campos
+Calidris alba,Litoral,alta,playas arenosas en la rompiente
+Calidris bairdii,Sierra,media,"humedales altoandinos; también costa"
+Calidris canutus,Litoral,media,playas y lodazales costeros
+Calidris ferruginea,Humedales,baja,divagante en lodazales
+Calidris fuscicollis,Humedales,baja,migratorio raro en humedales
+Calidris himantopus,Humedales,media,lagunas costeras someras
+Calidris mauri,Humedales,media,lodazales de lagunas y playas
+Calidris melanotos,Humedales,alta,orillas herbosas de humedales
+Calidris minutilla,Humedales,alta,lodazales de lagunas
+Calidris pusilla,Litoral,media,playas y lodazales
+Calidris virgata,Litoral,alta,orilla rocosa en la rompiente
+Limnodromus griseus,Humedales,alta,lodazales y lagunas
+Limosa fedoa,Litoral,baja,raro en playas y lodazales
+Limosa haemastica,Humedales,media,lagunas y lodazales
+Limosa lapponica,Litoral,baja,divagante en playas
+Numenius americanus,Litoral,baja,divagante en playas
+Numenius phaeopus,Litoral,alta,"playas, roqueríos y lodazales"
+Phalaropus fulicarius,Mar abierto,alta,faláropo pelágico
+Phalaropus lobatus,Mar abierto,alta,faláropo pelágico
+Phalaropus tricolor,Humedales,media,lagunas costeras y de puna
+Tringa flavipes,Humedales,alta,lagunas y pozas
+Tringa incana,Litoral,alta,orilla rocosa
+Tringa melanoleuca,Humedales,alta,lagunas y pozas
+Tringa semipalmata,Litoral,alta,playas y orilla
+Tringa solitaria,Humedales,media,pozas y orillas de ríos
+Stercorarius chilensis,Mar abierto,alta,mar abierto y aguas costeras
+Stercorarius longicaudus,Mar abierto,alta,pelágico
+Stercorarius maccormicki,Mar abierto,alta,pelágico
+Stercorarius parasiticus,Mar abierto,alta,pelágico
+Stercorarius pomarinus,Mar abierto,alta,pelágico
+Thinocorus rumicivorus,Desierto,media,desierto y lomas costeras
+Molossus molossus,Desierto,alta,murciélago de pueblos
+Tadarida brasiliensis,Desierto,media,refugios en edificios y cuevas
+Artibeus fraterculus,Desierto,alta,valles con frutales
+Desmodus rotundus,Desierto,media,"valles y costa; se alimenta de ganado y lobos"
+Jabiru mycteria,Humedales,baja,divagante en humedales
+Columba livia,Desierto,alta,ciudades y pueblos
+Columbina cruziana,Desierto,alta,"pueblos, valles y campos"
+Metriopelia aymara,Sierra,alta,puna rocosa
+Metriopelia ceciliae,Sierra,alta,laderas andinas y pueblos de altura
+Metriopelia melanoptera,Sierra,alta,laderas andinas
+Patagioenas maculosa,Sierra,alta,valles y laderas andinas
+Zenaida auriculata,Desierto,alta,"valles, campos y pueblos"
+Zenaida meloda,Desierto,alta,ciudades y valles costeros
+Chloroceryle americana,Humedales,alta,ríos y acequias
+Crotophaga sulcirostris,Desierto,alta,valles y campos
+Falco femoralis,Sierra,media,"pastizales de puna; también costa"
+Falco peregrinus,Litoral,media,"acantilados, playas y lagunas"
+Falco sparverius,Desierto,alta,"valles, pueblos y campos"
+Phalcoboenus megalopterus,Sierra,alta,puna y laderas altas
+Fulica ardesiaca,Humedales,alta,lagunas costeras y andinas
+Fulica gigantea,Sierra,alta,lagunas altoandinas
+Fulica rufifrons,Humedales,baja,divagante en humedales
+Gallinula galeata,Humedales,alta,totorales y lagunas
+Pardirallus sanguinolentus,Humedales,alta,totorales y acequias
+Porphyrio martinica,Humedales,baja,divagante en totorales
+Pheucticus chrysogaster,Desierto,media,valles y laderas bajas
+Cinclus leucocephalus,Sierra,alta,arroyos andinos
+Spinus atratus,Sierra,alta,puna y quebradas altas
+Spinus crassirostris,Sierra,alta,bosques de queñua
+Spinus magellanicus,Sierra,media,laderas andinas y valles
+Asthenes dorbignyi,Sierra,alta,matorral andino
+Asthenes pudibunda,Sierra,alta,quebradas rocosas andinas
+Cinclodes albiventris,Sierra,alta,arroyos y bofedales de puna
+Cinclodes atacamensis,Sierra,alta,arroyos altoandinos
+Cinclodes taczanowskii,Litoral,alta,orilla rocosa marina
+Geositta crassirostris,Desierto,media,lomas y laderas rocosas áridas
+Geositta cunicularia,Desierto,media,"arenales costeros; también puna"
+Geositta maritima,Desierto,alta,desierto costero
+Geositta peruviana,Desierto,alta,desierto costero arenoso
+Geositta tenuirostris,Sierra,alta,pastizales de puna
+Leptasthenura striata,Sierra,alta,matorral de vertientes occidentales
+Phleocryptes melanops,Humedales,alta,totorales
+Pseudasthenes cactorum,Desierto,media,laderas bajas con cactus
+Hirundo rustica,Desierto,media,migratoria sobre campos y valles
+Orochelidon andecola,Sierra,alta,puna abierta
+Orochelidon murina,Sierra,alta,laderas andinas
+Petrochelidon pyrrhonota,Humedales,baja,migratoria sobre humedales
+Petrochelidon rufocollaris,Desierto,alta,pueblos y valles costeros
+Progne murphyi,Desierto,media,pueblos y acantilados costeros
+Progne tapera,Desierto,baja,divagante
+Pygochelidon cyanoleuca,Desierto,media,pueblos y valles
+Riparia riparia,Humedales,baja,migratoria sobre humedales
+Dives warczewiczi,Desierto,alta,valles y pueblos
+Dolichonyx oryzivorus,Desierto,baja,divagante en campos
+Leistes bellicosus,Desierto,alta,campos y pastizales costeros
+Molothrus bonariensis,Desierto,alta,valles y campos
+Mimus longicaudatus,Desierto,alta,matorral costero y pueblos
+Anthus peruvianus,Desierto,alta,campos y lomas costeras
+Geothlypis aequinoctialis,Humedales,media,carrizales y monte ribereño
+Setophaga ruticilla,Desierto,baja,divagante en valles
+Atlapetes nationi,Sierra,alta,matorral de vertientes occidentales
+Zonotrichia capensis,Sierra,media,"Andes; también valles costeros"
+Passer domesticus,Desierto,alta,ciudades y pueblos
+Asemospiza obscura,Desierto,media,valles y laderas bajas
+Catamenia analis,Sierra,media,laderas andinas y valles
+Catamenia inornata,Sierra,alta,pastizales de puna
+Conirostrum cinereum,Sierra,media,matorral andino y lomas
+Diglossa brunneiventris,Sierra,alta,matorral andino
+Geospizopsis plebejus,Sierra,alta,puna y laderas altas
+Geospizopsis unicolor,Sierra,alta,puna
+Phrygilus atriceps,Sierra,alta,matorral altoandino
+Phrygilus punensis,Sierra,alta,laderas andinas y pueblos de altura
+Poospiza hispaniolensis,Desierto,alta,matorral y valles costeros
+Rauenia bonariensis,Sierra,alta,valles interandinos y laderas
+Rhopospina alaudina,Sierra,media,laderas áridas y lomas
+Rhopospina fruticeti,Sierra,alta,matorral andino
+Saltator aurantiirostris,Sierra,media,matorral andino y valles
+Saltator striatipectus,Desierto,alta,valles costeros
+Sicalis flaveola,Desierto,alta,valles y pueblos costeros
+Sicalis lutea,Sierra,alta,puna
+Sicalis luteola,Desierto,media,campos y pastizales costeros
+Sicalis olivascens,Sierra,alta,laderas andinas
+Sicalis raimondii,Desierto,media,lomas y laderas bajas
+Sicalis uropygialis,Sierra,alta,puna
+Sporophila peruviana,Desierto,alta,matorral y campos costeros
+Sporophila simplex,Desierto,alta,valles y laderas bajas
+Sporophila telasco,Desierto,alta,campos y valles costeros
+Volatinia jacarina,Desierto,alta,campos y valles
+Xenospingus concolor,Desierto,alta,monte ribereño de valles costeros
+Troglodytes musculus,Desierto,alta,"pueblos, valles y jardines"
+Turdus chiguanco,Sierra,media,"Andes; también valles costeros"
+Agriornis montanus,Sierra,alta,laderas andinas abiertas
+Anairetes flavirostris,Sierra,media,matorral árido de vertientes
+Anairetes reguloides,Desierto,alta,matorral y valles costeros
+Cnemarchus rufipennis,Sierra,alta,bosques de queñua
+Elaenia albiceps,Desierto,baja,migratorio austral en valles
+Lessonia oreas,Sierra,alta,orillas de lagunas de puna
+Muscigralla brevicauda,Desierto,alta,desierto y campos costeros
+Muscisaxicola albifrons,Sierra,alta,bofedales altoandinos
+Muscisaxicola capistratus,Sierra,alta,puna
+Muscisaxicola frontalis,Sierra,alta,puna
+Muscisaxicola griseus,Sierra,alta,puna
+Muscisaxicola juninensis,Sierra,alta,puna
+Muscisaxicola maclovianus,Desierto,media,migratorio austral en costa y campos
+Muscisaxicola maculirostris,Sierra,alta,laderas andinas rocosas
+Muscisaxicola rufivertex,Sierra,alta,laderas altoandinas
+Myiophobus rufescens,Desierto,media,valles y laderas bajas
+Myiotheretes striaticollis,Sierra,alta,laderas andinas
+Ochthoeca leucophrys,Sierra,alta,matorral andino
+Ochthoeca oenanthoides,Sierra,alta,matorral altoandino
+Pyrocephalus rubinus,Desierto,alta,"valles, campos y pueblos"
+Tachuris rubrigastra,Humedales,alta,totorales
+Tyrannus melancholicus,Desierto,media,valles y campos
+Tyrannus savana,Desierto,baja,divagante
+Tyrannus tyrannus,Desierto,baja,divagante
+Ardea alba,Humedales,alta,"lagunas, ríos y campos inundados"
+Ardea cocoi,Humedales,baja,rara en humedales costeros
+Ardea ibis,Desierto,media,campos con ganado
+Butorides striata,Humedales,media,orillas de ríos y lagunas
+Egretta caerulea,Humedales,alta,lagunas y orillas
+Egretta thula,Humedales,alta,"lagunas, ríos y playas"
+Egretta tricolor,Humedales,media,lagunas costeras
+Nyctanassa violacea,Litoral,media,orilla rocosa y manglares
+Nycticorax nycticorax,Humedales,alta,"lagunas, ríos y roqueríos"
+Pelecanus occidentalis,Litoral,media,"costa; raro tan al sur"
+Pelecanus thagus,Litoral,alta,orilla marina y puertos
+Platalea ajaja,Humedales,media,lagunas costeras
+Plegadis ridgwayi,Humedales,media,humedales costeros y de puna
+Theristicus melanopis,Sierra,alta,pastizales de puna
+Phaethon aethereus,Mar abierto,alta,"oceánico; anida en islas"
+Phoenicoparrus andinus,Sierra,alta,salares y lagunas altoandinas
+Phoenicoparrus jamesi,Sierra,alta,lagunas altoandinas
+Phoenicopterus chilensis,Humedales,alta,lagunas costeras de Paracas
+Colaptes atricollis,Sierra,media,vertientes occidentales y valles
+Colaptes rupicola,Sierra,alta,puna
+Podiceps major,Litoral,media,bahías y lagunas costeras
+Podiceps occipitalis,Sierra,alta,lagunas altoandinas
+Podilymbus podiceps,Humedales,alta,lagunas y totorales
+Rollandia rolland,Humedales,media,lagunas costeras y andinas
+Phoebastria irrorata,Mar abierto,alta,albatros oceánico
+Thalassarche bulleri,Mar abierto,alta,albatros oceánico
+Thalassarche eremita,Mar abierto,alta,albatros oceánico
+Thalassarche melanophris,Mar abierto,alta,albatros oceánico
+Thalassarche salvini,Mar abierto,alta,albatros oceánico
+Hydrobates hornbyi,Mar abierto,alta,"paíño pelágico; anida en el desierto"
+Hydrobates markhami,Mar abierto,alta,"paíño pelágico; anida en Paracas"
+Hydrobates melania,Mar abierto,alta,paíño pelágico
+Hydrobates tethys,Mar abierto,alta,paíño pelágico
+Fregetta grallaria,Mar abierto,alta,paíño pelágico
+Oceanites gracilis,Mar abierto,alta,paíño de aguas costeras y pelágicas
+Oceanites oceanicus,Mar abierto,alta,paíño pelágico
+Pelagodroma marina,Mar abierto,alta,paíño pelágico
+Ardenna bulleri,Mar abierto,alta,pardela pelágica
+Ardenna creatopus,Mar abierto,alta,pardela pelágica
+Ardenna grisea,Mar abierto,alta,pardela pelágica
+Daption capense,Mar abierto,alta,petrel pelágico
+Fulmarus glacialoides,Mar abierto,alta,petrel pelágico
+Macronectes giganteus,Mar abierto,alta,petrel pelágico
+Macronectes halli,Mar abierto,alta,petrel pelágico
+Pachyptila belcheri,Mar abierto,alta,petrel pelágico
+Pachyptila desolata,Mar abierto,alta,petrel pelágico
+Pelecanoides garnotii,Mar abierto,media,aguas costeras cerca de islas
+Procellaria aequinoctialis,Mar abierto,alta,petrel pelágico
+Procellaria parkinsoni,Mar abierto,alta,petrel pelágico
+Pterodroma cookii,Mar abierto,alta,petrel pelágico
+Pterodroma defilippiana,Mar abierto,alta,petrel pelágico
+Pterodroma externa,Mar abierto,alta,petrel pelágico
+Forpus coelestis,Desierto,media,valles y matorral costero
+Pionus menstruus,Desierto,baja,probablemente escapado de cautiverio
+Psilopsiagon aurifrons,Sierra,media,laderas andinas y valles
+Psittacara frontatus,Sierra,media,vertientes occidentales y valles
+Cavia aperea,Desierto,baja,registro dudoso en valles
+Cavia porcellus,Desierto,media,doméstico en valles y pueblos
+Cavia tschudii,Sierra,alta,pajonales y matorral andino
+Aegialomys xanthaeolus,Desierto,alta,valles y campos costeros
+Phyllotis amicus,Desierto,media,lomas y laderas bajas
+Phyllotis limatus,Desierto,alta,desierto y lomas
+Spheniscus humboldti,Litoral,alta,islas y orilla rocosa
+Ctenoblepharys adspersa,Desierto,alta,arenales del desierto costero
+Phyllodactylus angustidigitus,Desierto,alta,desierto costero
+Phyllodactylus microphyllus,Desierto,alta,desierto costero
+Phyllodactylus sentosus,Desierto,alta,desierto costero
+Dicrodon heterolepis,Desierto,alta,desierto y valles costeros
+Microlophus tigris,Desierto,alta,lomas y desierto costero
+Bothrops pictus,Desierto,alta,desierto y valles costeros
+Asio clamator,Desierto,baja,raro en valles
+Asio flammeus,Desierto,media,campos y marismas costeras
+Athene cunicularia,Desierto,alta,desierto y campos costeros
+Glaucidium peruanum,Desierto,alta,valles y jardines
+Tyto furcata,Desierto,alta,valles y pueblos
+Fregata magnificens,Mar abierto,media,"planea sobre la costa; raro tan al sur"
+Fregata minor,Mar abierto,baja,divagante oceánico
+Phalacrocorax bougainvillii,Litoral,alta,islas guaneras y costa
+Phalacrocorax gaimardi,Litoral,alta,acantilados costeros
+Sula brewsteri,Mar abierto,baja,divagante oceánico
+Sula dactylatra,Mar abierto,media,oceánico
+Sula granti,Mar abierto,media,oceánico
+Sula nebouxii,Litoral,baja,divagante desde el norte
+Sula sula,Mar abierto,baja,divagante oceánico
+Sula variegata,Litoral,alta,islas y aguas costeras
+Chelonia mydas,Mar abierto,alta,"tortuga marina; frecuente en bahías"
+Eretmochelys imbricata,Mar abierto,alta,tortuga marina
+Lepidochelys olivacea,Mar abierto,alta,tortuga marina
+Dermochelys coriacea,Mar abierto,alta,tortuga marina oceánica
+Nothoprocta ornata,Sierra,alta,pastizales de puna
+Nothoprocta pentlandii,Sierra,alta,laderas andinas
+Tinamotis pentlandii,Sierra,alta,puna alta

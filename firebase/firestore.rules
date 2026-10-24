@@ -2,8 +2,21 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Se deniega todo: el modelo de datos aún no está diseñado y tiene su propia tarjeta.
-    match /{documento=**} {
+    // Catálogo de especies por región: público y de solo lectura. No tiene datos personales, y la
+    // app lo necesita antes de que haya sesión. Lo escribe tools/species/seed.mjs con el Admin SDK,
+    // que no pasa por estas reglas.
+    match /regions/{regionId} {
+      allow read: if true;
+      allow write: if false;
+
+      match /species/{speciesId} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+
+    // Todo lo demás se deniega hasta diseñar el modelo de datos (registros, cromos, intercambios).
+    match /{document=**} {
       allow read, write: if false;
     }
   }

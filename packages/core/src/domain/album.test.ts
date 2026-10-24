@@ -3,10 +3,11 @@ import { describe, expect, it } from 'vitest';
 import { nextPoster, summarizeAlbum } from './album';
 import type { Habitat } from './habitat';
 import type { Sighting } from './sighting';
-import type { Species } from './species';
+import type { Species, TaxonClass } from './species';
 
-const species = (id: string, habitat: Habitat): Species => ({
-  id, regionId: 'ica', number: 0, commonName: id, scientificName: id, habitat, threatened: false,
+const species = (id: string, habitat: Habitat | null, taxonClass: TaxonClass = 'bird'): Species => ({
+  id, regionId: 'ica', taxonClass, albumNumber: taxonClass === 'bird' ? 1 : null,
+  commonName: id, scientificName: id, habitat, threatened: false, endemic: false,
 });
 const sighting = (speciesId: string, regionId = 'ica'): Sighting => ({
   id: `${speciesId}-${Math.random()}`, userId: 'u1', speciesId, regionId, takenAt: new Date(2026, 9, 24),
@@ -52,5 +53,20 @@ describe('summarizeAlbum', () => {
 
   it('ignora registros de especies que no están en el catálogo', () => {
     expect(summarizeAlbum(catalog, [sighting('zzz')]).registered).toBe(0);
+  });
+
+  it('el álbum es de aves: mamíferos y reptiles no cuentan, aunque se registren', () => {
+    const withOthers = [...catalog, species('lobo', 'coast', 'mammal'), species('tortuga', 'openSea', 'reptile')];
+    const summary = summarizeAlbum(withOthers, [sighting('lobo'), sighting('a')]);
+    expect(summary.total).toBe(4);
+    expect(summary.registered).toBe(1);
+    expect(summary.byHabitat.find((h) => h.habitat === 'openSea')?.total).toBe(0);
+  });
+
+  it('una especie sin hábitat cuenta en el total pero en ningún hábitat', () => {
+    const summary = summarizeAlbum([...catalog, species('e', null)], [sighting('e')]);
+    expect(summary.total).toBe(5);
+    expect(summary.registered).toBe(1);
+    expect(summary.byHabitat.reduce((n, h) => n + h.total, 0)).toBe(4);
   });
 });

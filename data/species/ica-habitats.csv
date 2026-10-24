@@ -1,0 +1,335 @@
+﻿n_excel;numero_album;clase;nombre_comun;nombre_cientifico;habitat;revisar;motivo;propuesta_codex;motivo_codex;revisado
+1;1;Ave;Aguilucho Cenizo;Circus cinereus;Sierra;sí;pastizales de puna y marismas;Humedales;Caza sobre totorales y pastizales húmedos costeros.;no
+2;2;Ave;Aguilucho de Pecho Negro;Geranoaetus melanoleucus;Sierra;no;vertientes andinas abiertas;Sierra;"Rapaz de laderas rocosas; también visita lomas costeras.";no
+3;3;Ave;Aguilucho Variable;Geranoaetus polyosoma;Desierto;no;"desierto, lomas y valles costeros; también Andes";Desierto;"Caza en pampas desérticas y lomas; también en sierra.";no
+4;4;Ave;Gavilán Mixto;Parabuteo unicinctus;Desierto;no;valles y matorral seco costero;Desierto;Rapaz habitual de valles agrícolas y matorrales áridos.;no
+5;5;Ave;Aguila Pescadora;Pandion haliaetus;Litoral;no;pesca en bahías, desembocaduras y lagunas;Litoral;"Pesca en bahías y aguas costeras; también en lagunas.";no
+6;6;Ave;Pato Gargantillo;Anas bahamensis;Humedales;no;lagunas costeras salobres;Humedales;Pato de lagunas costeras y desembocaduras salobres.;no
+7;7;Ave;Pato Barcino;Anas flavirostris;Sierra;no;lagunas altoandinas;Sierra;"Predomina en lagunas altoandinas; también desciende a humedales costeros.";no
+8;8;Ave;Pato Jergón;Anas georgica;Humedales;no;lagunas costeras y altoandinas;Humedales;"Frecuenta lagunas costeras y campos anegados; también lagunas andinas.";no
+9;9;Ave;Pato Crestón;Lophonetta specularioides;Sierra;no;lagunas de puna;Sierra;Pato característico de lagunas y ríos altoandinos.;no
+10;10;Ave;Pato de los Torrentes;Merganetta armata;Sierra;no;ríos torrentosos andinos;Sierra;Especialista de ríos torrentosos en quebradas andinas.;no
+11;11;Ave;Cauquén Huallata;Oressochen melanopterus;Sierra;no;bofedales y lagunas de puna;Sierra;Pasta en bofedales y orillas de lagunas altoandinas.;no
+12;12;Ave;Pato Rana;Oxyura jamaicensis;Sierra;sí;"lagunas altoandinas; rara en la costa";Humedales;"Lagunas con vegetación acuática; también habita lagunas andinas.";no
+13;13;Ave;Pato Crestudo;Sarkidiornis sylvicola;Humedales;sí;divagante en humedales costeros;Humedales;Visitante raro de lagunas y campos inundados.;no
+14;14;Ave;Pato Colorado;Spatula cyanoptera;Humedales;no;lagunas costeras y andinas;Humedales;Pato frecuente en lagunas someras y pantanos costeros.;no
+15;15;Ave;Pato de Ala Azul;Spatula discors;Humedales;no;migratorio boreal en lagunas costeras;Humedales;Migrante escaso en lagunas y campos inundados.;no
+16;16;Ave;Pato de la Puna;Spatula puna;Sierra;no;lagunas de puna;Sierra;Pato propio de lagunas y bofedales de puna.;no
+17;17;Ave;Vencejo Andino;Aeronautes andecolus;Sierra;no;quebradas y vertientes andinas;Sierra;Vencejo asociado a roquedales y quebradas de vertientes andinas.;no
+18;18;Ave;Vencejo de Chimenea;Chaetura pelagica;Desierto;sí;migratorio raro sobre valles;Desierto;Migrante aéreo sobre poblados y valles de tierras bajas.;no
+19;19;Ave;Vencejo de Collar Blanco;Streptoprocne zonaris;Sierra;no;vuela sobre vertientes andinas;Sierra;"Vencejo de quebradas y acantilados andinos; realiza amplios desplazamientos.";no
+20;20;Ave;Colibrí de Vientre Rufo;Amazilis amazilia;Desierto;no;jardines y valles costeros;Desierto;Jardines y arboledas de valles costeros con flores.;no
+21;21;Ave;Oreja-Violeta de Vientre Azul;Colibri coruscans;Sierra;no;jardines y matorral andino;Sierra;Colibrí habitual de matorrales y jardines de altura.;no
+22;22;Ave;Colibrí Negro;Metallura phoebe;Sierra;no;matorral andino de altura;Sierra;Colibrí de matorrales y quebradas altoandinas.;no
+23;23;Ave;Estrellita de Collar Púrpura;Myrtis fanny;Sierra;sí;matorral de vertientes occidentales;Desierto;Matorrales de valles secos y laderas occidentales bajas.;no
+24;24;Ave;Colibrí Gigante Sureño;Patagona gigas;Sierra;no;vertientes andinas con cactus;Sierra;"Colibrí de laderas andinas; también visita valles y lomas.";no
+25;25;Ave;Cometa de Cola Bronceada;Polyonymus caroli;Sierra;no;vertientes occidentales medias;Sierra;Quebradas y matorrales de media montaña con flores.;no
+26;26;Ave;Colibrí de Oasis;Rhodopis vesper;Desierto;no;oasis y valles costeros;Desierto;Colibrí característico de oasis y valles agrícolas costeros.;no
+27;27;Ave;Colibrí de Cora;Thaumastura cora;Desierto;no;jardines y valles costeros;Desierto;Colibrí de jardines y matorrales de la costa árida.;no
+28;;Mamífero;Rorcual común, ballena de aleta;Balaenoptera physalus;Mar abierto;no;cetáceo de mar adentro;Mar abierto;Ballena que se alimenta en aguas marinas de surgencia.;no
+29;;Mamífero;Ballena jorobada, yubarta;Megaptera novaeangliae;Mar abierto;no;cetáceo migratorio en mar abierto;Mar abierto;Ballena migratoria de aguas marinas frente a Ica.;no
+30;;Mamífero;Guanaco;Lama guanicoe;Sierra;sí;pastizales y laderas altoandinas;Desierto;"Utiliza lomas y quebradas áridas; también laderas andinas.";no
+31;;Mamífero;Ciervo altoandino, taruca;Hippocamelus antisensis;Sierra;no;laderas rocosas altoandinas;Sierra;Cérvido de laderas rocosas y pastizales altoandinos.;no
+32;;Mamífero;Delfín común de hocico corto;Delphinus delphis;Mar abierto;no;delfín de mar abierto;Mar abierto;Delfín gregario de aguas marinas productivas.;no
+33;;Mamífero;Delfín gris, delfín de Risso;Grampus griseus;Mar abierto;no;delfín de aguas profundas;Mar abierto;Delfín asociado a aguas profundas del talud continental.;no
+34;;Mamífero;Delfín obscuro;Lagenorhynchus obscurus;Mar abierto;no;delfín de aguas costeras y oceánicas;Mar abierto;Delfín marino que se alimenta en aguas de surgencia.;no
+35;;Mamífero;Delfín de dientes rugosos;Steno bredanensis;Mar abierto;sí;delfín oceánico;Mar abierto;"Delfín de aguas cálidas; aparición regional ocasional.";no
+36;;Mamífero;Delfín pico de botella;Tursiops truncatus;Mar abierto;no;aguas costeras y oceánicas;Mar abierto;Delfín de aguas marinas costeras y oceánicas.;no
+37;;Mamífero;Marsopa espinosa, chancho marino;Phocoena spinipinnis;Mar abierto;no;marsopa de aguas cercanas a la costa;Mar abierto;Cetáceo de aguas marinas sobre la plataforma continental.;no
+38;;Mamífero;Ballena de pico peruana;Mesoplodon peruvianus;Mar abierto;no;zifio de aguas profundas;Mar abierto;"Zifio de aguas oceánicas profundas; observaciones escasas.";no
+39;28;Ave;Chotacabras Menor;Chordeiles acutipennis;Desierto;no;desierto y matorral costero;Desierto;Caza insectos sobre campos abiertos y poblados costeros.;no
+40;29;Ave;Chotacabras de Tschudi;Quechuavis decussata;Desierto;no;desierto y lomas costeras;Desierto;Chotacabras de matorrales secos y quebradas occidentales bajas.;no
+41;30;Ave;Chotacabras de Ala Bandeada;Systellura longirostris;Sierra;no;laderas andinas abiertas;Sierra;"Chotacabras de laderas abiertas andinas; también baja a costa.";no
+42;;Mamífero;Zorro colorado;Lycalopex culpaeus;Sierra;no;Andes y lomas;Sierra;"Zorro de laderas y puna; también ocupa ambientes costeros.";no
+43;;Mamífero;Zorro gris;Lycalopex griseus;Desierto;sí;desierto y lomas costeras;Desierto;"Zorro de ambientes áridos; identidad regional incierta.";no
+44;;Mamífero;Gato de Garlepp, gato del pajonal, oscollo;Leopardus garleppi;Sierra;sí;pajonales altoandinos;Desierto;"Felino de lomas y matorrales costeros; también ocupa puna.";no
+45;;Mamífero;Zorrino, añas;Conepatus chinga;Sierra;sí;matorral andino y valles;Desierto;"Forrajea en valles y lomas; también habita laderas andinas.";no
+46;;Mamífero;Gato marino, chingungo, huallaque;Lontra felina;Litoral;no;orilla rocosa marina;Litoral;Nutria especializada en costas rocosas y rompientes.;no
+47;;Mamífero;Lobo fino, cochapuma;Arctocephalus australis;Litoral;no;roqueríos e islas costeras;Litoral;Descansa y se reproduce en islas y roquedales costeros.;no
+48;;Mamífero;Lobo fino de Juan Fernández;Arctocephalus philippii;Mar abierto;sí;divagante oceánico;Litoral;Visitante excepcional en apostaderos de lobos marinos costeros.;no
+49;;Mamífero;Lobo chusco, cochapuma;Otaria flavescens;Litoral;no;loberas en islas y puntas;Litoral;Forma colonias en playas e islas del litoral.;no
+50;31;Ave;Gallinazo de Cabeza Roja;Cathartes aura;Desierto;no;desierto, valles y orilla;Desierto;Carroñero habitual de pampas y valles costeros.;no
+51;32;Ave;Gallinazo de Cabeza Negra;Coragyps atratus;Desierto;no;pueblos y valles;Desierto;Carroñero de poblados y áreas agrícolas de tierras bajas.;no
+52;33;Ave;Cóndor Andino;Vultur gryphus;Sierra;no;"Andes; visita la costa de Paracas";Sierra;Rapaz andina de grandes laderas y roquedales.;no
+53;34;Ave;Alcaraván Huerequeque;Hesperoburhinus superciliaris;Desierto;no;matorral seco y campos costeros;Desierto;Ave terrestre de pampas áridas y campos agrícolas.;no
+54;35;Ave;Chorlo de la Puna;Anarhynchus alticola;Sierra;no;orillas de lagunas de puna;Sierra;Chorlo de pastizales y orillas de lagunas de puna.;no
+55;36;Ave;Chorlo Acollarado;Anarhynchus collaris;Litoral;sí;playas y orillas arenosas;Humedales;Prefiere bancos arenosos de ríos y desembocaduras.;no
+56;37;Ave;Chorlo de Doble Collar;Anarhynchus falklandicus;Litoral;sí;migratorio austral raro en playas;Litoral;Migrante austral de playas y planicies costeras.;no
+57;38;Ave;Chorlo Siberiano;Anarhynchus mongolus;Litoral;sí;divagante en playas;Litoral;Visitante excepcional de playas y zonas intermareales.;no
+58;39;Ave;Chorlo Nevado;Anarhynchus nivosus;Litoral;no;playas arenosas;Litoral;Chorlo de playas arenosas y salinas junto al mar.;no
+59;40;Ave;Chorlo de Pico Grueso;Anarhynchus wilsonia;Litoral;no;playas y lodazales costeros;Litoral;"Playas y planicies intermareales; presencia regional escasa.";no
+60;41;Ave;Chorlo Semipalmado;Charadrius semipalmatus;Litoral;no;playas y lodazales;Litoral;Migrante frecuente en playas y orillas marinas.;no
+61;42;Ave;Chorlo Gritón;Charadrius vociferus;Humedales;no;campos húmedos y orillas;Humedales;Orillas y campos húmedos de los valles costeros.;no
+62;43;Ave;Chorlo de Campo;Oreopholus ruficollis;Desierto;no;lomas y desierto en invierno;Desierto;Migrante austral que ocupa pampas desérticas abiertas.;no
+63;44;Ave;Chorlo Dorado Americano;Pluvialis dominica;Humedales;sí;migratorio en campos y humedales;Humedales;Migrante de pastizales húmedos y campos anegados.;no
+64;45;Ave;Chorlo Gris;Pluvialis squatarola;Litoral;no;playas y lodazales;Litoral;Chorlo de playas y planicies intermareales de bahías.;no
+65;46;Ave;Avefría Andina;Vanellus resplendens;Sierra;no;pastizales y bofedales de puna;Sierra;Avefría de pastizales húmedos y bofedales altoandinos.;no
+66;47;Ave;Chorlo Chileno;Zonibyx modestus;Litoral;sí;migratorio austral raro;Litoral;Migrante austral de playas y planicies costeras.;no
+67;48;Ave;Ostrero Negruzco;Haematopus ater;Litoral;no;orilla rocosa;Litoral;Ostrero especializado en roquedales intermareales.;no
+68;49;Ave;Ostrero Americano;Haematopus palliatus;Litoral;no;playas arenosas;Litoral;Ostrero de playas arenosas y orillas marinas.;no
+69;50;Ave;Gaviotín Negro;Chlidonias niger;Litoral;no;aguas costeras y lagunas;Litoral;Migrante que pesca en bahías y aguas costeras.;no
+70;51;Ave;Gaviota de Capucha Gris;Chroicocephalus cirrocephalus;Litoral;no;playas y lagunas costeras;Litoral;"Gaviota de bahías y playas; también utiliza lagunas costeras.";no
+71;52;Ave;Gaviota de Capucha Café;Chroicocephalus maculipennis;Litoral;sí;migratorio austral raro;Litoral;"Gaviota austral de bahías; también frecuenta lagunas costeras.";no
+72;53;Ave;Gaviota Andina;Chroicocephalus serranus;Sierra;no;"lagunas andinas; baja a la costa en invierno";Sierra;"Gaviota de lagunas altoandinas; también desciende a la costa.";no
+73;54;Ave;Gaviota Tijereta;Creagrus furcatus;Mar abierto;no;gaviota pelágica nocturna;Mar abierto;Gaviota pelágica que se alimenta mar adentro.;no
+74;55;Ave;Gaviotín de Pico Negro;Gelochelidon nilotica;Humedales;no;lagunas y playas;Humedales;Caza sobre marismas y lagunas costeras someras.;no
+75;56;Ave;Gaviotín Zarcillo;Larosterna inca;Litoral;no;acantilados e islas costeras;Litoral;Gaviotín de islas guaneras y aguas costeras.;no
+76;57;Ave;Gaviota Peruana;Larus belcheri;Litoral;no;orilla marina y puertos;Litoral;Gaviota característica de playas y puertos peruanos.;no
+77;58;Ave;Gaviota Dominicana;Larus dominicanus;Litoral;no;orilla marina y puertos;Litoral;Gaviota habitual de playas y costas rocosas.;no
+78;59;Ave;Gaviota Reidora;Leucophaeus atricilla;Litoral;no;playas y orilla;Litoral;Gaviota costera escasa en el sur peruano.;no
+79;60;Ave;Gaviota Gris;Leucophaeus modestus;Litoral;no;"playas; anida en el desierto";Litoral;Se alimenta en playas y aguas costeras someras.;no
+80;61;Ave;Gaviota de Franklin;Leucophaeus pipixcan;Litoral;no;playas y lagunas costeras;Litoral;Migrante abundante en playas y bahías costeras.;no
+81;62;Ave;Gaviotín de Pico Grande;Phaetusa simplex;Humedales;sí;divagante desde ríos amazónicos;Humedales;Gaviotín fluvial de aparición excepcional en la costa.;no
+82;63;Ave;Rayador Negro;Rynchops niger;Humedales;sí;desembocaduras, lagunas y playas;Litoral;Descansa en playas y pesca en bahías someras.;no
+83;64;Ave;Gaviotín Sudamericano;Sterna hirundinacea;Litoral;no;aguas costeras;Litoral;Gaviotín de bahías y aguas próximas a la costa.;no
+84;65;Ave;Gaviotín Común;Sterna hirundo;Litoral;no;migratorio en playas y aguas costeras;Litoral;Migrante que pesca en bahías y aguas costeras.;no
+85;66;Ave;Gaviotín Artico;Sterna paradisaea;Mar abierto;no;migratorio oceánico;Mar abierto;Migrante principalmente pelágico frente a la costa peruana.;no
+86;67;Ave;Gaviotín de Cabeza Blanca;Sterna trudeaui;Litoral;sí;raro en la costa;Humedales;"Gaviotín de lagunas y desembocaduras; también aguas costeras.";no
+87;68;Ave;Gaviotín Chico;Sternula antillarum;Litoral;no;playas y aguas costeras;Litoral;Migrante escaso de playas y aguas costeras someras.;no
+88;69;Ave;Gaviotín Peruano;Sternula lorata;Litoral;no;"playas; anida en el desierto costero";Litoral;"Pesca cerca de playas; anida en pampas costeras.";no
+89;70;Ave;Gaviotín Elegante;Thalasseus elegans;Litoral;no;playas y aguas costeras;Litoral;Gaviotín de playas y bahías con abundantes peces.;no
+90;71;Ave;Gaviotín Real;Thalasseus maximus;Litoral;no;playas y aguas costeras;Litoral;Gaviotín que pesca en bahías y aguas costeras.;no
+91;72;Ave;Gaviotín de Pata Negra;Thalasseus sandvicensis;Litoral;sí;playas y aguas costeras;Litoral;Visitante excepcional de playas y bahías.;no
+92;73;Ave;Gaviota de Sabine;Xema sabini;Mar abierto;no;gaviota migratoria pelágica;Mar abierto;Gaviota migratoria pelágica de aguas de surgencia.;no
+93;74;Ave;Cigüeñuela de Cuello Negro;Himantopus mexicanus;Humedales;no;lagunas y pozas costeras;Humedales;Vadea lagunas someras y campos inundados.;no
+94;75;Ave;Playero Coleador;Actitis macularius;Humedales;no;orillas de ríos, lagunas y roqueríos;Humedales;"Orillas de ríos y lagunas; también costas rocosas.";no
+95;76;Ave;Vuelvepiedras Rojizo;Arenaria interpres;Litoral;no;orilla rocosa y playas;Litoral;Busca invertebrados en roquedales y playas intermareales.;no
+96;77;Ave;Playero Batitú;Bartramia longicauda;Desierto;sí;migratorio raro en campos;Desierto;Visitante raro de pastizales y campos agrícolas abiertos.;no
+97;78;Ave;Playero Arenero;Calidris alba;Litoral;no;playas arenosas en la rompiente;Litoral;Playero característico de playas arenosas con rompiente.;no
+98;79;Ave;Playerito de Baird;Calidris bairdii;Sierra;sí;"humedales altoandinos; también costa";Humedales;Migrante de orillas de lagunas y terrenos húmedos.;no
+99;80;Ave;Playero de Pecho Rufo;Calidris canutus;Litoral;no;playas y lodazales costeros;Litoral;Migrante escaso en playas y bancos intermareales.;no
+100;81;Ave;Playero Zarapito;Calidris ferruginea;Humedales;sí;divagante en lodazales;Humedales;Visitante excepcional de fangales y lagunas salobres.;no
+101;82;Ave;Playerito de Lomo Blanco;Calidris fuscicollis;Humedales;sí;migratorio raro en humedales;Humedales;Migrante de orillas fangosas y pastizales húmedos.;no
+102;83;Ave;Playero de Pata Larga;Calidris himantopus;Humedales;no;lagunas costeras someras;Humedales;Vadea lagunas someras y fangales salobres.;no
+103;84;Ave;Playerito Occidental;Calidris mauri;Humedales;no;lodazales de lagunas y playas;Humedales;Playerito de fangales y lagunas costeras salobres.;no
+104;85;Ave;Playero Pectoral;Calidris melanotos;Humedales;no;orillas herbosas de humedales;Humedales;Prefiere pastizales inundados y orillas pantanosas.;no
+105;86;Ave;Playerito Menudo;Calidris minutilla;Humedales;no;lodazales de lagunas;Humedales;Busca alimento en márgenes fangosos con vegetación.;no
+106;87;Ave;Playerito Semipalmado;Calidris pusilla;Litoral;sí;playas y lodazales;Humedales;Migrante de fangales y lagunas costeras someras.;no
+107;88;Ave;Chorlo de las Rompientes;Calidris virgata;Litoral;no;orilla rocosa en la rompiente;Litoral;Especialista de roquedales golpeados por el oleaje.;no
+108;89;Ave;Agujeta de Pico Corto;Limnodromus griseus;Humedales;no;lodazales y lagunas;Humedales;Sondea fango en estuarios y lagunas salobres.;no
+109;90;Ave;Aguja Moteada;Limosa fedoa;Litoral;sí;raro en playas y lodazales;Litoral;"Playas y planicies intermareales; migrante escaso.";no
+110;91;Ave;Aguja de Mar;Limosa haemastica;Humedales;no;lagunas y lodazales;Humedales;Lagunas someras y fangales durante su migración.;no
+111;92;Ave;Aguja de Cola Pintada;Limosa lapponica;Litoral;sí;divagante en playas;Litoral;Visitante excepcional de playas y planicies intermareales.;no
+112;93;Ave;Zarapito de Pico Largo;Numenius americanus;Litoral;sí;divagante en playas;Litoral;Zarapito de aparición excepcional en playas costeras.;no
+113;94;Ave;Zarapito Trinador;Numenius phaeopus;Litoral;no;playas, roqueríos y lodazales;Litoral;Forrajea en playas y roquedales intermareales.;no
+114;95;Ave;Faláropo de Pico Grueso;Phalaropus fulicarius;Mar abierto;no;faláropo pelágico;Mar abierto;Faláropo pelágico asociado a aguas marinas de surgencia.;no
+115;96;Ave;Faláropo de Pico Fino;Phalaropus lobatus;Mar abierto;no;faláropo pelágico;Mar abierto;Pasa la temporada migratoria alimentándose en el mar.;no
+116;97;Ave;Faláropo Tricolor;Phalaropus tricolor;Humedales;no;lagunas costeras y de puna;Humedales;Migrante de lagunas someras y salinas.;no
+117;98;Ave;Playero Pata Amarilla Menor;Tringa flavipes;Humedales;no;lagunas y pozas;Humedales;Vadea orillas fangosas y campos inundados.;no
+118;99;Ave;Playero Vagabundo;Tringa incana;Litoral;no;orilla rocosa;Litoral;Playero escaso especializado en costas rocosas.;no
+119;100;Ave;Playero Pata Amarilla Mayor;Tringa melanoleuca;Humedales;no;lagunas y pozas;Humedales;Busca presas en lagunas y fangales someros.;no
+120;101;Ave;Playero de Ala Blanca;Tringa semipalmata;Litoral;no;playas y orilla;Litoral;Playero de playas y planicies intermareales de bahías.;no
+121;102;Ave;Playero Solitario;Tringa solitaria;Humedales;no;pozas y orillas de ríos;Humedales;Migrante escaso de charcas y márgenes fluviales.;no
+122;103;Ave;Salteador Chileno;Stercorarius chilensis;Mar abierto;no;mar abierto y aguas costeras;Mar abierto;Salteador marino de aguas de la corriente de Humboldt.;no
+123;104;Ave;Salteador de Cola Larga;Stercorarius longicaudus;Mar abierto;no;pelágico;Mar abierto;Migrante pelágico que se alimenta mar adentro.;no
+124;105;Ave;Salteador del Polo Sur;Stercorarius maccormicki;Mar abierto;no;pelágico;Mar abierto;Salteador pelágico visitante de aguas oceánicas.;no
+125;106;Ave;Salteador Parásito;Stercorarius parasiticus;Mar abierto;no;pelágico;Mar abierto;Persigue aves marinas en aguas costeras y oceánicas.;no
+126;107;Ave;Salteador Pomarino;Stercorarius pomarinus;Mar abierto;no;pelágico;Mar abierto;Salteador migratorio de aguas marinas productivas.;no
+127;108;Ave;Agachona Chica;Thinocorus rumicivorus;Desierto;no;desierto y lomas costeras;Desierto;Ave terrestre de pampas desérticas y lomas bajas.;no
+128;;Mamífero;Murciélago casero;Molossus molossus;Desierto;no;murciélago de pueblos;Desierto;Se refugia en construcciones de poblados y valles costeros.;no
+129;;Mamífero;Murciélago de cola libre del Brasil;Tadarida brasiliensis;Desierto;no;refugios en edificios y cuevas;Desierto;"Usa cuevas y construcciones; caza sobre valles y poblados.";no
+130;;Mamífero;Murciélago frutero fraternal;Artibeus fraterculus;Desierto;no;valles con frutales;Desierto;Murciélago frugívoro de arboledas y cultivos en valles costeros.;no
+131;;Mamífero;Vampiro común;Desmodus rotundus;Desierto;no;"valles y costa; se alimenta de ganado y lobos";Desierto;Refugios próximos a ganado en valles y quebradas bajas.;no
+132;109;Ave;Jabirú;Jabiru mycteria;Humedales;sí;divagante en humedales;Humedales;Visitante excepcional de pantanos y lagunas someras.;no
+133;110;Ave;Paloma Doméstica;Columba livia;Desierto;no;ciudades y pueblos;Desierto;Paloma urbana de poblados y construcciones.;no
+134;111;Ave;Tortolita Peruana;Columbina cruziana;Desierto;no;pueblos, valles y campos;Desierto;Tortolita común en jardines y valles agrícolas áridos.;no
+135;112;Ave;Tortolita de Puntos Dorados;Metriopelia aymara;Sierra;no;puna rocosa;Sierra;Tortolita de pastizales y planicies de puna.;no
+136;113;Ave;Tortolita Moteada;Metriopelia ceciliae;Sierra;no;laderas andinas y pueblos de altura;Sierra;"Laderas pedregosas andinas; también ocupa lomas de baja altitud.";no
+137;114;Ave;Tortolita de Ala Negra;Metriopelia melanoptera;Sierra;no;laderas andinas;Sierra;Tortolita de pastizales y quebradas altoandinas.;no
+138;115;Ave;Paloma de Ala Moteada;Patagioenas maculosa;Sierra;no;valles y laderas andinas;Sierra;Paloma de valles y laderas andinas con cultivos.;no
+139;116;Ave;Tórtola Orejuda;Zenaida auriculata;Desierto;no;valles, campos y pueblos;Desierto;"Tórtola de campos agrícolas; también habita valles andinos.";no
+140;117;Ave;Tórtola Melódica;Zenaida meloda;Desierto;no;ciudades y valles costeros;Desierto;Tórtola habitual de jardines y arboledas de valles costeros.;no
+141;118;Ave;Martín Pescador Verde;Chloroceryle americana;Humedales;no;ríos y acequias;Humedales;Pesca desde ramas sobre ríos y acequias.;no
+142;119;Ave;Garrapatero de Pico Estriado;Crotophaga sulcirostris;Desierto;no;valles y campos;Desierto;Campos agrícolas y matorrales de valles costeros.;no
+143;120;Ave;Halcón Aplomado;Falco femoralis;Sierra;sí;"pastizales de puna; también costa";Desierto;"Caza en pampas y campos abiertos; también en sierra.";no
+144;121;Ave;Halcón Peregrino;Falco peregrinus;Litoral;no;acantilados, playas y lagunas;Litoral;Caza aves concentradas en playas y acantilados costeros.;no
+145;122;Ave;Cernícalo Americano;Falco sparverius;Desierto;no;valles, pueblos y campos;Desierto;Rapaz de cultivos y terrenos abiertos de los valles.;no
+146;123;Ave;Caracara Cordillerano;Phalcoboenus megalopterus;Sierra;no;puna y laderas altas;Sierra;Caracara característico de puna y laderas altoandinas.;no
+147;124;Ave;Gallareta Andina;Fulica ardesiaca;Humedales;no;lagunas costeras y andinas;Humedales;"Gallareta común en lagunas costeras; también lagunas andinas.";no
+148;125;Ave;Gallareta Gigante;Fulica gigantea;Sierra;no;lagunas altoandinas;Sierra;Gallareta de lagunas de gran altitud.;no
+149;126;Ave;Gallareta de Frente Roja;Fulica rufifrons;Humedales;sí;divagante en humedales;Humedales;Gallareta de lagunas con vegetación emergente.;no
+150;127;Ave;Polla de Agua Común;Gallinula galeata;Humedales;no;totorales y lagunas;Humedales;Lagunas y canales con abundante vegetación acuática.;no
+151;128;Ave;Rascón Plomizo;Pardirallus sanguinolentus;Humedales;no;totorales y acequias;Humedales;Rascón de totorales y pantanos con vegetación densa.;no
+152;129;Ave;Polla de Agua Morada;Porphyrio martinica;Humedales;sí;divagante en totorales;Humedales;Visitante raro de pantanos con vegetación flotante.;no
+153;130;Ave;Picogrueso Dorado;Pheucticus chrysogaster;Desierto;no;valles y laderas bajas;Desierto;"Arboledas y matorrales de valles secos; también laderas andinas.";no
+154;131;Ave;Mirlo Acuático de Gorro Blanco;Cinclus leucocephalus;Sierra;no;arroyos andinos;Sierra;Especialista de ríos pedregosos y torrentosos andinos.;no
+155;132;Ave;Jilguero Negro;Spinus atratus;Sierra;no;puna y quebradas altas;Sierra;Jilguero de puna y laderas altoandinas.;no
+156;133;Ave;Jilguero de Pico Grueso;Spinus crassirostris;Sierra;no;bosques de queñua;Sierra;Jilguero de bosques de queñual y matorrales altoandinos.;no
+157;134;Ave;Jilguero Encapuchado;Spinus magellanicus;Sierra;sí;laderas andinas y valles;Desierto;"Arboledas y cultivos costeros; también laderas andinas.";no
+158;135;Ave;Canastero de Pecho Cremoso;Asthenes dorbignyi;Sierra;no;matorral andino;Sierra;Canastero de matorrales secos en laderas andinas.;no
+159;136;Ave;Canastero de Quebradas;Asthenes pudibunda;Sierra;no;quebradas rocosas andinas;Sierra;Canastero de quebradas rocosas y matorrales de altura.;no
+160;137;Ave;Churrete de Ala Crema;Cinclodes albiventris;Sierra;no;arroyos y bofedales de puna;Sierra;Churrete de pastizales y arroyos altoandinos.;no
+161;138;Ave;Churrete de Ala Blanca;Cinclodes atacamensis;Sierra;no;arroyos altoandinos;Sierra;Churrete asociado a cauces rocosos de ríos andinos.;no
+162;139;Ave;Churrete Marisquero;Cinclodes taczanowskii;Litoral;no;orilla rocosa marina;Litoral;Especialista de orillas rocosas y rompientes marinas.;no
+163;140;Ave;Minero de Pico Grueso;Geositta crassirostris;Desierto;no;lomas y laderas rocosas áridas;Desierto;Lomas y laderas pedregosas de baja y media altitud.;no
+164;141;Ave;Minero Común;Geositta cunicularia;Desierto;sí;"arenales costeros; también puna";Sierra;Minero de pajonales de puna y vertientes occidentales.;no
+165;142;Ave;Minero Gris;Geositta maritima;Desierto;no;desierto costero;Desierto;Minero de pampas áridas pedregosas y arenosas.;no
+166;143;Ave;Minero Peruano;Geositta peruviana;Desierto;no;desierto costero arenoso;Desierto;Minero característico del desierto costero y las lomas.;no
+167;144;Ave;Minero de Pico Largo;Geositta tenuirostris;Sierra;no;pastizales de puna;Sierra;Minero de pastizales abiertos de gran altitud.;no
+168;145;Ave;Tijeral Listado;Leptasthenura striata;Sierra;no;matorral de vertientes occidentales;Sierra;"Matorrales secos de laderas andinas; también quebradas bajas.";no
+169;146;Ave;Junquero;Phleocryptes melanops;Humedales;no;totorales;Humedales;Especialista de totorales y juncales de lagunas.;no
+170;147;Ave;Canastero de los Cactus;Pseudasthenes cactorum;Desierto;no;laderas bajas con cactus;Desierto;Canastero de cactales y quebradas áridas costeras.;no
+171;148;Ave;Golondrina Tijereta;Hirundo rustica;Desierto;no;migratoria sobre campos y valles;Desierto;Migrante que caza sobre campos agrícolas y espacios abiertos.;no
+172;149;Ave;Golondrina Andina;Orochelidon andecola;Sierra;no;puna abierta;Sierra;Golondrina de puna y laderas altoandinas.;no
+173;150;Ave;Golondrina de Vientre Pardo;Orochelidon murina;Sierra;no;laderas andinas;Sierra;Golondrina de valles y pastizales de altura.;no
+174;151;Ave;Golondrina Risquera;Petrochelidon pyrrhonota;Humedales;sí;migratoria sobre humedales;Desierto;Migrante sobre campos abiertos y poblados de valles costeros.;no
+175;152;Ave;Golondrina de Collar Castaño;Petrochelidon rufocollaris;Desierto;no;pueblos y valles costeros;Desierto;Golondrina de poblados y campos agrícolas de la costa.;no
+176;153;Ave;Martín Peruano;Progne murphyi;Desierto;sí;pueblos y acantilados costeros;Litoral;Martín asociado a acantilados e islas costeras.;no
+177;154;Ave;Martín de Pecho Pardo;Progne tapera;Desierto;sí;divagante;Desierto;Migrante sobre campos abiertos de los valles.;no
+178;155;Ave;Golondrina Azul y Blanca;Pygochelidon cyanoleuca;Desierto;no;pueblos y valles;Desierto;"Golondrina común sobre poblados y valles; también en sierra.";no
+179;156;Ave;Golondrina Ribereña;Riparia riparia;Humedales;sí;migratoria sobre humedales;Humedales;Migrante que caza sobre ríos y humedales costeros.;no
+180;157;Ave;Tordo de Matorral;Dives warczewiczi;Desierto;no;valles y pueblos;Desierto;Tordo de cultivos y arboledas de valles costeros.;no
+181;158;Ave;Tordo Arrocero;Dolichonyx oryzivorus;Desierto;sí;divagante en campos;Desierto;Migrante raro en pastizales y campos agrícolas costeros.;no
+182;159;Ave;Pastorero Peruano;Leistes bellicosus;Desierto;no;campos y pastizales costeros;Desierto;Ave terrestre de cultivos y pastizales costeros.;no
+183;160;Ave;Tordo Brilloso;Molothrus bonariensis;Desierto;no;valles y campos;Desierto;Tordo de jardines y áreas agrícolas costeras.;no
+184;161;Ave;Calandria de Cola Larga;Mimus longicaudatus;Desierto;no;matorral costero y pueblos;Desierto;Calandria de matorrales secos y jardines costeros.;no
+185;162;Ave;Cachirla Peruana;Anthus peruvianus;Desierto;no;campos y lomas costeras;Desierto;Pastizales bajos y campos abiertos de la costa.;no
+186;163;Ave;Reinita Equinoccial;Geothlypis aequinoctialis;Humedales;no;carrizales y monte ribereño;Humedales;Vegetación densa de pantanos y márgenes de acequias.;no
+187;164;Ave;Candelita Americana;Setophaga ruticilla;Desierto;sí;divagante en valles;Desierto;Visitante excepcional de arboledas y vegetación ribereña.;no
+188;165;Ave;Matorralero de Vientre Rojizo;Atlapetes nationi;Sierra;no;matorral de vertientes occidentales;Sierra;Matorralero de quebradas y arbustos de vertientes andinas.;no
+189;166;Ave;Gorrión de Collar Rufo;Zonotrichia capensis;Sierra;sí;"Andes; también valles costeros";Desierto;"Común en jardines y cultivos; también en los Andes.";no
+190;167;Ave;Gorrión Casero;Passer domesticus;Desierto;no;ciudades y pueblos;Desierto;Gorrión introducido de poblados y construcciones.;no
+191;168;Ave;Semillero Pardo;Asemospiza obscura;Desierto;no;valles y laderas bajas;Desierto;Matorrales y hierbas de valles y laderas bajas.;no
+192;169;Ave;Semillero de Cola Bandeada;Catamenia analis;Sierra;no;laderas andinas y valles;Sierra;"Semillero de matorrales andinos; también baja a valles costeros.";no
+193;170;Ave;Semillero Simple;Catamenia inornata;Sierra;no;pastizales de puna;Sierra;Semillero de pastizales y matorrales altoandinos.;no
+194;171;Ave;Pico-de-Cono Cinéreo;Conirostrum cinereum;Sierra;sí;matorral andino y lomas;Desierto;"Arboledas y jardines costeros; también vegetación andina.";no
+195;172;Ave;Pinchaflor de Garganta Negra;Diglossa brunneiventris;Sierra;no;matorral andino;Sierra;Pinchaflor de matorrales floridos en laderas altoandinas.;no
+196;173;Ave;Fringilo de Pecho Cenizo;Geospizopsis plebejus;Sierra;no;puna y laderas altas;Sierra;Fringilo de laderas abiertas y pastizales andinos.;no
+197;174;Ave;Fringilo Plomizo;Geospizopsis unicolor;Sierra;no;puna;Sierra;Fringilo de puna y terrenos pedregosos altoandinos.;no
+198;175;Ave;Fringilo de Capucha Negra;Phrygilus atriceps;Sierra;no;matorral altoandino;Sierra;Fringilo de matorrales y quebradas de altura.;no
+199;176;Ave;Fringilo Peruano;Phrygilus punensis;Sierra;no;laderas andinas y pueblos de altura;Sierra;Fringilo de pastizales y matorrales altoandinos.;no
+200;177;Ave;Monterita Acollarada;Poospiza hispaniolensis;Desierto;no;matorral y valles costeros;Desierto;Monterita de matorrales secos y vegetación de valles costeros.;no
+201;178;Ave;Tangara Azul y Amarilla;Rauenia bonariensis;Sierra;no;valles interandinos y laderas;Sierra;"Arboledas y matorrales de valles andinos; también jardines bajos.";no
+202;179;Ave;Fringilo de Cola Bandeada;Rhopospina alaudina;Sierra;no;laderas áridas y lomas;Sierra;"Pastizales y laderas andinas; desciende estacionalmente a lomas.";no
+203;180;Ave;Fringilo de Pecho Negro;Rhopospina fruticeti;Sierra;no;matorral andino;Sierra;"Matorrales secos andinos; también ocupa lomas costeras.";no
+204;181;Ave;Saltador de Pico Dorado;Saltator aurantiirostris;Sierra;no;matorral andino y valles;Sierra;Saltador de matorrales secos y valles interandinos.;no
+205;182;Ave;Saltador Rayado;Saltator striatipectus;Desierto;no;valles costeros;Desierto;Saltador de arboledas y matorrales de valles costeros.;no
+206;183;Ave;Chirigüe Azafranado;Sicalis flaveola;Desierto;no;valles y pueblos costeros;Desierto;Chirigüe de poblados y campos agrícolas de tierras bajas.;no
+207;184;Ave;Chirigüe de la Puna;Sicalis lutea;Sierra;no;puna;Sierra;Chirigüe propio de pastizales de puna.;no
+208;185;Ave;Chirigüe Común;Sicalis luteola;Desierto;no;campos y pastizales costeros;Desierto;Chirigüe de pastizales y cultivos irrigados de los valles.;no
+209;186;Ave;Chirigüe Verdoso;Sicalis olivascens;Sierra;no;laderas andinas;Sierra;Chirigüe de laderas áridas y pastizales andinos.;no
+210;187;Ave;Chirigüe de Raimondi;Sicalis raimondii;Desierto;no;lomas y laderas bajas;Desierto;Chirigüe característico de lomas y quebradas costeras áridas.;no
+211;188;Ave;Chirigüe de Lomo Brillante;Sicalis uropygialis;Sierra;no;puna;Sierra;Chirigüe de puna y orillas de lagunas altoandinas.;no
+212;189;Ave;Espiguero Pico de Loro;Sporophila peruviana;Desierto;no;matorral y campos costeros;Desierto;Espiguero de hierbas y matorrales de valles costeros.;no
+213;190;Ave;Espiguero Simple;Sporophila simplex;Desierto;no;valles y laderas bajas;Desierto;Espiguero de matorrales secos y áreas agrícolas bajas.;no
+214;191;Ave;Espiguero de Garganta Castaña;Sporophila telasco;Desierto;no;campos y valles costeros;Desierto;Espiguero de campos agrícolas y vegetación ribereña costera.;no
+215;192;Ave;Semillerito Negro Azulado;Volatinia jacarina;Desierto;no;campos y valles;Desierto;Semillero de hierbas y cultivos de valles bajos.;no
+216;193;Ave;Fringilo Apizarrado;Xenospingus concolor;Desierto;no;monte ribereño de valles costeros;Desierto;Especialista de matorrales ribereños en valles costeros áridos.;no
+217;194;Ave;Cucarachero Común Sureño;Troglodytes musculus;Desierto;no;pueblos, valles y jardines;Desierto;Cucarachero de jardines y matorrales de valles costeros.;no
+218;195;Ave;Zorzal Chiguanco;Turdus chiguanco;Sierra;no;"Andes; también valles costeros";Sierra;"Zorzal de valles andinos; también ocupa jardines costeros.";no
+219;196;Ave;Arriero de Pico Negro;Agriornis montanus;Sierra;no;laderas andinas abiertas;Sierra;Tiránido de laderas rocosas y matorrales altoandinos.;no
+220;197;Ave;Torito de Pico Amarillo;Anairetes flavirostris;Sierra;no;matorral árido de vertientes;Sierra;"Matorrales secos andinos; también utiliza quebradas bajas.";no
+221;198;Ave;Torito de Cresta Pintada;Anairetes reguloides;Desierto;no;matorral y valles costeros;Desierto;Matorrales de quebradas áridas costeras y laderas occidentales bajas.;no
+222;199;Ave;Ala-Rufa Canelo;Cnemarchus rufipennis;Sierra;no;bosques de queñua;Sierra;Tiránido de puna y matorrales de gran altitud.;no
+223;200;Ave;Fío-Fío de Cresta Blanca;Elaenia albiceps;Desierto;sí;migratorio austral en valles;Desierto;Arboledas y matorrales de valles costeros durante sus desplazamientos.;no
+224;201;Ave;Negrito Andino;Lessonia oreas;Sierra;no;orillas de lagunas de puna;Sierra;Busca insectos en bofedales y orillas de lagunas altoandinas.;no
+225;202;Ave;Dormilona de Cola Corta;Muscigralla brevicauda;Desierto;no;desierto y campos costeros;Desierto;Dormilona de campos abiertos y pampas costeras.;no
+226;203;Ave;Dormilona de Frente Blanca;Muscisaxicola albifrons;Sierra;no;bofedales altoandinos;Sierra;Dormilona de puna alta y terrenos próximos a nevados.;no
+227;204;Ave;Dormilona de Vientre Canela;Muscisaxicola capistratus;Sierra;no;puna;Sierra;Migrante austral de pastizales andinos y pampas de altura.;no
+228;205;Ave;Dormilona de Frente Negra;Muscisaxicola frontalis;Sierra;no;puna;Sierra;Dormilona migratoria de pastizales y roquedales altoandinos.;no
+229;206;Ave;Dormilona de Taczanowski;Muscisaxicola griseus;Sierra;no;puna;Sierra;Dormilona de pastizales y laderas occidentales andinas.;no
+230;207;Ave;Dormilona de la Puna;Muscisaxicola juninensis;Sierra;no;puna;Sierra;Dormilona de puna y bordes de bofedales.;no
+231;208;Ave;Dormilona de Cara Oscura;Muscisaxicola maclovianus;Desierto;sí;migratorio austral en costa y campos;Litoral;Migrante austral en playas y bordes costeros abiertos.;no
+232;209;Ave;Dormilona Chica;Muscisaxicola maculirostris;Sierra;no;laderas andinas rocosas;Sierra;"Dormilona de laderas andinas; también baja a valles costeros.";no
+233;210;Ave;Dormilona de Nuca Rojiza;Muscisaxicola rufivertex;Sierra;no;laderas altoandinas;Sierra;Dormilona de pastizales y laderas pedregosas altoandinas.;no
+234;211;Ave;Mosquerito Rojizo;Myiophobus rufescens;Desierto;no;valles y laderas bajas;Desierto;Mosquerito de matorrales y arboledas de valles costeros.;no
+235;212;Ave;Ala-Rufa de Garganta Rayada;Myiotheretes striaticollis;Sierra;no;laderas andinas;Sierra;Tiránido de matorrales y claros en laderas andinas.;no
+236;213;Ave;Pitajo de Ceja Blanca;Ochthoeca leucophrys;Sierra;no;matorral andino;Sierra;"Pitajo de matorrales secos andinos; también quebradas bajas.";no
+237;214;Ave;Pitajo de d’Orbigny;Ochthoeca oenanthoides;Sierra;no;matorral altoandino;Sierra;Pitajo de matorrales y quebradas de gran altitud.;no
+238;215;Ave;Mosquero Bermellón;Pyrocephalus rubinus;Desierto;no;valles, campos y pueblos;Desierto;Mosquero de jardines y campos agrícolas de los valles.;no
+239;216;Ave;Siete Colores de la Totora;Tachuris rubrigastra;Humedales;no;totorales;Humedales;Especialista de totorales y vegetación palustre.;no
+240;217;Ave;Tirano Tropical;Tyrannus melancholicus;Desierto;no;valles y campos;Desierto;Tirano de arboledas y cultivos de valles costeros.;no
+241;218;Ave;Tijereta Sabanera;Tyrannus savana;Desierto;sí;divagante;Desierto;Visitante raro de campos abiertos y arboledas costeras.;no
+242;219;Ave;Tirano Norteño;Tyrannus tyrannus;Desierto;sí;divagante;Desierto;Migrante excepcional en arboledas de valles costeros.;no
+243;220;Ave;Garza Grande;Ardea alba;Humedales;no;lagunas, ríos y campos inundados;Humedales;Garza de lagunas y márgenes de ríos.;no
+244;221;Ave;Garza Cuca;Ardea cocoi;Humedales;sí;rara en humedales costeros;Humedales;Garza de lagunas someras y desembocaduras.;no
+245;222;Ave;Garcita Bueyera;Ardea ibis;Desierto;no;campos con ganado;Desierto;Se alimenta en cultivos y pastizales con ganado.;no
+246;223;Ave;Garcita Estriada;Butorides striata;Humedales;no;orillas de ríos y lagunas;Humedales;Pesca en orillas vegetadas de ríos y lagunas.;no
+247;224;Ave;Garcita Azul;Egretta caerulea;Humedales;no;lagunas y orillas;Humedales;Vadea lagunas someras y desembocaduras fangosas.;no
+248;225;Ave;Garcita Blanca;Egretta thula;Humedales;no;lagunas, ríos y playas;Humedales;Garza habitual de pantanos y orillas someras.;no
+249;226;Ave;Garcita Tricolor;Egretta tricolor;Humedales;no;lagunas costeras;Humedales;Garza costera escasa de lagunas y estuarios.;no
+250;227;Ave;Huaco de Corona Amarilla;Nyctanassa violacea;Litoral;no;orilla rocosa y manglares;Litoral;Busca crustáceos en orillas rocosas y zonas intermareales.;no
+251;228;Ave;Huaco Común;Nycticorax nycticorax;Humedales;no;lagunas, ríos y roqueríos;Humedales;Garza nocturna de lagunas y riberas vegetadas.;no
+252;229;Ave;Pelícano Pardo;Pelecanus occidentalis;Litoral;no;"costa; raro tan al sur";Litoral;Pelícano escaso en bahías y puertos del sur peruano.;no
+253;230;Ave;Pelícano Peruano;Pelecanus thagus;Litoral;no;orilla marina y puertos;Litoral;Pelícano característico de bahías y puertos de Ica.;no
+254;231;Ave;Espátula Rosada;Platalea ajaja;Humedales;sí;lagunas costeras;Humedales;Visitante excepcional de lagunas someras y pantanos costeros.;no
+255;232;Ave;Ibis de la Puna;Plegadis ridgwayi;Humedales;no;humedales costeros y de puna;Humedales;Ibis presente en pantanos y campos inundados costeros.;no
+256;233;Ave;Bandurria de Cara Negra;Theristicus melanopis;Sierra;sí;pastizales de puna;Humedales;Visitante raro de pastizales húmedos y campos anegados.;no
+257;234;Ave;Ave del Trópico de Pico Rojo;Phaethon aethereus;Mar abierto;no;"oceánico; anida en islas";Mar abierto;Ave marina pelágica de aparición escasa frente a Ica.;no
+258;235;Ave;Parina Grande;Phoenicoparrus andinus;Sierra;sí;salares y lagunas altoandinas;Humedales;Descenso ocasional a salinas y lagunas salobres costeras.;no
+259;236;Ave;Parina Chica;Phoenicoparrus jamesi;Sierra;sí;lagunas altoandinas;Humedales;Visitante excepcional de salinas y lagunas costeras.;no
+260;237;Ave;Flamenco Chileno;Phoenicopterus chilensis;Humedales;no;lagunas costeras de Paracas;Humedales;Flamenco de lagunas salobres y salinas costeras.;no
+261;238;Ave;Carpintero de Cuello Negro;Colaptes atricollis;Sierra;sí;vertientes occidentales y valles;Desierto;"Carpintero de valles secos y cactales; también laderas andinas.";no
+262;239;Ave;Carpintero Andino;Colaptes rupicola;Sierra;no;puna;Sierra;Carpintero terrestre de pastizales y roquedales altoandinos.;no
+263;240;Ave;Zambullidor Grande;Podiceps major;Litoral;sí;bahías y lagunas costeras;Humedales;Zambullidor de lagunas costeras y aguas someras protegidas.;no
+264;241;Ave;Zambullidor Plateado;Podiceps occipitalis;Sierra;no;lagunas altoandinas;Sierra;"Lagunas altoandinas; algunas poblaciones bajan a la costa.";no
+265;242;Ave;Zambullidor de Pico Grueso;Podilymbus podiceps;Humedales;no;lagunas y totorales;Humedales;Zambullidor de lagunas y canales con vegetación acuática.;no
+266;243;Ave;Zambullidor Pimpollo;Rollandia rolland;Humedales;no;lagunas costeras y andinas;Humedales;"Zambullidor de lagunas vegetadas costeras; también lagunas andinas.";no
+267;244;Ave;Albatros de las Galápagos;Phoebastria irrorata;Mar abierto;no;albatros oceánico;Mar abierto;Albatros pelágico de aguas productivas frente al Perú.;no
+268;245;Ave;Albatros de Buller;Thalassarche bulleri;Mar abierto;no;albatros oceánico;Mar abierto;Albatros que se alimenta mar adentro.;no
+269;246;Ave;Albatros de Chatham;Thalassarche eremita;Mar abierto;no;albatros oceánico;Mar abierto;Albatros oceánico de aparición escasa frente a Ica.;no
+270;247;Ave;Albatros de Ceja Negra;Thalassarche melanophris;Mar abierto;no;albatros oceánico;Mar abierto;Albatros pelágico de la corriente de Humboldt.;no
+271;248;Ave;Albatros de Salvin;Thalassarche salvini;Mar abierto;no;albatros oceánico;Mar abierto;Albatros pelágico que visita aguas peruanas.;no
+272;249;Ave;Golondrina de Mar de Hornby;Hydrobates hornbyi;Mar abierto;no;"paíño pelágico; anida en el desierto";Mar abierto;Se alimenta en mar abierto aunque nidifica en desiertos.;no
+273;250;Ave;Golondrina de Mar de Markham;Hydrobates markhami;Mar abierto;no;"paíño pelágico; anida en Paracas";Mar abierto;"Ave pelágica; las colonias reproductivas están en el desierto.";no
+274;251;Ave;Golondrina de Mar Negra;Hydrobates melania;Mar abierto;no;paíño pelágico;Mar abierto;"Golondrina marina de aguas oceánicas cálidas; presencia regional variable.";no
+275;252;Ave;Golondrina de Mar Peruana;Hydrobates tethys;Mar abierto;no;paíño pelágico;Mar abierto;Golondrina marina que busca alimento en aguas de surgencia.;no
+276;253;Ave;Golondrina de Mar de Vientre Blanco;Fregetta grallaria;Mar abierto;no;paíño pelágico;Mar abierto;Golondrina marina oceánica de observación escasa.;no
+277;254;Ave;Golondrina de Mar Chica;Oceanites gracilis;Mar abierto;no;paíño de aguas costeras y pelágicas;Mar abierto;Ave pelágica que se alimenta sobre la plataforma continental.;no
+278;255;Ave;Golondrina de Mar de Wilson;Oceanites oceanicus;Mar abierto;no;paíño pelágico;Mar abierto;Migrante pelágica de aguas marinas productivas.;no
+279;256;Ave;Golondrina de Mar de Cara Blanca;Pelagodroma marina;Mar abierto;no;paíño pelágico;Mar abierto;Golondrina marina oceánica de presencia regional escasa.;no
+280;257;Ave;Pardela de Buller;Ardenna bulleri;Mar abierto;no;pardela pelágica;Mar abierto;Pardela migratoria que se alimenta mar adentro.;no
+281;258;Ave;Pardela de Pata Rosada;Ardenna creatopus;Mar abierto;no;pardela pelágica;Mar abierto;Pardela pelágica de aguas de la corriente de Humboldt.;no
+282;259;Ave;Pardela Oscura;Ardenna grisea;Mar abierto;no;pardela pelágica;Mar abierto;Pardela gregaria abundante en aguas marinas de surgencia.;no
+283;260;Ave;Petrel Damero;Daption capense;Mar abierto;no;petrel pelágico;Mar abierto;Petrel de aguas marinas frías y productivas.;no
+284;261;Ave;Petrel Plateado;Fulmarus glacialoides;Mar abierto;no;petrel pelágico;Mar abierto;Petrel oceánico austral de presencia regional escasa.;no
+285;262;Ave;Petrel Gigante Sureño;Macronectes giganteus;Mar abierto;no;petrel pelágico;Mar abierto;Petrel marino carroñero de aguas costeras y oceánicas.;no
+286;263;Ave;Petrel Gigante Norteño;Macronectes halli;Mar abierto;no;petrel pelágico;Mar abierto;Petrel oceánico austral escaso frente a la costa peruana.;no
+287;264;Ave;Petrel-Azul de Pico Delgado;Pachyptila belcheri;Mar abierto;sí;petrel pelágico;Mar abierto;Petrel pelágico austral de aparición excepcional frente a Ica.;no
+288;265;Ave;Petrel-Azul Antártico;Pachyptila desolata;Mar abierto;sí;petrel pelágico;Mar abierto;Petrel antártico de aparición excepcional en aguas peruanas.;no
+289;266;Ave;Potoyunco Peruano;Pelecanoides garnotii;Mar abierto;no;aguas costeras cerca de islas;Mar abierto;"Bucea en aguas marinas; se reproduce en islas costeras.";no
+290;267;Ave;Petrel de Mentón Blanco;Procellaria aequinoctialis;Mar abierto;no;petrel pelágico;Mar abierto;Petrel pelágico de aguas frías y productivas.;no
+291;268;Ave;Petrel de Parkinson;Procellaria parkinsoni;Mar abierto;no;petrel pelágico;Mar abierto;Petrel oceánico de presencia escasa frente a Ica.;no
+292;269;Ave;Petrel de Cook;Pterodroma cookii;Mar abierto;no;petrel pelágico;Mar abierto;Petrel migratorio de aguas oceánicas alejadas de tierra.;no
+293;270;Ave;Petrel Chileno;Pterodroma defilippiana;Mar abierto;no;petrel pelágico;Mar abierto;Petrel pelágico del Pacífico suroriental.;no
+294;271;Ave;Petrel de Juan Fernández;Pterodroma externa;Mar abierto;no;petrel pelágico;Mar abierto;Petrel migratorio que se alimenta en aguas oceánicas.;no
+295;272;Ave;Periquito Esmeralda;Forpus coelestis;Desierto;no;valles y matorral costero;Desierto;Periquito de parques y arboledas de valles costeros.;no
+296;273;Ave;Loro de Cabeza Azul;Pionus menstruus;Desierto;sí;probablemente escapado de cautiverio;Desierto;"Especie amazónica; presencia local probablemente ligada a cautiverio.";no
+297;274;Ave;Perico Cordillerano;Psilopsiagon aurifrons;Sierra;no;laderas andinas y valles;Sierra;"Perico de quebradas andinas; también visita lomas y valles.";no
+298;275;Ave;Cotorra Cordillerana;Psittacara frontatus;Sierra;sí;vertientes occidentales y valles;Desierto;"Bosques secos y arboledas de valles; también laderas.";no
+299;;Mamífero;Cuy silvestre brasileño;Cavia aperea;Desierto;sí;registro dudoso en valles;Humedales;"Cuy de pastizales húmedos; identidad y presencia regional inciertas.";no
+300;;Mamífero;Cuy doméstico, cochinillo de Indias;Cavia porcellus;Desierto;no;doméstico en valles y pueblos;Desierto;Especie doméstica de viviendas y explotaciones agrícolas.;no
+301;;Mamífero;Cuy silvestre, poronccoy;Cavia tschudii;Sierra;sí;pajonales y matorral andino;Humedales;"Cuy silvestre de vegetación palustre; también pastizales andinos.";no
+302;;Mamífero;Ratón arrozalero amarillento;Aegialomys xanthaeolus;Desierto;no;valles y campos costeros;Desierto;Roedor de matorrales secos y cultivos de valles costeros.;no
+303;;Mamífero;Ratón orejón amigo;Phyllotis amicus;Desierto;no;lomas y laderas bajas;Desierto;Ratón de lomas y matorrales de la costa árida.;no
+304;;Mamífero;Ratón orejón de Lima;Phyllotis limatus;Desierto;no;desierto y lomas;Desierto;Roedor de desiertos y laderas áridas occidentales.;no
+305;276;Ave;Pingüino de Humboldt;Spheniscus humboldti;Litoral;no;islas y orilla rocosa;Litoral;Pingüino de islas y roquedales de la costa peruana.;no
+306;;Reptil;cabezona, lagartija;Ctenoblepharys adspersa;Desierto;no;arenales del desierto costero;Desierto;Lagartija especializada en dunas y arenales costeros.;no
+307;;Reptil;salamanqueja;Phyllodactylus angustidigitus;Desierto;no;desierto costero;Desierto;Gecko de suelos áridos y roquedales de Paracas.;no
+308;;Reptil;;Phyllodactylus microphyllus;Desierto;sí;desierto costero;Desierto;"Gecko de desiertos costeros; presencia regional incierta.";no
+309;;Reptil;saltojo;Phyllodactylus sentosus;Desierto;sí;desierto costero;Desierto;"Gecko de huacas costeras; registro fuera de Lima dudoso.";no
+310;;Reptil;lagartija de cabeza colorada;Dicrodon heterolepis;Desierto;no;desierto y valles costeros;Desierto;Lagartija de arenales y matorrales secos costeros.;no
+311;;Reptil;lagartija;Microlophus tigris;Desierto;no;lomas y desierto costero;Desierto;Lagartija de lomas y terrenos rocosos áridos.;no
+312;;Reptil;Jergón costero;Bothrops pictus;Desierto;no;desierto y valles costeros;Desierto;Víbora de lomas y quebradas áridas costeras.;no
+313;277;Ave;Búho Listado;Asio clamator;Desierto;sí;raro en valles;Desierto;Búho de arboledas y campos de valles costeros.;no
+314;278;Ave;Lechuza de Oreja Corta;Asio flammeus;Desierto;sí;campos y marismas costeras;Humedales;Caza sobre pantanos y pastizales húmedos costeros.;no
+315;279;Ave;Lechuza Terrestre;Athene cunicularia;Desierto;no;desierto y campos costeros;Desierto;Lechuza de pampas arenosas y campos agrícolas abiertos.;no
+316;280;Ave;Lechucita Peruana;Glaucidium peruanum;Desierto;no;valles y jardines;Desierto;Lechucita de arboledas y matorrales de valles costeros.;no
+317;281;Ave;Lechuza de Campanario Americana;Tyto furcata;Desierto;no;valles y pueblos;Desierto;Lechuza de construcciones y terrenos agrícolas.;no
+318;282;Ave;Avefragata Magnífica;Fregata magnificens;Mar abierto;sí;"planea sobre la costa; raro tan al sur";Litoral;"Sobrevuela bahías y puertos; visitante de aguas cálidas.";no
+319;283;Ave;Avefragata Grande;Fregata minor;Mar abierto;sí;divagante oceánico;Mar abierto;Fragata oceánica de aparición excepcional frente a Ica.;no
+320;284;Ave;Cormorán Guanay;Phalacrocorax bougainvillii;Litoral;no;islas guaneras y costa;Litoral;Cormorán de islas guaneras y aguas próximas a costa.;no
+321;285;Ave;Cormorán de Pata Roja;Phalacrocorax gaimardi;Litoral;no;acantilados costeros;Litoral;Cormorán asociado a acantilados y costas rocosas.;no
+322;286;Ave;Piquero de Brewster;Sula brewsteri;Mar abierto;sí;divagante oceánico;Litoral;"Piquero de aguas cálidas; visitante excepcional de islas costeras.";no
+323;287;Ave;Piquero Enmascarado;Sula dactylatra;Mar abierto;sí;oceánico;Litoral;"Piquero de islas oceánicas; aparición regional excepcional.";no
+324;288;Ave;Piquero de Nazca;Sula granti;Mar abierto;sí;oceánico;Litoral;Piquero visitante de islas y aguas costeras.;no
+325;289;Ave;Piquero de Pata Azul;Sula nebouxii;Litoral;sí;divagante desde el norte;Litoral;Piquero de islas y aguas costeras productivas.;no
+326;290;Ave;Piquero de Pata Roja;Sula sula;Mar abierto;sí;divagante oceánico;Litoral;Piquero tropical de aparición excepcional en islas costeras.;no
+327;291;Ave;Piquero Peruano;Sula variegata;Litoral;no;islas y aguas costeras;Litoral;Piquero característico de islas guaneras y bahías peruanas.;no
+328;;Reptil;Tortuga Verde;Chelonia mydas;Mar abierto;no;"tortuga marina; frecuente en bahías";Mar abierto;Tortuga marina que se alimenta en aguas del Pacífico.;no
+329;;Reptil;Tortuga de Carey;Eretmochelys imbricata;Mar abierto;no;tortuga marina;Mar abierto;"Tortuga de aguas marinas cálidas; presencia regional escasa.";no
+330;;Reptil;Tortuga Carpintera;Lepidochelys olivacea;Mar abierto;no;tortuga marina;Mar abierto;Tortuga marina de aguas costeras y oceánicas.;no
+331;;Reptil;tortuga de mar gigante;Dermochelys coriacea;Mar abierto;no;tortuga marina oceánica;Mar abierto;Tortuga pelágica que consume medusas en aguas oceánicas.;no
+332;292;Ave;Perdiz Cordillerana;Nothoprocta ornata;Sierra;no;pastizales de puna;Sierra;Perdiz de pajonales y laderas de puna.;no
+333;293;Ave;Perdiz Andina;Nothoprocta pentlandii;Sierra;no;laderas andinas;Sierra;"Perdiz de laderas andinas; también habita lomas costeras.";no
+334;294;Ave;Perdiz de la Puna;Tinamotis pentlandii;Sierra;no;puna alta;Sierra;Perdiz especializada en pastizales y planicies de puna.;no

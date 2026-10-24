@@ -17,6 +17,9 @@ pubsub-debug.log
 google-services.json
 GoogleService-Info.plist
 
+# Fuentes de datos con material de terceros (fotos del catálogo): se versiona lo derivado, no el original
+data/sources/*.xlsx
+
 # Variables de entorno: solo se versiona el ejemplo
 .env
 .env*.local

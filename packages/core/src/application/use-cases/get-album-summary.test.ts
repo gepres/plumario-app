@@ -11,8 +11,8 @@ const catalog: SpeciesCatalog = {
   listByRegion: async (regionId) =>
     regionId === 'ica'
       ? ([
-          { id: 'playero', regionId: 'ica', number: 11, commonName: 'Playero Arenero', scientificName: 'Calidris alba', habitat: 'coast', threatened: false },
-          { id: 'flamenco', regionId: 'ica', number: 50, commonName: 'Flamenco Chileno', scientificName: 'Phoenicopterus chilensis', habitat: 'wetlands', threatened: false },
+          { id: 'playero', regionId: 'ica', taxonClass: 'bird', albumNumber: 97, commonName: 'Playero Arenero', scientificName: 'Calidris alba', habitat: 'coast', threatened: false, endemic: false },
+          { id: 'flamenco', regionId: 'ica', taxonClass: 'bird', albumNumber: 260, commonName: 'Flamenco Chileno', scientificName: 'Phoenicopterus chilensis', habitat: 'wetlands', threatened: false, endemic: false },
         ] satisfies Species[])
       : [],
 };

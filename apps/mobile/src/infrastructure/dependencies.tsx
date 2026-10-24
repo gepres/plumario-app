@@ -1,15 +1,15 @@
 import { createContext, use, useState, type ReactNode } from 'react';
 
-import { makeGetAlbumSummary, type GetAlbumSummary, type RegionId, type UserId } from '@plumario/core';
+import { makeGetAlbumSummary, type GetAlbumSummary, type RegionId, type SpeciesCatalog, type UserId } from '@plumario/core';
 
-import { isFirebaseConfigured } from './firebase/firebase-config';
+import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemorySightingRepository } from './in-memory/in-memory-sighting-repository';
 import { sampleSpeciesCatalog } from './in-memory/sample-species-catalog';
 
 // Raíz de composición: el único lugar de la app que elige adaptadores para los puertos del núcleo.
 // Pantallas y hooks piden los casos de uso con useDependencies(); nunca importan un adaptador.
-// Hoy todo es en memoria: los adaptadores de Firestore entran con el modelo de datos, detrás de
-// isFirebaseConfigured.
+// El catálogo sale de Firestore (emulador o proyecto real) o de la muestra en memoria, según
+// EXPO_PUBLIC_DATA_SOURCE; los registros siguen en memoria hasta el modelo de datos.
 
 export type Dependencies = {
   useCases: {
@@ -17,18 +17,26 @@ export type Dependencies = {
   };
   /** Provisional: el usuario y la región saldrán de Firebase Auth y del perfil. */
   session: { userId: UserId; regionId: RegionId };
-  environment: { firebaseConfigured: boolean };
+  environment: { firebaseConfigured: boolean; dataSource: DataSource };
 };
 
+function createSpeciesCatalog(): SpeciesCatalog {
+  if (dataSource === 'memory') return sampleSpeciesCatalog;
+  // Se carga solo cuando hace falta: en web y sin Firebase no hay módulos nativos que importar.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- carga diferida a propósito
+  const { createFirestoreSpeciesCatalog } = require('./firebase/firestore-species-catalog') as typeof import('./firebase/firestore-species-catalog');
+  return createFirestoreSpeciesCatalog({ emulatorHost: dataSource === 'emulator' ? emulatorHost : undefined });
+}
+
 export function createDependencies(): Dependencies {
-  const catalog = sampleSpeciesCatalog;
+  const catalog = createSpeciesCatalog();
   const sightings = new InMemorySightingRepository();
   return {
     useCases: {
       getAlbumSummary: makeGetAlbumSummary({ catalog, sightings }),
     },
     session: { userId: 'demo', regionId: 'ica' },
-    environment: { firebaseConfigured: isFirebaseConfigured },
+    environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
   };
 }
 

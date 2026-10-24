@@ -18,7 +18,7 @@ export function Home() {
       {state.status === 'error' && <ThemedText color="error">No se pudo cargar tu álbum: {state.error.message}</ThemedText>}
       {state.status === 'ready' && <Summary summary={state.summary} />}
       <ComingSoon
-        description="Tus últimas aves y las especies por descubrir. El catálogo es una muestra de las especies del diseño hasta decidir la fuente real."
+        description="Tus últimas aves y las especies por descubrir en tu hábitat."
         design={['Inicio', 'InicioVacio']}
       />
     </Screen>

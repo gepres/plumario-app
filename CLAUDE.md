@@ -48,6 +48,7 @@ packages/core/               @plumario/core: dominio, puertos, casos de uso
 packages/ui/                 @plumario/ui: componentes reutilizables, tema y fuentes
 packages/tokens/             @plumario/tokens: paleta, letra, espacio, cromos (generados)
 functions/                   Cloud Functions (TypeScript)
+data/                        catálogo de especies (ica.json) y su revisión de hábitats (ver data/README.md)
 firebase/                    reglas e índices de Firestore y Storage
 scripts/                     check-architecture y firebase-emulators
 design/                      el diseño bajado del canvas y las paletas
@@ -68,6 +69,8 @@ pnpm bundle-check     empaqueta la app para Android: caza los fallos de resoluci
 pnpm emulators        emuladores de Firebase con el proyecto demo-plumario
 pnpm tokens           regenera los colores desde design/palettes/palettes.json
 pnpm icons            regenera los íconos de la app desde el logo del diseño
+pnpm species:convert  regenera data/species/ica.json desde el Excel y la tabla de hábitats
+pnpm species:seed     carga el catálogo al emulador (--prod: al proyecto real, con hábitats revisados)
 pnpm viewer           regenera viewer/index.html desde design/
 ```
 
@@ -80,6 +83,9 @@ pnpm viewer           regenera viewer/index.html desde design/
 - Lo que se mueve (revelado de cromos, transiciones) se hace con Reanimated y se juzga en el
   teléfono, en build de publicación. Carga la skill `expo-animation` antes.
 - Nada de secretos en la app: lo que necesite una clave (la IA) va en una Cloud Function.
+- La app elige de dónde salen los datos con `EXPO_PUBLIC_DATA_SOURCE` en `apps/mobile/.env`
+  (`memory`, `emulator` o `firebase`; ver `.env.example`). Con `emulator`: `pnpm emulators` y
+  `pnpm species:seed` antes de abrir la app.
 - `android/` e `ios/` se generan (`expo prebuild`); no se editan ni se versionan. Lo nativo se
   configura en `app.config.ts` y con config plugins.
 

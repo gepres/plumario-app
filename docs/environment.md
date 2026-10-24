@@ -54,15 +54,9 @@ predeterminado para que los emuladores corran sin tocar el proyecto real.
 1. ~~Crear el proyecto~~ y ~~registrar las dos apps~~: hecho. Sus archivos van en
    `apps/mobile/firebase/` (`google-services.json` y `GoogleService-Info.plist`; git los ignora en
    cualquier carpeta).
-2. **Crear la base de datos con su ubicación.** La ubicación no se pide al crear el proyecto: se elige
-   al crear Firestore. Consola → *Compilación* → *Firestore Database* → *Crear base de datos* →
-   edición *Standard* → ID `(default)` → ubicación **`southamerica-west1` (Santiago)**, la más
-   cercana a Perú → empezar en modo de producción (las reglas las despliega el repo). No se puede
-   cambiar después, y la región de Functions (`functions/src/health.ts`) tiene que coincidir.
-   Desde la CLI, con la cuenta dueña del proyecto:
-   `pnpm exec firebase firestore:databases:create "(default)" --location=southamerica-west1 --project prod`.
-3. Pasar al plan **Blaze**: Cloud Functions no funciona en el plan gratuito, y un bucket de Storage
-   fuera de Estados Unidos tampoco.
+2. ~~Crear la base de datos~~: hecho. Quedó en **`nam5`** (multirregión en EE. UU.; la consola no
+   dejó elegir) y se conserva. Las Functions van en `us-central1` (`functions/src/health.ts`), junto a ella.
+3. ~~Pasar al plan Blaze~~: hecho.
 4. Activar Authentication con correo y contraseña, Google y Apple.
 5. Dar acceso a la CLI: `pnpm exec firebase login:add` con la cuenta dueña de `plumario-app` (la
    sesión actual de esta máquina es de otra cuenta y recibe 403).
@@ -88,7 +82,7 @@ pnpm emulators
 Compila `functions/` y levanta Auth, Firestore, Storage y Functions con el proyecto
 `demo-plumario`. El prefijo `demo-` hace que corran sin proyecto real ni conexión, y que un
 despliegue a ese proyecto sea imposible. La interfaz queda en <http://localhost:4000> y la función
-de prueba en <http://127.0.0.1:5001/demo-plumario/southamerica-west1/health>.
+de prueba en <http://127.0.0.1:5001/demo-plumario/us-central1/health>.
 
 `firebase-tools` 15 exige **Java 21 o superior** para los emuladores, pero Android compila con el
 JDK 17 de `JAVA_HOME`. `scripts/firebase-emulators.mjs` resuelve el choque sin tocar el

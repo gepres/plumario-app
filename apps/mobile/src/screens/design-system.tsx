@@ -6,7 +6,13 @@ import { cardFinishes, layout, palette, radius, spacing, typography, type CardFi
 import { Button, Card, Chip, GradientView, ListRow, ProgressBar, ThemedText, useTheme, type ColorToken } from '@plumario/ui';
 
 import { HABITAT_LABELS } from '@/constants/habitats';
-import { useDependencies } from '@/infrastructure/dependencies';
+import { useDependencies, type Dependencies } from '@/infrastructure/dependencies';
+
+const DATA_SOURCE_LABELS: Record<Dependencies['environment']['dataSource'], string> = {
+  memory: 'muestra en memoria (11 especies del diseño)',
+  emulator: 'Firestore del emulador local',
+  firebase: 'Firestore del proyecto real',
+};
 
 const SWATCHES: [string, ColorToken][] = [
   ['Fondo', 'background'], ['Superficie', 'surface'], ['Superficie 2', 'surfaceAlt'], ['Texto', 'text'],
@@ -126,6 +132,7 @@ export function DesignSystem() {
             ? 'Esta build lleva la configuración del proyecto.'
             : 'Sin configurar: faltan los archivos del proyecto (ver docs/environment.md).'}
         </ThemedText>
+        <ThemedText variant="caption" color="textSecondary">Datos: {DATA_SOURCE_LABELS[environment.dataSource]}</ThemedText>
       </Card>
     </ScrollView>
   );

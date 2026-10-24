@@ -1,9 +1,9 @@
 // Dominio: reglas puras del álbum.
 export { HABITATS } from './domain/habitat';
 export type { Habitat } from './domain/habitat';
-export type { RegionId, Species, SpeciesId } from './domain/species';
+export type { RegionId, Species, SpeciesId, TaxonClass } from './domain/species';
 export type { Sighting, UserId } from './domain/sighting';
-export { SPECIES_PER_POSTER, nextPoster, summarizeAlbum } from './domain/album';
+export { ALBUM_CLASS, SPECIES_PER_POSTER, isInAlbum, nextPoster, summarizeAlbum } from './domain/album';
 export type { AlbumSummary, HabitatProgress, NextPoster } from './domain/album';
 
 // Puertos: lo que el núcleo necesita del mundo y cada plataforma implementa con un adaptador.
