@@ -6,7 +6,7 @@ import { useTheme, type ColorToken } from '../theme/use-theme';
 import { Icon, type IconName } from './icon';
 import { ThemedText } from './themed-text';
 
-// Variantes de diseno/project/Boton.dc.html: uno primario por pantalla; el secundario para la
+// Variantes de design/project/Boton.dc.html: uno primario por pantalla; el secundario para la
 // segunda acción; el terciario para opciones en par (Google y Apple); el claro sobre fondos oscuros.
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'light';
 

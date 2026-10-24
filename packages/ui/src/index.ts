@@ -3,7 +3,7 @@ export { useTheme } from './theme/use-theme';
 export type { ColorToken } from './theme/use-theme';
 export { fonts, textStyles } from './theme/fonts';
 
-// Componentes de la guía (diseno/project/GuiaComponentes.dc.html).
+// Componentes de la guía (design/project/GuiaComponentes.dc.html).
 export { Button } from './components/button';
 export type { ButtonVariant } from './components/button';
 export { Card } from './components/card';

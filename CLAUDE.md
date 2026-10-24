@@ -9,24 +9,25 @@ entorno en `docs/environment.md`.
 
 - **Código en inglés, comentarios en español.** Archivos, carpetas de código, rutas, funciones,
   tipos, variables y claves en inglés. Comentarios, documentación y textos de la interfaz (la app es
-  en español) en español con tildes. La zona de diseño heredada (`diseno/`, `herramientas/`,
-  `visor/`) sigue en español.
+  en español) en español con tildes. Lo que viene del canvas se queda como está: los nombres de los
+  artboards (`TemaLogin.dc.html`, `PaletaFClaro.dc.html`…) y las claves de `palettes.json` y
+  `canvas.json` son datos del diseño.
 - **Arquitectura hexagonal.** El dominio y los casos de uso viven en `@plumario/core` y no
   dependen de nada. Las pantallas piden casos de uso con `useDependencies()`; solo
   `apps/mobile/src/infrastructure/` toca Firebase o cualquier adaptador. Una función nueva empieza
   por el núcleo (regla + caso de uso + puerto, con pruebas) y termina en adaptador y pantalla.
 - **Componentes reutilizables en `@plumario/ui`.** Solo presentación: sin dominio, sin rutas, sin
   Firebase, y los textos visibles por props. Antes de crear un componente en la app, mira si es de
-  la guía (`diseno/project/GuiaComponentes.dc.html`): entonces va en `packages/ui`.
+  la guía (`design/project/GuiaComponentes.dc.html`): entonces va en `packages/ui`.
 - `pnpm check` corre lint, tipos, pruebas y `scripts/check-architecture.mjs`, que falla si una capa
   importa lo que no debe. Córrelo antes de dar algo por terminado.
 
 ## De dónde sale cada cosa
 
-- **El diseño manda.** `diseno/project/*.dc.html` son los 64 artboards del canvas de Claude Design
-  (origen y formato en `diseno/README.md`). Para verlos: `visor/index.html` con doble clic. Cada
+- **El diseño manda.** `design/project/*.dc.html` son los 64 artboards del canvas de Claude Design
+  (origen y formato en `design/README.md`). Para verlos: `viewer/index.html` con doble clic. Cada
   pantalla pendiente dice qué artboards la definen (`ComingSoon`).
-- **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `diseno/paletas/paletas.json`
+- **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `design/palettes/palettes.json`
   (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
   es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
 - **Las claves del diseño se traducen** con `designKeyMap` (en `colors.ts`): `{{t.sup}}` en un
@@ -49,7 +50,9 @@ packages/tokens/             @plumario/tokens: paleta, letra, espacio, cromos (g
 functions/                   Cloud Functions (TypeScript)
 firebase/                    reglas e índices de Firestore y Storage
 scripts/                     check-architecture y firebase-emulators
-diseno/  visor/  herramientas/   el diseño, su visor y sus scripts (heredados, en español)
+design/                      el diseño bajado del canvas y las paletas
+viewer/                      el visor del diseño (viewer/index.html, con doble clic)
+tools/                       scripts que generan el visor y las paletas
 docs/                        ADR y entorno
 ```
 
@@ -63,9 +66,9 @@ pnpm web              la app en el navegador (para revisar diseño; Firebase no 
 pnpm check            lint + tipos + pruebas + reglas de arquitectura
 pnpm bundle-check     empaqueta la app para Android: caza los fallos de resolución
 pnpm emulators        emuladores de Firebase con el proyecto demo-plumario
-pnpm tokens           regenera los colores desde diseno/paletas/paletas.json
+pnpm tokens           regenera los colores desde design/palettes/palettes.json
 pnpm icons            regenera los íconos de la app desde el logo del diseño
-pnpm viewer           regenera visor/index.html desde diseno/
+pnpm viewer           regenera viewer/index.html desde design/
 ```
 
 ## Reglas

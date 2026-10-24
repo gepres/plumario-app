@@ -3,7 +3,7 @@ import { Card, ThemedText } from '@plumario/ui';
 type Props = {
   /** Qué hará la pantalla cuando se construya. */
   description: string;
-  /** Los artboards de diseno/project/ que la definen. */
+  /** Los artboards de design/project/ que la definen. */
   design: string[];
 };
 

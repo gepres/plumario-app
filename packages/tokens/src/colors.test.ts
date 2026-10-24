@@ -73,11 +73,11 @@ describe.each(['light', 'dark'] as ColorMode[])('paleta %s', (mode) => {
 });
 
 describe('sincronía con el diseño', () => {
-  const path = new URL('../../../diseno/paletas/paletas.json', import.meta.url);
+  const path = new URL('../../../design/palettes/palettes.json', import.meta.url);
   const design = JSON.parse(readFileSync(path, 'utf8')) as Record<string, Record<string, unknown>>;
   const letter = palette.option.toLowerCase();
 
-  it.each([['light', 'claro'], ['dark', 'oscuro']] as const)('src/colors.ts está al día con paletas.json (%s)', (mode, designMode) => {
+  it.each([['light', 'claro'], ['dark', 'oscuro']] as const)('src/colors.ts está al día con palettes.json (%s)', (mode, designMode) => {
     const source = design[`${letter}-${designMode}`]!;
     const t = colors[mode] as unknown as Record<string, unknown>;
     for (const [designKey, codeKey] of Object.entries(designKeyMap)) {

@@ -8,7 +8,7 @@ import { useTheme } from '../theme/use-theme';
 import { GradientView } from './gradient-view';
 import { Icon, type IconName } from './icon';
 
-// Portada de diseno/project/BarraNav.dc.html: barra flotante con muesca para el botón de la cámara.
+// Portada de design/project/BarraNav.dc.html: barra flotante con muesca para el botón de la cámara.
 // La pestaña activa se rellena a dos tonos, sin texto. No sabe de rutas: recibe las pestañas ya
 // resueltas, y la app la conecta con su navegador.
 

@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plumario · visor del diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Tokens de la Guía UI · fundamentos (diseno/project/GuiaFundamentos.dc.html) */
+:root {
+  --ink: #14302F;
+  --paper: #F3EDE2;
+  --card: #FBF8F2;
+  --sand: #ECE5D7;
+  --segment: #E7DFCF;
+  --line: #E3DACA;
+  --border: #D9CFBC;
+  --text-2: #4E5E5C;
+  --text-3: #3F504E;
+  --ocean: #2C6A86;
+  --stamp: #E4C766;
+  --viewer-background: #0F2423;
+  --display: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif;
+  --body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  --card-shadow: 0 1px 2px rgba(20,48,47,0.2), 0 4px 10px rgba(20,48,47,0.08);
+  --floating-shadow: 0 10px 22px rgba(20,48,47,0.13), 0 1px 2px rgba(20,48,47,0.08);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+button { font: inherit; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Encabezado */
+.bar { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 14px 32px; background: rgba(243,237,226,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.brand { flex: 1 1 300px; min-width: 0; }
+.brand h1 { margin: 0; font-family: var(--display); font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.brand p { margin: 2px 0 0; font-size: 13px; color: var(--text-2); }
+.brand a { color: var(--ocean); font-weight: 700; }
+.segment { display: flex; gap: 4px; padding: 4px; background: var(--segment); border-radius: 14px; }
+.segment button { min-height: 44px; padding: 0 14px; border: 0; border-radius: 10px; background: transparent; font-size: 13.5px; font-weight: 600; color: var(--text-3); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.segment button[aria-pressed="true"] { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: 0 1px 2px rgba(20,48,47,0.14); }
+.segment button:focus-visible, .item:focus-visible { outline: 3px solid var(--ocean); outline-offset: 2px; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.search { position: relative; display: block; }
+.search svg { position: absolute; left: 13px; top: 13px; pointer-events: none; }
+.search input { width: 220px; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); padding: 0 14px 0 38px; font: 15px var(--body); color: var(--ink); }
+.search input::placeholder { color: #5F5B54; }
+.size { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-3); }
+.size input { width: 110px; accent-color: var(--ink); }
+
+/* Galería */
+main { padding: 4px 32px 72px; }
+.section { padding-top: 32px; }
+.section h2 { margin: 0; font-family: var(--display); font-size: 24px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+.section .count { margin: 4px 0 18px; font-size: 13px; color: var(--text-2); }
+.row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 28px 24px; }
+.card { display: flex; flex-direction: column; gap: 10px; min-width: 150px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; border-radius: 12px; }
+.card:focus-visible { outline: 3px solid var(--ocean); outline-offset: 6px; }
+.thumbnail { position: relative; overflow: hidden; border-radius: 10px; background: var(--sand); box-shadow: var(--card-shadow); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.card:hover .thumbnail { transform: translateY(-2px); box-shadow: var(--floating-shadow); }
+.thumbnail iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; pointer-events: none; }
+.thumbnail.cropped::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: linear-gradient(rgba(20,48,47,0), rgba(20,48,47,0.16)); pointer-events: none; }
+.footer { display: flex; flex-direction: column; gap: 3px; }
+.footer b { font-size: 14px; font-weight: 700; line-height: 1.25; }
+.footer span { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 12.5px; color: var(--text-2); }
+.tag { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: var(--ocean); }
+.empty { padding: 48px 0; font-size: 15px; color: var(--text-2); }
+
+/* Índice: la lista a la izquierda y la pantalla al centro del resto */
+.layout { display: contents; }
+.index { display: none; }
+.index h2 { margin: 18px 8px 6px; font-family: var(--display); font-size: 15px; font-weight: 700; line-height: 1.25; }
+.index h2 span { font-family: var(--body); font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+.index ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.item { width: 100%; min-height: 48px; padding: 6px 10px; border: 0; border-radius: 12px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: center; column-gap: 8px; }
+.item:hover { background: var(--sand); }
+.item .number { font-size: 12px; font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; text-align: right; }
+.item b { display: block; font-size: 14px; font-weight: 700; line-height: 1.25; }
+.item small { display: block; font-size: 12px; color: var(--text-2); }
+.item[aria-current="true"] { background: var(--ink); color: var(--paper); }
+.item[aria-current="true"] .number, .item[aria-current="true"] small { color: #C9D8D4; }
+.item[aria-current="true"] .tag { color: var(--stamp); }
+
+body.index-view { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+body.index-view .bar { position: relative; }
+body.index-view .size { display: none; }
+body.index-view .layout { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(260px, 360px) minmax(0, 1fr); }
+body.index-view .index { display: block; min-height: 0; overflow-y: auto; padding: 0 12px 32px; border-right: 1px solid var(--line); }
+body.index-view #sections { display: none; }
+body.index-view .viewer { position: relative; inset: auto; z-index: auto; min-width: 0; min-height: 0; }
+body.index-view #v-close { display: none; }
+
+/* Pantalla abierta: superpuesta en la galería, acoplada en el índice */
+.viewer { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; background: var(--viewer-background); }
+.viewer[hidden] { display: none; }
+.viewer-bar { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 16px; color: var(--paper); border-bottom: 1px solid rgba(243,237,226,0.12); }
+.viewer-bar button { min-width: 44px; min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid rgba(243,237,226,0.24); background: transparent; color: var(--paper); font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+.viewer-bar button:hover:not(:disabled) { background: rgba(243,237,226,0.08); }
+.viewer-bar button:disabled { opacity: 0.4; cursor: default; }
+.viewer-bar button[aria-pressed="true"] { background: var(--stamp); border-color: var(--stamp); color: var(--ink); }
+.viewer-bar button:focus-visible { outline: 3px solid var(--stamp); outline-offset: 2px; }
+.viewer-info { flex: 1 1 200px; min-width: 0; }
+.viewer-info span { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stamp); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.viewer-info h2 { margin: 0; font-family: var(--display); font-size: 19px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.viewer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.position { min-width: 64px; text-align: center; font-size: 13px; font-weight: 600; color: #C9D8D4; }
+.stage { flex: 1; min-height: 0; overflow: auto; display: flex; padding: 24px; }
+.frame { position: relative; flex: none; margin: auto; overflow: hidden; border-radius: 12px; background: #FFFFFF; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.frame iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
+.notice { position: fixed; left: 50%; bottom: 24px; z-index: 60; transform: translateX(-50%); max-width: calc(100vw - 32px); padding: 12px 18px; border-radius: 12px; background: var(--ink); color: var(--paper); font-size: 14px; box-shadow: var(--floating-shadow); }
+.notice[hidden] { display: none; }
+
+@media (max-width: 760px) {
+  .bar { padding: 12px 16px; }
+  main { padding: 4px 16px 56px; }
+  .search, .search input { width: 100%; }
+  .tools { width: 100%; }
+  .size { display: none; }
+  .stage { padding: 12px; }
+  body.index-view .bar { gap: 8px; padding: 10px 12px; }
+  body.index-view .brand h1 { font-size: 17px; }
+  body.index-view .brand p { display: none; }
+  body.index-view .layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 2fr); }
+  body.index-view .index { border-right: 0; border-bottom: 1px solid var(--line); }
+  body.index-view .viewer-bar { gap: 6px; padding: 6px 8px; }
+  body.index-view .viewer-info span, body.index-view #v-restart, body.index-view #v-actual-size { display: none; }
+  body.index-view .viewer-info h2 { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <h1 id="title"></h1>
+    <p id="summary"></p>
+  </div>
+  <nav class="segment" id="views" aria-label="Vista">
+    <button type="button" data-view="gallery"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"></rect><rect x="13" y="4" width="7" height="7" rx="1.5"></rect><rect x="4" y="13" width="7" height="7" rx="1.5"></rect><rect x="13" y="13" width="7" height="7" rx="1.5"></rect></svg>Galería</button>
+    <button type="button" data-view="index"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"></path></svg>Índice</button>
+  </nav>
+  <nav class="segment" id="pages" aria-label="Páginas del canvas"></nav>
+  <div class="tools">
+    <label class="search">
+      <span class="sr">Buscar pantalla</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E5E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+      <input id="search" type="search" placeholder="Buscar pantalla" autocomplete="off">
+    </label>
+    <label class="size">Tamaño <input id="size" type="range" min="200" max="560" step="20" value="320"></label>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="index" id="index" aria-label="Índice de pantallas"></nav>
+
+  <main id="sections"></main>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" hidden>
+    <div class="viewer-bar">
+      <button type="button" id="v-close" aria-label="Cerrar y volver a la galería"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <button type="button" id="v-back" aria-label="Volver a la pantalla anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>Volver</button>
+      <div class="viewer-info">
+        <span id="viewer-section"></span>
+        <h2 id="viewer-title"></h2>
+      </div>
+      <div class="viewer-actions">
+        <button type="button" id="v-restart">Reiniciar</button>
+        <button type="button" id="v-actual-size" aria-pressed="false">Tamaño real</button>
+        <button type="button" id="v-previous" aria-label="Pantalla anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <span class="position" id="v-position"></span>
+        <button type="button" id="v-next" aria-label="Pantalla siguiente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+    </div>
+    <div class="stage" id="stage"><div class="frame" id="frame"></div></div>
+  </div>
+</div>
+
+<div class="notice" id="notice" role="status" hidden></div>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+(() => {
+  'use strict';
+
+  const { origin, canvas, files, runtime } = JSON.parse(document.getElementById('data').textContent);
+
+  // ---- Cada artboard en su iframe ----
+  // Se pinta con el runtime real del formato .dc.html. El iframe es autónomo: lleva dentro el
+  // runtime y los .dc.html que usa (el suyo y sus <dc-import>), y avisa al visor por postMessage.
+  // Así no depende de poder leer la página principal, que algunos navegadores bloquean en file://.
+
+  function bootstrap() {
+    var data = JSON.parse(document.getElementById('__viewer').textContent);
+    var notify = function (message) {
+      message.__viewer = true;
+      try { parent.postMessage(message, '*'); } catch (e) {}
+    };
+    var originalFetch = window.fetch.bind(window);
+    window.fetch = function (resource, options) {
+      var url = String(resource && resource.url ? resource.url : resource);
+      var name = url === location.href ? data.file : decodeURIComponent(url.split('#')[0].split('?')[0].split('/').pop());
+      var text = data.files[name];
+      if (text != null) return Promise.resolve(new Response(text, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }));
+      return originalFetch(resource, options);
+    };
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      e.preventDefault();
+      if (/^https?:/i.test(href)) { window.open(href, '_blank', 'noopener'); return; }
+      if (href.charAt(0) === '#') {
+        var target = href.length > 1 && document.getElementById(href.slice(1));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      notify({ type: 'navigate', href: href });
+    }, true);
+    document.addEventListener('submit', function (e) { e.preventDefault(); }, true);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') notify({ type: 'key', key: e.key }); });
+    (new Function(data.runtime))();
+  }
+
+  function dependencies(file, seen = new Set()) {
+    if (seen.has(file) || !(file in files)) return seen;
+    seen.add(file);
+    for (const m of files[file].matchAll(/<dc-import\b[^>]*\sname="([^"{}]+)"/g)) dependencies(m[1] + '.dc.html', seen);
+    return seen;
+  }
+
+  // El <x-dc> va vacío: si el navegador parseara la plantilla cruda pediría src="{{img}}" y
+  // avisaría de cada d="{{icono}}". El runtime la toma entera del fetch(location.href).
+  function documentFor(file) {
+    const bundle = { file, runtime, files: Object.fromEntries([...dependencies(file)].map((f) => [f, files[f]])) };
+    const injection = '<script type="application/json" id="__viewer">' + JSON.stringify(bundle).replace(/</g, '\\u003c') + '<\/script>' +
+      '<script>(' + bootstrap.toString() + ')();<\/script>';
+    const source = files[file].replace(/<script\s+src=["']\.\/support\.js["']\s*><\/script>/i, () => injection);
+    const opening = /<x-dc(\s[^>]*)?>/.exec(source);
+    const closing = source.lastIndexOf('</x-dc>');
+    if (!opening || closing < opening.index) return source;
+    return source.slice(0, opening.index + opening[0].length) + source.slice(closing);
+  }
+
+  // ---- Modelo: páginas, secciones (los títulos del canvas) y artboards ----
+
+  const PAGES = canvas.pages && canvas.pages.length ? canvas.pages : [{ id: 'canvas', name: 'Canvas' }];
+  const pageOf = (o) => o.page || PAGES[0].id;
+  const withoutExtension = (f) => f.replace(/\.dc\.html$/, '');
+
+  const headings = Object.entries(canvas.notes || {})
+    .filter(([, n]) => n.kind === 'title1')
+    .map(([id, n]) => ({ id, text: n.text, x: n.x, y: n.y, width: n.maxW || Infinity, page: pageOf(n) }));
+
+  // Un artboard pertenece al título más cercano por encima de él cuya franja horizontal lo cubre.
+  function headingFor(t) {
+    let best = null;
+    for (const n of headings) {
+      if (n.page !== t.page || n.y > t.y || t.x < n.x - 40 || t.x >= n.x + n.width) continue;
+      if (!best || n.y > best.y || (n.y === best.y && n.x > best.x)) best = n;
+    }
+    return best;
+  }
+
+  const names = [...new Set([...(canvas.order || []), ...Object.keys(canvas.boards)])].filter((f) => canvas.boards[f]);
+  const boards = names.map((file) => {
+    const b = canvas.boards[file];
+    return { file, title: b.title || withoutExtension(file), x: b.x, y: b.y, w: b.w, h: b.h, interactive: !!b.is_interactive, page: pageOf(b) };
+  });
+  const byFile = new Map(boards.map((t) => [t.file, t]));
+
+  const sectionsByPage = new Map(PAGES.map((p) => [p.id, []]));
+  for (const p of PAGES) {
+    const groups = new Map();
+    for (const t of boards.filter((t) => t.page === p.id)) {
+      const n = headingFor(t);
+      const key = n ? n.id : '_none';
+      if (!groups.has(key)) groups.set(key, { id: key, title: n ? n.text : 'Sin sección', x: n ? n.x : 0, y: n ? n.y : Infinity, boards: [] });
+      groups.get(key).boards.push(t);
+      t.section = n ? n.text : 'Sin sección';
+    }
+    const sections = [...groups.values()].sort((a, b) => a.y - b.y || a.x - b.x);
+    for (const s of sections) s.boards.sort((a, b) => a.y - b.y || a.x - b.x);
+    sectionsByPage.set(p.id, sections);
+  }
+  const orderByPage = new Map(PAGES.map((p) => [p.id, sectionsByPage.get(p.id).flatMap((s) => s.boards)]));
+  for (const list of orderByPage.values()) list.forEach((t, i) => { t.number = i + 1; });
+
+  // ---- Estado y utilidades ----
+
+  const read = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+
+  const state = {
+    view: read('viewer.view', 'gallery') === 'index' ? 'index' : 'gallery',
+    page: PAGES[0].id,
+    filter: '',
+    size: Number(read('viewer.size', 320)) || 320,
+    actualSize: read('viewer.actualSize', '0') === '1'
+  };
+  const viewer = { current: null, history: [], focusOrigin: null };
+  const isIndex = () => state.view === 'index';
+
+  const $ = (id) => document.getElementById(id);
+  function element(tag, attrs, ...children) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'text') n.textContent = v;
+      else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v === true ? '' : v);
+    }
+    n.append(...children.filter((h) => h != null));
+    return n;
+  }
+  const normalize = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+  let noticeTimer = 0;
+  function notify(text) {
+    const a = $('notice');
+    a.textContent = text;
+    a.hidden = false;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { a.hidden = true; }, 3200);
+  }
+
+  function matches(t) {
+    if (!state.filter) return true;
+    const q = normalize(state.filter);
+    return normalize(t.title).includes(q) || normalize(t.file).includes(q) || normalize(t.section).includes(q);
+  }
+  const visibleSections = () => sectionsByPage.get(state.page)
+    .map((s) => ({ ...s, boards: s.boards.filter(matches) }))
+    .filter((s) => s.boards.length);
+  const count = (n) => (n === 1 ? '1 pantalla' : n + ' pantallas');
+
+  // ---- Galería ----
+
+  // Las pantallas muy altas se muestran recortadas a proporción de teléfono; el visor las enseña enteras.
+  const visibleHeight = (t) => Math.min(t.h, t.w * 2.2);
+  function availableWidth() {
+    const main = $('sections');
+    const css = getComputedStyle(main);
+    return main.clientWidth - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight);
+  }
+  const thumbnailScale = (t) => Math.min(state.size / visibleHeight(t), Math.min(state.size * 1.75, availableWidth()) / t.w, 1);
+
+  function measureThumbnail(box, t) {
+    const s = thumbnailScale(t);
+    const width = Math.round(t.w * s);
+    box.style.width = width + 'px';
+    box.style.height = Math.round(visibleHeight(t) * s) + 'px';
+    box.parentElement.style.width = Math.max(width, 150) + 'px';
+    const f = box.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + s + ')';
+  }
+  const measureAll = () => { for (const box of document.querySelectorAll('.thumbnail')) measureThumbnail(box, byFile.get(box.dataset.file)); };
+
+  function mountThumbnail(box) {
+    if (box.querySelector('iframe')) return;
+    const t = byFile.get(box.dataset.file);
+    const f = element('iframe', { title: t.title, tabindex: '-1', 'aria-hidden': 'true' });
+    f.style.width = t.w + 'px';
+    f.style.height = t.h + 'px';
+    f.style.transform = 'scale(' + thumbnailScale(t) + ')';
+    f.srcdoc = documentFor(t.file);
+    box.append(f);
+  }
+
+  // Cada miniatura es un React vivo: se monta al acercarse a la vista y se desmonta al alejarse.
+  const near = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) mountThumbnail(e.target);
+  }, { rootMargin: '600px 0px' });
+  const far = new IntersectionObserver((entries) => {
+    for (const e of entries) if (!e.isIntersecting) e.target.querySelector('iframe')?.remove();
+  }, { rootMargin: '2400px 0px' });
+
+  function createCard(t) {
+    const box = element('div', { class: 'thumbnail' + (t.h > visibleHeight(t) ? ' cropped' : ''), inert: true });
+    box.dataset.file = t.file;
+    const meta = element('span', null,
+      element('span', { text: withoutExtension(t.file) }),
+      element('span', { text: t.w + ' × ' + t.h }),
+      t.interactive ? element('span', { class: 'tag', text: 'Interactiva' }) : null
+    );
+    const button = element('button', { type: 'button', class: 'card', 'aria-label': 'Abrir ' + t.title, onclick: () => open(t.file, { from: button }) },
+      box,
+      element('span', { class: 'footer' }, element('b', { text: t.title }), meta)
+    );
+    return button;
+  }
+
+  function clearGallery() {
+    near.disconnect();
+    far.disconnect();
+    $('sections').replaceChildren();
+  }
+
+  function renderGallery() {
+    clearGallery();
+    const main = $('sections');
+    const sections = visibleSections();
+    for (const s of sections) {
+      main.append(element('section', { class: 'section', 'aria-label': s.title },
+        element('h2', { text: s.title }),
+        element('p', { class: 'count', text: count(s.boards.length) }),
+        element('div', { class: 'row' }, ...s.boards.map(createCard))
+      ));
+    }
+    if (!sections.length) main.append(element('p', { class: 'empty', text: 'Ninguna pantalla coincide con «' + state.filter + '».' }));
+    for (const box of main.querySelectorAll('.thumbnail')) {
+      measureThumbnail(box, byFile.get(box.dataset.file));
+      near.observe(box);
+      far.observe(box);
+    }
+  }
+
+  // ---- Índice ----
+
+  function renderIndex() {
+    const nav = $('index');
+    const sections = visibleSections();
+    nav.replaceChildren(...sections.map((s) => element('section', { 'aria-label': s.title },
+      element('h2', null, s.title + ' ', element('span', { text: '· ' + s.boards.length })),
+      element('ol', null, ...s.boards.map((t) => element('li', null,
+        element('button', { type: 'button', class: 'item', 'data-file': t.file, 'aria-current': String(t.file === viewer.current), onclick: () => open(t.file, { resetHistory: true }) },
+          element('span', { class: 'number', text: String(t.number) }),
+          element('span', null,
+            element('b', { text: t.title }),
+            element('small', null, withoutExtension(t.file) + ' · ' + t.w + ' × ' + t.h, t.interactive ? ' · ' : null, t.interactive ? element('span', { class: 'tag', text: 'Interactiva' }) : null)
+          )
+        )
+      )))
+    )));
+    if (!sections.length) nav.append(element('p', { class: 'empty', text: 'Ninguna pantalla coincide con «' + state.filter + '».' }));
+  }
+
+  function markIndex() {
+    if (!isIndex()) return;
+    for (const b of $('index').querySelectorAll('.item')) {
+      const active = b.dataset.file === viewer.current;
+      b.setAttribute('aria-current', String(active));
+      if (active) b.scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  // ---- Pantalla abierta ----
+
+  function listFor(t) {
+    const page = orderByPage.get(t.page);
+    const filtered = page.filter(matches);
+    return filtered.includes(t) ? filtered : page;
+  }
+
+  function open(file, options) {
+    const { from = null, push = true, resetHistory = false } = options || {};
+    const t = byFile.get(file);
+    if (!t || !(file in files)) { notify('La pantalla «' + file + '» no está en el canvas.'); return; }
+    const v = $('viewer');
+    const wasHidden = v.hidden;
+    if (wasHidden) viewer.focusOrigin = from || document.activeElement;
+    if (wasHidden || resetHistory) viewer.history = [];
+    else if (push && viewer.current && viewer.current !== file) viewer.history.push(viewer.current);
+    viewer.current = file;
+    $('viewer-title').textContent = t.title;
+    $('viewer-section').textContent = (PAGES.find((p) => p.id === t.page)?.name || '') + ' · ' + t.section;
+    $('v-back').disabled = !viewer.history.length;
+    const list = listFor(t);
+    const i = list.indexOf(t);
+    $('v-previous').disabled = i <= 0;
+    $('v-next').disabled = i >= list.length - 1;
+    $('v-position').textContent = (i + 1) + ' de ' + list.length;
+    // Visible antes de cargar: la escala se calcula con el tamaño del escenario.
+    if (wasHidden) {
+      v.hidden = false;
+      if (!isIndex()) document.body.style.overflow = 'hidden';
+    }
+    loadFrame();
+    if (wasHidden && !isIndex()) $('v-close').focus();
+    markIndex();
+    writeHash();
+  }
+
+  function loadFrame() {
+    const t = byFile.get(viewer.current);
+    const f = element('iframe', { title: t.title });
+    f.style.width = t.w + 'px';
+    f.style.height = t.h + 'px';
+    f.srcdoc = documentFor(t.file);
+    $('frame').replaceChildren(f);
+    fitFrame();
+    $('stage').scrollTo(0, 0);
+  }
+
+  function fitFrame() {
+    if (!viewer.current) return;
+    const t = byFile.get(viewer.current);
+    const stage = $('stage');
+    const freeWidth = stage.clientWidth - 48;
+    const freeHeight = stage.clientHeight - 48;
+    const s = state.actualSize ? 1 : Math.max(0.1, Math.min(freeWidth / t.w, freeHeight / visibleHeight(t), 1));
+    const m = $('frame');
+    m.style.width = Math.round(t.w * s) + 'px';
+    m.style.height = Math.round(t.h * s) + 'px';
+    const f = m.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + s + ')';
+    $('v-actual-size').setAttribute('aria-pressed', String(state.actualSize));
+  }
+
+  function close() {
+    const v = $('viewer');
+    if (v.hidden || isIndex()) return;
+    v.hidden = true;
+    $('frame').replaceChildren();
+    viewer.current = null;
+    document.body.style.overflow = '';
+    writeHash();
+    viewer.focusOrigin?.focus?.();
+  }
+
+  function move(step) {
+    const t = byFile.get(viewer.current);
+    if (!t) return;
+    const list = listFor(t);
+    const next = list[list.indexOf(t) + step];
+    if (next) open(next.file, { push: false });
+  }
+
+  // Un enlace dentro de un artboard (href="Album.dc.html") abre esa pantalla en el visor.
+  function navigate(href) {
+    const path = String(href).split('#')[0].split('?')[0];
+    if (path) open(decodeURIComponent(path.split('/').pop()));
+  }
+
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || d.__viewer !== true) return;
+    const f = $('frame').querySelector('iframe');
+    if (!f || e.source !== f.contentWindow) return; // las miniaturas no navegan
+    if (d.type === 'navigate') navigate(d.href);
+    else if (d.type === 'key' && d.key === 'Escape') close();
+  });
+
+  // ---- Vistas y páginas ----
+
+  function setView(view) {
+    state.view = view;
+    save('viewer.view', view);
+    document.body.classList.toggle('index-view', view === 'index');
+    document.body.style.overflow = '';
+    for (const b of $('views').querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.view === view));
+    const v = $('viewer');
+    if (view === 'index') {
+      clearGallery();
+      renderIndex();
+      const list = orderByPage.get(state.page);
+      const current = byFile.get(viewer.current);
+      const target = current && current.page === state.page ? current : (list.find(matches) || list[0]);
+      v.setAttribute('aria-modal', 'false');
+      v.hidden = false;
+      if (target) open(target.file, { resetHistory: true });
+    } else {
+      v.setAttribute('aria-modal', 'true');
+      v.hidden = true;
+      $('frame').replaceChildren();
+      viewer.current = null;
+      $('index').replaceChildren();
+      renderGallery();
+      writeHash();
+    }
+  }
+
+  function renderPages() {
+    $('pages').replaceChildren(...PAGES.map((p) => element('button', {
+      type: 'button',
+      'aria-pressed': String(p.id === state.page),
+      text: p.name + ' · ' + orderByPage.get(p.id).length,
+      onclick: () => {
+        state.page = p.id;
+        renderPages();
+        if (isIndex()) {
+          renderIndex();
+          const first = orderByPage.get(p.id).find(matches);
+          if (first) open(first.file, { resetHistory: true });
+        } else {
+          renderGallery();
+          window.scrollTo(0, 0);
+        }
+        writeHash();
+      }
+    })));
+  }
+
+  // ---- Enlace directo: #view=index&page=v2&screen=Main.dc.html ----
+
+  function writeHash() {
+    const p = new URLSearchParams();
+    if (isIndex()) p.set('view', 'index');
+    p.set('page', state.page);
+    if (viewer.current) p.set('screen', viewer.current);
+    history.replaceState(null, '', '#' + p.toString());
+  }
+
+  function readHash() {
+    const p = new URLSearchParams(location.hash.slice(1));
+    const page = p.get('page');
+    if (PAGES.some((x) => x.id === page)) state.page = page;
+    if (p.has('view')) state.view = p.get('view') === 'index' ? 'index' : 'gallery';
+    const screen = p.get('screen');
+    if (screen && byFile.has(screen)) state.page = byFile.get(screen).page;
+    return screen;
+  }
+
+  // ---- Arranque ----
+
+  $('title').textContent = canvas.title || 'Diseño';
+  document.title = (canvas.title || 'Diseño') + ' · visor';
+  $('summary').append(
+    boards.length + ' pantallas · ' + boards.filter((t) => t.interactive).length + ' interactivas · ',
+    element('a', { href: origin, target: '_blank', rel: 'noopener', text: 'Abrir el canvas en Claude Design' })
+  );
+
+  const size = $('size');
+  size.value = state.size;
+  size.addEventListener('input', () => { state.size = Number(size.value); measureAll(); });
+  size.addEventListener('change', () => save('viewer.size', state.size));
+
+  let searchTimer = 0;
+  $('search').addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.filter = e.target.value.trim();
+      if (isIndex()) { renderIndex(); markIndex(); } else renderGallery();
+    }, 160);
+  });
+
+  for (const b of $('views').querySelectorAll('button')) b.addEventListener('click', () => { if (b.dataset.view !== state.view) setView(b.dataset.view); });
+  $('v-close').addEventListener('click', close);
+  $('v-back').addEventListener('click', () => { const prev = viewer.history.pop(); if (prev) open(prev, { push: false }); });
+  $('v-restart').addEventListener('click', loadFrame);
+  $('v-actual-size').addEventListener('click', () => { state.actualSize = !state.actualSize; save('viewer.actualSize', state.actualSize ? '1' : '0'); fitFrame(); });
+  $('v-previous').addEventListener('click', () => move(-1));
+  $('v-next').addEventListener('click', () => move(1));
+  window.addEventListener('resize', () => { fitFrame(); measureAll(); });
+  document.addEventListener('keydown', (e) => {
+    if ($('viewer').hidden || e.target.tagName === 'INPUT') return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft' || (isIndex() && e.key === 'ArrowUp')) { e.preventDefault(); move(-1); }
+    else if (e.key === 'ArrowRight' || (isIndex() && e.key === 'ArrowDown')) { e.preventDefault(); move(1); }
+  });
+
+  const initial = readHash();
+  renderPages();
+  if (initial) viewer.current = initial;
+  setView(state.view);
+  if (initial && !isIndex()) open(initial);
+})();
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Ejecutar: node contraste.mjs
+// Ejecutar: node design/palettes/contrast.mjs (desde la raíz)
 // No hay excepciones para A/B: cualquier incumplimiento produce código 1.
 const directory = dirname(fileURLToPath(import.meta.url));
 const baseKeys = [
@@ -178,7 +178,7 @@ function checkTheme(id, theme) {
 }
 
 try {
-  const palettes = JSON.parse(readFileSync(join(directory, 'paletas.json'), 'utf8'));
+  const palettes = JSON.parse(readFileSync(join(directory, 'palettes.json'), 'utf8'));
   if (JSON.stringify(Object.keys(palettes)) !== JSON.stringify(expectedThemes)) {
     formatFailures.push(`Se requieren, en este orden, ${expectedThemes.join(', ')}.`);
   }

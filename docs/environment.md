@@ -45,19 +45,28 @@ Para revisar diseño sin compilar: `pnpm web` abre la app en el navegador. Ahí 
 
 ## Firebase
 
-### Proyecto en la consola (pendiente, lo hace el dueño de la cuenta)
+### Proyecto en la consola
 
-1. Crear el proyecto en <https://console.firebase.google.com> (por ejemplo `plumario-app`).
-2. Elegir la ubicación de Firestore: **`southamerica-west1` (Santiago)**, la más cercana a Perú.
-   No se puede cambiar después, y la región de Functions (`functions/src`) tiene que coincidir.
-3. Pasar al plan **Blaze**: Cloud Functions no funciona en el plan gratuito.
+El proyecto es **`plumario-app`** (número 155417952770), con las apps Android e iOS
+`com.gepres.plumario` registradas. En `.firebaserc` es el alias `prod`; `demo-plumario` sigue de
+predeterminado para que los emuladores corran sin tocar el proyecto real.
+
+1. ~~Crear el proyecto~~ y ~~registrar las dos apps~~: hecho. Sus archivos van en
+   `apps/mobile/firebase/` (`google-services.json` y `GoogleService-Info.plist`; git los ignora en
+   cualquier carpeta).
+2. **Crear la base de datos con su ubicación.** La ubicación no se pide al crear el proyecto: se elige
+   al crear Firestore. Consola → *Compilación* → *Firestore Database* → *Crear base de datos* →
+   edición *Standard* → ID `(default)` → ubicación **`southamerica-west1` (Santiago)**, la más
+   cercana a Perú → empezar en modo de producción (las reglas las despliega el repo). No se puede
+   cambiar después, y la región de Functions (`functions/src/health.ts`) tiene que coincidir.
+   Desde la CLI, con la cuenta dueña del proyecto:
+   `pnpm exec firebase firestore:databases:create "(default)" --location=southamerica-west1 --project prod`.
+3. Pasar al plan **Blaze**: Cloud Functions no funciona en el plan gratuito, y un bucket de Storage
+   fuera de Estados Unidos tampoco.
 4. Activar Authentication con correo y contraseña, Google y Apple.
-5. Registrar dos apps con el identificador `com.gepres.plumario`:
-   - Android: descargar `google-services.json` a `apps/mobile/firebase/`.
-   - iOS: descargar `GoogleService-Info.plist` a `apps/mobile/firebase/`.
-6. Agregar el proyecto real a `.firebaserc` como alias (`firebase use --add`), sin quitar
-   `demo-plumario`, que es el de los emuladores.
-7. Recompilar la app (`pnpm android`): `app.config.ts` ve los dos archivos y activa los plugins
+5. Dar acceso a la CLI: `pnpm exec firebase login:add` con la cuenta dueña de `plumario-app` (la
+   sesión actual de esta máquina es de otra cuenta y recibe 403).
+6. Recompilar la app (`pnpm android`): `app.config.ts` ve los dos archivos y activa los plugins
    nativos (con uno solo, avisa cuál falta y compila sin Firebase).
    La pantalla «Sistema visual» (Perfil → Ver el sistema visual) dice si la build lleva Firebase.
    Después, los adaptadores de Firestore se eligen en `apps/mobile/src/infrastructure/dependencies.tsx`.

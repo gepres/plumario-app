@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "demo-plumario"
+    "default": "demo-plumario",
+    "prod": "plumario-app"
   }
 }

@@ -1,4 +1,4 @@
-// Escala de letra de la guía (diseno/project/GuiaFundamentos.dc.html, sección «Letra»).
+// Escala de letra de la guía (design/project/GuiaFundamentos.dc.html, sección «Letra»).
 // Familia, peso y estilo van separados del nombre con que cada plataforma carga la fuente: la app
 // los traduce a sus nombres de @expo-google-fonts y la web podría usarlos tal cual.
 

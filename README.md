@@ -39,13 +39,13 @@ pnpm emulators      # Firebase local: Auth, Firestore, Storage y Functions
 apps/mobile/        App Expo con expo-router (adaptadores y raíz de composición)
 packages/core/      Dominio, puertos y casos de uso
 packages/ui/        Componentes reutilizables
-packages/tokens/    Paleta, letra, espacio y cromos (generados desde diseno/)
+packages/tokens/    Paleta, letra, espacio y cromos (generados desde design/)
 functions/          Cloud Functions
 firebase/           Reglas e índices de Firestore y Storage
 scripts/            Reglas de arquitectura y emuladores
-diseno/             Los artboards del diseño (Claude Design) y las paletas
-visor/              Visor del diseño: abre visor/index.html con doble clic
-herramientas/       Scripts del visor y de las paletas
+design/             Los artboards del diseño (Claude Design) y las paletas
+viewer/             Visor del diseño: abre viewer/index.html con doble clic
+tools/              Scripts del visor y de las paletas
 docs/               ADR y guía del entorno
 ```
 
@@ -54,5 +54,5 @@ docs/               ADR y guía del entorno
 - [`docs/architecture/adr-0001-stack.md`](docs/architecture/adr-0001-stack.md): qué se eligió y por qué.
 - [`docs/architecture/adr-0002-hexagonal-architecture.md`](docs/architecture/adr-0002-hexagonal-architecture.md): capas, reglas y el primer corte vertical.
 - [`docs/environment.md`](docs/environment.md): herramientas, Firebase, emuladores, EAS y problemas conocidos.
-- [`diseno/README.md`](diseno/README.md): de dónde sale el diseño y cómo se regenera.
+- [`design/README.md`](design/README.md): de dónde sale el diseño y cómo se regenera.
 - [`CLAUDE.md`](CLAUDE.md): instrucciones para agentes.

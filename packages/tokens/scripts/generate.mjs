@@ -1,4 +1,4 @@
-// Genera src/colors.ts desde la paleta elegida en diseno/paletas/paletas.json.
+// Genera src/colors.ts desde la paleta elegida en design/palettes/palettes.json.
 // Uso: pnpm tokens (desde la raíz) o pnpm generate (desde este paquete).
 //
 // El diseño nombra los colores en español abreviado (sup, pri, txt2…); el código los usa en inglés.
@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const PALETTE = 'f'; // F · Ribera, elegida el 24 oct 2026.
 const HERE = dirname(fileURLToPath(import.meta.url));
-const SOURCE = join(HERE, '..', '..', '..', 'diseno', 'paletas', 'paletas.json');
+const SOURCE = join(HERE, '..', '..', '..', 'design', 'palettes', 'palettes.json');
 const TARGET = join(HERE, '..', 'src', 'colors.ts');
 
 // Solo sirven para presentar la paleta en el canvas, no a la app.
@@ -96,16 +96,16 @@ function mode(theme, name) {
 const themes = JSON.parse(await readFile(SOURCE, 'utf8'));
 const light = themes[`${PALETTE}-claro`];
 const dark = themes[`${PALETTE}-oscuro`];
-if (!light || !dark) throw new Error(`paletas.json no tiene ${PALETTE}-claro y ${PALETTE}-oscuro`);
+if (!light || !dark) throw new Error(`palettes.json no tiene ${PALETTE}-claro y ${PALETTE}-oscuro`);
 
 const colors = { light: mode(light, 'claro'), dark: mode(dark, 'oscuro') };
-const text = `// GENERADO por scripts/generate.mjs desde diseno/paletas/paletas.json — no editar a mano.
+const text = `// GENERADO por scripts/generate.mjs desde design/palettes/palettes.json — no editar a mano.
 // Paleta ${light.opcion} · ${light.nombre}: ${light.lema}.
 // Para cambiar un color, cámbialo en el diseño y corre \`pnpm tokens\` desde la raíz.
 
 export const palette = ${JSON.stringify({ option: light.opcion, name: light.nombre, motto: light.lema })} as const;
 
-/** Clave del diseño (paletas.json, artboards) → clave en el código. */
+/** Clave del diseño (palettes.json, artboards) → clave en el código. */
 export const designKeyMap = ${JSON.stringify(KEY_MAP, null, 2)} as const;
 
 export const colors = ${JSON.stringify(colors, null, 2)} as const;

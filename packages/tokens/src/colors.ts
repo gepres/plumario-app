@@ -1,10 +1,10 @@
-// GENERADO por scripts/generate.mjs desde diseno/paletas/paletas.json — no editar a mano.
+// GENERADO por scripts/generate.mjs desde design/palettes/palettes.json — no editar a mano.
 // Paleta F · Ribera: garza blanca, totora y junco.
 // Para cambiar un color, cámbialo en el diseño y corre `pnpm tokens` desde la raíz.
 
 export const palette = {"option":"F","name":"Ribera","motto":"garza blanca, totora y junco"} as const;
 
-/** Clave del diseño (paletas.json, artboards) → clave en el código. */
+/** Clave del diseño (palettes.json, artboards) → clave en el código. */
 export const designKeyMap = {
   "bg": "background",
   "sup": "surface",

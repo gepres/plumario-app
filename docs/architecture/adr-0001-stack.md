@@ -7,7 +7,7 @@
 
 Plumario es un álbum de aves de Ica: registras un ave con una foto, la IA sugiere la especie, la
 pegas en el álbum y ganas cromos, medallas y pósteres por hábitat. El diseño completo está en
-`diseno/` (64 artboards del canvas de Claude Design) y la paleta elegida es la **F · Ribera**
+`design/` (64 artboards del canvas de Claude Design) y la paleta elegida es la **F · Ribera**
 (claro con fondo blanco, oscuro carbón).
 
 El usuario pidió una propuesta de herramientas y eligió entre opciones. Lo que piden las pantallas
@@ -50,7 +50,7 @@ con rutas tipadas, TypeScript estricto. Builds de desarrollo (`expo-dev-client`)
 - `packages/core`: dominio, puertos y casos de uso, sin dependencias de plataforma.
 - `packages/ui`: componentes reutilizables del sistema de diseño.
 - `packages/tokens`: la paleta F, la letra, el espacio y los cromos, generados desde
-  `diseno/paletas/paletas.json` con prueba de contraste AA.
+  `design/palettes/palettes.json` con prueba de contraste AA.
 - `functions/`: Cloud Functions.
 - pnpm con `nodeLinker: hoisted` (`node_modules` plano). La instalación aislada rompe la resolución
   de algunas librerías nativas; ya le pasó a `archetypes-mobile`.

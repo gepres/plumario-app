@@ -18,7 +18,8 @@
     "check:architecture": "node scripts/check-architecture.mjs",
     "tokens": "pnpm --filter @plumario/tokens generate",
     "icons": "pnpm --filter @plumario/mobile icons",
-    "viewer": "node herramientas/visor/construir.mjs",
+    "viewer": "node tools/viewer/build.mjs",
+    "viewer:serve": "node tools/viewer/serve.mjs",
     "emulators": "pnpm functions:build && node scripts/firebase-emulators.mjs",
     "functions:build": "pnpm --filter @plumario/functions build"
   },

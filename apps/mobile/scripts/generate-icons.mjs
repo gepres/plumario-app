@@ -1,5 +1,5 @@
-// Genera los íconos de la app desde el logo del diseño (diseno/project/TemaLogo.dc.html) con los
-// colores del logo de la paleta elegida (f-claro en diseno/paletas/paletas.json).
+// Genera los íconos de la app desde el logo del diseño (design/project/TemaLogo.dc.html) con los
+// colores del logo de la paleta elegida (f-claro en design/palettes/palettes.json).
 // Uso: pnpm icons (desde la raíz). Escribe en apps/mobile/assets/images/.
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -10,7 +10,7 @@ import { Resvg } from '@resvg/resvg-js';
 const APP = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ROOT = join(APP, '..', '..');
 const TARGET = join(APP, 'assets', 'images');
-const themes = JSON.parse(await readFile(join(ROOT, 'diseno', 'paletas', 'paletas.json'), 'utf8'));
+const themes = JSON.parse(await readFile(join(ROOT, 'design', 'palettes', 'palettes.json'), 'utf8'));
 const t = themes['f-claro'];
 
 // El dibujo de TemaLogo: tarjeta-cromo girada, ave a trazo y sello con estrella.
