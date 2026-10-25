@@ -10,6 +10,7 @@ import { Button, Icon, ThemedText, TopBar, textStyles, useTheme } from '@plumari
 import { SpeciesSticker } from '@/components/species-sticker';
 import { formatShortDate } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
+import { invalidateQueue } from '@/hooks/queue-version';
 import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
@@ -23,12 +24,14 @@ type Props = {
   onBack: () => void;
   onChangePhoto: () => void;
   onSaved: (sightingId: string) => void;
+  /** Sin señal: quedó en el teléfono y se sube al volver la conexión. */
+  onQueued: () => void;
 };
 
 type Check = { status: 'checking' } | { status: 'ok' } | { status: 'mismatch'; reason: string };
 
 /** RegistrarColocar: la foto sobre el sticker elegido, la confirmación de la IA y guardar. */
-export function Place({ photoUri, takenAt, location, speciesId, onBack, onChangePhoto, onSaved }: Props) {
+export function Place({ photoUri, takenAt, location, speciesId, onBack, onChangePhoto, onSaved, onQueued }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -40,12 +43,12 @@ export function Place({ photoUri, takenAt, location, speciesId, onBack, onChange
       {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
       {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
       {state.status === 'ready' && !entry && <ThemedText color="textSecondary" style={styles.message}>Esta especie no está en el álbum.</ThemedText>}
-      {entry && <PlaceContent entry={entry} photoUri={photoUri} takenAt={takenAt} location={location} onChangePhoto={onChangePhoto} onSaved={onSaved} />}
+      {entry && <PlaceContent entry={entry} photoUri={photoUri} takenAt={takenAt} location={location} onChangePhoto={onChangePhoto} onSaved={onSaved} onQueued={onQueued} />}
     </KeyboardAvoidingView>
   );
 }
 
-function PlaceContent({ entry, photoUri, takenAt, location, onChangePhoto, onSaved }: { entry: AlbumEntry } & Pick<Props, 'photoUri' | 'takenAt' | 'location' | 'onChangePhoto' | 'onSaved'>) {
+function PlaceContent({ entry, photoUri, takenAt, location, onChangePhoto, onSaved, onQueued }: { entry: AlbumEntry } & Pick<Props, 'photoUri' | 'takenAt' | 'location' | 'onChangePhoto' | 'onSaved' | 'onQueued'>) {
   const { useCases } = useDependencies();
   const { mode, colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -74,8 +77,12 @@ function PlaceContent({ entry, photoUri, takenAt, location, onChangePhoto, onSav
     setSaving(true);
     setError(null);
     try {
-      const sightingId = await useCases.registerSighting({ userId, regionId: DEFAULT_REGION_ID, species, photoUri, takenAt, placeName: place, location, saveLocation });
-      onSaved(sightingId);
+      const result = await useCases.registerSighting({ userId, regionId: DEFAULT_REGION_ID, species, photoUri, takenAt, placeName: place, location, saveLocation });
+      if (result.kind === 'sent') onSaved(result.sightingId);
+      else {
+        invalidateQueue();
+        onQueued();
+      }
     } catch {
       setError('No se pudo guardar la foto. Revisa tu conexión y vuelve a intentar.');
       setSaving(false);

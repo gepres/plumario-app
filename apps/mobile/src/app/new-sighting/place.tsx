@@ -14,6 +14,7 @@ export default function PlaceRoute() {
       // Otra foto para la misma especie: vuelve a la cámara, que ya sabe cuál es.
       onChangePhoto={() => router.dismissTo({ pathname: '/new-sighting', params: { speciesId } })}
       onSaved={(sightingId) => router.replace({ pathname: '/new-sighting/result', params: { sightingId, speciesId } })}
+      onQueued={() => router.replace({ pathname: '/new-sighting/queued', params: { speciesId } })}
     />
   );
 }

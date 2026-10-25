@@ -3,12 +3,14 @@ import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 import {
   type AchievementRepository,
   type FeedbackRepository,
+  type SightingQueue,
   makeChangeEmail,
   makeChangeHandle,
   makeCheckPhoto,
   makeDeleteAccount,
   makeExportUserData,
   makeSendFeedback,
+  makeSendQueuedSightings,
   makeUpdateProfile,
   makeCheckResetCode,
   makeGetAlbum,
@@ -40,6 +42,7 @@ import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
 import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
 import { InMemoryFeedbackRepository } from './in-memory/in-memory-feedback-repository';
+import { InMemorySightingQueue } from './in-memory/in-memory-sighting-queue';
 import { InMemoryTradeRepository } from './in-memory/in-memory-trade-repository';
 import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
@@ -63,6 +66,7 @@ type Adapters = {
   sightings: SightingRepository;
   trades: TradeRepository;
   feedback: FeedbackRepository;
+  queue: SightingQueue;
   identifier: SpeciesIdentifier;
 };
 
@@ -79,6 +83,9 @@ export type Dependencies = {
     checkPhoto: ReturnType<typeof makeCheckPhoto>;
     registerSighting: ReturnType<typeof makeRegisterSighting>;
     listSpeciesPhotos: ReturnType<typeof makeListSpeciesPhotos>;
+    /** «Registrar sin señal»: los que esperan en el teléfono y subirlos al volver la conexión. */
+    listQueuedSightings: SightingQueue['list'];
+    sendQueuedSightings: ReturnType<typeof makeSendQueuedSightings>;
     listCoverPhotos: ReturnType<typeof makeListCoverPhotos>;
     listPosters: PosterRepository['listByUser'];
     savePoster: ReturnType<typeof makeSavePoster>;
@@ -120,6 +127,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
       posters: new InMemoryPosterRepository(),
       trades: new InMemoryTradeRepository(stickers),
       feedback: new InMemoryFeedbackRepository(),
+      queue: new InMemorySightingQueue(),
       sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
     };
@@ -131,7 +139,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, queue, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -143,8 +151,10 @@ export function createDependencies(adapters: Adapters): Dependencies {
       resetPassword: makeResetPassword({ auth }),
       suggestSpecies: makeSuggestSpecies({ identifier }),
       checkPhoto: makeCheckPhoto({ identifier }),
-      registerSighting: makeRegisterSighting({ photos, sightings, now: () => new Date() }),
-      listSpeciesPhotos: makeListSpeciesPhotos({ sightings, photos }),
+      registerSighting: makeRegisterSighting({ photos, sightings, queue, now: () => new Date() }),
+      listSpeciesPhotos: makeListSpeciesPhotos({ sightings, photos, queue }),
+      listQueuedSightings: (userId) => queue.list(userId),
+      sendQueuedSightings: makeSendQueuedSightings({ photos, sightings, queue, now: () => new Date() }),
       listCoverPhotos: makeListCoverPhotos({ sightings, photos }),
       listPosters: (userId) => posters.listByUser(userId),
       savePoster: makeSavePoster({ posters, now: () => new Date() }),

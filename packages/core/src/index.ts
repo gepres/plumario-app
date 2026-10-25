@@ -43,6 +43,8 @@ export type { AchievementRepository, EarnedAchievement } from './application/por
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { PosterRepository } from './application/ports/poster-repository';
 export type { SightingRepository } from './application/ports/sighting-repository';
+export { NetworkError } from './application/ports/sighting-queue';
+export type { QueuedSighting, SightingQueue } from './application/ports/sighting-queue';
 export type { SpeciesCatalog } from './application/ports/species-catalog';
 export type { SpeciesIdentifier, SpeciesSuggestion } from './application/ports/species-identifier';
 export type { StickerRepository } from './application/ports/sticker-repository';
@@ -54,8 +56,8 @@ export type { GetAlbumSummary } from './application/use-cases/get-album-summary'
 export { makeGetAlbum } from './application/use-cases/get-album';
 export type { GetAlbum } from './application/use-cases/get-album';
 export { evaluateValidatedPhoto, sightingResultOf } from './application/use-cases/evaluate-validated-photo';
-export { makeCheckPhoto, makeRegisterSighting, makeSuggestSpecies } from './application/use-cases/register-sighting';
-export type { RegisterSightingInput, Suggestion } from './application/use-cases/register-sighting';
+export { makeCheckPhoto, makeRegisterSighting, makeSendQueuedSightings, makeSuggestSpecies } from './application/use-cases/register-sighting';
+export type { RegisterResult, RegisterSightingInput, Suggestion } from './application/use-cases/register-sighting';
 export { makeListCoverPhotos, makeListSpeciesPhotos } from './application/use-cases/list-species-photos';
 export { PosterTitleError, makeSavePoster } from './application/use-cases/save-poster';
 export { TradeProposalError, makeProposeTrade } from './application/use-cases/propose-trade';

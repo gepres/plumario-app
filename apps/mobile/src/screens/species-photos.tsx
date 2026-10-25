@@ -54,7 +54,7 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
                 style={[styles.photo, { aspectRatio: ratios[photo.sightingId] ?? 4 / 3, backgroundColor: colors.surfaceAlt }]}
                 accessible
                 accessibilityRole="image"
-                accessibilityLabel={`Foto del ${formatShortDate(photo.takenAt)}${photo.placeName ? ` en ${photo.placeName}` : ''}, ${photo.status === 'validated' ? 'validada' : photo.status === 'pending' ? 'en revisión' : 'no cuenta para el cromo'}`}>
+                accessibilityLabel={`Foto del ${formatShortDate(photo.takenAt)}${photo.placeName ? ` en ${photo.placeName}` : ''}, ${photo.waiting ? 'en espera de señal' : photo.status === 'validated' ? 'validada' : photo.status === 'pending' ? 'en revisión' : 'no cuenta para el cromo'}`}>
                 <Image
                   source={{ uri: photo.url }}
                   style={styles.fill}
@@ -64,13 +64,19 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
                     if (ratio > 0 && ratios[photo.sightingId] !== ratio) setRatios((r) => ({ ...r, [photo.sightingId]: ratio }));
                   }}
                 />
-                {photo === state.photos[0] && (
+                {photo.waiting ? (
+                  <View style={[styles.newBadge, { backgroundColor: colors.textSecondary }]}>
+                    <ThemedText variant="captionStrong" style={styles.white}>En espera</ThemedText>
+                  </View>
+                ) : photo === state.photos.find((p) => !p.waiting) && (
                   <View style={[styles.newBadge, { backgroundColor: WARNING }]}>
                     <ThemedText variant="captionStrong" style={styles.white}>Nueva</ThemedText>
                   </View>
                 )}
                 <View style={[styles.status, { backgroundColor: photo.status === 'validated' ? colors.success : photo.status === 'pending' ? colors.textSecondary : WARNING }]}>
-                  {photo.status === 'validated' ? (
+                  {photo.waiting ? (
+                    <Icon name="download" color="#FFFFFF" size={11} strokeWidth={3} />
+                  ) : photo.status === 'validated' ? (
                     <Icon name="check" color="#FFFFFF" size={11} strokeWidth={3.2} />
                   ) : photo.status === 'pending' ? (
                     <ActivityIndicator size="small" color="#FFFFFF" style={styles.spinner} />
@@ -79,6 +85,9 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
                   )}
                 </View>
               </View>
+              {photo.waiting && (
+                <ThemedText variant="captionStrong" color="textSecondary">Se sube cuando vuelvas a tener señal.</ThemedText>
+              )}
               {photo.status === 'rejected' && (
                 <ThemedText variant="captionStrong" style={{ color: WARNING }}>No se ve el ave. No cuenta para el cromo.</ThemedText>
               )}

@@ -1,4 +1,5 @@
 import { testSpeciesIdentifier } from '../test-species-identifier';
+import { createFileSightingQueue } from '../device/file-sighting-queue';
 import { createFirebaseAuthService } from './firebase-auth-service';
 import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
 import { createFirestoreFeedbackRepository } from './firestore-feedback-repository';
@@ -25,6 +26,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     sightings: createFirestoreSightingRepository(services),
     trades: createFirestoreTradeRepository(services),
     feedback: createFirestoreFeedbackRepository(services),
+    queue: createFileSightingQueue(),
     // Hasta elegir el proveedor de IA (PA-12); la validación de verdad la hace el servidor.
     identifier: testSpeciesIdentifier,
   };

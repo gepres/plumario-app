@@ -72,7 +72,7 @@ function PrivacyContent({ profile, onOpenPolicy }: { profile: UserProfile; onOpe
       const data = await useCases.exportUserData(userId);
       const file = new File(Paths.cache, 'plumario-mis-datos.json');
       if (file.exists) file.delete();
-      file.write(JSON.stringify(data, null, 2));
+      await file.write(JSON.stringify(data, null, 2));
       await shareFile(file.uri, 'application/json', 'Mis datos de Plumario');
     } catch {
       setError('No se pudieron preparar tus datos. Vuelve a intentar.');

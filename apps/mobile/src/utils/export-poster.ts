@@ -53,7 +53,7 @@ export async function createPosterPdf(view: CaptureTarget, caption: string): Pro
   // printToFileAsync le pone un nombre al azar; al compartirlo se ve mejor el del póster.
   const target = new File(Paths.cache, `${exportFileName(caption)}.pdf`);
   if (target.exists) target.delete();
-  new File(uri).move(target);
+  await new File(uri).move(target);
   return target.uri;
 }
 

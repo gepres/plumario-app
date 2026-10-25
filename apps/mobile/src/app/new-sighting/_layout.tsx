@@ -12,6 +12,7 @@ export default function NewSightingLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="identify" />
       <Stack.Screen name="place" />
+      <Stack.Screen name="queued" options={{ gestureEnabled: false }} />
       <Stack.Screen name="result" options={{ gestureEnabled: false }} />
     </Stack>
   );

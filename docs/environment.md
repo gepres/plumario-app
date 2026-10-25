@@ -97,6 +97,10 @@ Para probar un intercambio sin otro teléfono, `pnpm dev:trade <correo>` crea a 
 stickers que hacen falta y una propuesta para esa cuenta, e imprime el enlace
 (`adb shell am start -a android.intent.action.VIEW -d "plumario://trade/<id>" com.gepres.plumario`).
 
+Para probar «Registrar sin señal» en el emulador de Android: `adb shell cmd connectivity airplane-mode enable`
+antes de guardar el registro y `... disable` para que se suba solo. Con el modo avión también se
+corta Metro, pero la app sigue andando.
+
 Los datos de los emuladores se guardan en `.emulator-data` al salir con Ctrl+C. Si el proceso se
 corta de otra forma (por ejemplo, al matarlo desde otra terminal) no se guardan: antes de reiniciar,
 `pnpm emulators:export`. Una función con un trigger de Firestore **nuevo** se carga en caliente,

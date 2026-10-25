@@ -5,6 +5,7 @@ import type { SpeciesPhoto } from '@plumario/core';
 import { useDependencies } from '@/infrastructure/dependencies';
 
 import { useAlbumVersion } from './album-version';
+import { useQueueVersion } from './queue-version';
 import { useSession } from './use-session';
 
 type State = { status: 'loading' } | { status: 'ready'; photos: SpeciesPhoto[] } | { status: 'error' };
@@ -14,6 +15,7 @@ export function useSpeciesPhotos(speciesId: string): State {
   const { useCases } = useDependencies();
   const userId = useSession()?.uid;
   const version = useAlbumVersion();
+  const queueVersion = useQueueVersion();
   const [state, setState] = useState<State>({ status: 'loading' });
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export function useSpeciesPhotos(speciesId: string): State {
     return () => {
       current = false;
     };
-  }, [useCases, userId, speciesId, version]);
+  }, [useCases, userId, speciesId, version, queueVersion]);
 
   return state;
 }

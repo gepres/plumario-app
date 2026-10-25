@@ -106,7 +106,7 @@ function GalleryContent({ entry, album, onOpenSticker, onAddPhoto }: { entry: Al
         </Card>
       )}
 
-      <ListRow title="Ver sticker" detail={sticker?.chrome ? `Cromo ${label}` : 'Sticker normal'} onPress={() => onOpenSticker(species.id)} />
+      {sticker && <ListRow title="Ver sticker" detail={sticker.chrome ? `Cromo ${label}` : 'Sticker normal'} onPress={() => onOpenSticker(species.id)} />}
 
       <View style={styles.galleryHeader}>
         <View style={styles.galleryTitle}>

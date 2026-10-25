@@ -1,6 +1,7 @@
 import type { SightingStatus, UserId } from '../../domain/sighting';
 import type { SpeciesId } from '../../domain/species';
 import type { PhotoStorage } from '../ports/photo-storage';
+import type { SightingQueue } from '../ports/sighting-queue';
 import type { SightingRepository } from '../ports/sighting-repository';
 
 export type SpeciesPhoto = {
@@ -9,21 +10,34 @@ export type SpeciesPhoto = {
   takenAt: Date;
   status: SightingStatus;
   placeName: string | null;
+  /** Todavía en el teléfono, esperando señal para subirse («En espera»). */
+  waiting: boolean;
 };
 
-/** «Tu galería» (GaleriaEspecie): las fotos de una especie, de la más reciente a la más antigua. */
-export function makeListSpeciesPhotos(deps: { sightings: SightingRepository; photos: PhotoStorage }) {
+/**
+ * «Tu galería» (GaleriaEspecie): las fotos de una especie, de la más reciente a la más antigua. Las
+ * que esperan señal van primero, con la copia del teléfono.
+ */
+export function makeListSpeciesPhotos(deps: { sightings: SightingRepository; photos: PhotoStorage; queue: SightingQueue }) {
   return async (userId: UserId, speciesId: SpeciesId): Promise<SpeciesPhoto[]> => {
-    const sightings = await deps.sightings.listBySpecies(userId, speciesId);
+    const waiting: SpeciesPhoto[] = (await deps.queue.list(userId))
+      .filter((q) => q.speciesId === speciesId)
+      .reverse()
+      .map((q) => ({ sightingId: q.id, url: q.photoUri, takenAt: q.takenAt, status: 'pending', placeName: q.placeName, waiting: true }));
+    // Sin señal no se pueden leer las subidas: si hay fotos en espera, se muestran esas.
+    const sightings = await deps.sightings.listBySpecies(userId, speciesId).catch((error: unknown) => {
+      if (waiting.length) return [];
+      throw error;
+    });
     const withPhoto = sightings.filter((s) => s.photoPath);
     // Si una foto ya no se puede leer (se borró), se omite en vez de romper la galería.
     const photos = await Promise.all(
       withPhoto.map(async (s) => {
         const url = await deps.photos.urlFor(s.photoPath!).catch(() => null);
-        return url ? { sightingId: s.id, url, takenAt: s.takenAt, status: s.status, placeName: s.placeName } : null;
+        return url ? { sightingId: s.id, url, takenAt: s.takenAt, status: s.status, placeName: s.placeName, waiting: false } : null;
       }),
     );
-    return photos.filter((p): p is SpeciesPhoto => p !== null);
+    return [...waiting, ...photos.filter((p): p is SpeciesPhoto => p !== null)];
   };
 }
 

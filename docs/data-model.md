@@ -40,6 +40,12 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 3. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
    RegistrarCompletado, RevelarCromado o RevelarDiamante, o que la foto no se reconoció.
 
+**Sin señal:** si la foto no se puede subir (Storage reintenta 12 s y el adaptador lo traduce a
+`NetworkError`), el registro queda en una cola del teléfono con una copia de la foto
+(`documents/pending/`, puerto `SightingQueue`). `SightingQueueSync` la sube al abrir la app, al volver
+a ella y cada 30 s mientras quede algo (`makeSendQueuedSightings`), y sigue cada registro hasta que el
+servidor lo valida para releer el álbum. Mientras, la foto se ve en la galería como «En espera».
+
 Las Cloud Functions se empaquetan con esbuild en `functions/dist` (con el núcleo adentro) y Firebase
 despliega esa carpeta, que trae su propio `package.json` solo con las dependencias de ejecución.
 

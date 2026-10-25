@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { fonts, textStyles, useTheme } from '@plumario/ui';
 
 import { CelebrationHost } from '@/components/celebration-host';
+import { SightingQueueSync } from '@/components/sighting-queue-sync';
 import { useSession } from '@/hooks/use-session';
 import { DependenciesProvider } from '@/infrastructure/dependencies';
 
@@ -95,6 +96,8 @@ function RootStack() {
       </Stack>
       {/* Las medallas nuevas se celebran sobre cualquier pantalla de la app. */}
       {signedIn && <CelebrationHost />}
+      {/* Los registros guardados sin señal se suben solos al volver la conexión. */}
+      {signedIn && <SightingQueueSync />}
     </>
   );
 }

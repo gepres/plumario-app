@@ -12,6 +12,7 @@ import { HABITAT_LABELS } from '@/constants/habitats';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
 import { useCollectorName } from '@/hooks/use-profile';
+import { useSightingQueue } from '@/hooks/use-sighting-queue';
 import { ShadowSheet, type PhotoSource } from '@/screens/album/shadow-sheet';
 
 type Props = {
@@ -84,6 +85,7 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
   const { colors } = useTheme();
   const records = useAchievements();
   const collector = useCollectorName();
+  const waiting = useSightingQueue().length;
   const view = homeView(album, DEFAULT_REGION_ID, new Date());
   const rewards = rewardsView(album, records ?? []);
 
@@ -108,10 +110,22 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
     </Pressable>
   );
 
+  // Sin señal: las fotos guardadas en el teléfono, que se suben solas.
+  const waitingNote = waiting > 0 && (
+    <View style={[styles.card, styles.waiting, { backgroundColor: colors.surface, borderColor: colors.border }]} accessible accessibilityLiveRegion="polite">
+      <Icon name="download" color={colors.text} size={20} strokeWidth={2} />
+      <View style={styles.flex}>
+        <ThemedText variant="bodyStrong">{waiting === 1 ? '1 foto en espera de señal' : `${waiting} fotos en espera de señal`}</ThemedText>
+        <ThemedText variant="caption" color="textSecondary">Se suben solas cuando vuelvas a tener conexión.</ThemedText>
+      </View>
+    </View>
+  );
+
   if (view.kind === 'empty') {
     return (
       <>
         {hero}
+        {waitingNote}
         <View style={[styles.card, styles.firstBird, { backgroundColor: colors.surface, borderColor: colors.line }]}>
           <ThemedText variant="heading">Registra tu primera ave</ThemedText>
           <ThemedText variant="small" color="textSecondary">Fotografía cualquier ave que veas. La primera te da la medalla Mi primera ave.</ThemedText>
@@ -152,6 +166,7 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
   return (
     <>
       {hero}
+      {waitingNote}
 
       {posterGoal <= album.total && (
         <Pressable
@@ -299,6 +314,13 @@ const styles = StyleSheet.create({
   },
   firstBird: {
     gap: spacing[2],
+  },
+  waiting: {
+    borderStyle: 'dashed',
+    borderWidth: 1.5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[3],
   },
   poster: {
     flexDirection: 'row',
