@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { fonts, textStyles, useTheme } from '@plumario/ui';
 
+import { CelebrationHost } from '@/components/celebration-host';
 import { useSession } from '@/hooks/use-session';
 import { DependenciesProvider } from '@/infrastructure/dependencies';
 
@@ -52,28 +53,33 @@ function RootStack() {
     SplashScreen.hideAsync();
   }, []);
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
-      {/* El grupo (auth) no tiene index: sin destino explícito, «/» quedaría sin pantalla. */}
-      <Stack.Protected guard={signedIn} redirectTo="/sign-in">
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="new-sighting" options={{ presentation: 'fullScreenModal' }} />
-        <Stack.Screen name="habitat/[habitat]" />
-        <Stack.Screen name="species/[id]" />
-        <Stack.Screen name="sticker/[id]" />
-      </Stack.Protected>
-      <Stack.Protected guard={!signedIn} redirectTo="/">
-        <Stack.Screen name="(auth)" />
-      </Stack.Protected>
-      <Stack.Screen
-        name="design-system"
-        options={{
-          headerShown: true,
-          title: 'Sistema visual',
-          headerTintColor: colors.text,
-          headerStyle: { backgroundColor: colors.background },
-          headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },
-        }}
-      />
-    </Stack>
+    <>
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
+        {/* El grupo (auth) no tiene index: sin destino explícito, «/» quedaría sin pantalla. */}
+        <Stack.Protected guard={signedIn} redirectTo="/sign-in">
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="new-sighting" options={{ presentation: 'fullScreenModal' }} />
+          <Stack.Screen name="habitat/[habitat]" />
+          <Stack.Screen name="species/[id]" />
+          <Stack.Screen name="sticker/[id]" />
+          <Stack.Screen name="chrome-categories" />
+        </Stack.Protected>
+        <Stack.Protected guard={!signedIn} redirectTo="/">
+          <Stack.Screen name="(auth)" />
+        </Stack.Protected>
+        <Stack.Screen
+          name="design-system"
+          options={{
+            headerShown: true,
+            title: 'Sistema visual',
+            headerTintColor: colors.text,
+            headerStyle: { backgroundColor: colors.background },
+            headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },
+          }}
+        />
+      </Stack>
+      {/* Las medallas nuevas se celebran sobre cualquier pantalla de la app. */}
+      {signedIn && <CelebrationHost />}
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
 import {
+  type AchievementRepository,
   makeCheckPhoto,
   makeCheckResetCode,
   makeGetAlbum,
@@ -25,6 +26,7 @@ import {
 } from '@plumario/core';
 
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
+import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
 import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
@@ -39,6 +41,7 @@ import { testSpeciesIdentifier } from './test-species-identifier';
 
 type Adapters = {
   auth: AuthService;
+  achievements: AchievementRepository;
   catalog: SpeciesCatalog;
   stickers: StickerRepository;
   profiles: UserProfileRepository;
@@ -64,6 +67,8 @@ export type Dependencies = {
   };
   /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
   watchSighting: SightingRepository['watch'];
+  /** Los logros: listarlos (Recompensas), escuchar los no celebrados y marcarlos vistos. */
+  achievements: AchievementRepository;
   /** Quién tiene la sesión abierta, para useSession(). */
   session: Pick<AuthService, 'currentUser' | 'onChange'>;
   environment: { firebaseConfigured: boolean; dataSource: DataSource };
@@ -72,13 +77,15 @@ export type Dependencies = {
 function createAdapters(): Adapters | Promise<Adapters> {
   if (dataSource === 'memory') {
     const stickers = new InMemoryStickerRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_STICKERS });
+    const achievements = new InMemoryAchievementRepository();
     return {
       auth: new InMemoryAuthService(),
+      achievements,
       catalog: sampleSpeciesCatalog,
       stickers,
       profiles: new InMemoryUserProfileRepository(),
       photos: inMemoryPhotoStorage,
-      sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, identifier: testSpeciesIdentifier }),
+      sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
     };
   }
@@ -89,7 +96,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, catalog, stickers, profiles, photos, sightings, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, sightings, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -106,6 +113,7 @@ export function createDependencies(adapters: Adapters): Dependencies {
       listSpeciesPhotos: makeListSpeciesPhotos({ sightings, photos }),
     },
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
+    achievements,
     session: auth,
     environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
   };

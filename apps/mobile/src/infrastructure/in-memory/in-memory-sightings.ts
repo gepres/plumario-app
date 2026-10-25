@@ -8,6 +8,7 @@ import {
   type SpeciesIdentifier,
 } from '@plumario/core';
 
+import type { InMemoryAchievementRepository } from './in-memory-achievement-repository';
 import type { InMemoryStickerRepository } from './in-memory-sticker-repository';
 
 /** Adaptador en memoria del puerto PhotoStorage: la foto queda donde está y la ruta es su URI. */
@@ -29,7 +30,9 @@ export class InMemorySightingRepository implements SightingRepository {
   private readonly listeners = new Map<string, Set<(sighting: Sighting | null) => void>>();
   private nextId = 1;
 
-  constructor(private readonly deps: { catalog: SpeciesCatalog; stickers: InMemoryStickerRepository; identifier: SpeciesIdentifier }) {}
+  constructor(
+    private readonly deps: { catalog: SpeciesCatalog; stickers: InMemoryStickerRepository; achievements: InMemoryAchievementRepository; identifier: SpeciesIdentifier },
+  ) {}
 
   newId = () => `sighting-${this.nextId++}`;
 
@@ -63,8 +66,10 @@ export class InMemorySightingRepository implements SightingRepository {
       updated = { ...sighting, status: 'rejected', result: { outcome: 'rejected', reason: verdict.reason ?? 'No se reconoce la especie.' } };
     } else {
       const stickers = await this.deps.stickers.listByUser(sighting.userId);
-      const result = evaluateValidatedPhoto({ species, catalog, stickers, at: new Date(), roll: Math.random() });
+      const now = new Date();
+      const result = evaluateValidatedPhoto({ species, catalog, stickers, at: now, roll: Math.random() });
       this.deps.stickers.save(sighting.userId, result.sticker);
+      this.deps.achievements.grant(sighting.userId, result.achievements, now);
       updated = { ...sighting, status: 'validated', result: sightingResultOf(result) };
     }
     this.sightings.set(sighting.id, updated);

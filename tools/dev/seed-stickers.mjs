@@ -3,7 +3,7 @@
 // Uso (desde la raíz, con pnpm emulators corriendo):
 //   pnpm dev:stickers ana@ejemplo.com            → 12 stickers (algunos cromados)
 //   pnpm dev:stickers ana@ejemplo.com --count 25
-//   pnpm dev:stickers ana@ejemplo.com --clear    → le quita todos
+//   pnpm dev:stickers ana@ejemplo.com --clear    → le quita todos (los logros quedan)
 import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -73,4 +73,18 @@ chosen.forEach((s, i) => {
   });
 });
 await batch.commit();
+
+// Los logros que corresponden a esos stickers (las mismas reglas que earnedAchievements), ya vistos
+// para no disparar celebraciones: los que se ganen después sí se celebran.
+const registered = (await stickers.get()).size;
+const earned = [
+  ...(registered >= 1 ? [['first-bird', { kind: 'firstBird' }]] : []),
+  ...(registered >= 5 ? [['explorer', { kind: 'explorer' }]] : []),
+  ...Array.from({ length: Math.floor(registered / 10) }, (_, i) => [`milestone-${(i + 1) * 10}`, { kind: 'milestone', species: (i + 1) * 10 }]),
+];
+const achievements = db.collection('users').doc(user.uid).collection('achievements');
+for (const [id, achievement] of earned) {
+  const ref = achievements.doc(id);
+  if (!(await ref.get()).exists) await ref.set({ ...achievement, earnedAt: Timestamp.fromMillis(now - 864e5), seen: true });
+}
 console.log(`${chosen.length} stickers para ${email} (${user.uid}); cromados: ${chosen.slice(0, 6).map((s) => s.commonName).join(', ')}.`);

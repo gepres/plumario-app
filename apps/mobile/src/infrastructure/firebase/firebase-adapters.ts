@@ -1,5 +1,6 @@
 import { testSpeciesIdentifier } from '../test-species-identifier';
 import { createFirebaseAuthService } from './firebase-auth-service';
+import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
 import { createFirebasePhotoStorage } from './firebase-photo-storage';
 import { connectFirebase } from './firebase-services';
 import { createFirestoreSightingRepository } from './firestore-sighting-repository';
@@ -12,6 +13,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
   const services = await connectFirebase({ emulatorHost });
   return {
     auth: createFirebaseAuthService(services),
+    achievements: createFirestoreAchievementRepository(services),
     catalog: createFirestoreSpeciesCatalog(services),
     stickers: createFirestoreStickerRepository(services),
     profiles: createFirestoreUserProfileRepository(services),

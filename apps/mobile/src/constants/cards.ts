@@ -40,3 +40,8 @@ export const formatLongDate = (date: Date) => longDate.format(date);
 
 /** «14 mar 2026». */
 export const formatShortDate = (date: Date) => shortDate.format(date).replace('.', '');
+
+const dayMonth = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'short' });
+
+/** «23 oct», para listas donde el año sobra. */
+export const formatDayMonth = (date: Date) => dayMonth.format(date).replace('.', '');

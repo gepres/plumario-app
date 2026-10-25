@@ -9,20 +9,17 @@ import Svg, { Circle, Path } from 'react-native-svg';
 import {
   PHOTOS_FOR_CHROME,
   SPECIES_PER_POSTER,
-  achievementId,
   nextPoster,
-  type Achievement,
   type AlbumEntry,
   type Sighting,
   type SightingResult,
 } from '@plumario/core';
 import type { Gradient } from '@plumario/tokens';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, GradientView, HOLOGRAPHIC, Icon, Medal, ProgressBar, Rays, ThemedText, useTheme, type MedalKind } from '@plumario/ui';
+import { Button, GradientView, HOLOGRAPHIC, Icon, ProgressBar, Rays, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS, CATEGORY_REASONS } from '@/constants/cards';
-import { HABITAT_MEDALS } from '@/constants/habitats';
 import { invalidateAlbum } from '@/hooks/album-version';
 import { useAlbum } from '@/hooks/use-album';
 import { useSession } from '@/hooks/use-session';
@@ -183,7 +180,6 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
           </View>
         )}
 
-        {result.achievements.length > 0 && <Achievements achievements={result.achievements} dark />}
         {result.completed && <PosterProgress registered={result.registered} total={result.total} dark />}
 
         <View style={styles.actions}>
@@ -246,7 +242,6 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
           <ThemedText variant="label" color="textSecondary" style={styles.textCenter}>Esta vez salió normal</ThemedText>
         </Animated.View>
 
-        {result.achievements.length > 0 && <Achievements achievements={result.achievements} />}
         <PosterProgress registered={result.registered} total={result.total} />
 
         <View style={[styles.waysCard, { borderColor: colors.border }]}>
@@ -346,40 +341,6 @@ function Rejected({ entry, reason, onRetry, onClose }: Props & { entry: AlbumEnt
       <View style={styles.stackActions}>
         <Button label={`Probar con otra foto de ${entry.species.commonName}`} onPress={() => onRetry(entry.species.id)} />
         <Button label="Cerrar" variant="tertiary" onPress={onClose} />
-      </View>
-    </View>
-  );
-}
-
-function medalKind(a: Achievement): MedalKind {
-  return a.kind === 'habitatComplete' ? a.habitat : a.kind;
-}
-
-function achievementLabel(a: Achievement): string {
-  switch (a.kind) {
-    case 'firstBird': return 'Primera ave';
-    case 'explorer': return 'Explorador de Ica';
-    case 'milestone': return `${a.species} especies`;
-    case 'habitatComplete': return HABITAT_MEDALS[a.habitat].title;
-    case 'albumComplete': return 'Álbum completo';
-  }
-}
-
-/** «Ganaste»: las medallas que dio esta foto (la celebración completa está en Recompensas). */
-function Achievements({ achievements, dark = false }: { achievements: readonly Achievement[]; dark?: boolean }) {
-  const { colors } = useTheme();
-  return (
-    <View style={[dark ? styles.darkCard : [styles.lightCard, { backgroundColor: colors.surface, borderColor: colors.line }], styles.medals]}>
-      <ThemedText variant="bodyStrong" style={dark ? styles.white : undefined}>
-        {achievements.length === 1 ? '¡Ganaste una medalla!' : `¡Ganaste ${achievements.length} medallas!`}
-      </ThemedText>
-      <View style={styles.medalRow}>
-        {achievements.map((a) => (
-          <View key={achievementId(a)} style={styles.medalItem}>
-            <Medal kind={medalKind(a)} number={a.kind === 'milestone' ? a.species : undefined} size={52} />
-            <ThemedText variant="caption" style={[styles.textCenter, dark ? styles.white : undefined]}>{achievementLabel(a)}</ThemedText>
-          </View>
-        ))}
       </View>
     </View>
   );
@@ -530,20 +491,6 @@ const styles = StyleSheet.create({
   trackFill: {
     height: '100%',
     borderRadius: 3,
-  },
-  medals: {
-    alignItems: 'center',
-  },
-  medalRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: spacing[4],
-  },
-  medalItem: {
-    width: 88,
-    alignItems: 'center',
-    gap: 4,
   },
   waysCard: {
     marginHorizontal: layout.cardMargin,

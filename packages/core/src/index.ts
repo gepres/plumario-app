@@ -8,6 +8,8 @@ export { ALBUM_CLASS, SPECIES_PER_POSTER, isInAlbum, nextPoster, summarizeAlbum 
 export { buildAlbumView, filterEntries, formatAlbumNumber, habitatPreview, searchEntries, sealsOf } from './domain/album-view';
 export type { AlbumEntry, AlbumFilter, AlbumView, HabitatSection, Seal } from './domain/album-view';
 export { FIGURES, figureOf } from './domain/figure';
+export { CATEGORIES, chromesView, rewardsView, summaryOf } from './domain/rewards';
+export type { CategoryProgress, ChromesView, MedalProgress, RewardsView } from './domain/rewards';
 export type { Figure } from './domain/figure';
 export type { AlbumSummary, HabitatProgress, NextPoster } from './domain/album';
 export { CATEGORY_RANK, CHROME_CHANCE, PHOTOS_FOR_CHROME, categoryOf, isFairTrade } from './domain/card';
@@ -27,6 +29,7 @@ export { AuthError } from './application/ports/auth-service';
 export type { AuthErrorCode, AuthService, AuthUser } from './application/ports/auth-service';
 export { HandleTakenError } from './application/ports/user-profile-repository';
 export type { UserProfileRepository } from './application/ports/user-profile-repository';
+export type { AchievementRepository, EarnedAchievement } from './application/ports/achievement-repository';
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { SightingRepository } from './application/ports/sighting-repository';
 export type { SpeciesCatalog } from './application/ports/species-catalog';
