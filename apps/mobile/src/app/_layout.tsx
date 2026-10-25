@@ -63,6 +63,9 @@ function RootStack() {
           <Stack.Screen name="species/[id]" />
           <Stack.Screen name="sticker/[id]" />
           <Stack.Screen name="chrome-categories" />
+          <Stack.Screen name="poster/new" />
+          <Stack.Screen name="poster/[id]" />
+          <Stack.Screen name="poster/habitat/[habitat]" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />

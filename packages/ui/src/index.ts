@@ -35,6 +35,8 @@ export { HOLOGRAPHIC } from './components/sticker-finishes';
 export type { ChromeFinish } from './components/sticker-finishes';
 export { TabBar } from './components/tab-bar';
 export { TextField } from './components/text-field';
+export { Switch } from './components/switch';
+export { ToggleGroup } from './components/toggle-group';
 export type { TextFieldKind } from './components/text-field';
 export type { TabBarItem } from './components/tab-bar';
 export { ThemedText } from './components/themed-text';
@@ -43,3 +45,11 @@ export type { ThemedTextProps } from './components/themed-text';
 // Figuras de las aves (SistemaSiluetas), generadas desde design/assets.
 export { FIGURE_SVGS } from './figures/figure-svgs';
 export type { FigureName } from './figures/figure-svgs';
+
+// Pósteres (Poster10 y PosterHabitat), en 1123 × 1587 para mostrar y exportar.
+export { HabitatPoster } from './posters/habitat-poster';
+export type { HabitatPosterCell } from './posters/habitat-poster';
+export { POSTER_HEIGHT, POSTER_WIDTH, PosterFrame } from './posters/poster-frame';
+export type { PosterHabitat } from './posters/poster-scenes';
+export { SpeciesPoster } from './posters/species-poster';
+export type { PosterSticker } from './posters/species-poster';

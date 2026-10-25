@@ -7,9 +7,12 @@ import Svg, { Circle, Rect } from 'react-native-svg';
 
 import type { EarnedAchievement } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
-import { Button, Icon, Medal, Rays, ThemedText, useTheme } from '@plumario/ui';
+import { Button, Icon, Medal, PosterFrame, Rays, SpeciesPoster, ThemedText, useTheme } from '@plumario/ui';
 
+import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
 import { achievementCelebration, medalKind } from '@/constants/achievements';
+import { useAlbum } from '@/hooks/use-album';
+import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
@@ -40,7 +43,20 @@ export function CelebrationHost() {
     setPending((list) => list.filter((a) => a.id !== current.id));
     void achievements.markSeen(userId, current.id).catch(() => undefined);
   };
-  return <Celebration key={current.id} earned={current} onClose={dismiss} onSeeReward={() => { dismiss(); router.navigate('/rewards'); }} />;
+  const { achievement } = current;
+  return (
+    <Celebration
+      key={current.id}
+      earned={current}
+      onClose={dismiss}
+      onSeeReward={() => {
+        dismiss();
+        // Con el hito llega un póster nuevo: se va directo a armarlo.
+        if (achievement.kind === 'milestone') router.push({ pathname: '/poster/new', params: { number: String(achievement.species / 10) } });
+        else router.navigate('/rewards');
+      }}
+    />
+  );
 }
 
 function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchievement; onClose: () => void; onSeeReward: () => void }) {
@@ -48,6 +64,8 @@ function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchieveme
   const { achievement } = earned;
   const { title, text } = achievementCelebration(achievement);
   const withPoster = achievement.kind === 'milestone';
+  const state = useAlbum();
+  const collector = useProfile()?.displayName ?? '';
   return (
     <Modal transparent visible animationType="fade" statusBarTranslucent navigationBarTranslucent onRequestClose={onClose}>
       <View style={styles.scrim}>
@@ -69,8 +87,10 @@ function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchieveme
               <Circle cx={70} cy={80} r={2.5} fill="#E4C766" />
               <Circle cx={300} cy={120} r={2.5} fill="#F4C6D6" />
             </Svg>
-            <Animated.View entering={ZoomIn.springify().damping(12)} style={styles.tilt}>
-              <Medal kind={medalKind(achievement)} number={achievement.kind === 'milestone' ? achievement.species : undefined} size={124} />
+            <Animated.View entering={ZoomIn.springify().damping(12)}>
+              <View style={styles.tilt}>
+                <Medal kind={medalKind(achievement)} number={achievement.kind === 'milestone' ? achievement.species : undefined} size={124} />
+              </View>
             </Animated.View>
           </View>
           <View style={styles.texts}>
@@ -80,9 +100,15 @@ function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchieveme
           </View>
           {withPoster && (
             <View style={[styles.poster, { backgroundColor: colors.background }]}>
-              <View style={[styles.posterThumb, { backgroundColor: colors.hero.stops[0]!.color }]}>
-                <ThemedText variant="captionStrong" style={{ color: colors.onHero }}>{achievement.species / 10}</ThemedText>
-              </View>
+              {state.status === 'ready' ? (
+                <PosterFrame width={40} style={styles.posterThumb}>
+                  <SpeciesPoster {...speciesPosterProps(state.album, { number: achievement.species / 10, seed: 7, theme: 'light', title: DEFAULT_POSTER_TITLE }, collector)} />
+                </PosterFrame>
+              ) : (
+                <View style={[styles.posterThumb, styles.posterPlaceholder, { backgroundColor: colors.hero.stops[0]!.color }]}>
+                  <ThemedText variant="captionStrong" style={{ color: colors.onHero }}>{achievement.species / 10}</ThemedText>
+                </View>
+              )}
               <View style={styles.flex}>
                 <ThemedText variant="bodyStrong">Póster {achievement.species / 10}</ThemedText>
                 <ThemedText variant="caption" color="textSecondary">10 de tus stickers en un póster A3. El próximo, a las {achievement.species + 10}.</ThemedText>
@@ -90,7 +116,7 @@ function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchieveme
             </View>
           )}
           <View style={styles.actions}>
-            <Button label="Ver recompensa" onPress={onSeeReward} />
+            <Button label={withPoster ? 'Generar mi póster' : 'Ver recompensa'} onPress={onSeeReward} />
             <Button label="Seguir explorando" variant="tertiary" onPress={onClose} />
           </View>
         </View>
@@ -159,9 +185,12 @@ const styles = StyleSheet.create({
     gap: spacing[3],
   },
   posterThumb: {
+    borderRadius: 2,
+    boxShadow: '0 1px 2px rgba(20,48,47,0.22)',
+  },
+  posterPlaceholder: {
     width: 40,
     height: 57,
-    borderRadius: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

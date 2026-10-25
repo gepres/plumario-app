@@ -6,8 +6,10 @@ import {
   makeCheckResetCode,
   makeGetAlbum,
   makeGetAlbumSummary,
+  makeListCoverPhotos,
   makeListSpeciesPhotos,
   makeRegisterSighting,
+  makeSavePoster,
   makeRequestPasswordReset,
   makeResetPassword,
   makeSignIn,
@@ -18,6 +20,7 @@ import {
   type GetAlbum,
   type GetAlbumSummary,
   type PhotoStorage,
+  type PosterRepository,
   type SightingRepository,
   type SpeciesCatalog,
   type SpeciesIdentifier,
@@ -28,6 +31,7 @@ import {
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
+import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
 import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
 import { InMemoryUserProfileRepository } from './in-memory/in-memory-user-profile-repository';
@@ -46,6 +50,7 @@ type Adapters = {
   stickers: StickerRepository;
   profiles: UserProfileRepository;
   photos: PhotoStorage;
+  posters: PosterRepository;
   sightings: SightingRepository;
   identifier: SpeciesIdentifier;
 };
@@ -64,6 +69,10 @@ export type Dependencies = {
     checkPhoto: ReturnType<typeof makeCheckPhoto>;
     registerSighting: ReturnType<typeof makeRegisterSighting>;
     listSpeciesPhotos: ReturnType<typeof makeListSpeciesPhotos>;
+    listCoverPhotos: ReturnType<typeof makeListCoverPhotos>;
+    listPosters: PosterRepository['listByUser'];
+    savePoster: ReturnType<typeof makeSavePoster>;
+    getProfile: UserProfileRepository['get'];
   };
   /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
   watchSighting: SightingRepository['watch'];
@@ -85,6 +94,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
       stickers,
       profiles: new InMemoryUserProfileRepository(),
       photos: inMemoryPhotoStorage,
+      posters: new InMemoryPosterRepository(),
       sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
     };
@@ -96,7 +106,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, sightings, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -111,6 +121,10 @@ export function createDependencies(adapters: Adapters): Dependencies {
       checkPhoto: makeCheckPhoto({ identifier }),
       registerSighting: makeRegisterSighting({ photos, sightings, now: () => new Date() }),
       listSpeciesPhotos: makeListSpeciesPhotos({ sightings, photos }),
+      listCoverPhotos: makeListCoverPhotos({ sightings, photos }),
+      listPosters: (userId) => posters.listByUser(userId),
+      savePoster: makeSavePoster({ posters, now: () => new Date() }),
+      getProfile: (userId) => profiles.get(userId),
     },
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     achievements,

@@ -1,33 +1,41 @@
-import { useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { chromesView, rewardsView } from '@plumario/core';
+import { chromesView, postersView, rewardsView, type Habitat } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Button, SegmentedTabs, StatusBarScrim, ThemedText } from '@plumario/ui';
 
-import { ComingSoon } from '@/components/coming-soon';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
+import { usePosters } from '@/hooks/use-posters';
+import { useProfile } from '@/hooks/use-profile';
 
 import { Chromes } from './chromes';
 import { Medals } from './medals';
+import { Posters } from './posters';
 
 export type RewardsTab = 'medals' | 'chromes' | 'posters';
 
 type Props = {
+  tab: RewardsTab;
+  onChangeTab: (tab: RewardsTab) => void;
   onOpenAlbum: () => void;
   onOpenCategories: () => void;
   onOpenSticker: (speciesId: string) => void;
   onOpenSpecies: (speciesId: string) => void;
+  onOpenPoster: (posterId: string) => void;
+  onGeneratePoster: (number: number) => void;
+  onOpenHabitatPoster: (habitat: Habitat) => void;
 };
 
 /** Mis recompensas (design/project/Main.dc.html): medallas, cromos y pósteres. */
 export function Rewards(props: Props) {
   const state = useAlbum();
   const records = useAchievements();
+  const posters = usePosters();
+  const collector = useProfile()?.displayName ?? '';
   const insets = useSafeAreaInsets();
-  const [tab, setTab] = useState<RewardsTab>('medals');
+  const { tab } = props;
   const rewards = state.status === 'ready' ? rewardsView(state.album, records ?? []) : null;
 
   return (
@@ -44,7 +52,7 @@ export function Rewards(props: Props) {
         <SegmentedTabs
           label="Categorías de recompensas"
           value={tab}
-          onChange={setTab}
+          onChange={props.onChangeTab}
           tabs={[
             { key: 'medals', label: 'Medallas' },
             { key: 'chromes', label: 'Cromos' },
@@ -62,8 +70,16 @@ export function Rewards(props: Props) {
         {state.status === 'ready' && tab === 'chromes' && (
           <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} />
         )}
-        {tab === 'posters' && (
-          <ComingSoon description="Un póster cada 10 especies y uno por hábitat, para descargar en PNG y PDF A3." design={['RecompensasPosteres', 'PosterGenerar', 'PosterVista']} />
+        {state.status === 'ready' && tab === 'posters' && !posters && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'ready' && tab === 'posters' && posters && (
+          <Posters
+            album={state.album}
+            posters={postersView(state.album, posters)}
+            collector={collector}
+            onOpenPoster={props.onOpenPoster}
+            onGenerate={props.onGeneratePoster}
+            onOpenHabitat={props.onOpenHabitatPoster}
+          />
         )}
       </ScrollView>
       <StatusBarScrim />

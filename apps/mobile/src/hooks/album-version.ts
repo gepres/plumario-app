@@ -1,23 +1,12 @@
-import { useSyncExternalStore } from 'react';
+import { createVersionStore } from './version-store';
 
 // Cuándo hay que volver a pedir el álbum: lo cambian registrar un ave o un intercambio, y lo
 // escuchan Inicio, Álbum, los hábitats y la galería.
 
-let version = 0;
-const listeners = new Set<() => void>();
+const album = createVersionStore();
 
-export function invalidateAlbum() {
-  version += 1;
-  for (const listener of listeners) listener();
-}
-
-function subscribe(listener: () => void) {
-  listeners.add(listener);
-  return () => {
-    listeners.delete(listener);
-  };
-}
+export const invalidateAlbum = album.invalidate;
 
 export function useAlbumVersion(): number {
-  return useSyncExternalStore(subscribe, () => version);
+  return album.useVersion();
 }

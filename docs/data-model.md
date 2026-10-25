@@ -41,6 +41,19 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 Las Cloud Functions se empaquetan con esbuild en `functions/dist` (con el núcleo adentro) y Firebase
 despliega esa carpeta, que trae su propio `package.json` solo con las dependencias de ejecución.
 
+## Pósteres
+
+- **Cada 10 especies:** al llegar a 10, 20, 30… se habilita un póster. La app elige las 10 especies con
+  `posterSpecies` (el 1, las 10 primeras; desde el 2, al azar con al menos una por hábitat) a partir de
+  una semilla: «Mezclar» solo cambia la semilla. Al guardarlo quedan fijos `speciesIds`, `seed`,
+  `theme` y `title` (`makeSavePoster`), así se dibuja igual siempre.
+- **Por hábitat:** siempre se ve, con las especies que faltan en sombra; no se guarda. Se descarga al
+  completar el hábitat. «Usar mis fotos» pone la foto validada más reciente de cada especie
+  (`makeListCoverPhotos`).
+- **Exportar** (en el teléfono, sin servidor): el póster se dibuja fuera de la pantalla a 3508 px de
+  ancho y se captura. PNG de 3508 × 4961 px (A3 a 300 ppp) para las fotos o para compartir, y PDF A3
+  con 3 mm de sangrado y marcas de corte (`apps/mobile/src/utils/export-poster.ts`).
+
 ## Privacidad
 
 - Las fotos y su ubicación nunca salen de la cuenta del usuario: ni el intercambio ni la tarjeta para

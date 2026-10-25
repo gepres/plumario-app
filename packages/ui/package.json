@@ -7,7 +7,8 @@
   "types": "src/index.ts",
   "scripts": {
     "type-check": "tsc --noEmit",
-    "figures": "node scripts/generate-figures.mjs"
+    "figures": "node scripts/generate-figures.mjs",
+    "posters": "node scripts/generate-poster-scenes.mjs"
   },
   "dependencies": {
     "@plumario/tokens": "workspace:*"

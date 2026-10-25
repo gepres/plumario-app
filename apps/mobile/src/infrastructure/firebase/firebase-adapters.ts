@@ -3,6 +3,7 @@ import { createFirebaseAuthService } from './firebase-auth-service';
 import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
 import { createFirebasePhotoStorage } from './firebase-photo-storage';
 import { connectFirebase } from './firebase-services';
+import { createFirestorePosterRepository } from './firestore-poster-repository';
 import { createFirestoreSightingRepository } from './firestore-sighting-repository';
 import { createFirestoreSpeciesCatalog } from './firestore-species-catalog';
 import { createFirestoreStickerRepository } from './firestore-sticker-repository';
@@ -18,6 +19,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     stickers: createFirestoreStickerRepository(services),
     profiles: createFirestoreUserProfileRepository(services),
     photos: createFirebasePhotoStorage(services),
+    posters: createFirestorePosterRepository(services),
     sightings: createFirestoreSightingRepository(services),
     // Hasta elegir el proveedor de IA (PA-12); la validación de verdad la hace el servidor.
     identifier: testSpeciesIdentifier,

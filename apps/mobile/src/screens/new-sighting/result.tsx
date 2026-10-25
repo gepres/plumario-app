@@ -153,8 +153,10 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
 
         <View style={styles.stickerStage}>
           <Sparkles width={Math.min(width, 390)} colors={diamond ? ['#FFFFFF', '#BFE3F2'] : HOLOGRAPHIC.colors.slice(0, 5)} />
-          <Animated.View entering={ZoomIn.springify().damping(12)} style={[styles.tilt, { boxShadow: `0 0 30px ${diamond ? 'rgba(159,211,234,0.55)' : 'rgba(197,217,245,0.45)'}` }]}>
-            <SpeciesSticker entry={entryAfter(entry, result)} size={diamond ? 200 : 216} />
+          <Animated.View entering={ZoomIn.springify().damping(12)}>
+            <View style={[styles.tilt, { boxShadow: `0 0 30px ${diamond ? 'rgba(159,211,234,0.55)' : 'rgba(197,217,245,0.45)'}` }]}>
+              <SpeciesSticker entry={entryAfter(entry, result)} size={diamond ? 200 : 216} />
+            </View>
           </Animated.View>
         </View>
 
@@ -231,8 +233,10 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
           <View style={styles.closeButton} />
         </View>
         <View style={[styles.stickerStage, { height: 262 }]}>
-          <Animated.View entering={ZoomIn.springify().damping(14)} style={styles.tilt}>
-            <SpeciesSticker entry={entryAfter(entry, result)} size={186} />
+          <Animated.View entering={ZoomIn.springify().damping(14)}>
+            <View style={styles.tilt}>
+              <SpeciesSticker entry={entryAfter(entry, result)} size={186} />
+            </View>
           </Animated.View>
         </View>
         <Animated.View entering={FadeInDown.delay(200)} style={styles.revealText} accessibilityRole="summary" accessibilityLiveRegion="polite">
@@ -299,8 +303,10 @@ function AddedToGallery({ entry, result, onOpenSpecies, onRegisterAnother, onClo
         </Pressable>
       </View>
       <View style={[styles.stickerStage, { height: 240 }]}>
-        <Animated.View entering={ZoomIn.springify().damping(14)} style={styles.tilt}>
-          <SpeciesSticker entry={entryAfter(entry, result)} size={160} />
+        <Animated.View entering={ZoomIn.springify().damping(14)}>
+          <View style={styles.tilt}>
+            <SpeciesSticker entry={entryAfter(entry, result)} size={160} />
+          </View>
         </Animated.View>
       </View>
       <View style={styles.revealText} accessibilityRole="summary" accessibilityLiveRegion="polite">

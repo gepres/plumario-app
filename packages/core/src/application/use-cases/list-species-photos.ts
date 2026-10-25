@@ -26,3 +26,21 @@ export function makeListSpeciesPhotos(deps: { sightings: SightingRepository; pho
     return photos.filter((p): p is SpeciesPhoto => p !== null);
   };
 }
+
+/**
+ * «Usar mis fotos» (PosterVista): de cada especie, la foto validada más reciente. Las que no tengan
+ * (o no se puedan leer) quedan fuera y el póster las dibuja con su figura.
+ */
+export function makeListCoverPhotos(deps: { sightings: SightingRepository; photos: PhotoStorage }) {
+  return async (userId: UserId, speciesIds: readonly SpeciesId[]): Promise<Record<SpeciesId, string>> => {
+    const covers = await Promise.all(
+      speciesIds.map(async (speciesId) => {
+        const sightings = await deps.sightings.listBySpecies(userId, speciesId).catch(() => []);
+        const cover = sightings.find((s) => s.status === 'validated' && s.photoPath);
+        const url = cover ? await deps.photos.urlFor(cover.photoPath!).catch(() => null) : null;
+        return url ? ([speciesId, url] as const) : null;
+      }),
+    );
+    return Object.fromEntries(covers.filter((c) => c !== null));
+  };
+}

@@ -54,7 +54,7 @@ export function InfoNote({ children }: { children: ReactNode }) {
 }
 
 /** Barra de arriba con «Volver» y, si hace falta, el título de la pantalla. */
-export function TopBar({ title, onBack }: { title?: string; onBack?: () => void }) {
+export function TopBar({ title, subtitle, onBack }: { title?: string; subtitle?: string; onBack?: () => void }) {
   const { colors } = useTheme();
   return (
     <View style={styles.topBar}>
@@ -63,7 +63,12 @@ export function TopBar({ title, onBack }: { title?: string; onBack?: () => void 
           <Icon name="back" color={colors.text} size={22} strokeWidth={2} />
         </Pressable>
       )}
-      {title && <ThemedText variant="heading" accessibilityRole="header">{title}</ThemedText>}
+      {title && (
+        <View style={styles.titles}>
+          <ThemedText variant="heading" accessibilityRole="header" numberOfLines={1}>{title}</ThemedText>
+          {subtitle && <ThemedText variant="caption" color="textSecondary" numberOfLines={1}>{subtitle}</ThemedText>}
+        </View>
+      )}
     </View>
   );
 }
@@ -113,6 +118,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing[1],
     paddingHorizontal: spacing[2],
+  },
+  titles: {
+    flex: 1,
+    minWidth: 0,
+    gap: 1,
   },
   back: {
     width: 44,
