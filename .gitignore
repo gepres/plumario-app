@@ -17,6 +17,9 @@ pubsub-debug.log
 # Configuración de Firebase de las apps: se baja de la consola, nunca se versiona (en ninguna carpeta)
 google-services.json
 GoogleService-Info.plist
+# Claves de cuentas de servicio (Admin SDK): dan acceso total al proyecto
+*-firebase-adminsdk-*.json
+service-account*.json
 
 # Fuentes de datos con material de terceros (fotos del catálogo): se versiona lo derivado, no el original
 data/sources/*.xlsx
