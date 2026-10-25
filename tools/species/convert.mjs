@@ -2,20 +2,20 @@
 // carga a Firestore. Uso: pnpm species:convert (desde la raíz).
 //
 // - Las columnas del Excel (en español) pasan a claves en inglés; «—» pasa a null.
-// - El hábitat del álbum no viene en el Excel: sale de data/species/ica-habitats.csv, que propone
+// - El hábitat del álbum no viene en el Excel: sale de data/species/ica-habitats.xlsx, que propone
 //   la IA y revisa una persona. Sin esa tabla, el hábitat queda en null.
 // - El álbum es de aves: solo ellas llevan número de álbum, correlativo en el orden del Excel.
 // - Las fotos del Excel (de terceros) no se exportan.
-import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import ExcelJS from 'exceljs';
 
+import { HABITAT_KEYS, isYes, readHabitatTable } from './habitat-table.mjs';
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SOURCE = join(ROOT, 'data', 'sources', 'species-ica.xlsx');
-const HABITATS = join(ROOT, 'data', 'species', 'ica-habitats.csv');
 const TARGET = join(ROOT, 'data', 'species', 'ica.json');
 
 const COLUMNS = {
@@ -40,8 +40,6 @@ const CLASSES = { Aves: 'bird', Mammalia: 'mammal', Reptilia: 'reptile' };
 const ALBUM_CLASS = 'bird';
 // Categorías de amenaza de la IUCN (también las usa la categorización nacional del Perú).
 const THREATENED = new Set(['CR', 'EN', 'VU']);
-// Etiquetas de la tabla de revisión (en español, para quien la edita en Excel) → claves del dominio.
-const HABITAT_KEYS = { Litoral: 'coast', Humedales: 'wetlands', Desierto: 'desert', Sierra: 'highlands', 'Mar abierto': 'openSea' };
 // Emblemáticas de Ica o del Perú (cromo Rubí): la parihuana de Paracas y las aves guaneras. Es la lista
 // editorial de design/project/CategoriasCromos.dc.html, «a validar con el cliente».
 const EMBLEMATIC = new Set(['Phoenicopterus chilensis', 'Pelecanus thagus', 'Sula variegata', 'Phalacrocorax bougainvillii']);
@@ -53,42 +51,13 @@ const text = (value) => {
   return trimmed === '' || trimmed === '—' ? null : trimmed;
 };
 
-// Lectura mínima de CSV con comillas. La tabla de hábitats la puede reescribir Excel, que según el
-// idioma separa con «;» o con «,»: el separador se toma de la cabecera.
-function parseCsv(content) {
-  content = content.replace(/^﻿/, '');
-  const firstLine = content.slice(0, content.search(/\r?\n/));
-  const delimiter = firstLine.includes(';') ? ';' : ',';
-  const rows = [];
-  let row = [];
-  let field = '';
-  let quoted = false;
-  for (let i = 0; i < content.length; i++) {
-    const c = content[i];
-    if (quoted) {
-      if (c === '"' && content[i + 1] === '"') { field += '"'; i++; }
-      else if (c === '"') quoted = false;
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === delimiter) { row.push(field); field = ''; }
-    else if (c === '\n' || c === '\r') {
-      if (c === '\r' && content[i + 1] === '\n') i++;
-      row.push(field); rows.push(row); row = []; field = '';
-    } else field += c;
-  }
-  if (field !== '' || row.length) { row.push(field); rows.push(row); }
-  const [header, ...data] = rows.filter((r) => r.some((f) => f.trim() !== ''));
-  return data.map((r) => Object.fromEntries(header.map((h, i) => [h.replace(/^﻿/, '').trim(), (r[i] ?? '').trim()])));
-}
-
 async function readHabitats() {
-  if (!existsSync(HABITATS)) return new Map();
-  const rows = parseCsv(await readFile(HABITATS, 'utf8'));
+  const rows = (await readHabitatTable()) ?? [];
   const map = new Map();
   for (const row of rows) {
     const key = HABITAT_KEYS[row.habitat];
-    if (!key) throw new Error(`ica-habitats.csv: hábitat desconocido «${row.habitat}» en ${row.nombre_cientifico}`);
-    map.set(row.nombre_cientifico, { habitat: key, reviewed: /^s[ií]$/i.test(row.revisado ?? '') });
+    if (!key) throw new Error(`ica-habitats.xlsx: hábitat desconocido «${row.habitat}» en ${row.nombre_cientifico}`);
+    map.set(row.nombre_cientifico, { habitat: key, reviewed: isYes(row.revisado) });
   }
   return map;
 }

@@ -29,7 +29,7 @@ let targets;
 if (prod) {
   const pending = species.filter((s) => s.taxonClass === region.albumClass && !s.habitatReviewed);
   if (pending.length && !allowUnreviewed) {
-    console.error(`Hay ${pending.length} especies del álbum con el hábitat sin revisar (data/species/ica-habitats.csv).`);
+    console.error(`Hay ${pending.length} especies del álbum con el hábitat sin revisar (data/species/ica-habitats.xlsx).`);
     console.error('Revísalas y vuelve a correr pnpm species:convert, o usa --allow-unreviewed si es a propósito.');
     process.exit(1);
   }

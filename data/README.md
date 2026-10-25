@@ -6,7 +6,7 @@
 |---|---|
 | `sources/species-ica.xlsx` | La fuente: 334 especies con presencia documentada en Ica (294 aves, 29 mamíferos, 11 reptiles). **No se versiona**: trae fotos de terceros. |
 | `species/ica.json` | El catálogo que se carga a Firestore, generado desde el Excel. Claves en inglés. |
-| `species/ica-habitats.csv` | El hábitat del álbum de cada especie, para revisar a mano (se abre con Excel). |
+| `species/ica-habitats.xlsx` | El hábitat del álbum de cada especie, para revisar a mano en Excel: trae filtros y listas desplegables. |
 | `species/proposals/` | Las dos propuestas independientes de hábitat (Claude y Codex) de las que sale la tabla. |
 
 ### Pasos
@@ -23,15 +23,21 @@ El Excel no dice en qué hábitat del álbum va cada especie, así que lo propus
 separado. Coincidieron en 300 de 334; la columna **`revisar`** marca con «sí» las 71 filas donde
 discreparon o alguna dudó.
 
-1. Abre `species/ica-habitats.csv` con Excel y filtra `revisar = sí`.
-2. Corrige `habitat` donde haga falta. Valores válidos: Litoral, Humedales, Desierto, Sierra,
-   Mar abierto. Las columnas `propuesta_codex` y `motivo_codex` muestran la otra opinión.
-3. Pon **`revisado = sí`** en las filas que apruebes (puedes aprobar todas de una vez).
-4. Guarda como CSV (Excel en español lo guarda separado por «;», y se lee bien).
+1. Abre `species/ica-habitats.xlsx` y, con las flechas del encabezado, filtra `revisar = sí` y
+   `clase = Ave` (61 filas; los mamíferos y reptiles no van en el álbum).
+2. Corrige `habitat` donde haga falta, con su lista desplegable (Litoral, Humedales, Desierto,
+   Sierra, Mar abierto). Las columnas `propuesta_codex` y `motivo_codex` muestran la otra opinión.
+3. Pon **`revisado = sí`** en las filas que apruebes. La carga a producción exige las 294 aves
+   revisadas: para aprobar las que no tenían dudas, filtra `clase = Ave` y `revisado = no`,
+   selecciona esas celdas de `revisado`, escribe `sí` y pulsa Ctrl+Enter.
+4. Guarda con Ctrl+S (se queda en .xlsx).
 5. `pnpm species:convert` y, cuando todo el álbum esté revisado, `pnpm species:seed --prod`.
 
-Si el Excel cambia (una especie nueva), vuelve a correr `pnpm species:convert`: el conteo «con
-hábitat» de su salida muestra si falta alguna en la tabla; agrégala como fila nueva.
+Las columnas verdes (`habitat` y `revisado`) son las que se editan; el resto es contexto. La tabla
+la arma `node tools/species/merge-habitat-proposals.mjs` desde las propuestas, y no pisa una tabla
+que ya tenga filas revisadas. Si el Excel cambia (una especie nueva), vuelve a correr
+`pnpm species:convert`: el conteo «con hábitat» de su salida muestra si falta alguna en la tabla;
+agrégala como fila nueva.
 
 ### Reglas que salen de aquí
 
