@@ -47,20 +47,25 @@ Para revisar diseño sin compilar: `pnpm web` abre la app en el navegador. Ahí 
 
 ### Proyecto en la consola
 
-El proyecto es **`plumario-app`** (número 155417952770), con las apps Android e iOS
-`com.gepres.plumario` registradas. En `.firebaserc` es el alias `prod`; `demo-plumario` sigue de
-predeterminado para que los emuladores corran sin tocar el proyecto real.
+El proyecto es **`link-dynamic-74b85`** (número 316099579742), de la cuenta genaropretill@gmail.com,
+con las apps Android e iOS `com.gepres.plumario` registradas. En `.firebaserc` es el alias `prod`;
+`demo-plumario` sigue de predeterminado para que los emuladores corran sin tocar el proyecto real.
+Reemplazó el 25 oct 2026 a `plumario-app`, que no tenía facturación activa; los archivos de ese
+proyecto quedan en `apps/mobile/firebase/previous-plumario-app/`.
 
 1. ~~Crear el proyecto~~ y ~~registrar las dos apps~~: hecho. Sus archivos van en
    `apps/mobile/firebase/` (`google-services.json` y `GoogleService-Info.plist`; git los ignora en
    cualquier carpeta).
-2. ~~Crear la base de datos~~: hecho. Quedó en **`nam5`** (multirregión en EE. UU.; la consola no
-   dejó elegir) y se conserva. Las Functions van en `us-central1` (`functions/src/health.ts`), junto a ella.
-3. ~~Pasar al plan Blaze~~: hecho.
-4. Activar Authentication con correo y contraseña, Google y Apple.
-5. Dar acceso a la CLI: `pnpm exec firebase login:add` con la cuenta dueña de `plumario-app` (la
-   sesión actual de esta máquina es de otra cuenta y recibe 403).
-6. Recompilar la app (`pnpm android`): `app.config.ts` ve los dos archivos y activa los plugins
+2. ~~Crear la base de datos~~: hecho, en **`southamerica-west1`** (Santiago). Las Functions van ahí
+   (`functions/src/health.ts`), salvo el trigger de Auth, que es de primera generación y no corre en
+   Santiago: va a `southamerica-east1` (São Paulo).
+3. ~~Crear Storage~~: hecho, en EE. UU.
+4. ~~Plan Blaze con facturación~~: hecho.
+5. ~~Activar Authentication~~ con correo y contraseña: hecho. Google y Apple esperan su tarjeta.
+6. Dar acceso a la CLI: la cuenta dueña tiene que tener sesión (`pnpm exec firebase login:add`, desde
+   una terminal propia: no corre desde el agente) y quedar como la de esta carpeta con
+   `pnpm exec firebase login:use <correo>`.
+7. Recompilar la app (`pnpm android`): `app.config.ts` ve los dos archivos y activa los plugins
    nativos (con uno solo, avisa cuál falta y compila sin Firebase).
    La pantalla «Sistema visual» (Perfil → Ver el sistema visual) dice si la build lleva Firebase.
    Después, los adaptadores de Firestore se eligen en `apps/mobile/src/infrastructure/dependencies.tsx`.
@@ -82,7 +87,7 @@ pnpm emulators
 Compila `functions/` y levanta Auth, Firestore, Storage y Functions con el proyecto
 `demo-plumario`. El prefijo `demo-` hace que corran sin proyecto real ni conexión, y que un
 despliegue a ese proyecto sea imposible. La interfaz queda en <http://localhost:4000> y la función
-de prueba en <http://127.0.0.1:5001/demo-plumario/us-central1/health>.
+de prueba en <http://127.0.0.1:5001/demo-plumario/southamerica-west1/health>.
 
 Los emuladores separan datos, reglas y triggers por proyecto. Con `EXPO_PUBLIC_DATA_SOURCE=emulator`
 la app no usa el proyecto de su `google-services.json`: crea una app de Firebase secundaria con

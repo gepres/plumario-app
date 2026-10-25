@@ -3,14 +3,14 @@ import { getStorage } from 'firebase-admin/storage';
 import { logger } from 'firebase-functions/v2';
 import * as functionsV1 from 'firebase-functions/v1';
 
-import { REGION } from './health.js';
+import { AUTH_TRIGGER_REGION } from './health.js';
 
 // «Eliminar tu cuenta» (PerfilPrivacidad): la app borra la cuenta de Auth y acá se borra todo lo
 // suyo: perfil, registros, stickers, logros y pósteres, sus fotos, su @usuario (queda libre) y sus
 // propuestas abiertas (se cancelan). Auth no tiene este trigger en la segunda generación.
 
 export const onUserDeleted = functionsV1
-  .region(REGION)
+  .region(AUTH_TRIGGER_REGION)
   .auth.user()
   .onDelete(async (user) => {
     const db = getFirestore();

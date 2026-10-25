@@ -80,9 +80,11 @@ esa forma.
   `GoogleService-Info.plist`. Mientras no estén, la app compila sin los plugins nativos de
   Firebase (`app.config.ts`) y los emuladores corren con el proyecto `demo-plumario`.
 - Cloud Functions exige el plan Blaze (pago por uso).
-- La base de Firestore quedó en `nam5` (multirregión en EE. UU.): la consola no dejó elegir otra
-  ubicación al crearla, y el usuario decidió conservarla (24 oct 2026). Desde Perú cada consulta tarda
-  algo más, lo que disimula la caché sin conexión; a cambio hay más disponibilidad. Las Functions van
-  en `us-central1`, junto a la base, que es también la región con más modelos de IA.
+- La base de Firestore está en `southamerica-west1` (Santiago), la región más cercana a Perú. El
+  25 oct 2026 la app pasó al proyecto `link-dynamic-74b85`, con facturación activa; el primero
+  (`plumario-app`, con la base en `nam5`) no la tenía. Las Functions van en `southamerica-west1`,
+  junto a la base. Ahí solo corre la segunda generación, así que el trigger de Auth (que solo existe
+  en la primera) va a `southamerica-east1` (São Paulo). Storage quedó en EE. UU.: las fotos viajan
+  más lejos que los datos.
 - iOS: frameworks dinámicos (`expo-build-properties`), porque el SDK de Firebase para Apple 13+ solo
   se distribuye por SPM. Compilar iOS en local exigiría Xcode 26.2 en macOS 15.

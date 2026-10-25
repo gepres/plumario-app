@@ -1,6 +1,6 @@
 # Modelo de datos
 
-Firestore (base `(default)` en `nam5`) y Cloud Storage. Las reglas están en `firebase/` y se prueban
+Firestore (base `(default)` en `southamerica-west1`) y Cloud Storage. Las reglas están en `firebase/` y se prueban
 contra los emuladores con `pnpm test:rules`. Las reglas del juego (cromos, logros, pósteres,
 intercambios) son funciones puras de `@plumario/core`; aquí solo se guardan sus resultados.
 

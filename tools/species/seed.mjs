@@ -1,7 +1,7 @@
 // Carga data/species/ica.json en Firestore: regions/{regionId} y regions/{regionId}/species/{id}.
 // Uso (desde la raíz):
 //   pnpm species:seed           → emulador (127.0.0.1:8080, proyecto demo-plumario; pnpm emulators antes)
-//   pnpm species:seed --prod    → proyecto real plumario-app. Necesita credenciales de la cuenta dueña
+//   pnpm species:seed --prod    → proyecto real (alias prod de .firebaserc). Necesita credenciales de la cuenta dueña
 //                                 (gcloud auth application-default login, o GOOGLE_APPLICATION_CREDENTIALS
 //                                 con una cuenta de servicio) y que los hábitats del álbum estén revisados.
 // Escribe con el Admin SDK, que no pasa por las reglas. Es idempotente: reescribe cada documento.
@@ -33,7 +33,8 @@ if (prod) {
     console.error('Revísalas y vuelve a correr pnpm species:convert, o usa --allow-unreviewed si es a propósito.');
     process.exit(1);
   }
-  targets = [initializeApp({ projectId: 'plumario-app', credential: applicationDefault() })];
+  const firebaserc = JSON.parse(await readFile(join(ROOT, '.firebaserc'), 'utf8'));
+  targets = [initializeApp({ projectId: firebaserc.projects.prod, credential: applicationDefault() })];
 } else {
   process.env.FIRESTORE_EMULATOR_HOST ??= '127.0.0.1:8080';
   targets = [initializeApp({ projectId: 'demo-plumario' })];
