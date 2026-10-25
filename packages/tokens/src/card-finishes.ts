@@ -42,3 +42,9 @@ export const cardFinishes = {
 } as const satisfies Record<string, CardFinish>;
 
 export type CardCategory = keyof typeof cardFinishes;
+
+/**
+ * Color de la placa del sticker según el hábitat de la especie (StickerAve, «tint»), con las mismas
+ * claves que colors.habitats. Son del sticker, no de la paleta.
+ */
+export const stickerTints = { coast: '#D2E4EC', wetlands: '#D9EADB', desert: '#EADFCB', highlands: '#E0DDEA', openSea: '#CFDCE8' } as const;

@@ -5,7 +5,7 @@ export { colors, designKeyMap, palette } from './colors';
 export { fontFamilies, typography } from './typography';
 export type { FontFamily, FontWeight, TypeStyle, TypeVariant } from './typography';
 export { layout, radius, shadows, spacing } from './layout';
-export { cardFinishes } from './card-finishes';
+export { cardFinishes, stickerTints } from './card-finishes';
 export type { CardCategory, CardFinish } from './card-finishes';
 export type { Gradient, GradientStop } from './gradient';
 

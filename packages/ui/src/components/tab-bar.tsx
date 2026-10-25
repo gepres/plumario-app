@@ -56,13 +56,14 @@ export function TabBar({ items, cameraLabel, onCameraPress, bottomInset = 0 }: P
   // tableta). Hasta medirlo, se asume el ancho de la ventana para no dibujar en blanco.
   const window = useWindowDimensions();
   const [containerWidth, setContainerWidth] = useState(window.width);
-  const width = containerWidth - MARGIN * 2;
+  const width = Math.max(0, containerWidth - MARGIN * 2);
   const center = containerWidth / 2;
 
   return (
     <View
       pointerEvents="box-none"
-      onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
+      // Oculta (otra pantalla encima, en web) mide 0: se conserva la última medida real.
+      onLayout={(e) => e.nativeEvent.layout.width > 0 && setContainerWidth(e.nativeEvent.layout.width)}
       style={[styles.container, { height: layout.tabBar + bottomInset }]}>
       {/* La sombra la proyecta una caja algo menor, escondida bajo la barra: el SVG no tiene sombra. */}
       <View pointerEvents="none" style={[styles.shadow, { width: width - 40, backgroundColor: colors.tabBar, boxShadow: shadows.floating }]} />

@@ -9,6 +9,8 @@ type Account = { uid: string; email: string; password: string };
  */
 export class InMemoryAuthService implements AuthService {
   static readonly SAMPLE_ACCOUNT = { email: 'coleccionista@ejemplo.com', password: 'aves2026' };
+  /** La primera cuenta que se crea, la de muestra, siempre tiene este uid. */
+  static readonly SAMPLE_UID = 'local-1';
 
   lastResetCode: string | null = null;
   private readonly accounts = new Map<string, Account>();

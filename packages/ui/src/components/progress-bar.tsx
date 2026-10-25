@@ -16,10 +16,14 @@ type Props = {
   showValue?: boolean;
   /** Sobre el hero, la pista y el texto cambian a los colores «on hero». */
   onHero?: boolean;
+  /** Color de la barra; por omisión el primario (o el sol sobre el hero). Los hábitats usan el suyo. */
+  color?: string;
+  /** «thin»: la barra de 6 de las tarjetas de hábitat. */
+  size?: 'regular' | 'thin';
 };
 
 /** Progreso del diseño: siempre con el número exacto al lado («8 de 43»), nunca solo la barra. */
-export function ProgressBar({ current, total, label, valueText = `${current} de ${total}`, showValue = true, onHero = false }: Props) {
+export function ProgressBar({ current, total, label, valueText = `${current} de ${total}`, showValue = true, onHero = false, color, size = 'regular' }: Props) {
   const { colors } = useTheme();
   const ratio = total > 0 ? Math.min(current / total, 1) : 0;
   return (
@@ -39,8 +43,8 @@ export function ProgressBar({ current, total, label, valueText = `${current} de 
           )}
         </View>
       )}
-      <View style={[styles.track, { backgroundColor: onHero ? colors.heroTrack : colors.track }]}>
-        <View style={[styles.fill, { width: `${ratio * 100}%`, backgroundColor: onHero ? colors.sun : colors.primary }]} />
+      <View style={[styles.track, size === 'thin' && styles.thin, { backgroundColor: onHero ? colors.heroTrack : colors.track }]}>
+        <View style={[styles.fill, { width: `${ratio * 100}%`, backgroundColor: color ?? (onHero ? colors.sun : colors.primary) }]} />
       </View>
     </View>
   );
@@ -62,6 +66,10 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     overflow: 'hidden',
+  },
+  thin: {
+    height: 6,
+    borderRadius: 3,
   },
   fill: {
     height: '100%',

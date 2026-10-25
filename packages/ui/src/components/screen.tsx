@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { layout, spacing } from '@plumario/tokens';
 
+import { StatusBarScrim } from './status-bar-scrim';
 import { ThemedText } from './themed-text';
 
 type Props = {
@@ -19,15 +20,18 @@ type Props = {
 export function Screen({ eyebrow, title, withTabBar = true, children }: Props) {
   const insets = useSafeAreaInsets();
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.content,
-        { paddingTop: insets.top + spacing[4], paddingBottom: (withTabBar ? layout.tabBar : 0) + insets.bottom + spacing[4] },
-      ]}>
-      {eyebrow && <ThemedText variant="eyebrow" color="primary">{eyebrow}</ThemedText>}
-      <ThemedText variant="title" accessibilityRole="header">{title}</ThemedText>
-      {children}
-    </ScrollView>
+    <>
+      <ScrollView
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: insets.top + spacing[4], paddingBottom: (withTabBar ? layout.tabBar : 0) + insets.bottom + spacing[4] },
+        ]}>
+        {eyebrow && <ThemedText variant="eyebrow" color="primary">{eyebrow}</ThemedText>}
+        <ThemedText variant="title" accessibilityRole="header">{title}</ThemedText>
+        {children}
+      </ScrollView>
+      <StatusBarScrim />
+    </>
   );
 }
 

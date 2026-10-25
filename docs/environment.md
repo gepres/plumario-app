@@ -89,6 +89,10 @@ la app no usa el proyecto de su `google-services.json`: crea una app de Firebase
 `demo-plumario` (`apps/mobile/src/infrastructure/firebase/firebase-services.ts`), así que lo que
 escribe cae donde están las reglas, el catálogo de `pnpm species:seed` y los triggers de Functions.
 
+Para probar el álbum, las recompensas o los pósteres sin registrar ave por ave,
+`pnpm dev:stickers <correo>` le da a una cuenta del emulador stickers de muestra, con un cromado
+de cada categoría (`--count N` para más y `--clear` para quitarlos). Solo escribe en el emulador.
+
 `firebase-tools` 15 exige **Java 21 o superior** para los emuladores, pero Android compila con el
 JDK 17 de `JAVA_HOME`. `scripts/firebase-emulators.mjs` resuelve el choque sin tocar el
 sistema: si `JAVA_HOME` es menor que 21, usa el Java de Android Studio (`jbr`) o el que diga

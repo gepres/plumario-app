@@ -1,6 +1,6 @@
 import { collection, getDocs } from '@react-native-firebase/firestore';
 
-import { HABITATS, type Habitat, type Species, type SpeciesCatalog, type TaxonClass } from '@plumario/core';
+import { HABITATS, figureOf, type Habitat, type Species, type SpeciesCatalog, type TaxonClass } from '@plumario/core';
 
 import type { FirebaseServices } from './firebase-services';
 
@@ -28,6 +28,7 @@ function toSpecies(id: string, data: Record<string, unknown>): Species {
     threatened: data.threatened === true,
     endemic: data.endemic === true,
     emblematic: data.emblematic === true,
+    figure: figureOf({ family: typeof data.family === 'string' ? data.family : null, genus: typeof data.genus === 'string' ? data.genus : null }),
   };
 }
 

@@ -1,3 +1,4 @@
+import type { Figure } from './figure';
 import type { Habitat } from './habitat';
 
 export type SpeciesId = string;
@@ -24,4 +25,6 @@ export type Species = {
   endemic: boolean;
   /** Símbolo de Ica o del Perú (lista editorial del diseño): cromo Rubí. */
   emblematic: boolean;
+  /** Figura de su grupo (figureOf), para el sticker y la sombra. */
+  figure: Figure;
 };

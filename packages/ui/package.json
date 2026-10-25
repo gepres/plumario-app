@@ -6,7 +6,8 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "figures": "node scripts/generate-figures.mjs"
   },
   "dependencies": {
     "@plumario/tokens": "workspace:*"

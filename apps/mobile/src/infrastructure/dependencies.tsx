@@ -2,6 +2,7 @@ import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
 import {
   makeCheckResetCode,
+  makeGetAlbum,
   makeGetAlbumSummary,
   makeRequestPasswordReset,
   makeResetPassword,
@@ -9,6 +10,7 @@ import {
   makeSignOut,
   makeSignUp,
   type AuthService,
+  type GetAlbum,
   type GetAlbumSummary,
   type SpeciesCatalog,
   type StickerRepository,
@@ -17,7 +19,7 @@ import {
 
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
-import { InMemoryStickerRepository } from './in-memory/in-memory-sticker-repository';
+import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
 import { InMemoryUserProfileRepository } from './in-memory/in-memory-user-profile-repository';
 import { sampleSpeciesCatalog } from './in-memory/sample-species-catalog';
 
@@ -35,6 +37,7 @@ type Adapters = {
 
 export type Dependencies = {
   useCases: {
+    getAlbum: GetAlbum;
     getAlbumSummary: GetAlbumSummary;
     signIn: ReturnType<typeof makeSignIn>;
     signUp: ReturnType<typeof makeSignUp>;
@@ -53,7 +56,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
     return {
       auth: new InMemoryAuthService(),
       catalog: sampleSpeciesCatalog,
-      stickers: new InMemoryStickerRepository(),
+      stickers: new InMemoryStickerRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_STICKERS }),
       profiles: new InMemoryUserProfileRepository(),
     };
   }
@@ -67,6 +70,7 @@ export function createDependencies(adapters: Adapters): Dependencies {
   const { auth, catalog, stickers, profiles } = adapters;
   return {
     useCases: {
+      getAlbum: makeGetAlbum({ catalog, stickers }),
       getAlbumSummary: makeGetAlbumSummary({ catalog, stickers }),
       signIn: makeSignIn({ auth }),
       signUp: makeSignUp({ auth, profiles, now: () => new Date() }),

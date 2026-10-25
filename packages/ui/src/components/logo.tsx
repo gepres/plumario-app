@@ -20,7 +20,7 @@ export function Logo({ variant = 'mark', size = 76 }: Props) {
   const markHeight = isIcon ? Math.round(size * 0.8) : size;
   const mark = (
     <Svg width={Math.round((markHeight * 360) / 412)} height={markHeight} viewBox="78 58 360 412">
-      <G rotation={-6} origin="256, 262">
+      <G transform="rotate(-6 256 262)">
         <Path d="M140 86 H372 A40 40 0 0 1 412 126 V370 L338 444 H140 A40 40 0 0 1 100 404 V126 A40 40 0 0 1 140 86 Z" fill={colors.logoCard} />
         <Path d="M412 370 L338 444 C 346 408 368 380 412 370 Z" fill={colors.logoFold} />
         <G fill="none" stroke={colors.logoStroke} strokeWidth={15} strokeLinecap="round" strokeLinejoin="round" transform="translate(91 86) scale(1.06)">
