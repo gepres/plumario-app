@@ -8,6 +8,7 @@ import { fonts, textStyles, useTheme } from '@plumario/ui';
 
 import { CelebrationHost } from '@/components/celebration-host';
 import { SightingQueueSync } from '@/components/sighting-queue-sync';
+import { useResumeLinkAfterSignIn } from '@/hooks/use-resume-link-after-sign-in';
 import { useSession } from '@/hooks/use-session';
 import { DependenciesProvider } from '@/infrastructure/dependencies';
 
@@ -48,6 +49,7 @@ export default function RootLayout() {
 function RootStack() {
   const { colors } = useTheme();
   const signedIn = useSession() !== null;
+  useResumeLinkAfterSignIn(signedIn);
 
   // Se monta cuando ya están las fuentes y las dependencias: recién ahí se quita la pantalla de arranque.
   useEffect(() => {
