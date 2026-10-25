@@ -13,9 +13,15 @@ export { EXPLORER_SPECIES, MILESTONE_STEP, achievementId, earnedAchievements, ne
 export type { Achievement } from './domain/achievements';
 export { isHabitatPosterUnlocked, pickPosterSpecies, speciesPostersAvailable } from './domain/posters';
 export { applyTrade, tradeProblem } from './domain/trade';
+export { DEFAULT_REGION_ID, HANDLE_PATTERN, PASSWORD_MIN_LENGTH, handleProblem, isEmailLike, isPasswordValid, newProfile, normalizeHandle, passwordRules } from './domain/account';
+export type { AlbumVisibility, HandleProblem, PasswordRule, UserProfile } from './domain/account';
 export type { TradeProblem, TradeSide } from './domain/trade';
 
 // Puertos: lo que el núcleo necesita del mundo y cada plataforma implementa con un adaptador.
+export { AuthError } from './application/ports/auth-service';
+export type { AuthErrorCode, AuthService, AuthUser } from './application/ports/auth-service';
+export { HandleTakenError } from './application/ports/user-profile-repository';
+export type { UserProfileRepository } from './application/ports/user-profile-repository';
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { SightingRepository } from './application/ports/sighting-repository';
 export type { SpeciesCatalog } from './application/ports/species-catalog';
@@ -27,3 +33,6 @@ export { makeGetAlbumSummary } from './application/use-cases/get-album-summary';
 export type { GetAlbumSummary } from './application/use-cases/get-album-summary';
 export { evaluateValidatedPhoto } from './application/use-cases/evaluate-validated-photo';
 export type { ValidatedPhotoResult } from './application/use-cases/evaluate-validated-photo';
+export { SignUpValidationError, makeSignUp, signUpProblems } from './application/use-cases/sign-up';
+export { makeCheckResetCode, makeRequestPasswordReset, makeResetPassword, makeSignIn, makeSignOut } from './application/use-cases/account-access';
+export type { SignUpInput, SignUpProblems } from './application/use-cases/sign-up';

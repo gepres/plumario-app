@@ -29,7 +29,10 @@ const TYPE_SAMPLES: Record<TypeVariant, string> = {
   button: 'Guardar póster',
   body: 'Cada especie tiene una categoría.',
   bodyStrong: 'Póster 2: te faltan 8',
+  label: 'Contraseña',
+  small: '¿No tienes cuenta?',
   caption: 'Así aparece en tus pósteres.',
+  captionStrong: 'No coincide con la anterior.',
   eyebrow: 'Medalla desbloqueada',
   scientific: 'Calidris alba',
 };

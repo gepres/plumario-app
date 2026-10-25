@@ -1,17 +1,14 @@
-import { collection, connectFirestoreEmulator, getDocs, getFirestore } from '@react-native-firebase/firestore';
+import { collection, getDocs } from '@react-native-firebase/firestore';
 
 import { HABITATS, type Habitat, type Species, type SpeciesCatalog, type TaxonClass } from '@plumario/core';
+
+import type { FirebaseServices } from './firebase-services';
 
 // Adaptador de Firestore del puerto SpeciesCatalog. Lee regions/{regionId}/species, que escribe
 // tools/species/seed.mjs desde data/species/ica.json. La caché sin conexión de Firestore deja el
 // catálogo disponible aunque no haya señal.
 
 const TAXON_CLASSES: readonly TaxonClass[] = ['bird', 'mammal', 'reptile'];
-const FIRESTORE_EMULATOR_PORT = 8080;
-
-// connectFirestoreEmulator solo se puede llamar una vez y antes de cualquier lectura; con la
-// recarga en caliente, la raíz de composición puede crearse de nuevo.
-let connectedToEmulator = false;
 
 function toSpecies(id: string, data: Record<string, unknown>): Species {
   const taxonClass = TAXON_CLASSES.find((c) => c === data.taxonClass);
@@ -34,12 +31,7 @@ function toSpecies(id: string, data: Record<string, unknown>): Species {
   };
 }
 
-export function createFirestoreSpeciesCatalog({ emulatorHost }: { emulatorHost?: string } = {}): SpeciesCatalog {
-  const db = getFirestore();
-  if (emulatorHost && !connectedToEmulator) {
-    connectFirestoreEmulator(db, emulatorHost, FIRESTORE_EMULATOR_PORT);
-    connectedToEmulator = true;
-  }
+export function createFirestoreSpeciesCatalog({ db }: FirebaseServices): SpeciesCatalog {
   return {
     async listByRegion(regionId) {
       const snapshot = await getDocs(collection(db, 'regions', regionId, 'species'));

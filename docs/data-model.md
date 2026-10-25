@@ -14,7 +14,8 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 |---|---|---|---|
 | `regions/{regionId}` | La región-álbum: `name`, `albumClass`, `speciesCount`, `albumCount` | `tools/species/seed.mjs` | todos, sin sesión |
 | `regions/{regionId}/species/{speciesId}` | Catálogo (ver `data/README.md`) | `tools/species/seed.mjs` | todos, sin sesión |
-| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `privacy { saveLocation, albumVisibility }`, `createdAt` | el dueño | el dueño |
+| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `privacy { saveLocation, albumVisibility }`, `createdAt` | el dueño (el `handle` no cambia) | el dueño |
+| `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño, una vez; nadie la cambia ni la borra | cualquiera, de a uno (para ver si está libre); no se listan |
 | `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `createdAt` | el dueño lo crea *pendiente*; el servidor cambia el estado | el dueño |
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |

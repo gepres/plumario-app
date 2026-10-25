@@ -84,11 +84,30 @@ Compila `functions/` y levanta Auth, Firestore, Storage y Functions con el proye
 despliegue a ese proyecto sea imposible. La interfaz queda en <http://localhost:4000> y la función
 de prueba en <http://127.0.0.1:5001/demo-plumario/us-central1/health>.
 
+Los emuladores separan datos, reglas y triggers por proyecto. Con `EXPO_PUBLIC_DATA_SOURCE=emulator`
+la app no usa el proyecto de su `google-services.json`: crea una app de Firebase secundaria con
+`demo-plumario` (`apps/mobile/src/infrastructure/firebase/firebase-services.ts`), así que lo que
+escribe cae donde están las reglas, el catálogo de `pnpm species:seed` y los triggers de Functions.
+
 `firebase-tools` 15 exige **Java 21 o superior** para los emuladores, pero Android compila con el
 JDK 17 de `JAVA_HOME`. `scripts/firebase-emulators.mjs` resuelve el choque sin tocar el
 sistema: si `JAVA_HOME` es menor que 21, usa el Java de Android Studio (`jbr`) o el que diga
 `FIREBASE_JAVA_HOME`, solo para la CLI de Firebase. Cualquier otro comando de la CLI pasa por el
 mismo script: `pnpm emulators emulators:exec "<comando>"`.
+
+### Cuentas (Auth)
+
+- **Correo y contraseña**: hay que activar el proveedor en la consola (Authentication → Sign-in
+  method). En el emulador ya está.
+- **Enlace para crear contraseña**: por omisión, el correo de Firebase lleva a su propia página web,
+  donde se puede cambiar la contraseña sin la app. Para que abra NuevaContrasena dentro de la app,
+  la URL de acción de la plantilla (Authentication → Templates → Password reset) tiene que terminar
+  en `plumario://new-password?oobCode=…`, por ejemplo con una página de Hosting que redirija. Para
+  probarlo con el emulador: pide el enlace desde la app, toma el `oobCode` de
+  <http://127.0.0.1:9099/emulator/v1/projects/demo-plumario/oobCodes> y ábrelo con
+  `adb shell am start -a android.intent.action.VIEW -d "plumario://new-password?oobCode=<código>"`.
+- **Google y Apple**: los botones están, pero falta configurar los proveedores en la consola (y la
+  cuenta de Apple Developer); por ahora avisan que llegan pronto.
 
 ## EAS
 

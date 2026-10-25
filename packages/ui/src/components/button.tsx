@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { radius, spacing } from '@plumario/tokens';
 
@@ -16,6 +16,8 @@ type Props = {
   variant?: ButtonVariant;
   icon?: IconName;
   disabled?: boolean;
+  /** Mientras corre la acción: no se puede volver a tocar y muestra que está trabajando. */
+  busy?: boolean;
 };
 
 const VARIANTS: Record<ButtonVariant, { background?: ColorToken; ink: ColorToken; border?: ColorToken; height: number }> = {
@@ -25,15 +27,16 @@ const VARIANTS: Record<ButtonVariant, { background?: ColorToken; ink: ColorToken
   light: { background: 'background', ink: 'text', height: 52 },
 };
 
-export function Button({ label, onPress, variant = 'primary', icon, disabled = false }: Props) {
+export function Button({ label, onPress, variant = 'primary', icon, disabled = false, busy = false }: Props) {
   const { colors } = useTheme();
   const v = VARIANTS[variant];
   const ink: ColorToken = disabled ? 'textSecondary' : v.ink;
+  const inactive = disabled || busy;
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      disabled={disabled}
+      accessibilityState={{ disabled: inactive, busy }}
+      disabled={inactive}
       onPress={onPress}
       style={({ pressed }) => [
         styles.button,
@@ -45,7 +48,11 @@ export function Button({ label, onPress, variant = 'primary', icon, disabled = f
         pressed && styles.pressed,
       ]}>
       <View style={styles.content}>
-        {icon && <Icon name={icon} color={colors[ink]} size={20} strokeWidth={2} />}
+        {busy ? (
+          <ActivityIndicator color={colors[ink]} size="small" />
+        ) : (
+          icon && <Icon name={icon} color={colors[ink]} size={20} strokeWidth={2} />
+        )}
         <ThemedText variant="button" color={ink}>{label}</ThemedText>
       </View>
     </Pressable>

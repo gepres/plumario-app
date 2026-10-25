@@ -33,7 +33,10 @@ export const typography = {
   button: { family: 'text', weight: 700, size: 15.5, lineHeight: 1.2, tracking: 0 }, // Botón
   body: { family: 'text', weight: 400, size: 15, lineHeight: 1.45, tracking: 0 }, // Cuerpo
   bodyStrong: { family: 'text', weight: 700, size: 15, lineHeight: 1.35, tracking: 0 }, // Cuerpo en negrita
+  label: { family: 'text', weight: 700, size: 13.5, lineHeight: 1.3, tracking: 0 }, // Etiqueta de campo y enlace (Campo)
+  small: { family: 'text', weight: 400, size: 13.5, lineHeight: 1.4, tracking: 0 }, // Texto secundario de formularios
   caption: { family: 'text', weight: 400, size: 12.5, lineHeight: 1.35, tracking: 0 }, // Ayuda
+  captionStrong: { family: 'text', weight: 700, size: 12.5, lineHeight: 1.35, tracking: 0 }, // Error bajo un campo
   eyebrow: { family: 'text', weight: 700, size: 12, lineHeight: 1.3, tracking: 0.1, uppercase: true }, // Antetítulo
   scientific: { family: 'serif', weight: 400, size: 20, lineHeight: 1.2, tracking: 0, italic: true }, // Nombre científico
 } as const satisfies Record<string, TypeStyle>;

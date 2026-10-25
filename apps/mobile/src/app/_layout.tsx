@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { fonts, textStyles, useTheme } from '@plumario/ui';
 
+import { useSession } from '@/hooks/use-session';
 import { DependenciesProvider } from '@/infrastructure/dependencies';
 
 SplashScreen.preventAutoHideAsync();
@@ -13,10 +14,6 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts(fonts);
   const { colors, mode } = useTheme();
-
-  useEffect(() => {
-    if (loaded || error) SplashScreen.hideAsync();
-  }, [loaded, error]);
 
   // Sin las fuentes, el texto saldría con la del sistema y saltaría al cargarlas.
   if (!loaded && !error) return null;
@@ -38,22 +35,42 @@ export default function RootLayout() {
   return (
     <DependenciesProvider>
       <ThemeProvider value={navigationTheme}>
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="new-sighting" options={{ presentation: 'modal' }} />
-          <Stack.Screen
-            name="design-system"
-            options={{
-              headerShown: true,
-              title: 'Sistema visual',
-              headerTintColor: colors.text,
-              headerStyle: { backgroundColor: colors.background },
-              headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },
-            }}
-          />
-        </Stack>
+        <RootStack />
         <StatusBar style={mode === 'dark' ? 'light' : 'dark'} />
       </ThemeProvider>
     </DependenciesProvider>
+  );
+}
+
+/** Con sesión, la app; sin sesión, las pantallas de cuenta. Al entrar o salir cambia sola. */
+function RootStack() {
+  const { colors } = useTheme();
+  const signedIn = useSession() !== null;
+
+  // Se monta cuando ya están las fuentes y las dependencias: recién ahí se quita la pantalla de arranque.
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
+  return (
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
+      {/* El grupo (auth) no tiene index: sin destino explícito, «/» quedaría sin pantalla. */}
+      <Stack.Protected guard={signedIn} redirectTo="/sign-in">
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="new-sighting" options={{ presentation: 'modal' }} />
+      </Stack.Protected>
+      <Stack.Protected guard={!signedIn} redirectTo="/">
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+      <Stack.Screen
+        name="design-system"
+        options={{
+          headerShown: true,
+          title: 'Sistema visual',
+          headerTintColor: colors.text,
+          headerStyle: { backgroundColor: colors.background },
+          headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },
+        }}
+      />
+    </Stack>
   );
 }

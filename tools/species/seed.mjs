@@ -21,17 +21,9 @@ const BATCH_SIZE = 400; // Firestore admite hasta 500 escrituras por lote.
 const catalog = JSON.parse(await readFile(CATALOG, 'utf8'));
 const { region, species } = catalog;
 
-// El emulador separa los datos por proyecto: los emuladores corren con demo-plumario (es lo que muestra
-// su interfaz), pero la app consulta con el proyecto de su google-services.json. En modo emulador se
-// carga en los dos; con FIRESTORE_EMULATOR_HOST puesto, el Admin SDK nunca sale a la nube.
-async function appProjectId() {
-  try {
-    const config = JSON.parse(await readFile(join(ROOT, 'apps', 'mobile', 'firebase', 'google-services.json'), 'utf8'));
-    return config.project_info?.project_id ?? null;
-  } catch {
-    return null;
-  }
-}
+// En el emulador, todo vive en el proyecto demo-plumario: con él corren los emuladores y la app, en
+// modo emulador, se conecta con ese mismo proyecto. Con FIRESTORE_EMULATOR_HOST puesto, el Admin SDK
+// nunca sale a la nube.
 
 let targets;
 if (prod) {
@@ -44,8 +36,7 @@ if (prod) {
   targets = [initializeApp({ projectId: 'plumario-app', credential: applicationDefault() })];
 } else {
   process.env.FIRESTORE_EMULATOR_HOST ??= '127.0.0.1:8080';
-  const projects = [...new Set(['demo-plumario', await appProjectId()].filter(Boolean))];
-  targets = projects.map((projectId) => initializeApp({ projectId }, projectId));
+  targets = [initializeApp({ projectId: 'demo-plumario' })];
 }
 
 for (const app of targets) {

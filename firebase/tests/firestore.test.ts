@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { assertFails, assertSucceeds, initializeTestEnvironment, type RulesTestEnvironment } from '@firebase/rules-unit-testing';
-import { Timestamp, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { Timestamp, collection, doc, getDoc, getDocs, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
 import { afterAll, beforeAll, beforeEach, describe, it } from 'vitest';
 
 // Reglas de firebase/firestore.rules contra el emulador (pnpm test:rules desde la raíz).
@@ -33,20 +33,50 @@ describe('catálogo', () => {
   });
 });
 
+// Crea el perfil y reserva su @usuario en la misma escritura, como hace la app al registrarse.
+function createProfile(uid: string, data: Record<string, unknown>, handle = String(data.handle)) {
+  const db = as(uid);
+  const batch = writeBatch(db);
+  batch.set(doc(db, `handles/${handle}`), { uid, createdAt: now });
+  batch.set(doc(db, `users/${uid}`), data);
+  return batch.commit();
+}
+
 describe('perfil', () => {
-  it('cada uno crea y lee el suyo, nadie el ajeno', async () => {
-    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana'), profile));
+  it('cada uno crea el suyo reservando su @usuario, y nadie lee el ajeno', async () => {
+    await assertSucceeds(createProfile('ana', profile));
     await assertSucceeds(getDoc(doc(as('ana'), 'users/ana')));
     await assertFails(getDoc(doc(as('beto'), 'users/ana')));
-    await assertFails(setDoc(doc(as('beto'), 'users/ana'), profile));
   });
 
-  it('valida los campos y no deja cambiar la fecha de alta', async () => {
-    await assertFails(setDoc(doc(as('ana'), 'users/ana'), { ...profile, handle: 'Ana Ica!' }));
-    await assertFails(setDoc(doc(as('ana'), 'users/ana'), { ...profile, admin: true }));
+  it('sin reservar el @usuario, o con uno de otro, no se crea', async () => {
+    await assertFails(setDoc(doc(as('ana'), 'users/ana'), profile));
+    await seed('handles/ana.ica', { uid: 'beto', createdAt: now });
+    await assertFails(setDoc(doc(as('ana'), 'users/ana'), profile));
+  });
+
+  it('valida los campos y no deja cambiar la fecha de alta ni el @usuario', async () => {
+    await assertFails(createProfile('ana', { ...profile, admin: true }));
+    await seed('handles/ana.ica', { uid: 'ana', createdAt: now });
     await seed('users/ana', profile);
     await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { displayName: 'Ana P.' }));
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { createdAt: Timestamp.now() }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { handle: 'otra' }));
+  });
+});
+
+describe('@usuarios', () => {
+  it('se consulta uno sin sesión (para ver si está libre), pero no se listan', async () => {
+    await seed('handles/ana.ica', { uid: 'ana', createdAt: now });
+    await assertSucceeds(getDoc(doc(anonymous(), 'handles/ana.ica')));
+    await assertFails(getDocs(collection(as('beto'), 'handles')));
+  });
+
+  it('cada uno reserva a su nombre uno libre y válido; no se pisa uno ajeno', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'handles/ana.ica'), { uid: 'ana', createdAt: now }));
+    await assertFails(setDoc(doc(as('beto'), 'handles/ana.ica'), { uid: 'beto', createdAt: now }));
+    await assertFails(setDoc(doc(as('beto'), 'handles/Beto Mayus'), { uid: 'beto', createdAt: now }));
+    await assertFails(setDoc(doc(as('beto'), 'handles/beto'), { uid: 'ana', createdAt: now }));
   });
 });
 

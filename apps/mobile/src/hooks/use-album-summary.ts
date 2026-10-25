@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import type { AlbumSummary } from '@plumario/core';
+import { DEFAULT_REGION_ID, type AlbumSummary } from '@plumario/core';
 
 import { useDependencies } from '@/infrastructure/dependencies';
+
+import { useSession } from './use-session';
 
 type State =
   | { status: 'loading' }
@@ -11,19 +13,21 @@ type State =
 
 /** El avance del álbum del usuario en su región, vía el caso de uso getAlbumSummary. */
 export function useAlbumSummary(): State {
-  const { useCases, session } = useDependencies();
+  const { useCases } = useDependencies();
+  const userId = useSession()?.uid;
   const [state, setState] = useState<State>({ status: 'loading' });
 
   useEffect(() => {
+    if (!userId) return;
     let current = true;
     useCases
-      .getAlbumSummary(session)
+      .getAlbumSummary({ userId, regionId: DEFAULT_REGION_ID })
       .then((summary) => current && setState({ status: 'ready', summary }))
       .catch((error: unknown) => current && setState({ status: 'error', error: error instanceof Error ? error : new Error(String(error)) }));
     return () => {
       current = false;
     };
-  }, [useCases, session]);
+  }, [useCases, userId]);
 
   return state;
 }

@@ -38,9 +38,16 @@ service cloud.firestore {
           && data.privacy.albumVisibility in ['private', 'public']
           && data.createdAt is timestamp;
       }
+      // El @usuario tiene que estar reservado a su nombre en la misma escritura (handles/) y no cambia.
+      function ownsHandle(handle) {
+        return existsAfter(/databases/$(database)/documents/handles/$(handle))
+          && getAfter(/databases/$(database)/documents/handles/$(handle)).data.uid == uid;
+      }
       allow read: if isOwner(uid);
-      allow create: if isOwner(uid) && validProfile(request.resource.data);
-      allow update: if isOwner(uid) && validProfile(request.resource.data) && request.resource.data.createdAt == resource.data.createdAt;
+      allow create: if isOwner(uid) && validProfile(request.resource.data) && ownsHandle(request.resource.data.handle);
+      allow update: if isOwner(uid) && validProfile(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.handle == resource.data.handle;
       allow delete: if isOwner(uid);
 
       // Registros: el cliente crea uno pendiente con su foto; una Cloud Function lo valida y cambia el
@@ -91,6 +98,19 @@ service cloud.firestore {
         allow read, delete: if isOwner(uid);
         allow create, update: if isOwner(uid) && validPoster(request.resource.data);
       }
+    }
+
+    // Reserva de @usuarios: cada uno es único y se lee de a uno (para ver si está libre antes de crear
+    // la cuenta y para encontrar a alguien al intercambiar), pero no se pueden listar.
+    match /handles/{handle} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if signedIn()
+        && handle.matches('^[a-z0-9_.]{3,24}$')
+        && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
     }
 
     // Propuestas de intercambio: las crea quien ofrece y se comparten por enlace o QR. El id es
