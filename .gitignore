@@ -2,7 +2,8 @@
 node_modules/
 
 # Firebase: salidas locales que no deben versionarse
-functions/lib/
+functions/lib
+functions/dist/
 .firebase/
 firebase-debug*.log
 firestore-debug.log
@@ -33,3 +34,4 @@ web-build/
 .DS_Store
 Thumbs.db
 *.log
+.emulator-data/

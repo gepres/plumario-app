@@ -73,6 +73,32 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       // y con el 2.2 de Expo falla al compilar («incompatible version of Kotlin … expected 2.2.0»).
       ['expo-build-properties', { ios: { useFrameworks: 'dynamic' }, android: { kotlinVersion: '2.4.0' } }],
       ...(firebase ? ['@react-native-firebase/app', '@react-native-firebase/auth'] : []),
+      // Registrar un ave (cámara y galería), pósteres (guardar y compartir) e intercambios (QR).
+      [
+        'expo-camera',
+        {
+          cameraPermission: 'Plumario usa la cámara para que fotografíes las aves que ves y para leer el código de un intercambio.',
+          microphonePermission: false,
+          recordAudioAndroid: false,
+        },
+      ],
+      [
+        'expo-image-picker',
+        {
+          photosPermission: 'Plumario abre tus fotos para que elijas la de un ave que ya fotografiaste.',
+          cameraPermission: 'Plumario usa la cámara para que fotografíes las aves que ves.',
+          microphonePermission: false,
+        },
+      ],
+      [
+        'expo-media-library',
+        {
+          photosPermission: 'Plumario guarda tus pósteres en tus fotos.',
+          savePhotosPermission: 'Plumario guarda tus pósteres en tus fotos.',
+          isAccessMediaLocationEnabled: false,
+        },
+      ],
+      'expo-sharing',
       // Windows: CMake con ninja que admite rutas largas (ver el plugin).
       './plugins/with-windows-cmake',
     ],

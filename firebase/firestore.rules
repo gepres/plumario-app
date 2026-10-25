@@ -51,10 +51,14 @@ service cloud.firestore {
       allow delete: if isOwner(uid);
 
       // Registros: el cliente crea uno pendiente con su foto; una Cloud Function lo valida y cambia el
-      // estado. La ubicación es opcional y solo la ve su dueño.
+      // estado. La ubicación y el lugar son opcionales y solo los ve su dueño; en una especie
+      // amenazada no se guardan nunca.
       match /sightings/{sightingId} {
+        function isThreatened(data) {
+          return get(/databases/$(database)/documents/regions/$(data.regionId)/species/$(data.speciesId)).data.get('threatened', false) == true;
+        }
         function validSighting(data) {
-          return data.keys().hasOnly(['speciesId', 'regionId', 'takenAt', 'status', 'photoPath', 'location', 'createdAt'])
+          return data.keys().hasOnly(['speciesId', 'regionId', 'takenAt', 'status', 'photoPath', 'location', 'placeName', 'createdAt'])
             && isShortText(data.speciesId, 80)
             && isShortText(data.regionId, 40)
             && data.takenAt is timestamp
@@ -63,7 +67,9 @@ service cloud.firestore {
             && data.photoPath is string && data.photoPath.matches('^users/' + uid + '/photos/[^/]+$')
             && (data.location == null || (data.location is map
               && data.location.keys().hasOnly(['latitude', 'longitude'])
-              && data.location.latitude is number && data.location.longitude is number));
+              && data.location.latitude is number && data.location.longitude is number))
+            && (data.get('placeName', null) == null || isShortText(data.placeName, 60))
+            && (!isThreatened(data) || (data.location == null && data.get('placeName', null) == null));
         }
         allow read: if isOwner(uid);
         allow create: if isOwner(uid) && validSighting(request.resource.data);

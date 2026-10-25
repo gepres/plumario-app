@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { achievementId } from '../../domain/achievements';
 import { at, species, sticker } from '../../testing';
-import { evaluateValidatedPhoto } from './evaluate-validated-photo';
+import { evaluateValidatedPhoto, sightingResultOf } from './evaluate-validated-photo';
 
 const catalog = Array.from({ length: 12 }, (_, i) => species(`ave${i}`));
 
@@ -38,5 +38,14 @@ describe('evaluateValidatedPhoto', () => {
     const condor = species('condor', { iucn: 'VU', habitat: 'highlands' });
     expect(evaluateValidatedPhoto({ species: condor, catalog: [...catalog, condor], stickers: [], at: at(7), roll: 0 }))
       .toMatchObject({ chromed: 'luck', category: 'diamond' });
+  });
+
+  it('deja en el registro lo que pasó y el avance del álbum', () => {
+    const nine = Array.from({ length: 9 }, (_, i) => sticker(`ave${i}`));
+    const result = evaluateValidatedPhoto({ species: catalog[9]!, catalog, stickers: nine, at: at(8), roll: 0.9 });
+    expect(sightingResultOf(result)).toEqual({
+      outcome: 'validated', completed: true, chromed: null, category: 'holographic', validPhotos: 1,
+      achievements: [{ kind: 'milestone', species: 10 }], registered: 10, total: 12,
+    });
   });
 });

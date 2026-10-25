@@ -1,27 +1,36 @@
 import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
 import {
+  makeCheckPhoto,
   makeCheckResetCode,
   makeGetAlbum,
   makeGetAlbumSummary,
+  makeListSpeciesPhotos,
+  makeRegisterSighting,
   makeRequestPasswordReset,
   makeResetPassword,
   makeSignIn,
   makeSignOut,
   makeSignUp,
+  makeSuggestSpecies,
   type AuthService,
   type GetAlbum,
   type GetAlbumSummary,
+  type PhotoStorage,
+  type SightingRepository,
   type SpeciesCatalog,
+  type SpeciesIdentifier,
   type StickerRepository,
   type UserProfileRepository,
 } from '@plumario/core';
 
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
+import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
 import { InMemoryUserProfileRepository } from './in-memory/in-memory-user-profile-repository';
 import { sampleSpeciesCatalog } from './in-memory/sample-species-catalog';
+import { testSpeciesIdentifier } from './test-species-identifier';
 
 // Raíz de composición: el único lugar de la app que elige adaptadores para los puertos del núcleo.
 // Pantallas y hooks piden los casos de uso con useDependencies(); nunca importan un adaptador.
@@ -33,6 +42,9 @@ type Adapters = {
   catalog: SpeciesCatalog;
   stickers: StickerRepository;
   profiles: UserProfileRepository;
+  photos: PhotoStorage;
+  sightings: SightingRepository;
+  identifier: SpeciesIdentifier;
 };
 
 export type Dependencies = {
@@ -45,7 +57,13 @@ export type Dependencies = {
     requestPasswordReset: ReturnType<typeof makeRequestPasswordReset>;
     checkResetCode: ReturnType<typeof makeCheckResetCode>;
     resetPassword: ReturnType<typeof makeResetPassword>;
+    suggestSpecies: ReturnType<typeof makeSuggestSpecies>;
+    checkPhoto: ReturnType<typeof makeCheckPhoto>;
+    registerSighting: ReturnType<typeof makeRegisterSighting>;
+    listSpeciesPhotos: ReturnType<typeof makeListSpeciesPhotos>;
   };
+  /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
+  watchSighting: SightingRepository['watch'];
   /** Quién tiene la sesión abierta, para useSession(). */
   session: Pick<AuthService, 'currentUser' | 'onChange'>;
   environment: { firebaseConfigured: boolean; dataSource: DataSource };
@@ -53,11 +71,15 @@ export type Dependencies = {
 
 function createAdapters(): Adapters | Promise<Adapters> {
   if (dataSource === 'memory') {
+    const stickers = new InMemoryStickerRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_STICKERS });
     return {
       auth: new InMemoryAuthService(),
       catalog: sampleSpeciesCatalog,
-      stickers: new InMemoryStickerRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_STICKERS }),
+      stickers,
       profiles: new InMemoryUserProfileRepository(),
+      photos: inMemoryPhotoStorage,
+      sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, identifier: testSpeciesIdentifier }),
+      identifier: testSpeciesIdentifier,
     };
   }
   // Se carga solo cuando hace falta: en web y sin Firebase no hay módulos nativos que importar.
@@ -67,7 +89,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, catalog, stickers, profiles } = adapters;
+  const { auth, catalog, stickers, profiles, photos, sightings, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -78,7 +100,12 @@ export function createDependencies(adapters: Adapters): Dependencies {
       requestPasswordReset: makeRequestPasswordReset({ auth }),
       checkResetCode: makeCheckResetCode({ auth }),
       resetPassword: makeResetPassword({ auth }),
+      suggestSpecies: makeSuggestSpecies({ identifier }),
+      checkPhoto: makeCheckPhoto({ identifier }),
+      registerSighting: makeRegisterSighting({ photos, sightings, now: () => new Date() }),
+      listSpeciesPhotos: makeListSpeciesPhotos({ sightings, photos }),
     },
+    watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     session: auth,
     environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
   };

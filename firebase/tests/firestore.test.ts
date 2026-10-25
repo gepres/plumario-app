@@ -81,6 +81,20 @@ describe('@usuarios', () => {
 });
 
 describe('registros', () => {
+  beforeEach(async () => {
+    await seed('regions/ica/species/calidris-alba', { commonName: 'Playero Arenero', threatened: false });
+    await seed('regions/ica/species/spheniscus-humboldti', { commonName: 'Pingüino de Humboldt', threatened: true });
+  });
+
+  it('guarda el lugar, salvo en una especie amenazada', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s1'), { ...sighting('ana'), placeName: 'Paracas' }));
+    const pinguino = { ...sighting('ana'), speciesId: 'spheniscus-humboldti' };
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s2'), { ...pinguino, placeName: null }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/sightings/s3'), { ...pinguino, placeName: 'Islas Ballestas' }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/sightings/s4'), { ...pinguino, location: { latitude: -13.8, longitude: -76.3 } }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/sightings/s5'), { ...sighting('ana'), placeName: 'x'.repeat(61) }));
+  });
+
   it('el dueño crea uno pendiente con su foto', async () => {
     await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s1'), sighting('ana')));
     await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s2'), { ...sighting('ana'), location: { latitude: -13.8, longitude: -76.3 } }));

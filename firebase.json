@@ -7,8 +7,10 @@
     "rules": "firebase/storage.rules"
   },
   "functions": {
-    "source": "functions",
-    "predeploy": ["pnpm --filter @plumario/functions build"]
+    "source": "functions/dist",
+    "predeploy": [
+      "pnpm --filter @plumario/functions build"
+    ]
   },
   "emulators": {
     "auth": {

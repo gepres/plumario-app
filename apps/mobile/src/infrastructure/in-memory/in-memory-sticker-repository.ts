@@ -9,8 +9,8 @@ export const SAMPLE_STICKERS: readonly Sticker[] = [
 ];
 
 /**
- * Adaptador en memoria del puerto StickerRepository: para la vista web y mientras no hay sesión.
- * Con sesión, los stickers salen de Firestore (los escribe el servidor al validar cada foto).
+ * Adaptador en memoria del puerto StickerRepository, para la vista web. En Firebase los stickers
+ * salen de Firestore y los escribe el servidor al validar cada foto.
  */
 export class InMemoryStickerRepository implements StickerRepository {
   private readonly byUser = new Map<UserId, Sticker[]>();
@@ -21,5 +21,11 @@ export class InMemoryStickerRepository implements StickerRepository {
 
   async listByUser(userId: UserId): Promise<readonly Sticker[]> {
     return this.byUser.get(userId) ?? [];
+  }
+
+  /** Lo que en Firebase escribe el servidor; acá lo usa el registro en memoria al validar. */
+  save(userId: UserId, sticker: Sticker): void {
+    const others = (this.byUser.get(userId) ?? []).filter((s) => s.speciesId !== sticker.speciesId);
+    this.byUser.set(userId, [...others, sticker]);
   }
 }

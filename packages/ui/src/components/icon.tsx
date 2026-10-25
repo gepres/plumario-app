@@ -10,6 +10,8 @@ const ICONS = {
   camera: { stroke: 'M4 8h3l2-3h6l2 3h3v11H4zM12 9.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z' },
   image: { stroke: 'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM9 8.2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6zM21 16l-5-5-8 8' },
   swap: { stroke: 'M4 8h14l-3-3M20 16H6l3 3' },
+  flash: { stroke: 'M13 3L5 13h6l-1 8 8-10h-6z' },
+  shield: { stroke: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6zM8.5 12l2.5 2.5 4.5-5' },
   share: { stroke: 'M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7' },
   download: { stroke: 'M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14' },
   mail: { stroke: 'M3.5 6h17v12h-17zM3.5 6l8.5 7 8.5-7' },

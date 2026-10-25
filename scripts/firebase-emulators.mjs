@@ -1,5 +1,6 @@
 // Corre la CLI de Firebase con un Java que le sirva a los emuladores, sin tocar el del sistema.
-// Uso: pnpm emulators                     → emulators:start con el proyecto demo-plumario
+// Uso: pnpm emulators                     → emulators:start con el proyecto demo-plumario,
+//                                           importando y exportando .emulator-data
 //      pnpm emulators emulators:exec "…"  → cualquier otro comando de la CLI
 //
 // firebase-tools 15 exige Java 21 o superior para los emuladores de Firestore, Auth y Storage, y
@@ -11,6 +12,7 @@ import { createRequire } from 'node:module';
 import { delimiter, join } from 'node:path';
 
 const MINIMUM = 21;
+const DATA_DIR = '.emulator-data';
 const executable = process.platform === 'win32' ? 'java.exe' : 'java';
 
 function javaVersion(home) {
@@ -37,7 +39,12 @@ if (!javaHome) {
 }
 
 const args = process.argv.slice(2);
-if (args.length === 0) args.push('emulators:start');
+if (args.length === 0) {
+  // Los datos del emulador (cuentas, registros, stickers) se guardan en .emulator-data al cerrar y
+  // se vuelven a cargar al abrir, para no perderlos entre sesiones. Para empezar de cero, borra la carpeta.
+  args.push('emulators:start', '--export-on-exit', DATA_DIR);
+  if (existsSync(DATA_DIR)) args.push('--import', DATA_DIR);
+}
 if (!args.includes('--project')) args.push('--project', 'demo-plumario');
 
 // El binario de firebase-tools se corre con este mismo Node y sin shell: en Windows, con shell,

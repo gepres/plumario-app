@@ -56,7 +56,7 @@ function RootStack() {
       {/* El grupo (auth) no tiene index: sin destino explícito, «/» quedaría sin pantalla. */}
       <Stack.Protected guard={signedIn} redirectTo="/sign-in">
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="new-sighting" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="new-sighting" options={{ presentation: 'fullScreenModal' }} />
         <Stack.Screen name="habitat/[habitat]" />
         <Stack.Screen name="species/[id]" />
         <Stack.Screen name="sticker/[id]" />

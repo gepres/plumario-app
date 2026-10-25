@@ -4,6 +4,7 @@ import { DEFAULT_REGION_ID, type AlbumSummary } from '@plumario/core';
 
 import { useDependencies } from '@/infrastructure/dependencies';
 
+import { useAlbumVersion } from './album-version';
 import { useSession } from './use-session';
 
 type State =
@@ -15,6 +16,7 @@ type State =
 export function useAlbumSummary(): State {
   const { useCases } = useDependencies();
   const userId = useSession()?.uid;
+  const version = useAlbumVersion();
   const [state, setState] = useState<State>({ status: 'loading' });
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function useAlbumSummary(): State {
     return () => {
       current = false;
     };
-  }, [useCases, userId]);
+  }, [useCases, userId, version]);
 
   return state;
 }

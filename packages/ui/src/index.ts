@@ -25,6 +25,7 @@ export { Logo } from './components/logo';
 export { Medal } from './components/medal';
 export type { MedalKind } from './components/medal';
 export { ProgressBar } from './components/progress-bar';
+export { Rays } from './components/rays';
 export { Screen } from './components/screen';
 export { Sheet } from './components/sheet';
 export { StatusBarScrim } from './components/status-bar-scrim';

@@ -11,6 +11,7 @@ import { HABITAT_LABELS, stickerTint } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
 import type { PhotoSource } from './album/shadow-sheet';
+import { SpeciesPhotos } from './species-photos';
 
 type Props = {
   speciesId: string;
@@ -114,12 +115,7 @@ function GalleryContent({ entry, album, onOpenSticker, onAddPhoto }: { entry: Al
         </View>
         <Button label="Agregar" icon="camera" variant="secondary" onPress={() => onAddPhoto(species.id, 'camera')} />
       </View>
-      <View style={[styles.galleryEmpty, { borderColor: colors.border }]}>
-        <Icon name="image" color={colors.textSecondary} size={22} />
-        <ThemedText variant="small" color="textSecondary" style={styles.galleryEmptyText}>
-          Aquí verás las fotos que tomes de esta especie. Cada foto validada suma para su cromo.
-        </ThemedText>
-      </View>
+      <SpeciesPhotos speciesId={species.id} />
     </View>
   );
 }
@@ -198,17 +194,5 @@ const styles = StyleSheet.create({
   galleryTitle: {
     flex: 1,
     gap: 1,
-  },
-  galleryEmpty: {
-    borderWidth: 1.5,
-    borderStyle: 'dashed',
-    borderRadius: radius.control,
-    padding: spacing[4],
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing[3],
-  },
-  galleryEmptyText: {
-    flex: 1,
   },
 });

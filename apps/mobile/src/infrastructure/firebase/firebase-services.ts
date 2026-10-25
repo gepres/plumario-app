@@ -1,6 +1,7 @@
 import { getApp, getApps, initializeApp } from '@react-native-firebase/app';
 import { connectAuthEmulator, getAuth } from '@react-native-firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from '@react-native-firebase/firestore';
+import { connectStorageEmulator, getStorage } from '@react-native-firebase/storage';
 
 // Las instancias de Firebase que usan los adaptadores.
 //
@@ -11,16 +12,16 @@ import { connectFirestoreEmulator, getFirestore } from '@react-native-firebase/f
 
 export const EMULATOR_PROJECT_ID = 'demo-plumario';
 const EMULATOR_APP_NAME = 'emulator';
-const PORTS = { firestore: 8080, auth: 9099 } as const;
+const PORTS = { firestore: 8080, auth: 9099, storage: 9199 } as const;
 
 // Conectar a un emulador solo se puede una vez y antes de cualquier lectura; con la recarga en
 // caliente, la raíz de composición puede crearse de nuevo.
 let connected = false;
 
-export type FirebaseServices = { db: ReturnType<typeof getFirestore>; auth: ReturnType<typeof getAuth> };
+export type FirebaseServices = { db: ReturnType<typeof getFirestore>; auth: ReturnType<typeof getAuth>; storage: ReturnType<typeof getStorage> };
 
 export async function connectFirebase({ emulatorHost }: { emulatorHost?: string } = {}): Promise<FirebaseServices> {
-  if (!emulatorHost) return { db: getFirestore(), auth: getAuth() };
+  if (!emulatorHost) return { db: getFirestore(), auth: getAuth(), storage: getStorage() };
 
   const app =
     getApps().find((a) => a.name === EMULATOR_APP_NAME) ??
@@ -36,12 +37,14 @@ export async function connectFirebase({ emulatorHost }: { emulatorHost?: string 
     ));
   const db = getFirestore(app);
   const auth = getAuth(app);
+  const storage = getStorage(app);
   if (!connected) {
     connectFirestoreEmulator(db, emulatorHost, PORTS.firestore);
     connectAuthEmulator(auth, `http://${emulatorHost}:${PORTS.auth}`);
+    connectStorageEmulator(storage, emulatorHost, PORTS.storage);
     connected = true;
   }
-  return { db, auth };
+  return { db, auth, storage };
 }
 
 /** El código de un error de @react-native-firebase («auth/wrong-password», «firestore/permission-denied»). */
