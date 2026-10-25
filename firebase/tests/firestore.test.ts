@@ -1,0 +1,124 @@
+import { readFileSync } from 'node:fs';
+
+import { assertFails, assertSucceeds, initializeTestEnvironment, type RulesTestEnvironment } from '@firebase/rules-unit-testing';
+import { Timestamp, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { afterAll, beforeAll, beforeEach, describe, it } from 'vitest';
+
+// Reglas de firebase/firestore.rules contra el emulador (pnpm test:rules desde la raíz).
+let env: RulesTestEnvironment;
+const now = Timestamp.fromDate(new Date(2026, 9, 24));
+
+beforeAll(async () => {
+  env = await initializeTestEnvironment({
+    projectId: 'demo-plumario-rules',
+    firestore: { rules: readFileSync(new URL('../firestore.rules', import.meta.url), 'utf8'), host: '127.0.0.1', port: 8080 },
+  });
+});
+afterAll(() => env.cleanup());
+beforeEach(() => env.clearFirestore());
+
+const as = (uid: string) => env.authenticatedContext(uid).firestore();
+const anonymous = () => env.unauthenticatedContext().firestore();
+const seed = (path: string, data: Record<string, unknown>) =>
+  env.withSecurityRulesDisabled((ctx) => setDoc(doc(ctx.firestore(), path), data));
+
+const profile = { displayName: 'Ana', handle: 'ana.ica', regionId: 'ica', privacy: { saveLocation: false, albumVisibility: 'private' }, createdAt: now };
+const sighting = (uid: string) => ({ speciesId: 'calidris-alba', regionId: 'ica', takenAt: now, status: 'pending', photoPath: `users/${uid}/photos/a.jpg`, location: null, createdAt: now });
+
+describe('catálogo', () => {
+  it('se lee sin sesión y nadie lo escribe', async () => {
+    await seed('regions/ica/species/calidris-alba', { commonName: 'Playero Arenero' });
+    await assertSucceeds(getDoc(doc(anonymous(), 'regions/ica/species/calidris-alba')));
+    await assertFails(setDoc(doc(as('ana'), 'regions/ica/species/x'), { commonName: 'x' }));
+  });
+});
+
+describe('perfil', () => {
+  it('cada uno crea y lee el suyo, nadie el ajeno', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana'), profile));
+    await assertSucceeds(getDoc(doc(as('ana'), 'users/ana')));
+    await assertFails(getDoc(doc(as('beto'), 'users/ana')));
+    await assertFails(setDoc(doc(as('beto'), 'users/ana'), profile));
+  });
+
+  it('valida los campos y no deja cambiar la fecha de alta', async () => {
+    await assertFails(setDoc(doc(as('ana'), 'users/ana'), { ...profile, handle: 'Ana Ica!' }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana'), { ...profile, admin: true }));
+    await seed('users/ana', profile);
+    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { displayName: 'Ana P.' }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { createdAt: Timestamp.now() }));
+  });
+});
+
+describe('registros', () => {
+  it('el dueño crea uno pendiente con su foto', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s1'), sighting('ana')));
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/sightings/s2'), { ...sighting('ana'), location: { latitude: -13.8, longitude: -76.3 } }));
+  });
+
+  it('no puede darse por validado, ni usar la foto de otro, ni editarlo después', async () => {
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/sightings/s1'), { ...sighting('ana'), status: 'validated' }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/sightings/s1'), { ...sighting('ana'), photoPath: 'users/beto/photos/b.jpg' }));
+    await seed('users/ana/sightings/s1', sighting('ana'));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana/sightings/s1'), { status: 'validated' }));
+  });
+
+  it('nadie ve los registros ajenos (ni su ubicación)', async () => {
+    await seed('users/ana/sightings/s1', sighting('ana'));
+    await assertFails(getDoc(doc(as('beto'), 'users/ana/sightings/s1')));
+  });
+});
+
+describe('stickers y logros', () => {
+  it('los stickers los lee su dueño y no los escribe nadie desde la app', async () => {
+    await seed('users/ana/stickers/calidris-alba', { validPhotos: 1, chrome: null });
+    await assertSucceeds(getDoc(doc(as('ana'), 'users/ana/stickers/calidris-alba')));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/stickers/calidris-alba'), { validPhotos: 5, chrome: { source: 'photos' } }));
+  });
+
+  it('de un logro, el dueño solo puede marcar que ya lo vio', async () => {
+    await seed('users/ana/achievements/first-bird', { kind: 'firstBird', earnedAt: now, seen: false });
+    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana/achievements/first-bird'), { seen: true }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana/achievements/first-bird'), { kind: 'albumComplete' }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/achievements/album-complete'), { kind: 'albumComplete', earnedAt: now, seen: false }));
+  });
+});
+
+describe('pósteres', () => {
+  const poster = { kind: 'species', number: 1, habitat: null, speciesIds: ['a', 'b'], seed: 42, theme: 'light', title: 'Póster 1', savedAt: now };
+  it('el dueño guarda los suyos con datos válidos', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/posters/p1'), poster));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/posters/p2'), { ...poster, theme: 'neón' }));
+    await assertFails(setDoc(doc(as('beto'), 'users/ana/posters/p3'), poster));
+  });
+});
+
+describe('intercambios', () => {
+  const trade = { fromUid: 'ana', offeredSpeciesId: 'calidris-alba', requestedSpeciesId: 'larus-belcheri', status: 'open', createdAt: now };
+
+  it('quien ofrece crea la propuesta abierta a su nombre', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'trades/t1'), trade));
+    await assertFails(setDoc(doc(as('beto'), 'trades/t2'), trade));
+    await assertFails(setDoc(doc(as('ana'), 'trades/t3'), { ...trade, status: 'accepted' }));
+  });
+
+  it('la lee cualquiera con sesión que tenga el enlace, sin sesión no', async () => {
+    await seed('trades/t1', trade);
+    await assertSucceeds(getDoc(doc(as('beto'), 'trades/t1')));
+    await assertFails(getDoc(doc(anonymous(), 'trades/t1')));
+  });
+
+  it('solo quien la propuso la cancela; aceptarla es cosa del servidor', async () => {
+    await seed('trades/t1', trade);
+    await assertFails(updateDoc(doc(as('beto'), 'trades/t1'), { status: 'cancelled' }));
+    await assertFails(updateDoc(doc(as('beto'), 'trades/t1'), { status: 'accepted' }));
+    await assertSucceeds(updateDoc(doc(as('ana'), 'trades/t1'), { status: 'cancelled' }));
+  });
+});
+
+describe('el resto', () => {
+  it('se deniega', async () => {
+    await assertFails(getDoc(doc(as('ana'), 'admin/config')));
+    await assertFails(setDoc(doc(as('ana'), 'cualquier/cosa'), { x: 1 }));
+  });
+});

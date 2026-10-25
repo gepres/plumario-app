@@ -17,7 +17,11 @@ export type Species = {
   scientificName: string;
   /** Hábitat principal en el álbum; null mientras no esté asignado. */
   habitat: Habitat | null;
+  /** Categoría global de la Lista Roja de la UICN (LC, NT, VU, EN, CR…); decide el acabado del cromo. */
+  iucn: string | null;
   /** Si está amenazada, su ubicación se oculta siempre, también al compartir (PerfilPrivacidad). */
   threatened: boolean;
   endemic: boolean;
+  /** Símbolo de Ica o del Perú (lista editorial del diseño): cromo Rubí. */
+  emblematic: boolean;
 };

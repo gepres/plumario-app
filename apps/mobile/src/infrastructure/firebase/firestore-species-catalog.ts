@@ -27,8 +27,10 @@ function toSpecies(id: string, data: Record<string, unknown>): Species {
     commonName: typeof data.commonName === 'string' && data.commonName ? data.commonName : scientificName,
     scientificName,
     habitat: habitat as Habitat | null,
+    iucn: typeof data.iucn === 'string' ? data.iucn : null,
     threatened: data.threatened === true,
     endemic: data.endemic === true,
+    emblematic: data.emblematic === true,
   };
 }
 

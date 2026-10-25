@@ -1,6 +1,6 @@
 import { HABITATS, type Habitat } from './habitat';
-import type { Sighting } from './sighting';
-import type { Species, TaxonClass } from './species';
+import type { Species, SpeciesId, TaxonClass } from './species';
+import type { Sticker } from './sticker';
 
 /** El álbum es de aves: mamíferos y reptiles están en el catálogo, pero no cuentan («Álbum de aves»). */
 export const ALBUM_CLASS: TaxonClass = 'bird';
@@ -15,7 +15,7 @@ export type HabitatProgress = { habitat: Habitat; registered: number; total: num
 export type NextPoster = { number: number; remaining: number };
 
 export type AlbumSummary = {
-  /** Especies distintas registradas: fotografiar dos veces la misma ave no suma. */
+  /** Especies del álbum con el sticker completado: se cuentan especies, no fotos. */
   registered: number;
   total: number;
   /** Solo las especies con hábitat asignado; las demás cuentan en el total. */
@@ -32,11 +32,14 @@ export function nextPoster(registered: number, total: number): NextPoster | null
   return { number, remaining: goal - registered };
 }
 
-/** Avance del álbum de una región. No cuentan las especies fuera del álbum ni fuera del catálogo. */
-export function summarizeAlbum(catalog: readonly Species[], sightings: readonly Sighting[]): AlbumSummary {
+/**
+ * Avance del álbum de una región a partir de los stickers completados del usuario. No cuentan las
+ * especies fuera del álbum (mamíferos, reptiles) ni las que no están en el catálogo de la región.
+ */
+export function summarizeAlbum(catalog: readonly Species[], stickers: readonly Pick<Sticker, 'speciesId'>[]): AlbumSummary {
   const album = catalog.filter(isInAlbum);
   const speciesById = new Map(album.map((species) => [species.id, species]));
-  const registered = new Set(sightings.map((s) => s.speciesId).filter((id) => speciesById.has(id)));
+  const registered = new Set<SpeciesId>(stickers.map((s) => s.speciesId).filter((id) => speciesById.has(id)));
   const byHabitat = HABITATS.map((habitat) => ({
     habitat,
     total: album.filter((species) => species.habitat === habitat).length,

@@ -1,10 +1,20 @@
 rules_version = '2';
 
+// Modelo de datos de Plumario. Regla general: cada usuario lee lo suyo; lo que se gana (stickers,
+// cromos, logros) y el resultado de un intercambio los escribe el servidor (Cloud Functions, con el
+// Admin SDK, que no pasa por estas reglas). El cliente solo crea registros pendientes, pósteres y
+// propuestas de intercambio, y edita su perfil.
+
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function onlyChanges(fields) { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields); }
+    function isShortText(value, max) { return value is string && value.size() > 0 && value.size() <= max; }
+
     // Catálogo de especies por región: público y de solo lectura. No tiene datos personales, y la
-    // app lo necesita antes de que haya sesión. Lo escribe tools/species/seed.mjs con el Admin SDK,
-    // que no pasa por estas reglas.
+    // app lo necesita antes de que haya sesión. Lo carga tools/species/seed.mjs.
     match /regions/{regionId} {
       allow read: if true;
       allow write: if false;
@@ -15,7 +25,92 @@ service cloud.firestore {
       }
     }
 
-    // Todo lo demás se deniega hasta diseñar el modelo de datos (registros, cromos, intercambios).
+    match /users/{uid} {
+      // Perfil: nombre, usuario, región y privacidad (PerfilEditar, PerfilPrivacidad).
+      function validProfile(data) {
+        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'privacy', 'createdAt'])
+          && isShortText(data.displayName, 40)
+          && data.handle is string && data.handle.matches('^[a-z0-9_.]{3,24}$')
+          && isShortText(data.regionId, 40)
+          && data.privacy is map
+          && data.privacy.keys().hasOnly(['saveLocation', 'albumVisibility'])
+          && data.privacy.saveLocation is bool
+          && data.privacy.albumVisibility in ['private', 'public']
+          && data.createdAt is timestamp;
+      }
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid) && validProfile(request.resource.data);
+      allow update: if isOwner(uid) && validProfile(request.resource.data) && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isOwner(uid);
+
+      // Registros: el cliente crea uno pendiente con su foto; una Cloud Function lo valida y cambia el
+      // estado. La ubicación es opcional y solo la ve su dueño.
+      match /sightings/{sightingId} {
+        function validSighting(data) {
+          return data.keys().hasOnly(['speciesId', 'regionId', 'takenAt', 'status', 'photoPath', 'location', 'createdAt'])
+            && isShortText(data.speciesId, 80)
+            && isShortText(data.regionId, 40)
+            && data.takenAt is timestamp
+            && data.createdAt is timestamp
+            && data.status == 'pending'
+            && data.photoPath is string && data.photoPath.matches('^users/' + uid + '/photos/[^/]+$')
+            && (data.location == null || (data.location is map
+              && data.location.keys().hasOnly(['latitude', 'longitude'])
+              && data.location.latitude is number && data.location.longitude is number));
+        }
+        allow read: if isOwner(uid);
+        allow create: if isOwner(uid) && validSighting(request.resource.data);
+        allow update: if false;
+        allow delete: if isOwner(uid);
+      }
+
+      // Stickers y cromos: solo el servidor.
+      match /stickers/{speciesId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
+      // Logros: los otorga el servidor; el cliente solo marca que ya vio la celebración.
+      match /achievements/{achievementId} {
+        allow read: if isOwner(uid);
+        allow update: if isOwner(uid) && onlyChanges(['seen']) && request.resource.data.seen == true;
+        allow create, delete: if false;
+      }
+
+      // Pósteres guardados: el usuario elige mezcla, fondo y título (PosterGenerar, PosterVista).
+      match /posters/{posterId} {
+        function validPoster(data) {
+          return data.keys().hasOnly(['kind', 'number', 'habitat', 'speciesIds', 'seed', 'theme', 'title', 'savedAt'])
+            && data.kind in ['species', 'habitat']
+            && data.speciesIds is list && data.speciesIds.size() <= 120
+            && data.seed is int
+            && data.theme in ['light', 'dark']
+            && isShortText(data.title, 60)
+            && data.savedAt is timestamp;
+        }
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid) && validPoster(request.resource.data);
+      }
+    }
+
+    // Propuestas de intercambio: las crea quien ofrece y se comparten por enlace o QR. El id es
+    // aleatorio y hace de llave: cualquiera con sesión que lo tenga puede leerla. Aceptar lo hace una
+    // Cloud Function en una transacción; quien propone solo puede cancelarla.
+    match /trades/{tradeId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['fromUid', 'offeredSpeciesId', 'requestedSpeciesId', 'status', 'createdAt'])
+        && request.resource.data.fromUid == request.auth.uid
+        && isShortText(request.resource.data.offeredSpeciesId, 80)
+        && isShortText(request.resource.data.requestedSpeciesId, 80)
+        && request.resource.data.status == 'open'
+        && request.resource.data.createdAt is timestamp;
+      allow update: if signedIn() && resource.data.fromUid == request.auth.uid
+        && resource.data.status == 'open' && onlyChanges(['status']) && request.resource.data.status == 'cancelled';
+      allow delete: if false;
+    }
+
+    // Todo lo demás se deniega.
     match /{document=**} {
       allow read, write: if false;
     }

@@ -2,6 +2,7 @@ packages:
   - apps/*
   - packages/*
   - functions
+  - firebase
 
 # node_modules plano, como npm. Expo soporta la instalación aislada desde el SDK 54, pero algunas
 # librerías nativas fallan al resolver con ella y la propia guía de Expo manda volver a hoisted.

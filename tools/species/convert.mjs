@@ -42,6 +42,9 @@ const ALBUM_CLASS = 'bird';
 const THREATENED = new Set(['CR', 'EN', 'VU']);
 // Etiquetas de la tabla de revisión (en español, para quien la edita en Excel) → claves del dominio.
 const HABITAT_KEYS = { Litoral: 'coast', Humedales: 'wetlands', Desierto: 'desert', Sierra: 'highlands', 'Mar abierto': 'openSea' };
+// Emblemáticas de Ica o del Perú (cromo Rubí): la parihuana de Paracas y las aves guaneras. Es la lista
+// editorial de design/project/CategoriasCromos.dc.html, «a validar con el cliente».
+const EMBLEMATIC = new Set(['Phoenicopterus chilensis', 'Pelecanus thagus', 'Sula variegata', 'Phalacrocorax bougainvillii']);
 
 const text = (value) => {
   if (value === null || value === undefined) return null;
@@ -137,6 +140,7 @@ for (let r = headerRow + 1; r <= sheet.rowCount; r++) {
     cms: raw.cms,
     biome: raw.biome,
     endemic: raw.endemic === 'Sí',
+    emblematic: EMBLEMATIC.has(raw.scientificName),
     threatened: THREATENED.has(raw.nationalCategory ?? '') || THREATENED.has(iucn ?? ''),
     habitat: habitat?.habitat ?? null,
     habitatReviewed: habitat?.reviewed ?? false,
@@ -145,6 +149,8 @@ for (let r = headerRow + 1; r <= sheet.rowCount; r++) {
 
 let albumNumber = 0;
 for (const s of species) s.albumNumber = s.taxonClass === ALBUM_CLASS ? ++albumNumber : null;
+
+for (const name of EMBLEMATIC) if (!species.some((s) => s.scientificName === name)) throw new Error(`Emblemática que no está en el Excel: ${name}`);
 
 const ids = new Set(species.map((s) => s.id));
 if (ids.size !== species.length) throw new Error('Hay dos especies con el mismo id (nombre científico repetido)');

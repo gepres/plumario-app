@@ -3,13 +3,13 @@ import { createContext, use, useState, type ReactNode } from 'react';
 import { makeGetAlbumSummary, type GetAlbumSummary, type RegionId, type SpeciesCatalog, type UserId } from '@plumario/core';
 
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
-import { InMemorySightingRepository } from './in-memory/in-memory-sighting-repository';
+import { InMemoryStickerRepository } from './in-memory/in-memory-sticker-repository';
 import { sampleSpeciesCatalog } from './in-memory/sample-species-catalog';
 
 // Raíz de composición: el único lugar de la app que elige adaptadores para los puertos del núcleo.
 // Pantallas y hooks piden los casos de uso con useDependencies(); nunca importan un adaptador.
 // El catálogo sale de Firestore (emulador o proyecto real) o de la muestra en memoria, según
-// EXPO_PUBLIC_DATA_SOURCE; los registros siguen en memoria hasta el modelo de datos.
+// EXPO_PUBLIC_DATA_SOURCE; los stickers del usuario, en memoria hasta que haya sesión (PA-11).
 
 export type Dependencies = {
   useCases: {
@@ -30,10 +30,10 @@ function createSpeciesCatalog(): SpeciesCatalog {
 
 export function createDependencies(): Dependencies {
   const catalog = createSpeciesCatalog();
-  const sightings = new InMemorySightingRepository();
+  const stickers = new InMemoryStickerRepository();
   return {
     useCases: {
-      getAlbumSummary: makeGetAlbumSummary({ catalog, sightings }),
+      getAlbumSummary: makeGetAlbumSummary({ catalog, stickers }),
     },
     session: { userId: 'demo', regionId: 'ica' },
     environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
