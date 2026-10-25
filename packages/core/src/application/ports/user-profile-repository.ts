@@ -14,4 +14,10 @@ export interface UserProfileRepository {
   isHandleAvailable(handle: string): Promise<boolean>;
   /** Crea el perfil y reserva su @usuario en una sola escritura; HandleTakenError si ya es de otro. */
   create(userId: UserId, profile: UserProfile): Promise<void>;
+  /** PerfilEditar y PerfilPrivacidad: nombre, ave favorita y privacidad. */
+  update(userId: UserId, changes: ProfileChanges): Promise<void>;
+  /** Cambia el @usuario: reserva el nuevo y libera el anterior en una sola escritura; HandleTakenError si ya es de otro. */
+  changeHandle(userId: UserId, from: string, to: string, at: Date): Promise<void>;
 }
+
+export type ProfileChanges = Partial<Pick<UserProfile, 'displayName' | 'favoriteSpeciesId' | 'privacy'>>;

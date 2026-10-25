@@ -70,6 +70,13 @@ function RootStack() {
           <Stack.Screen name="trade/[id]" />
           <Stack.Screen name="share/sticker/[id]" />
           <Stack.Screen name="share/medal/[id]" />
+          <Stack.Screen name="profile/edit" />
+          <Stack.Screen name="profile/privacy" />
+          <Stack.Screen name="profile/practices" />
+          <Stack.Screen name="profile/help" />
+          <Stack.Screen name="profile/feedback" />
+          <Stack.Screen name="profile/trades" />
+          <Stack.Screen name="profile/policy" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />

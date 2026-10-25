@@ -35,6 +35,7 @@ function fakes() {
     add: async (s) => void saved.push(s),
     watch: () => () => {},
     listBySpecies: async () => [],
+    listByUser: async () => [],
   };
   return { photos, sightings, saved, uploads };
 }
@@ -55,7 +56,8 @@ describe('sugerencias', () => {
 
 describe('registrar', () => {
   const now = () => new Date(2026, 9, 24, 10);
-  const input = { userId: 'u1', regionId: 'ica', photoUri: 'file://foto.jpg', takenAt: new Date(2026, 9, 24, 8), placeName: '  Paracas  ' };
+  const paracas = { latitude: -13.84, longitude: -76.25 };
+  const input = { userId: 'u1', regionId: 'ica', photoUri: 'file://foto.jpg', takenAt: new Date(2026, 9, 24, 8), placeName: '  Paracas  ', location: paracas, saveLocation: false };
 
   it('sube la foto con el id del registro y lo guarda pendiente', async () => {
     const { photos, sightings, saved, uploads } = fakes();
@@ -69,6 +71,14 @@ describe('registrar', () => {
     const { photos, sightings, saved } = fakes();
     await makeRegisterSighting({ photos, sightings, now })({ ...input, species: pinguino });
     expect(saved[0]?.placeName).toBeNull();
+  });
+
+  it('la ubicación se guarda solo si la persona lo permite, y nunca en una especie amenazada', async () => {
+    const { photos, sightings, saved } = fakes();
+    const register = makeRegisterSighting({ photos, sightings, now });
+    await register({ ...input, species: gaviota, saveLocation: true });
+    await register({ ...input, species: pinguino, saveLocation: true });
+    expect(saved.map((s) => s.location)).toEqual([paracas, null]);
   });
 
   it('un lugar vacío queda en null', async () => {

@@ -8,6 +8,7 @@ export type AuthErrorCode =
   | 'too-many-requests'
   | 'network'
   | 'expired-code'
+  | 'wrong-password'
   | 'unknown';
 
 /** Error del servicio de autenticación, ya traducido a casos que la app sabe explicar. */
@@ -30,4 +31,8 @@ export interface AuthService {
   /** El correo de la cuenta del enlace para crear contraseña; AuthError «expired-code» si ya no sirve. */
   verifyPasswordResetCode(code: string): Promise<string>;
   confirmPasswordReset(code: string, newPassword: string): Promise<void>;
+  /** Cambia el correo: confirma con la contraseña y manda un enlace al correo nuevo, que cambia al abrirlo. */
+  changeEmail(newEmail: string, password: string): Promise<void>;
+  /** Elimina la cuenta, confirmando con la contraseña; el servidor borra después sus datos. */
+  deleteAccount(password: string): Promise<void>;
 }

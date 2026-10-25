@@ -33,6 +33,10 @@ export class InMemoryTradeRepository implements TradeRepository {
     return this.trades.get(tradeId) ?? null;
   }
 
+  async listByUser(userId: UserId): Promise<readonly TradeProposal[]> {
+    return [...this.trades.values()].filter((t) => t.fromUid === userId).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
   async cancel(tradeId: string): Promise<void> {
     const trade = this.trades.get(tradeId);
     if (trade?.status === 'open') this.trades.set(tradeId, { ...trade, status: 'cancelled' });

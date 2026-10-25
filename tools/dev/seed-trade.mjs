@@ -47,7 +47,9 @@ await db.collection('users').doc(beto.uid).set({
   displayName: 'Beto',
   handle: BETO.handle,
   regionId: 'ica',
-  privacy: { saveLocation: false, albumVisibility: 'private' },
+  favoriteSpeciesId: null,
+  privacy: { saveLocation: false, albumVisibility: 'private', showName: true, improveAi: false },
+  handleChangedAt: null,
   createdAt: now,
 });
 // Tiene el cromo que ofrece y el sticker normal del que pide.

@@ -7,8 +7,9 @@ import { Icon, type IconName } from './icon';
 import { ThemedText } from './themed-text';
 
 // Variantes de design/project/Boton.dc.html: uno primario por pantalla; el secundario para la
-// segunda acción; el terciario para opciones en par (Google y Apple); el claro sobre fondos oscuros.
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'light';
+// segunda acción; el terciario para opciones en par (Google y Apple); el claro sobre fondos oscuros;
+// el de peligro, solo para lo que no se deshace (Eliminar tu cuenta).
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'light' | 'danger';
 
 type Props = {
   label: string;
@@ -25,6 +26,7 @@ const VARIANTS: Record<ButtonVariant, { background?: ColorToken; ink: ColorToken
   secondary: { ink: 'primary', border: 'primary', height: 48 },
   tertiary: { ink: 'text', border: 'border', height: 48 },
   light: { background: 'background', ink: 'text', height: 52 },
+  danger: { background: 'error', ink: 'onPrimary', height: 52 },
 };
 
 export function Button({ label, onPress, variant = 'primary', icon, disabled = false, busy = false }: Props) {

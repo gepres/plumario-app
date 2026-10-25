@@ -1,4 +1,4 @@
-import { Timestamp, addDoc, collection, doc, getDoc, onSnapshot, setDoc, updateDoc } from '@react-native-firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from '@react-native-firebase/firestore';
 
 import type { TradeProposal, TradeRepository, TradeResult, TradeStatus } from '@plumario/core';
 
@@ -37,6 +37,12 @@ export function createFirestoreTradeRepository({ db }: FirebaseServices): TradeR
       const snapshot = await getDoc(doc(trades, tradeId));
       const data = snapshot.data();
       return data ? toTrade(snapshot.id, data) : null;
+    },
+
+    async listByUser(userId) {
+      // Las reglas solo dejan listar las propias, así que la consulta tiene que pedir eso.
+      const snapshot = await getDocs(query(trades, where('fromUid', '==', userId)));
+      return snapshot.docs.map((d) => toTrade(d.id, d.data())).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     },
 
     async cancel(tradeId) {

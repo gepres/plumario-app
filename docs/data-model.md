@@ -14,8 +14,9 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 |---|---|---|---|
 | `regions/{regionId}` | La región-álbum: `name`, `albumClass`, `speciesCount`, `albumCount` | `tools/species/seed.mjs` | todos, sin sesión |
 | `regions/{regionId}/species/{speciesId}` | Catálogo (ver `data/README.md`) | `tools/species/seed.mjs` | todos, sin sesión |
-| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `privacy { saveLocation, albumVisibility }`, `createdAt` | el dueño (el `handle` no cambia) | el dueño |
-| `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño, una vez; nadie la cambia ni la borra | cualquiera, de a uno (para ver si está libre); no se listan |
+| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public, showName, improveAi }`, `handleChangedAt`, `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
+| `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño; la borra solo al cambiar de @usuario, en la misma escritura en que su perfil deja de usarla | cualquiera, de a uno (para ver si está libre); no se listan |
+| `feedback/{id}` | Comentario (PerfilComentario): `userId`, `kind` (idea/error/bird/other), `text` (hasta 500), `replyTo` (el correo, solo si deja responder), `screenshotPath`, `appVersion`, `platform`, `createdAt` | quien tiene sesión, a su nombre | nadie desde la app (el equipo, en la consola) |
 | `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, cromo, logros, avance) y `validatedAt`. En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente*; el servidor cambia el estado y escribe el resultado | el dueño |
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
@@ -69,10 +70,17 @@ No se comparten fotos ni ubicación: la propuesta solo lleva especies y el @usua
   ancho y se captura. PNG de 3508 × 4961 px (A3 a 300 ppp) para las fotos o para compartir, y PDF A3
   con 3 mm de sangrado y marcas de corte (`apps/mobile/src/utils/export-poster.ts`).
 
-## Privacidad
+## Cuenta y privacidad
 
 - Las fotos y su ubicación nunca salen de la cuenta del usuario: ni el intercambio ni la tarjeta para
   compartir las incluyen.
-- En especies amenazadas (`threatened`), la ubicación no se muestra nunca, tampoco al compartir.
-- La ubicación solo se guarda si el usuario lo activa (`privacy.saveLocation`), y solo sirve para
-  asignar la región.
+- **Ubicación:** la app la toma del EXIF de la foto (`exifLocation`) y solo la guarda si «Guardar la
+  ubicación» está encendido; en especies amenazadas, nunca (`makeRegisterSighting` y las reglas).
+- **Correo:** se cambia confirmando con la contraseña; Firebase manda un enlace al correo nuevo y el
+  cambio se hace al abrirlo.
+- **Descargar tus datos:** un JSON con perfil, registros (con enlace a cada foto), stickers, logros y
+  pósteres (`makeExportUserData`), que se comparte con la hoja del sistema.
+- **Eliminar la cuenta:** la app la borra de Auth confirmando con la contraseña y la Cloud Function
+  `onUserDeleted` (`functions/src/accounts.ts`) borra el perfil y todo lo que cuelga de él, sus fotos
+  y su @usuario, y cancela sus propuestas abiertas.
+

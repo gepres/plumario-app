@@ -1,4 +1,4 @@
-import { AuthError, SignUpValidationError, type AuthErrorCode, type SignUpProblems } from '@plumario/core';
+import { AuthError, DISPLAY_NAME_MAX, ProfileError, SignUpValidationError, type AuthErrorCode, type SignUpProblems } from '@plumario/core';
 
 // Lo que se le dice a la persona en las pantallas de cuenta, por cada caso que el núcleo distingue.
 
@@ -10,6 +10,7 @@ export const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
   'too-many-requests': 'Hubo demasiados intentos. Espera unos minutos y vuelve a probar.',
   network: 'No hay conexión. Revisa tu señal y vuelve a intentar.',
   'expired-code': 'El enlace venció o ya se usó. Pide uno nuevo.',
+  'wrong-password': 'La contraseña no es correcta.',
   unknown: 'Algo salió mal. Vuelve a intentar.',
 };
 
@@ -49,4 +50,27 @@ export function signUpErrors(error: unknown): SignUpErrors {
 
 export function authErrorCode(error: unknown): AuthErrorCode {
   return error instanceof AuthError ? error.code : 'unknown';
+}
+
+const longDate = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'short', year: 'numeric' });
+
+/** Errores de PerfilEditar por campo; los de la cuenta (correo, contraseña) vienen de AuthError. */
+export type ProfileErrors = Partial<Record<'displayName' | 'handle' | 'email' | 'password' | 'form', string>>;
+
+export function profileErrors(error: unknown): ProfileErrors {
+  if (error instanceof ProfileError) {
+    switch (error.problem) {
+      case 'name-empty': return { displayName: SIGN_UP_MESSAGES.displayName.required };
+      case 'name-too-long': return { displayName: `Máximo ${DISPLAY_NAME_MAX} caracteres.` };
+      case 'handle-taken': return { handle: SIGN_UP_MESSAGES.handle.taken };
+      case 'handle-too-soon': return { handle: `Podrás cambiarlo desde el ${longDate.format(error.until ?? new Date())}.` };
+      default: return { handle: SIGN_UP_MESSAGES.handle[error.problem] };
+    }
+  }
+  if (error instanceof AuthError) {
+    if (error.code === 'email-in-use' || error.code === 'invalid-email') return { email: AUTH_ERROR_MESSAGES[error.code] };
+    if (error.code === 'wrong-password') return { password: AUTH_ERROR_MESSAGES[error.code] };
+    return { form: AUTH_ERROR_MESSAGES[error.code] };
+  }
+  return { form: AUTH_ERROR_MESSAGES.unknown };
 }

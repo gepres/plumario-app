@@ -6,12 +6,13 @@ import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
+import { exifDate, exifLocation, type PhotoLocation } from '@plumario/core';
 import { spacing } from '@plumario/tokens';
 import { Button, Icon, ThemedText } from '@plumario/ui';
 
-import { exifDate, preparePhoto } from '@/utils/prepare-photo';
+import { preparePhoto } from '@/utils/prepare-photo';
 
-export type TakenPhoto = { uri: string; takenAt: Date };
+export type TakenPhoto = { uri: string; takenAt: Date; location: PhotoLocation | null };
 
 type Props = {
   /** Si se llegó desde un sticker vacío del álbum, su nombre (la foto ya tiene especie). */
@@ -38,10 +39,10 @@ export function Camera({ speciesName, startWithGallery = false, onClose, onFromA
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function finish(photo: { uri: string; width: number; height: number }, takenAt: Date) {
+  async function finish(photo: { uri: string; width: number; height: number }, takenAt: Date, location: PhotoLocation | null = null) {
     setBusy(true);
     try {
-      onPhoto({ uri: await preparePhoto(photo), takenAt });
+      onPhoto({ uri: await preparePhoto(photo), takenAt, location });
     } catch {
       setError('No se pudo preparar la foto. Prueba de nuevo.');
     } finally {
@@ -64,7 +65,7 @@ export function Camera({ speciesName, startWithGallery = false, onClose, onFromA
       return;
     }
     const asset = result.assets[0];
-    await finish(asset, exifDate(asset.exif) ?? new Date());
+    await finish(asset, exifDate(asset.exif) ?? new Date(), exifLocation(asset.exif));
   }
 
   const pickFromGallery = () => ImagePicker.launchImageLibraryAsync(GALLERY).then(handleGalleryResult);

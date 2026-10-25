@@ -12,7 +12,7 @@ import { Button, Icon, Medal, PosterFrame, Rays, SpeciesPoster, ThemedText, useT
 import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
 import { achievementCelebration, medalKind } from '@/constants/achievements';
 import { useAlbum } from '@/hooks/use-album';
-import { useProfile } from '@/hooks/use-profile';
+import { useCollectorName } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
@@ -65,7 +65,7 @@ function Celebration({ earned, onClose, onSeeReward }: { earned: EarnedAchieveme
   const { title, text } = achievementCelebration(achievement);
   const withPoster = achievement.kind === 'milestone';
   const state = useAlbum();
-  const collector = useProfile()?.displayName ?? '';
+  const collector = useCollectorName();
   return (
     <Modal transparent visible animationType="fade" statusBarTranslucent navigationBarTranslucent onRequestClose={onClose}>
       <View style={styles.scrim}>

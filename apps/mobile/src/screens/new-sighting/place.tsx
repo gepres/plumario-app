@@ -3,19 +3,22 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { DEFAULT_REGION_ID, PLACE_NAME_MAX, type AlbumEntry } from '@plumario/core';
+import { DEFAULT_REGION_ID, PLACE_NAME_MAX, type AlbumEntry, type PhotoLocation } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Button, Icon, ThemedText, TopBar, textStyles, useTheme } from '@plumario/ui';
 
 import { SpeciesSticker } from '@/components/species-sticker';
 import { formatShortDate } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
+import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
 type Props = {
   photoUri: string;
   takenAt: Date;
+  /** Dónde se tomó, si la foto lo trae; se guarda solo si la persona lo permite. */
+  location: PhotoLocation | null;
   speciesId: string;
   onBack: () => void;
   onChangePhoto: () => void;
@@ -25,7 +28,7 @@ type Props = {
 type Check = { status: 'checking' } | { status: 'ok' } | { status: 'mismatch'; reason: string };
 
 /** RegistrarColocar: la foto sobre el sticker elegido, la confirmación de la IA y guardar. */
-export function Place({ photoUri, takenAt, speciesId, onBack, onChangePhoto, onSaved }: Props) {
+export function Place({ photoUri, takenAt, location, speciesId, onBack, onChangePhoto, onSaved }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -37,16 +40,17 @@ export function Place({ photoUri, takenAt, speciesId, onBack, onChangePhoto, onS
       {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
       {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
       {state.status === 'ready' && !entry && <ThemedText color="textSecondary" style={styles.message}>Esta especie no está en el álbum.</ThemedText>}
-      {entry && <PlaceContent entry={entry} photoUri={photoUri} takenAt={takenAt} onChangePhoto={onChangePhoto} onSaved={onSaved} />}
+      {entry && <PlaceContent entry={entry} photoUri={photoUri} takenAt={takenAt} location={location} onChangePhoto={onChangePhoto} onSaved={onSaved} />}
     </KeyboardAvoidingView>
   );
 }
 
-function PlaceContent({ entry, photoUri, takenAt, onChangePhoto, onSaved }: { entry: AlbumEntry } & Pick<Props, 'photoUri' | 'takenAt' | 'onChangePhoto' | 'onSaved'>) {
+function PlaceContent({ entry, photoUri, takenAt, location, onChangePhoto, onSaved }: { entry: AlbumEntry } & Pick<Props, 'photoUri' | 'takenAt' | 'location' | 'onChangePhoto' | 'onSaved'>) {
   const { useCases } = useDependencies();
   const { mode, colors } = useTheme();
   const insets = useSafeAreaInsets();
   const userId = useSession()?.uid;
+  const saveLocation = useProfile()?.privacy.saveLocation ?? false;
   const { species, sticker } = entry;
   const [check, setCheck] = useState<Check>({ status: 'checking' });
   const [place, setPlace] = useState('');
@@ -70,7 +74,7 @@ function PlaceContent({ entry, photoUri, takenAt, onChangePhoto, onSaved }: { en
     setSaving(true);
     setError(null);
     try {
-      const sightingId = await useCases.registerSighting({ userId, regionId: DEFAULT_REGION_ID, species, photoUri, takenAt, placeName: place });
+      const sightingId = await useCases.registerSighting({ userId, regionId: DEFAULT_REGION_ID, species, photoUri, takenAt, placeName: place, location, saveLocation });
       onSaved(sightingId);
     } catch {
       setError('No se pudo guardar la foto. Revisa tu conexión y vuelve a intentar.');

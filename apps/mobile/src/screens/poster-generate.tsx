@@ -9,7 +9,7 @@ import { Button, Icon, PosterFrame, SpeciesPoster, ThemedText, ToggleGroup, TopB
 import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
 import { invalidatePosters } from '@/hooks/posters-version';
 import { useAlbum } from '@/hooks/use-album';
-import { useProfile } from '@/hooks/use-profile';
+import { useCollectorName } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
@@ -26,7 +26,7 @@ export function PosterGenerate({ number, onBack, onSaved }: Props) {
   const insets = useSafeAreaInsets();
   const userId = useSession()?.uid;
   const state = useAlbum();
-  const collector = useProfile()?.displayName ?? '';
+  const collector = useCollectorName();
   const [seed, setSeed] = useState(7);
   const [shuffles, setShuffles] = useState(0);
   const [theme, setTheme] = useState<PosterTheme>('light');

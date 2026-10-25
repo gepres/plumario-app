@@ -8,7 +8,7 @@ import { Button, SegmentedTabs, StatusBarScrim, ThemedText } from '@plumario/ui'
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
 import { usePosters } from '@/hooks/use-posters';
-import { useProfile } from '@/hooks/use-profile';
+import { useCollectorName } from '@/hooks/use-profile';
 
 import { Chromes } from './chromes';
 import { Medals } from './medals';
@@ -35,7 +35,7 @@ export function Rewards(props: Props) {
   const state = useAlbum();
   const records = useAchievements();
   const posters = usePosters();
-  const collector = useProfile()?.displayName ?? '';
+  const collector = useCollectorName();
   const insets = useSafeAreaInsets();
   const { tab } = props;
   const rewards = state.status === 'ready' ? rewardsView(state.album, records ?? []) : null;

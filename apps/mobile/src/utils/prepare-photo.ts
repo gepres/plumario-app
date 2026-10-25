@@ -18,14 +18,3 @@ export async function preparePhoto(photo: { uri: string; width: number; height: 
   const saved = await image.saveAsync({ compress: 0.82, format: SaveFormat.JPEG });
   return saved.uri;
 }
-
-/** La fecha en que se tomó la foto según su EXIF («2026:10:24 08:12:33»), o null si no la trae. */
-export function exifDate(exif: Record<string, unknown> | null | undefined): Date | null {
-  const raw = exif?.DateTimeOriginal ?? exif?.DateTime;
-  if (typeof raw !== 'string') return null;
-  const match = /^(\d{4}):(\d{2}):(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(raw);
-  if (!match) return null;
-  const [, y, mo, d, h, mi, s] = match.map(Number);
-  const date = new Date(y!, mo! - 1, d!, h, mi, s);
-  return Number.isNaN(date.getTime()) || date.getTime() > Date.now() ? null : date;
-}

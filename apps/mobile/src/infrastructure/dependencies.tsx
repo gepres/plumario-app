@@ -2,7 +2,14 @@ import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
 import {
   type AchievementRepository,
+  type FeedbackRepository,
+  makeChangeEmail,
+  makeChangeHandle,
   makeCheckPhoto,
+  makeDeleteAccount,
+  makeExportUserData,
+  makeSendFeedback,
+  makeUpdateProfile,
   makeCheckResetCode,
   makeGetAlbum,
   makeGetAlbumSummary,
@@ -34,10 +41,11 @@ import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from 
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
 import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
+import { InMemoryFeedbackRepository } from './in-memory/in-memory-feedback-repository';
 import { InMemoryTradeRepository } from './in-memory/in-memory-trade-repository';
 import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
-import { InMemoryUserProfileRepository } from './in-memory/in-memory-user-profile-repository';
+import { InMemoryUserProfileRepository, SAMPLE_PROFILE } from './in-memory/in-memory-user-profile-repository';
 import { sampleSpeciesCatalog } from './in-memory/sample-species-catalog';
 import { testSpeciesIdentifier } from './test-species-identifier';
 
@@ -56,6 +64,7 @@ type Adapters = {
   posters: PosterRepository;
   sightings: SightingRepository;
   trades: TradeRepository;
+  feedback: FeedbackRepository;
   identifier: SpeciesIdentifier;
 };
 
@@ -81,6 +90,15 @@ export type Dependencies = {
     getTrade: TradeRepository['get'];
     cancelTrade: TradeRepository['cancel'];
     acceptTrade: TradeRepository['accept'];
+    listMyTrades: TradeRepository['listByUser'];
+    updateProfile: ReturnType<typeof makeUpdateProfile>;
+    changeHandle: ReturnType<typeof makeChangeHandle>;
+    changeEmail: ReturnType<typeof makeChangeEmail>;
+    deleteAccount: ReturnType<typeof makeDeleteAccount>;
+    sendFeedback: ReturnType<typeof makeSendFeedback>;
+    /** «Adjuntar una captura de pantalla»: se sube con las fotos del usuario. */
+    uploadScreenshot: (userId: string, localUri: string) => Promise<string>;
+    exportUserData: ReturnType<typeof makeExportUserData>;
   };
   /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
   watchSighting: SightingRepository['watch'];
@@ -100,10 +118,11 @@ function createAdapters(): Adapters | Promise<Adapters> {
       achievements,
       catalog: sampleSpeciesCatalog,
       stickers,
-      profiles: new InMemoryUserProfileRepository(),
+      profiles: new InMemoryUserProfileRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_PROFILE }),
       photos: inMemoryPhotoStorage,
       posters: new InMemoryPosterRepository(),
       trades: new InMemoryTradeRepository(stickers),
+      feedback: new InMemoryFeedbackRepository(),
       sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
     };
@@ -115,7 +134,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -138,6 +157,14 @@ export function createDependencies(adapters: Adapters): Dependencies {
       getTrade: (tradeId) => trades.get(tradeId),
       cancelTrade: (tradeId) => trades.cancel(tradeId),
       acceptTrade: (tradeId, userId) => trades.accept(tradeId, userId),
+      listMyTrades: (userId) => trades.listByUser(userId),
+      updateProfile: makeUpdateProfile({ profiles }),
+      changeHandle: makeChangeHandle({ profiles, now: () => new Date() }),
+      changeEmail: makeChangeEmail({ auth }),
+      deleteAccount: makeDeleteAccount({ auth }),
+      sendFeedback: makeSendFeedback({ feedback, now: () => new Date() }),
+      uploadScreenshot: (userId, localUri) => photos.upload(userId, localUri, `comentario-${Date.now()}.jpg`),
+      exportUserData: makeExportUserData({ profiles, stickers, sightings, achievements, posters, photos, now: () => new Date() }),
     },
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     achievements,

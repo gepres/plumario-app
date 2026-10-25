@@ -11,7 +11,7 @@ import { PosterExportActions } from '@/components/poster-export-actions';
 import { ALBUM_HABITAT_LABELS, HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 import { useCoverPhotos } from '@/hooks/use-cover-photos';
-import { useProfile } from '@/hooks/use-profile';
+import { useCollectorName } from '@/hooks/use-profile';
 
 type Props = {
   habitat: Habitat;
@@ -26,7 +26,7 @@ export function PosterHabitat({ habitat: initial, onBack }: Props) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const state = useAlbum();
-  const collector = useProfile()?.displayName ?? '';
+  const collector = useCollectorName();
   const [habitat, setHabitat] = useState(initial);
   const [theme, setTheme] = useState<PosterTheme>('light');
   const [order, setOrder] = useState<HabitatOrder>('number');

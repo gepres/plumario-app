@@ -36,6 +36,8 @@ export type { ChromeFinish } from './components/sticker-finishes';
 export { TabBar } from './components/tab-bar';
 export { TextField } from './components/text-field';
 export { ScaledFrame } from './components/scaled-frame';
+export { SettingsList } from './components/settings-list';
+export type { SettingsItem } from './components/settings-list';
 export { Switch } from './components/switch';
 export { ToggleGroup } from './components/toggle-group';
 export type { TextFieldKind } from './components/text-field';
@@ -57,3 +59,6 @@ export type { PosterSticker } from './posters/species-poster';
 
 // Tarjeta para compartir un logro (TarjetaLogro), en 1080 × 1350.
 export { SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard } from './share/share-card';
+
+// Mapa del Perú con la región del álbum (Perfil, RegionLista).
+export { PeruMap } from './regions/peru-map';

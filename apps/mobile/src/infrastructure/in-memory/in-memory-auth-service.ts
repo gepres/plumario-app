@@ -69,6 +69,27 @@ export class InMemoryAuthService implements AuthService {
     this.resetCodes.delete(code);
   }
 
+  /** Sin correos de verdad: el cambio se aplica enseguida. */
+  async changeEmail(newEmail: string, password: string): Promise<void> {
+    const account = this.currentAccount(password);
+    this.accounts.delete(account.email);
+    account.email = newEmail.toLowerCase();
+    this.accounts.set(account.email, account);
+    this.setCurrent(account);
+  }
+
+  async deleteAccount(password: string): Promise<void> {
+    this.accounts.delete(this.currentAccount(password).email);
+    await this.signOut();
+  }
+
+  private currentAccount(password: string): Account {
+    const account = this.current ? this.accounts.get(this.current.email ?? '') : undefined;
+    if (!account) throw new AuthError('unknown');
+    if (account.password !== password) throw new AuthError('wrong-password');
+    return account;
+  }
+
   private addAccount(email: string, password: string): Account {
     const account = { uid: `local-${this.nextId++}`, email: email.toLowerCase(), password };
     this.accounts.set(account.email, account);

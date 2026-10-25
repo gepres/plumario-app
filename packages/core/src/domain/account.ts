@@ -1,4 +1,4 @@
-import type { RegionId } from './species';
+import type { RegionId, SpeciesId } from './species';
 
 // Reglas de la cuenta (design/project/Registro.dc.html y NuevaContrasena.dc.html).
 
@@ -40,15 +40,32 @@ export const isEmailLike = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
 /** Por ahora el álbum es de Ica; la región se elegirá en el perfil cuando haya más (RegionLista). */
 export const DEFAULT_REGION_ID: RegionId = 'ica';
 
-export type AlbumVisibility = 'private' | 'public';
+/** PerfilPrivacidad, «Quién puede ver tu álbum»: Solo yo · Con enlace · Todos. */
+export type AlbumVisibility = 'private' | 'link' | 'public';
+
+export type Privacy = {
+  /** «Guardar la ubicación»: solo para asignar la foto a su región; en amenazadas, nunca. */
+  saveLocation: boolean;
+  albumVisibility: AlbumVisibility;
+  /** «Tu nombre en lo que compartes»: apagado, en pósteres y tarjetas sale el @usuario. */
+  showName: boolean;
+  /** «Usar tus fotos para mejorar la IA». */
+  improveAi: boolean;
+};
 
 export type UserProfile = {
   displayName: string;
   handle: string;
   regionId: RegionId;
-  privacy: { saveLocation: boolean; albumVisibility: AlbumVisibility };
+  /** «Tu ave favorita»: es la foto de perfil; una de las que ya registró. */
+  favoriteSpeciesId: SpeciesId | null;
+  privacy: Privacy;
+  /** La última vez que cambió su @usuario (se puede una vez cada 30 días). */
+  handleChangedAt: Date | null;
   createdAt: Date;
 };
+
+export const DEFAULT_PRIVACY: Privacy = { saveLocation: false, albumVisibility: 'private', showName: true, improveAi: false };
 
 /** Perfil nuevo con los valores por omisión: Ica, sin guardar ubicación y álbum privado. */
 export function newProfile(input: { displayName: string; handle: string; at: Date }): UserProfile {
@@ -56,7 +73,25 @@ export function newProfile(input: { displayName: string; handle: string; at: Dat
     displayName: input.displayName.trim(),
     handle: input.handle,
     regionId: DEFAULT_REGION_ID,
-    privacy: { saveLocation: false, albumVisibility: 'private' },
+    favoriteSpeciesId: null,
+    privacy: DEFAULT_PRIVACY,
+    handleChangedAt: null,
     createdAt: input.at,
   };
 }
+
+export const DISPLAY_NAME_MAX = 40;
+
+/** «El usuario se puede cambiar una vez cada 30 días» (PerfilEditar). */
+export const HANDLE_CHANGE_DAYS = 30;
+
+/** Desde cuándo puede volver a cambiar su @usuario, o null si ya puede. */
+export function nextHandleChange(profile: Pick<UserProfile, 'handleChangedAt'>, now: Date): Date | null {
+  if (!profile.handleChangedAt) return null;
+  const next = new Date(profile.handleChangedAt.getTime() + HANDLE_CHANGE_DAYS * 864e5);
+  return next > now ? next : null;
+}
+
+/** Cómo se firma en lo que comparte: su nombre o, si prefiere, su @usuario. */
+export const sharedName = (profile: Pick<UserProfile, 'displayName' | 'handle' | 'privacy'>) =>
+  profile.privacy.showName && profile.displayName ? profile.displayName : `@${profile.handle}`;

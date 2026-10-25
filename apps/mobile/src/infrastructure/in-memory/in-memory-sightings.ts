@@ -57,6 +57,10 @@ export class InMemorySightingRepository implements SightingRepository {
       .sort((a, b) => b.takenAt.getTime() - a.takenAt.getTime());
   }
 
+  async listByUser(userId: string): Promise<readonly Sighting[]> {
+    return [...this.sightings.values()].filter((s) => s.userId === userId).sort((a, b) => b.takenAt.getTime() - a.takenAt.getTime());
+  }
+
   private async validate(sighting: Sighting) {
     const catalog = await this.deps.catalog.listByRegion(sighting.regionId);
     const species = catalog.find((s) => s.id === sighting.speciesId);

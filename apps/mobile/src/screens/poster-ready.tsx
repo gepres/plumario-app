@@ -10,7 +10,7 @@ import { speciesPosterProps } from '@/components/poster-content';
 import { PosterExportActions } from '@/components/poster-export-actions';
 import { useAlbum } from '@/hooks/use-album';
 import { usePosters } from '@/hooks/use-posters';
-import { useProfile } from '@/hooks/use-profile';
+import { useCollectorName } from '@/hooks/use-profile';
 
 type Props = {
   posterId: string;
@@ -23,7 +23,7 @@ export function PosterReady({ posterId, onClose }: Props) {
   const insets = useSafeAreaInsets();
   const state = useAlbum();
   const posters = usePosters();
-  const collector = useProfile()?.displayName ?? '';
+  const collector = useCollectorName();
   const poster = posters?.find((p) => p.id === posterId);
   const album = state.status === 'ready' ? state.album : null;
 

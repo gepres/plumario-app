@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { assertFails, assertSucceeds, initializeTestEnvironment, type RulesTestEnvironment } from '@firebase/rules-unit-testing';
-import { Timestamp, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where, writeBatch } from 'firebase/firestore';
+import { Timestamp, collection, deleteDoc, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where, writeBatch } from 'firebase/firestore';
 import { afterAll, beforeAll, beforeEach, describe, it } from 'vitest';
 
 // Reglas de firebase/firestore.rules contra el emulador (pnpm test:rules desde la raíz).
@@ -62,6 +62,52 @@ describe('perfil', () => {
     await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { displayName: 'Ana P.' }));
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { createdAt: Timestamp.now() }));
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { handle: 'otra' }));
+  });
+
+  it('guarda el ave favorita y la privacidad completa', async () => {
+    await seed('users/ana', profile);
+    const privacy = { saveLocation: true, albumVisibility: 'link', showName: false, improveAi: true };
+    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { favoriteSpeciesId: 'calidris-alba', privacy }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { privacy: { ...privacy, albumVisibility: 'amigos' } }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { privacy: { ...privacy, extra: true } }));
+  });
+
+  it('cambia el @usuario reservando el nuevo y liberando el anterior, una vez cada 30 días', async () => {
+    await seed('handles/ana.ica', { uid: 'ana', createdAt: now });
+    await seed('users/ana', profile);
+    const change = (from: string, to: string) => {
+      const db = as('ana');
+      const batch = writeBatch(db);
+      batch.set(doc(db, `handles/${to}`), { uid: 'ana', createdAt: now });
+      batch.delete(doc(db, `handles/${from}`));
+      batch.update(doc(db, 'users/ana'), { handle: to, handleChangedAt: serverTimestamp() });
+      return batch.commit();
+    };
+    await assertSucceeds(change('ana.ica', 'ana.paracas'));
+    // Antes de 30 días, no.
+    await assertFails(change('ana.paracas', 'ana.pisco'));
+    // Sin reservar el nuevo, tampoco.
+    await seed('users/beto', { ...profile, handle: 'beto.ica' });
+    await assertFails(updateDoc(doc(as('beto'), 'users/beto'), { handle: 'beto.nuevo', handleChangedAt: serverTimestamp() }));
+  });
+
+  it('un @usuario en uso no se libera', async () => {
+    await seed('handles/ana.ica', { uid: 'ana', createdAt: now });
+    await seed('users/ana', profile);
+    await assertFails(deleteDoc(doc(as('ana'), 'handles/ana.ica')));
+    await assertFails(deleteDoc(doc(as('beto'), 'handles/ana.ica')));
+  });
+});
+
+describe('comentarios', () => {
+  const feedback = { userId: 'ana', kind: 'idea', text: 'Más aves de Paracas', replyTo: 'ana@ejemplo.com', screenshotPath: null, appVersion: '1.0.0', platform: 'android', createdAt: now };
+
+  it('se envían a nombre propio y nadie los lee desde la app', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'feedback/f1'), feedback));
+    await assertFails(setDoc(doc(as('beto'), 'feedback/f2'), feedback));
+    await assertFails(setDoc(doc(as('ana'), 'feedback/f3'), { ...feedback, text: 'x'.repeat(501) }));
+    await assertFails(setDoc(doc(as('ana'), 'feedback/f4'), { ...feedback, kind: 'spam' }));
+    await assertFails(getDoc(doc(as('ana'), 'feedback/f1')));
   });
 });
 

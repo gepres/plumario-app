@@ -35,11 +35,16 @@ export type RegisterSightingInput = {
   photoUri: string;
   takenAt: Date;
   placeName: string;
+  /** Dónde se tomó, si la foto lo trae (EXIF). */
+  location: { latitude: number; longitude: number } | null;
+  /** PerfilPrivacidad, «Guardar la ubicación». */
+  saveLocation: boolean;
 };
 
 /**
  * Sube la foto y guarda el registro pendiente; devuelve su id para seguirlo hasta que el servidor lo
- * valide. En especies amenazadas no se guarda el lugar, ni aunque se haya escrito.
+ * valide. La ubicación se guarda solo si la persona lo permite, y en especies amenazadas no se guardan
+ * ni la ubicación ni el lugar, ni aunque se haya escrito.
  */
 export function makeRegisterSighting(deps: { photos: PhotoStorage; sightings: SightingRepository; now: () => Date }) {
   return async (input: RegisterSightingInput): Promise<string> => {
@@ -54,7 +59,7 @@ export function makeRegisterSighting(deps: { photos: PhotoStorage; sightings: Si
       takenAt: input.takenAt,
       status: 'pending',
       photoPath,
-      location: null,
+      location: input.saveLocation && !input.species.threatened ? input.location : null,
       placeName: input.species.threatened || !place ? null : place,
       createdAt: deps.now(),
       result: null,

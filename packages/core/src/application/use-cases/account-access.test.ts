@@ -18,6 +18,8 @@ function fakeAuth() {
     signUp: async () => ({ uid: 'u2', email: null }),
     signOut: async () => {},
     sendPasswordReset: async (email) => void calls.push(`reset ${email}`),
+    changeEmail: async () => {},
+    deleteAccount: async () => {},
     verifyPasswordResetCode: async (code) => {
       if (code !== 'codigo') throw new AuthError('expired-code');
       return 'ana@ejemplo.com';

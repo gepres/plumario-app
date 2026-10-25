@@ -9,6 +9,7 @@ setGlobalOptions({ region: REGION });
 
 export { onSightingCreated } from './sightings.js';
 export { onTradeAcceptanceCreated } from './trades.js';
+export { onUserDeleted } from './accounts.js';
 
 export const health = onRequest((_request, response) => {
   response.json(getHealth());

@@ -1,10 +1,14 @@
 import {
+  EmailAuthProvider,
   confirmPasswordReset,
   createUserWithEmailAndPassword,
+  deleteUser,
   onAuthStateChanged,
+  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  verifyBeforeUpdateEmail,
   verifyPasswordResetCode,
   type User,
 } from '@react-native-firebase/auth';
@@ -39,6 +43,10 @@ async function translated<T>(call: () => Promise<T>): Promise<T> {
   }
 }
 
+// Al confirmar con la contraseña (cambiar el correo, eliminar la cuenta), una equivocada es eso, no un
+// problema para entrar.
+const REAUTH_CODES: Record<string, AuthErrorCode> = { 'auth/invalid-credential': 'wrong-password', 'auth/wrong-password': 'wrong-password' };
+
 function toAuthUser(user: User): AuthUser {
   return { uid: user.uid, email: user.email };
 }
@@ -66,5 +74,20 @@ export function createFirebaseAuthService({ auth }: FirebaseServices): AuthServi
     sendPasswordReset: (email) => translated(() => sendPasswordResetEmail(auth, email)),
     verifyPasswordResetCode: (code) => translated(() => verifyPasswordResetCode(auth, code)),
     confirmPasswordReset: (code, password) => translated(() => confirmPasswordReset(auth, code, password)),
+    changeEmail: (newEmail, password) => withPassword(password, (user) => verifyBeforeUpdateEmail(user, newEmail)),
+    deleteAccount: (password) => withPassword(password, (user) => deleteUser(user)),
   };
+
+  /** Confirma la sesión con la contraseña (Firebase lo pide para lo delicado) y hace el cambio. */
+  async function withPassword(password: string, change: (user: User) => Promise<void>) {
+    const user = auth.currentUser;
+    if (!user?.email) throw new AuthError('unknown', 'Sin sesión');
+    try {
+      await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, password));
+    } catch (error) {
+      const code = firebaseErrorCode(error);
+      throw new AuthError(REAUTH_CODES[code] ?? ERROR_CODES[code] ?? 'unknown', code || String(error));
+    }
+    await translated(() => change(user));
+  }
 }

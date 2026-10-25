@@ -27,6 +27,8 @@ function fakes(takenHandles: string[] = [], { takenOnCreate = false } = {}) {
       if (takenOnCreate && creates === 1) throw new HandleTakenError(profile.handle);
       profiles.set(uid, profile);
     },
+    update: async () => {},
+    changeHandle: async () => {},
   };
   return { auth, repo, profiles };
 }

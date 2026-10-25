@@ -27,27 +27,43 @@ service cloud.firestore {
 
     match /users/{uid} {
       // Perfil: nombre, usuario, región y privacidad (PerfilEditar, PerfilPrivacidad).
+      // Los campos nuevos (ave favorita, nombre en lo compartido, IA, cambio de @usuario) pueden faltar
+      // en perfiles creados antes.
       function validProfile(data) {
-        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'privacy', 'createdAt'])
+        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'favoriteSpeciesId', 'privacy', 'handleChangedAt', 'createdAt'])
           && isShortText(data.displayName, 40)
           && data.handle is string && data.handle.matches('^[a-z0-9_.]{3,24}$')
           && isShortText(data.regionId, 40)
+          && (data.get('favoriteSpeciesId', null) == null || isShortText(data.favoriteSpeciesId, 80))
+          && (data.get('handleChangedAt', null) == null || data.handleChangedAt is timestamp)
           && data.privacy is map
-          && data.privacy.keys().hasOnly(['saveLocation', 'albumVisibility'])
+          && data.privacy.keys().hasOnly(['saveLocation', 'albumVisibility', 'showName', 'improveAi'])
           && data.privacy.saveLocation is bool
-          && data.privacy.albumVisibility in ['private', 'public']
+          && data.privacy.albumVisibility in ['private', 'link', 'public']
+          && data.privacy.get('showName', true) is bool
+          && data.privacy.get('improveAi', false) is bool
           && data.createdAt is timestamp;
       }
-      // El @usuario tiene que estar reservado a su nombre en la misma escritura (handles/) y no cambia.
+      // El @usuario tiene que estar reservado a su nombre en la misma escritura (handles/).
       function ownsHandle(handle) {
         return existsAfter(/databases/$(database)/documents/handles/$(handle))
           && getAfter(/databases/$(database)/documents/handles/$(handle)).data.uid == uid;
       }
       allow read: if isOwner(uid);
       allow create: if isOwner(uid) && validProfile(request.resource.data) && ownsHandle(request.resource.data.handle);
+      // Cambiar el @usuario: una vez cada 30 días, con el nuevo reservado en la misma escritura y la
+      // fecha del cambio en el perfil. Si no cambia, la fecha tampoco.
+      function handleChangeAllowed() {
+        return ownsHandle(request.resource.data.handle)
+          && request.resource.data.handleChangedAt == request.time
+          && (resource.data.get('handleChangedAt', null) == null
+            || request.time > resource.data.handleChangedAt + duration.value(30, 'd'));
+      }
       allow update: if isOwner(uid) && validProfile(request.resource.data)
         && request.resource.data.createdAt == resource.data.createdAt
-        && request.resource.data.handle == resource.data.handle;
+        && (request.resource.data.handle == resource.data.handle
+          ? request.resource.data.get('handleChangedAt', null) == resource.data.get('handleChangedAt', null)
+          : handleChangeAllowed());
       allow delete: if isOwner(uid);
 
       // Registros: el cliente crea uno pendiente con su foto; una Cloud Function lo valida y cambia el
@@ -116,7 +132,26 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.createdAt is timestamp;
-      allow update, delete: if false;
+      allow update: if false;
+      // Se libera al cambiar de @usuario: solo su dueño y en la misma escritura en que su perfil deja de usarlo.
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/users/$(request.auth.uid)).data.handle != handle;
+    }
+
+    // Comentarios (PerfilComentario): los escribe quien tiene sesión, a su nombre; los lee el equipo
+    // desde la consola. Nadie los cambia.
+    match /feedback/{feedbackId} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['userId', 'kind', 'text', 'replyTo', 'screenshotPath', 'appVersion', 'platform', 'createdAt'])
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.kind in ['idea', 'error', 'bird', 'other']
+        && isShortText(request.resource.data.text, 500)
+        && (request.resource.data.replyTo == null || isShortText(request.resource.data.replyTo, 200))
+        && (request.resource.data.screenshotPath == null || isShortText(request.resource.data.screenshotPath, 200))
+        && isShortText(request.resource.data.appVersion, 20)
+        && isShortText(request.resource.data.platform, 20)
+        && request.resource.data.createdAt is timestamp;
+      allow read, update, delete: if false;
     }
 
     // Propuestas de intercambio: las crea quien ofrece y se comparten por enlace o QR. El id es

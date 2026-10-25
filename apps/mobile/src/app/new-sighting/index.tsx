@@ -22,8 +22,9 @@ export default function NewSightingRoute() {
         close();
         router.navigate('/album');
       }}
-      onPhoto={({ uri, takenAt }) => {
-        const params = { photo: uri, takenAt: takenAt.toISOString() };
+      onPhoto={({ uri, takenAt, location }) => {
+        // La ubicación viaja con la foto; se guarda o no según la privacidad, al final.
+        const params = { photo: uri, takenAt: takenAt.toISOString(), ...(location ? { lat: String(location.latitude), lng: String(location.longitude) } : {}) };
         if (speciesId) router.push({ pathname: '/new-sighting/place', params: { ...params, speciesId } });
         else router.push({ pathname: '/new-sighting/identify', params });
       }}

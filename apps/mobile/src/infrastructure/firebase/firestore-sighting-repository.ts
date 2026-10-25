@@ -61,5 +61,10 @@ export function createFirestoreSightingRepository({ db }: FirebaseServices): Sig
       const snapshot = await getDocs(query(sightings(userId), where('speciesId', '==', speciesId)));
       return snapshot.docs.map((d) => toSighting(userId, d.id, d.data())).sort((a, b) => b.takenAt.getTime() - a.takenAt.getTime());
     },
+
+    async listByUser(userId) {
+      const snapshot = await getDocs(sightings(userId));
+      return snapshot.docs.map((d) => toSighting(userId, d.id, d.data())).sort((a, b) => b.takenAt.getTime() - a.takenAt.getTime());
+    },
   };
 }

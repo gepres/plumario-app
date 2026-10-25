@@ -27,6 +27,8 @@ export async function saveImageToPhotos(uri: string): Promise<boolean> {
   return true;
 }
 
-export function shareFile(uri: string, mimeType: 'image/png' | 'application/pdf', title: string) {
-  return shareAsync(uri, { mimeType, dialogTitle: title, UTI: mimeType === 'application/pdf' ? 'com.adobe.pdf' : 'public.png' });
+const UTIS = { 'image/png': 'public.png', 'application/pdf': 'com.adobe.pdf', 'application/json': 'public.json' } as const;
+
+export function shareFile(uri: string, mimeType: keyof typeof UTIS, title: string) {
+  return shareAsync(uri, { mimeType, dialogTitle: title, UTI: UTIS[mimeType] });
 }

@@ -21,15 +21,20 @@ export type { Achievement } from './domain/achievements';
 export { POSTER_TITLE_MAX, isHabitatPosterUnlocked, pickPosterSpecies, posterSpecies, postersView, speciesPostersAvailable } from './domain/posters';
 export type { HabitatPosterSlot, PosterTheme, PostersView, SavedPoster, SpeciesPosterSlot } from './domain/posters';
 export { applyTrade, offerOptions, proposalProblem, proposerProblem, receivedTrade, receiverProblem, requestOptions, tradeProblem } from './domain/trade';
-export { DEFAULT_REGION_ID, HANDLE_PATTERN, PASSWORD_MIN_LENGTH, handleProblem, isEmailLike, isPasswordValid, newProfile, normalizeHandle, passwordRules } from './domain/account';
-export type { AlbumVisibility, HandleProblem, PasswordRule, UserProfile } from './domain/account';
+export { DEFAULT_PRIVACY, DEFAULT_REGION_ID, DISPLAY_NAME_MAX, HANDLE_CHANGE_DAYS, HANDLE_PATTERN, PASSWORD_MIN_LENGTH, handleProblem, isEmailLike, isPasswordValid, newProfile, nextHandleChange, normalizeHandle, passwordRules, sharedName } from './domain/account';
+export type { AlbumVisibility, HandleProblem, PasswordRule, Privacy, UserProfile } from './domain/account';
+export { FEEDBACK_MAX } from './domain/feedback';
+export { exifDate, exifLocation } from './domain/photo-metadata';
+export type { PhotoLocation } from './domain/photo-metadata';
+export type { Feedback, FeedbackKind } from './domain/feedback';
 export type { ReceivedTrade, TradeProblem, TradeProposal, TradeResult, TradeSide, TradeStatus } from './domain/trade';
 
 // Puertos: lo que el núcleo necesita del mundo y cada plataforma implementa con un adaptador.
 export { AuthError } from './application/ports/auth-service';
 export type { AuthErrorCode, AuthService, AuthUser } from './application/ports/auth-service';
 export { HandleTakenError } from './application/ports/user-profile-repository';
-export type { UserProfileRepository } from './application/ports/user-profile-repository';
+export type { ProfileChanges, UserProfileRepository } from './application/ports/user-profile-repository';
+export type { FeedbackRepository } from './application/ports/feedback-repository';
 export type { AchievementRepository, EarnedAchievement } from './application/ports/achievement-repository';
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { PosterRepository } from './application/ports/poster-repository';
@@ -50,6 +55,8 @@ export type { RegisterSightingInput, Suggestion } from './application/use-cases/
 export { makeListCoverPhotos, makeListSpeciesPhotos } from './application/use-cases/list-species-photos';
 export { PosterTitleError, makeSavePoster } from './application/use-cases/save-poster';
 export { TradeProposalError, makeProposeTrade } from './application/use-cases/propose-trade';
+export { FeedbackError, ProfileError, makeChangeEmail, makeChangeHandle, makeDeleteAccount, makeExportUserData, makeSendFeedback, makeUpdateProfile } from './application/use-cases/profile';
+export type { ProfileProblem } from './application/use-cases/profile';
 export type { SpeciesPhoto } from './application/use-cases/list-species-photos';
 export type { ValidatedPhotoResult } from './application/use-cases/evaluate-validated-photo';
 export { SignUpValidationError, makeSignUp, signUpProblems } from './application/use-cases/sign-up';

@@ -11,4 +11,6 @@ export interface SightingRepository {
   watch(userId: UserId, sightingId: string, listener: (sighting: Sighting | null) => void): () => void;
   /** Los registros de una especie, del más reciente al más antiguo (GaleriaEspecie). */
   listBySpecies(userId: UserId, speciesId: SpeciesId): Promise<readonly Sighting[]>;
+  /** Todos los registros del usuario (Descargar tus datos). */
+  listByUser(userId: UserId): Promise<readonly Sighting[]>;
 }
