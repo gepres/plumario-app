@@ -5,23 +5,29 @@ import { ThemedText } from './themed-text';
 
 type Props = {
   label: string;
+  /** Una línea debajo de la etiqueta («Junto a la figura del ave»). */
+  description?: string;
   value: boolean;
   onChange: (value: boolean) => void;
   disabled?: boolean;
 };
 
 /** Interruptor con su etiqueta a la izquierda (PosterVista: «Usar mis fotos»). */
-export function Switch({ label, value, onChange, disabled = false }: Props) {
+export function Switch({ label, description, value, onChange, disabled = false }: Props) {
   const { colors } = useTheme();
   return (
     <Pressable
       accessibilityRole="switch"
       accessibilityLabel={label}
+      accessibilityHint={description}
       accessibilityState={{ checked: value, disabled }}
       disabled={disabled}
       onPress={() => onChange(!value)}
       style={[styles.row, disabled && styles.off]}>
-      <ThemedText variant="bodyStrong" style={styles.label}>{label}</ThemedText>
+      <View style={styles.label}>
+        <ThemedText variant="bodyStrong">{label}</ThemedText>
+        {description && <ThemedText variant="caption" color="textSecondary">{description}</ThemedText>}
+      </View>
       <View style={[styles.track, { backgroundColor: value ? colors.text : colors.border }]}>
         {/* Encendido, la perilla toma el fondo: en modo oscuro la pista es clara y una perilla blanca se perdería. */}
         <View style={[styles.knob, value ? { left: 23, backgroundColor: colors.background } : { left: 3 }]} />
@@ -43,6 +49,7 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
+    gap: 1,
   },
   track: {
     width: 52,

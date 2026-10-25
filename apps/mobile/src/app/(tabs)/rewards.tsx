@@ -18,6 +18,8 @@ export default function RewardsRoute() {
       onOpenPoster={(id) => router.push({ pathname: '/poster/[id]', params: { id } })}
       onGeneratePoster={(number) => router.push({ pathname: '/poster/new', params: { number: String(number) } })}
       onOpenHabitatPoster={(habitat) => router.push({ pathname: '/poster/habitat/[habitat]', params: { habitat } })}
+      onRequestTrade={(id) => router.push({ pathname: '/trade/new', params: { request: id } })}
+      onShareMedal={(id) => router.push({ pathname: '/share/medal/[id]', params: { id } })}
     />
   );
 }

@@ -1,12 +1,12 @@
-import { useRef, useState, type ComponentRef, type ReactNode } from 'react';
-import { PixelRatio, View } from 'react-native';
+import type { ReactNode } from 'react';
 
 import { formatAlbumNumber, pickPosterSpecies, posterSpecies, SPECIES_PER_POSTER, type AlbumEntry, type AlbumView, type HabitatSection, type PosterTheme } from '@plumario/core';
-import { PosterFrame, type HabitatPosterCell, type PosterSticker } from '@plumario/ui';
+import { POSTER_HEIGHT, POSTER_WIDTH, type HabitatPosterCell, type PosterSticker } from '@plumario/ui';
 
+import { useOffscreenCapture } from '@/components/offscreen-capture';
 import { formatShortDate } from '@/constants/cards';
 import { stickerTint } from '@/constants/habitats';
-import { POSTER_EXPORT_WIDTH, type CaptureTarget } from '@/utils/export-poster';
+import { POSTER_EXPORT_WIDTH } from '@/utils/export-poster';
 
 // Del álbum a lo que dibujan los pósteres de @plumario/ui.
 
@@ -77,40 +77,7 @@ export function habitatPosterCells(section: HabitatSection, order: HabitatOrder,
   }));
 }
 
-/**
- * Exportar un póster en alta (3508 px de ancho): solo mientras se exporta se monta, fuera de la
- * pantalla, una copia del póster a ese tamaño; se espera a que se dibuje y se captura.
- */
+/** Exportar un póster en alta (3508 px de ancho, A3 a 300 ppp). */
 export function usePosterExport(content: ReactNode) {
-  const [armed, setArmed] = useState(false);
-  const target = useRef<ComponentRef<typeof View>>(null);
-  const drawn = useRef<(() => void) | null>(null);
-  const width = POSTER_EXPORT_WIDTH / PixelRatio.get();
-
-  const element = armed ? (
-    <View pointerEvents="none" style={{ position: 'absolute', left: -width - 1000, top: 0 }}>
-      <View
-        ref={target}
-        collapsable={false}
-        // Un momento después de medirse, para que los SVG terminen de dibujarse.
-        onLayout={() => setTimeout(() => drawn.current?.(), 300)}>
-        <PosterFrame width={width}>{content}</PosterFrame>
-      </View>
-    </View>
-  ) : null;
-
-  async function run<T>(task: (view: CaptureTarget) => Promise<T>): Promise<T> {
-    const ready = new Promise<void>((resolve) => {
-      drawn.current = resolve;
-    });
-    setArmed(true);
-    await ready;
-    try {
-      return await task(target as CaptureTarget);
-    } finally {
-      setArmed(false);
-    }
-  }
-
-  return { element, run };
+  return useOffscreenCapture(content, { baseWidth: POSTER_WIDTH, baseHeight: POSTER_HEIGHT, exportWidth: POSTER_EXPORT_WIDTH });
 }

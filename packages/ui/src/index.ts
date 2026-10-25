@@ -35,6 +35,7 @@ export { HOLOGRAPHIC } from './components/sticker-finishes';
 export type { ChromeFinish } from './components/sticker-finishes';
 export { TabBar } from './components/tab-bar';
 export { TextField } from './components/text-field';
+export { ScaledFrame } from './components/scaled-frame';
 export { Switch } from './components/switch';
 export { ToggleGroup } from './components/toggle-group';
 export type { TextFieldKind } from './components/text-field';
@@ -53,3 +54,6 @@ export { POSTER_HEIGHT, POSTER_WIDTH, PosterFrame } from './posters/poster-frame
 export type { PosterHabitat } from './posters/poster-scenes';
 export { SpeciesPoster } from './posters/species-poster';
 export type { PosterSticker } from './posters/species-poster';
+
+// Tarjeta para compartir un logro (TarjetaLogro), en 1080 × 1350.
+export { SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard } from './share/share-card';

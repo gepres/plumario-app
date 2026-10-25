@@ -66,6 +66,10 @@ function RootStack() {
           <Stack.Screen name="poster/new" />
           <Stack.Screen name="poster/[id]" />
           <Stack.Screen name="poster/habitat/[habitat]" />
+          <Stack.Screen name="trade/new" />
+          <Stack.Screen name="trade/[id]" />
+          <Stack.Screen name="share/sticker/[id]" />
+          <Stack.Screen name="share/medal/[id]" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />

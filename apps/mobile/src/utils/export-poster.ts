@@ -1,11 +1,8 @@
 import { File, Paths } from 'expo-file-system';
-import { Asset, requestPermissionsAsync } from 'expo-media-library';
 import { printToFileAsync } from 'expo-print';
-import { shareAsync } from 'expo-sharing';
 import { captureRef } from 'react-native-view-shot';
 
-/** Lo que se captura: la referencia a la vista que dibuja el póster en alta. */
-export type CaptureTarget = Parameters<typeof captureRef>[0];
+import { captureImage, exportFileName, type CaptureTarget } from './export-image';
 
 // Exportar un póster (PosterListo): imagen PNG en alta para guardar o compartir, y PDF A3 para
 // imprenta con 3 mm de sangrado y marcas de corte (PosterImpresion).
@@ -14,27 +11,9 @@ export type CaptureTarget = Parameters<typeof captureRef>[0];
 export const POSTER_EXPORT_WIDTH = 3508;
 export const POSTER_EXPORT_HEIGHT = 4961;
 
-/** «Póster 1 · Mis aves de Ica» → «plumario-poster-1-mis-aves-de-ica», para nombrar los archivos. */
-export function posterFileName(caption: string): string {
-  const slug = caption.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  return `plumario-${slug || 'poster'}`;
-}
-
 /** La imagen del póster como archivo PNG temporal, justo del tamaño A3 a 300 ppp. */
 export function capturePosterPng(view: CaptureTarget, caption: string): Promise<string> {
-  return captureRef(view, { format: 'png', quality: 1, result: 'tmpfile', fileName: posterFileName(caption), width: POSTER_EXPORT_WIDTH, height: POSTER_EXPORT_HEIGHT });
-}
-
-/** Guarda el PNG en las fotos del teléfono (pide permiso la primera vez). */
-export async function savePosterToPhotos(pngUri: string): Promise<boolean> {
-  const permission = await requestPermissionsAsync(true);
-  if (!permission.granted) return false;
-  await Asset.create(pngUri);
-  return true;
-}
-
-export function sharePoster(uri: string, mimeType: 'image/png' | 'application/pdf', title: string) {
-  return shareAsync(uri, { mimeType, dialogTitle: title, UTI: mimeType === 'application/pdf' ? 'com.adobe.pdf' : 'public.png' });
+  return captureImage(view, { width: POSTER_EXPORT_WIDTH, height: POSTER_EXPORT_HEIGHT, caption });
 }
 
 // Página del PDF: A3 (297 × 420 mm) más 13 mm por lado para las marcas de corte, en puntos.
@@ -72,7 +51,7 @@ export async function createPosterPdf(view: CaptureTarget, caption: string): Pro
   </body></html>`;
   const { uri } = await printToFileAsync({ html, width: PAGE.width, height: PAGE.height });
   // printToFileAsync le pone un nombre al azar; al compartirlo se ve mejor el del póster.
-  const target = new File(Paths.cache, `${posterFileName(caption)}.pdf`);
+  const target = new File(Paths.cache, `${exportFileName(caption)}.pdf`);
   if (target.exists) target.delete();
   new File(uri).move(target);
   return target.uri;

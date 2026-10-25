@@ -13,6 +13,7 @@ const ICONS = {
   flash: { stroke: 'M13 3L5 13h6l-1 8 8-10h-6z' },
   shuffle: { stroke: 'M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5' },
   file: { stroke: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h6' },
+  qr: { stroke: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2' },
   shield: { stroke: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6zM8.5 12l2.5 2.5 4.5-5' },
   share: { stroke: 'M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7' },
   download: { stroke: 'M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14' },

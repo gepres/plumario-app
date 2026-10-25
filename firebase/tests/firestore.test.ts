@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { assertFails, assertSucceeds, initializeTestEnvironment, type RulesTestEnvironment } from '@firebase/rules-unit-testing';
-import { Timestamp, collection, doc, getDoc, getDocs, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
+import { Timestamp, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where, writeBatch } from 'firebase/firestore';
 import { afterAll, beforeAll, beforeEach, describe, it } from 'vitest';
 
 // Reglas de firebase/firestore.rules contra el emulador (pnpm test:rules desde la raíz).
@@ -138,18 +138,35 @@ describe('pósteres', () => {
 });
 
 describe('intercambios', () => {
-  const trade = { fromUid: 'ana', offeredSpeciesId: 'calidris-alba', requestedSpeciesId: 'larus-belcheri', status: 'open', createdAt: now };
+  const trade = { fromUid: 'ana', fromHandle: 'ana.ica', offeredSpeciesId: 'calidris-alba', requestedSpeciesId: 'larus-belcheri', status: 'open', createdAt: now };
 
-  it('quien ofrece crea la propuesta abierta a su nombre', async () => {
+  it('quien ofrece crea la propuesta abierta a su nombre y con su @usuario', async () => {
+    await seed('users/ana', profile);
     await assertSucceeds(setDoc(doc(as('ana'), 'trades/t1'), trade));
     await assertFails(setDoc(doc(as('beto'), 'trades/t2'), trade));
     await assertFails(setDoc(doc(as('ana'), 'trades/t3'), { ...trade, status: 'accepted' }));
+    await assertFails(setDoc(doc(as('ana'), 'trades/t4'), { ...trade, fromHandle: 'otra.persona' }));
   });
 
-  it('la lee cualquiera con sesión que tenga el enlace, sin sesión no', async () => {
+  it('la lee cualquiera con sesión que tenga el enlace, sin sesión no; solo se listan las propias', async () => {
     await seed('trades/t1', trade);
     await assertSucceeds(getDoc(doc(as('beto'), 'trades/t1')));
     await assertFails(getDoc(doc(anonymous(), 'trades/t1')));
+    await assertFails(getDocs(collection(as('beto'), 'trades')));
+    await assertSucceeds(getDocs(query(collection(as('ana'), 'trades'), where('fromUid', '==', 'ana'))));
+  });
+
+  it('la acepta otra persona mientras siga abierta; la respuesta la escribe el servidor', async () => {
+    await seed('trades/t1', trade);
+    const acceptance = { uid: 'beto', createdAt: now };
+    await assertSucceeds(setDoc(doc(as('beto'), 'trades/t1/acceptances/a1'), acceptance));
+    await assertSucceeds(getDoc(doc(as('beto'), 'trades/t1/acceptances/a1')));
+    await assertFails(getDoc(doc(as('ana'), 'trades/t1/acceptances/a1')));
+    await assertFails(setDoc(doc(as('beto'), 'trades/t1/acceptances/a2'), { ...acceptance, result: { outcome: 'accepted' } }));
+    await assertFails(setDoc(doc(as('ana'), 'trades/t1/acceptances/a3'), { uid: 'ana', createdAt: now }));
+    await assertFails(updateDoc(doc(as('beto'), 'trades/t1/acceptances/a1'), { result: { outcome: 'accepted' } }));
+    await seed('trades/t2', { ...trade, status: 'cancelled' });
+    await assertFails(setDoc(doc(as('beto'), 'trades/t2/acceptances/a1'), acceptance));
   });
 
   it('solo quien la propuso la cancela; aceptarla es cosa del servidor', async () => {

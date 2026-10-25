@@ -5,7 +5,8 @@ import { radius, spacing } from '@plumario/tokens';
 import { Button, Icon, ThemedText, useTheme, type IconName } from '@plumario/ui';
 
 import { usePosterExport } from '@/components/poster-content';
-import { capturePosterPng, createPosterPdf, POSTER_EXPORT_HEIGHT, POSTER_EXPORT_WIDTH, savePosterToPhotos, sharePoster } from '@/utils/export-poster';
+import { saveImageToPhotos, shareFile } from '@/utils/export-image';
+import { capturePosterPng, createPosterPdf, POSTER_EXPORT_HEIGHT, POSTER_EXPORT_WIDTH } from '@/utils/export-poster';
 
 type Props = {
   /** El póster tal como se exporta (el mismo que se ve). */
@@ -31,11 +32,11 @@ export function PosterExportActions({ poster, caption, disabled = false }: Props
     try {
       if (kind === 'pdf') {
         const uri = await run((view) => createPosterPdf(view, caption));
-        await sharePoster(uri, 'application/pdf', caption);
+        await shareFile(uri, 'application/pdf', caption);
       } else {
         const uri = await run((view) => capturePosterPng(view, caption));
-        if (kind === 'share') await sharePoster(uri, 'image/png', caption);
-        else setMessage((await savePosterToPhotos(uri)) ? { text: 'Guardado en tus fotos.' } : { text: 'Para guardarlo, permite que Plumario acceda a tus fotos.', error: true });
+        if (kind === 'share') await shareFile(uri, 'image/png', caption);
+        else setMessage((await saveImageToPhotos(uri)) ? { text: 'Guardado en tus fotos.' } : { text: 'Para guardarlo, permite que Plumario acceda a tus fotos.', error: true });
       }
     } catch {
       setMessage({ text: 'No se pudo exportar el póster. Vuelve a intentar.', error: true });

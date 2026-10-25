@@ -20,7 +20,8 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
 | `users/{uid}/posters/{id}` | Póster guardado: `kind` (species/habitat), `number`, `habitat`, `speciesIds`, `seed`, `theme`, `title`, `savedAt` | el dueño | el dueño |
-| `trades/{tradeId}` | Propuesta de intercambio: `fromUid`, `offeredSpeciesId`, `requestedSpeciesId`, `status` (`open` → `accepted`/`cancelled`), `createdAt` | quien propone la crea y puede cancelarla; aceptarla, el servidor | cualquiera con sesión que tenga el enlace |
+| `trades/{tradeId}` | Propuesta de intercambio: `fromUid`, `fromHandle` (su @usuario, que las reglas comparan con su perfil), `offeredSpeciesId`, `requestedSpeciesId`, `status` (`open` → `accepted`/`cancelled`), `createdAt`; al aceptarla, el servidor suma `acceptedBy` y `acceptedAt` | quien propone la crea y puede cancelarla; aceptarla, el servidor | cualquiera con sesión que tenga el enlace (de a una); solo se listan las propias |
+| `trades/{tradeId}/acceptances/{id}` | Pedido de aceptar: `uid`, `createdAt`; el servidor responde con `result` (`accepted` o `rejected` y el motivo) y `answeredAt` | quien acepta lo crea, mientras la propuesta siga abierta y no sea la propia; el servidor responde | quien lo creó |
 
 | Storage | Qué es | Escribe y lee |
 |---|---|---|
@@ -40,6 +41,20 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 
 Las Cloud Functions se empaquetan con esbuild en `functions/dist` (con el núcleo adentro) y Firebase
 despliega esa carpeta, que trae su propio `package.json` solo con las dependencias de ejecución.
+
+## Flujo de un intercambio
+
+1. Quien propone elige qué da y qué pide (IntercambioProponer): un cromo propio por el de una especie
+   que ya registró, de igual o menor categoría (`makeProposeTrade` revisa su lado). Crea
+   `trades/{id}` y lo comparte por enlace (`plumario://trade/{id}`) o QR.
+2. Quien abre el enlace ve la propuesta con su álbum (`receivedTrade`): si tiene el cromo pedido y el
+   sticker normal del ofrecido, puede aceptar. Los stickers del otro no se leen.
+3. Al aceptar crea `trades/{id}/acceptances/{id}`. La Cloud Function `onTradeAcceptanceCreated`
+   (`functions/src/trades.ts`) relee la propuesta y los stickers de los dos en una transacción, aplica
+   `tradeProblem` y `applyTrade` del núcleo (cada uno recibe el cromo del otro, con `source: trade`, y
+   el suyo vuelve a normal), cierra la propuesta y responde en la aceptación. La app espera esa respuesta.
+
+No se comparten fotos ni ubicación: la propuesta solo lleva especies y el @usuario.
 
 ## Pósteres
 

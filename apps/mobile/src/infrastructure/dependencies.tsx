@@ -8,6 +8,7 @@ import {
   makeGetAlbumSummary,
   makeListCoverPhotos,
   makeListSpeciesPhotos,
+  makeProposeTrade,
   makeRegisterSighting,
   makeSavePoster,
   makeRequestPasswordReset,
@@ -25,6 +26,7 @@ import {
   type SpeciesCatalog,
   type SpeciesIdentifier,
   type StickerRepository,
+  type TradeRepository,
   type UserProfileRepository,
 } from '@plumario/core';
 
@@ -32,6 +34,7 @@ import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from 
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
 import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
+import { InMemoryTradeRepository } from './in-memory/in-memory-trade-repository';
 import { InMemorySightingRepository, inMemoryPhotoStorage } from './in-memory/in-memory-sightings';
 import { InMemoryStickerRepository, SAMPLE_STICKERS } from './in-memory/in-memory-sticker-repository';
 import { InMemoryUserProfileRepository } from './in-memory/in-memory-user-profile-repository';
@@ -52,6 +55,7 @@ type Adapters = {
   photos: PhotoStorage;
   posters: PosterRepository;
   sightings: SightingRepository;
+  trades: TradeRepository;
   identifier: SpeciesIdentifier;
 };
 
@@ -73,6 +77,10 @@ export type Dependencies = {
     listPosters: PosterRepository['listByUser'];
     savePoster: ReturnType<typeof makeSavePoster>;
     getProfile: UserProfileRepository['get'];
+    proposeTrade: ReturnType<typeof makeProposeTrade>;
+    getTrade: TradeRepository['get'];
+    cancelTrade: TradeRepository['cancel'];
+    acceptTrade: TradeRepository['accept'];
   };
   /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
   watchSighting: SightingRepository['watch'];
@@ -95,6 +103,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
       profiles: new InMemoryUserProfileRepository(),
       photos: inMemoryPhotoStorage,
       posters: new InMemoryPosterRepository(),
+      trades: new InMemoryTradeRepository(stickers),
       sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
     };
@@ -106,7 +115,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, identifier } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -125,6 +134,10 @@ export function createDependencies(adapters: Adapters): Dependencies {
       listPosters: (userId) => posters.listByUser(userId),
       savePoster: makeSavePoster({ posters, now: () => new Date() }),
       getProfile: (userId) => profiles.get(userId),
+      proposeTrade: makeProposeTrade({ trades, profiles, now: () => new Date() }),
+      getTrade: (tradeId) => trades.get(tradeId),
+      cancelTrade: (tradeId) => trades.cancel(tradeId),
+      acceptTrade: (tradeId, userId) => trades.accept(tradeId, userId),
     },
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     achievements,

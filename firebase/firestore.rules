@@ -120,13 +120,16 @@ service cloud.firestore {
     }
 
     // Propuestas de intercambio: las crea quien ofrece y se comparten por enlace o QR. El id es
-    // aleatorio y hace de llave: cualquiera con sesión que lo tenga puede leerla. Aceptar lo hace una
-    // Cloud Function en una transacción; quien propone solo puede cancelarla.
+    // aleatorio y hace de llave: cualquiera con sesión que lo tenga puede leerla, pero solo se listan
+    // las propias. Aceptar lo hace una Cloud Function en una transacción; quien propone solo puede
+    // cancelarla. Su @usuario va en la propuesta (es público) y tiene que ser el de su perfil.
     match /trades/{tradeId} {
-      allow read: if signedIn();
+      allow get: if signedIn();
+      allow list: if signedIn() && resource.data.fromUid == request.auth.uid;
       allow create: if signedIn()
-        && request.resource.data.keys().hasOnly(['fromUid', 'offeredSpeciesId', 'requestedSpeciesId', 'status', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['fromUid', 'fromHandle', 'offeredSpeciesId', 'requestedSpeciesId', 'status', 'createdAt'])
         && request.resource.data.fromUid == request.auth.uid
+        && request.resource.data.fromHandle == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.handle
         && isShortText(request.resource.data.offeredSpeciesId, 80)
         && isShortText(request.resource.data.requestedSpeciesId, 80)
         && request.resource.data.status == 'open'
@@ -134,6 +137,19 @@ service cloud.firestore {
       allow update: if signedIn() && resource.data.fromUid == request.auth.uid
         && resource.data.status == 'open' && onlyChanges(['status']) && request.resource.data.status == 'cancelled';
       allow delete: if false;
+
+      // Aceptar: quien abre el enlace deja su pedido y la función responde en el mismo documento
+      // (result). Solo mientras siga abierta y no es la propia.
+      match /acceptances/{acceptanceId} {
+        allow get: if signedIn() && resource.data.uid == request.auth.uid;
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.createdAt is timestamp
+          && get(/databases/$(database)/documents/trades/$(tradeId)).data.status == 'open'
+          && get(/databases/$(database)/documents/trades/$(tradeId)).data.fromUid != request.auth.uid;
+        allow list, update, delete: if false;
+      }
     }
 
     // Todo lo demás se deniega.

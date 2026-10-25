@@ -17,6 +17,10 @@ export default function ResultRoute() {
       }}
       onRegisterAnother={() => router.dismissTo('/new-sighting')}
       onRetry={(id) => router.dismissTo({ pathname: '/new-sighting', params: { speciesId: id } })}
+      onRequestTrade={(id) => {
+        close();
+        router.push({ pathname: '/trade/new', params: { request: id } });
+      }}
     />
   );
 }

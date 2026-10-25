@@ -4,7 +4,7 @@ import Svg, { Circle, Path } from 'react-native-svg';
 
 import { formatAlbumNumber, sealsOf, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { FinishSwatch, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
+import { Button, FinishSwatch, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS, CHROME_SOURCE_LABELS, SEAL_LABELS, formatLongDate } from '@/constants/cards';
@@ -15,10 +15,14 @@ type Props = {
   speciesId: string;
   onBack: () => void;
   onOpenGallery: (speciesId: string) => void;
+  /** CompartirTarjeta; con la foto propia puesta si se pide. */
+  onShare: (speciesId: string, withPhoto: boolean) => void;
+  /** IntercambioProponer: ofrecer el cromo propio o pedir el de la especie. */
+  onTrade: (mode: 'offer' | 'request', speciesId: string) => void;
 };
 
 /** StickerDetalle: el sticker grande, su categoría y sellos, y cómo y cuándo se obtuvo. */
-export function StickerDetail({ speciesId, onBack, onOpenGallery }: Props) {
+export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTrade }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -33,19 +37,25 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery }: Props) {
             <Icon name="back" color={colors.text} size={22} strokeWidth={2} />
           </Pressable>
           <ThemedText variant="bodyStrong" accessibilityRole="header">{chromed ? 'Sticker cromado' : 'Sticker'}</ThemedText>
-          <View style={styles.back} />
+          {entry?.sticker ? (
+            <Pressable accessibilityRole="button" accessibilityLabel="Compartir tarjeta" onPress={() => onShare(speciesId, false)} style={styles.back}>
+              <Icon name="share" color={colors.text} size={20} strokeWidth={1.8} />
+            </Pressable>
+          ) : (
+            <View style={styles.back} />
+          )}
         </View>
         {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
-        {entry?.sticker && <DetailContent entry={entry} onOpenGallery={onOpenGallery} />}
+        {entry?.sticker && <DetailContent entry={entry} onOpenGallery={onOpenGallery} onShare={onShare} onTrade={onTrade} />}
       </ScrollView>
       <StatusBarScrim />
     </>
   );
 }
 
-function DetailContent({ entry, onOpenGallery }: { entry: AlbumEntry; onOpenGallery: Props['onOpenGallery'] }) {
+function DetailContent({ entry, onOpenGallery, onShare, onTrade }: { entry: AlbumEntry } & Pick<Props, 'onOpenGallery' | 'onShare' | 'onTrade'>) {
   const { mode, colors } = useTheme();
   const { species, category } = entry;
   const sticker = entry.sticker!;
@@ -98,6 +108,16 @@ function DetailContent({ entry, onOpenGallery }: { entry: AlbumEntry; onOpenGall
 
       <View style={styles.galleryLink}>
         <ListRow title={`Tu galería · ${sticker.validPhotos} ${sticker.validPhotos === 1 ? 'foto' : 'fotos'}`} onPress={() => onOpenGallery(species.id)} />
+      </View>
+
+      <View style={styles.actions}>
+        <Button label={sticker.chrome ? 'Compartir con mi foto' : 'Compartir'} icon="share" onPress={() => onShare(species.id, !!sticker.chrome)} />
+        <Button
+          label={sticker.chrome ? 'Ofrecer en intercambio' : 'Pedir su cromo en intercambio'}
+          icon="swap"
+          variant="secondary"
+          onPress={() => onTrade(sticker.chrome ? 'offer' : 'request', species.id)}
+        />
       </View>
     </>
   );
@@ -185,5 +205,10 @@ const styles = StyleSheet.create({
   galleryLink: {
     marginTop: 10,
     marginHorizontal: layout.textMargin,
+  },
+  actions: {
+    marginTop: spacing[4],
+    marginHorizontal: layout.cardMargin,
+    gap: 10,
   },
 });

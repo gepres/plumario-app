@@ -93,6 +93,15 @@ Para probar el álbum, las recompensas o los pósteres sin registrar ave por ave
 `pnpm dev:stickers <correo>` le da a una cuenta del emulador stickers de muestra, con un cromado
 de cada categoría (`--count N` para más y `--clear` para quitarlos). Solo escribe en el emulador.
 
+Para probar un intercambio sin otro teléfono, `pnpm dev:trade <correo>` crea a @beto.ica con los
+stickers que hacen falta y una propuesta para esa cuenta, e imprime el enlace
+(`adb shell am start -a android.intent.action.VIEW -d "plumario://trade/<id>" com.gepres.plumario`).
+
+Los datos de los emuladores se guardan en `.emulator-data` al salir con Ctrl+C. Si el proceso se
+corta de otra forma (por ejemplo, al matarlo desde otra terminal) no se guardan: antes de reiniciar,
+`pnpm emulators:export`. Una función con un trigger de Firestore **nuevo** se carga en caliente,
+pero el emulador de Firestore no le manda eventos hasta reiniciar los emuladores.
+
 `firebase-tools` 15 exige **Java 21 o superior** para los emuladores, pero Android compila con el
 JDK 17 de `JAVA_HOME`. `scripts/firebase-emulators.mjs` resuelve el choque sin tocar el
 sistema: si `JAVA_HOME` es menor que 21, usa el Java de Android Studio (`jbr`) o el que diga

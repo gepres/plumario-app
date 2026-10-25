@@ -20,10 +20,10 @@ export { EXPLORER_SPECIES, MILESTONE_STEP, achievementId, earnedAchievements, ne
 export type { Achievement } from './domain/achievements';
 export { POSTER_TITLE_MAX, isHabitatPosterUnlocked, pickPosterSpecies, posterSpecies, postersView, speciesPostersAvailable } from './domain/posters';
 export type { HabitatPosterSlot, PosterTheme, PostersView, SavedPoster, SpeciesPosterSlot } from './domain/posters';
-export { applyTrade, tradeProblem } from './domain/trade';
+export { applyTrade, offerOptions, proposalProblem, proposerProblem, receivedTrade, receiverProblem, requestOptions, tradeProblem } from './domain/trade';
 export { DEFAULT_REGION_ID, HANDLE_PATTERN, PASSWORD_MIN_LENGTH, handleProblem, isEmailLike, isPasswordValid, newProfile, normalizeHandle, passwordRules } from './domain/account';
 export type { AlbumVisibility, HandleProblem, PasswordRule, UserProfile } from './domain/account';
-export type { TradeProblem, TradeSide } from './domain/trade';
+export type { ReceivedTrade, TradeProblem, TradeProposal, TradeResult, TradeSide, TradeStatus } from './domain/trade';
 
 // Puertos: lo que el núcleo necesita del mundo y cada plataforma implementa con un adaptador.
 export { AuthError } from './application/ports/auth-service';
@@ -37,6 +37,7 @@ export type { SightingRepository } from './application/ports/sighting-repository
 export type { SpeciesCatalog } from './application/ports/species-catalog';
 export type { SpeciesIdentifier, SpeciesSuggestion } from './application/ports/species-identifier';
 export type { StickerRepository } from './application/ports/sticker-repository';
+export type { TradeRepository } from './application/ports/trade-repository';
 
 // Casos de uso.
 export { makeGetAlbumSummary } from './application/use-cases/get-album-summary';
@@ -48,6 +49,7 @@ export { makeCheckPhoto, makeRegisterSighting, makeSuggestSpecies } from './appl
 export type { RegisterSightingInput, Suggestion } from './application/use-cases/register-sighting';
 export { makeListCoverPhotos, makeListSpeciesPhotos } from './application/use-cases/list-species-photos';
 export { PosterTitleError, makeSavePoster } from './application/use-cases/save-poster';
+export { TradeProposalError, makeProposeTrade } from './application/use-cases/propose-trade';
 export type { SpeciesPhoto } from './application/use-cases/list-species-photos';
 export type { ValidatedPhotoResult } from './application/use-cases/evaluate-validated-photo';
 export { SignUpValidationError, makeSignUp, signUpProblems } from './application/use-cases/sign-up';

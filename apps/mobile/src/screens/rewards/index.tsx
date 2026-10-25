@@ -26,6 +26,8 @@ type Props = {
   onOpenPoster: (posterId: string) => void;
   onGeneratePoster: (number: number) => void;
   onOpenHabitatPoster: (habitat: Habitat) => void;
+  onRequestTrade: (speciesId: string) => void;
+  onShareMedal: (achievementId: string) => void;
 };
 
 /** Mis recompensas (design/project/Main.dc.html): medallas, cromos y pósteres. */
@@ -66,9 +68,9 @@ export function Rewards(props: Props) {
             <Button label="Reintentar" variant="secondary" onPress={state.refresh} />
           </View>
         )}
-        {state.status === 'ready' && rewards && tab === 'medals' && <Medals rewards={rewards} onOpenAlbum={props.onOpenAlbum} />}
+        {state.status === 'ready' && rewards && tab === 'medals' && <Medals rewards={rewards} onOpenAlbum={props.onOpenAlbum} onShareMedal={props.onShareMedal} />}
         {state.status === 'ready' && tab === 'chromes' && (
-          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} />
+          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} onRequestTrade={props.onRequestTrade} />
         )}
         {state.status === 'ready' && tab === 'posters' && !posters && <ActivityIndicator style={styles.loading} />}
         {state.status === 'ready' && tab === 'posters' && posters && (

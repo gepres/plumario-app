@@ -32,6 +32,8 @@ type Props = {
   onOpenSpecies: (speciesId: string) => void;
   onRegisterAnother: () => void;
   onRetry: (speciesId: string) => void;
+  /** «Pídelo en intercambio» (IntercambioProponer). */
+  onRequestTrade: (speciesId: string) => void;
 };
 
 type Validated = Extract<SightingResult, { outcome: 'validated' }>;
@@ -214,7 +216,7 @@ function Sparkles({ width, colors }: { width: number; colors: readonly string[] 
 }
 
 /** RegistrarCompletado: especie nueva con sticker normal, y cómo conseguir su cromo. */
-function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
+function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onRequestTrade, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   return (
@@ -266,7 +268,7 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
               <ThemedText variant="caption" color="textSecondary">Llevas {result.validPhotos} de {PHOTOS_FOR_CHROME}</ThemedText>
             </View>
           </Pressable>
-          <View style={styles.way}>
+          <Pressable accessibilityRole="link" onPress={() => onRequestTrade(entry.species.id)} style={styles.way}>
             <View style={[styles.plainBadge, { backgroundColor: colors.surfaceAlt }]}>
               <Icon name="swap" color={colors.text} size={16} strokeWidth={2} />
             </View>
@@ -274,7 +276,7 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
               <ThemedText variant="bodyStrong">Pídelo en intercambio</ThemedText>
               <ThemedText variant="caption" color="textSecondary">A alguien que ya lo tenga</ThemedText>
             </View>
-          </View>
+          </Pressable>
         </View>
 
         <View style={styles.pairActions}>

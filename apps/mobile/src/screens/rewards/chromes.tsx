@@ -12,6 +12,8 @@ type Props = {
   onOpenCategories: () => void;
   onOpenSticker: (speciesId: string) => void;
   onOpenSpecies: (speciesId: string) => void;
+  /** «Pídelo en intercambio» (IntercambioProponer). */
+  onRequestTrade: (speciesId: string) => void;
 };
 
 const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
@@ -20,7 +22,7 @@ const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1
 const CATEGORY_BAR = { holographic: '#8FA9D8', silver: '#7E8B95', gold: '#B9872A', ruby: '#A51E36', diamond: '#4F93B5' } as const;
 
 /** RecompensasStickers · Cromos: por categoría, los obtenidos y los que están por salir. */
-export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecies }: Props) {
+export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecies, onRequestTrade }: Props) {
   const { colors } = useTheme();
   const { closest } = chromes;
   return (
@@ -110,7 +112,8 @@ export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecie
             <Pressable
               key={entry.species.id}
               accessibilityRole="button"
-              onPress={() => onOpenSpecies(entry.species.id)}
+              accessibilityLabel={`${entry.species.commonName}, pídelo en intercambio`}
+              onPress={() => onRequestTrade(entry.species.id)}
               style={[styles.trade, { backgroundColor: colors.surfaceAlt }]}>
               <SpeciesSticker entry={entry} size={50} />
               <View style={styles.flex}>

@@ -3,8 +3,11 @@ import { BirdSticker } from '@plumario/ui';
 
 import { stickerTint } from '@/constants/habitats';
 
-/** El sticker de una entrada del álbum: en sombra, normal o cromado con el acabado de su categoría. */
-export function SpeciesSticker({ entry, size }: { entry: AlbumEntry; size: number }) {
+/**
+ * El sticker de una entrada del álbum: en sombra, normal o cromado con el acabado de su categoría.
+ * Con `chromed` se dibuja su cromo aunque no se tenga (el que se pide en un intercambio).
+ */
+export function SpeciesSticker({ entry, size, chromed }: { entry: AlbumEntry; size: number; chromed?: boolean }) {
   const { species, sticker, category } = entry;
   return (
     <BirdSticker
@@ -12,8 +15,8 @@ export function SpeciesSticker({ entry, size }: { entry: AlbumEntry; size: numbe
       name={species.commonName}
       number={formatAlbumNumber(species.albumNumber)}
       tint={stickerTint(species.habitat)}
-      finish={sticker?.chrome ? category : 'normal'}
-      empty={!sticker}
+      finish={(chromed ?? !!sticker?.chrome) ? category : 'normal'}
+      empty={!sticker && !chromed}
       size={size}
     />
   );

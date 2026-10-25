@@ -7,6 +7,7 @@ import { createFirestorePosterRepository } from './firestore-poster-repository';
 import { createFirestoreSightingRepository } from './firestore-sighting-repository';
 import { createFirestoreSpeciesCatalog } from './firestore-species-catalog';
 import { createFirestoreStickerRepository } from './firestore-sticker-repository';
+import { createFirestoreTradeRepository } from './firestore-trade-repository';
 import { createFirestoreUserProfileRepository } from './firestore-user-profile-repository';
 
 /** Todos los adaptadores de Firebase juntos: la raíz de composición carga este módulo solo si los usa. */
@@ -21,6 +22,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     photos: createFirebasePhotoStorage(services),
     posters: createFirestorePosterRepository(services),
     sightings: createFirestoreSightingRepository(services),
+    trades: createFirestoreTradeRepository(services),
     // Hasta elegir el proveedor de IA (PA-12); la validación de verdad la hace el servidor.
     identifier: testSpeciesIdentifier,
   };

@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { achievementId, type RewardsView } from '@plumario/core';
 import { spacing } from '@plumario/tokens';
-import { Medal, ProgressBar, ThemedText, useTheme } from '@plumario/ui';
+import { Icon, Medal, ProgressBar, ThemedText, useTheme } from '@plumario/ui';
 
 import { achievementLabel, achievementTitle, medalKind } from '@/constants/achievements';
 import { formatShortDate } from '@/constants/cards';
@@ -10,10 +10,12 @@ import { formatShortDate } from '@/constants/cards';
 type Props = {
   rewards: RewardsView;
   onOpenAlbum: () => void;
+  /** Compartir una medalla obtenida (TarjetaLogro). */
+  onShareMedal: (achievementId: string) => void;
 };
 
 /** Main · Medallas: las obtenidas y las que faltan, con la más cercana destacada. */
-export function Medals({ rewards, onOpenAlbum }: Props) {
+export function Medals({ rewards, onOpenAlbum, onShareMedal }: Props) {
   const { colors } = useTheme();
   const pending = [...rewards.habitats, ...(rewards.album ? [rewards.album] : [])];
   return (
@@ -28,15 +30,20 @@ export function Medals({ rewards, onOpenAlbum }: Props) {
         ) : (
           <View style={styles.grid}>
             {rewards.earned.map(({ achievement, earnedAt }) => (
-              <View
+              <Pressable
                 key={achievementId(achievement)}
-                accessible
-                accessibilityLabel={`${achievementTitle(achievement)}${earnedAt ? `, obtenida el ${formatShortDate(earnedAt)}` : ''}`}
+                accessibilityRole="button"
+                accessibilityLabel={`${achievementTitle(achievement)}${earnedAt ? `, obtenida el ${formatShortDate(earnedAt)}` : ''}. Compartir`}
+                onPress={() => onShareMedal(achievementId(achievement))}
                 style={[styles.earned, { backgroundColor: colors.surface, borderColor: colors.line }]}>
                 <Medal kind={medalKind(achievement)} number={achievement.kind === 'milestone' ? achievement.species : undefined} size={54} />
                 <ThemedText variant="label" style={styles.center}>{achievementLabel(achievement)}</ThemedText>
                 {earnedAt && <ThemedText variant="caption" color="textSecondary">{formatShortDate(earnedAt)}</ThemedText>}
-              </View>
+                <View style={styles.share}>
+                  <Icon name="share" color={colors.primary} size={13} strokeWidth={2.2} />
+                  <ThemedText variant="captionStrong" color="primary">Compartir</ThemedText>
+                </View>
+              </Pressable>
             ))}
           </View>
         )}
@@ -113,6 +120,11 @@ const styles = StyleSheet.create({
     paddingBottom: spacing[2],
     alignItems: 'center',
     gap: spacing[1],
+  },
+  share: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   locked: {
     width: '31.5%',

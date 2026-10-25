@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { at, sticker } from '../testing';
+import { at, species, sticker } from '../testing';
+import { buildAlbumView, type AlbumView } from './album-view';
 import type { Sticker } from './sticker';
-import { applyTrade, tradeProblem, type TradeSide } from './trade';
+import { applyTrade, offerOptions, receivedTrade, requestOptions, tradeProblem, type TradeProposal, type TradeSide } from './trade';
 
 const chrome = { source: 'luck' as const, at: at(2) };
 const side = (...stickers: Sticker[]): TradeSide => ({ stickers: new Map(stickers.map((s) => [s.speciesId, s])) });
@@ -53,5 +54,38 @@ describe('applyTrade', () => {
       expect.objectContaining({ speciesId: 'gaviota', chrome: null }),
       expect.objectContaining({ speciesId: 'playero', chrome: { source: 'trade', at: at(9) } }),
     ]);
+  });
+});
+
+describe('opciones y propuesta recibida', () => {
+  // Playero y gaviota holográficos, zarcillo plata (casi amenazado), pingüino oro (endémico).
+  const catalog = [
+    species('playero', { albumNumber: 1 }),
+    species('gaviota', { albumNumber: 2 }),
+    species('zarcillo', { albumNumber: 3, iucn: 'NT' }),
+    species('pinguino', { albumNumber: 4, endemic: true }),
+  ];
+  const entry = (album: AlbumView, id: string) => album.entries.find((e) => e.species.id === id)!;
+  const anaAlbum = buildAlbumView(catalog, [sticker('playero', { chrome }), sticker('gaviota'), sticker('zarcillo'), sticker('pinguino', { chrome })]);
+  const betoAlbum = buildAlbumView(catalog, [sticker('playero'), sticker('gaviota', { chrome })]);
+  const trade: TradeProposal = {
+    id: 't1', fromUid: 'ana', fromHandle: 'ana', offeredSpeciesId: 'playero', requestedSpeciesId: 'gaviota', status: 'open', createdAt: at(3),
+  };
+
+  it('para pedir un cromo se ofrecen los propios de igual o mayor categoría', () => {
+    expect(offerOptions(anaAlbum, entry(anaAlbum, 'gaviota')).map((e) => e.species.id)).toEqual(['playero', 'pinguino']);
+    expect(offerOptions(anaAlbum, entry(anaAlbum, 'zarcillo')).map((e) => e.species.id)).toEqual(['pinguino']);
+  });
+
+  it('al ofrecer un cromo se pide uno registrado, sin cromo y de igual o menor categoría', () => {
+    expect(requestOptions(anaAlbum, entry(anaAlbum, 'playero')).map((e) => e.species.id)).toEqual(['gaviota']);
+    expect(requestOptions(anaAlbum, entry(anaAlbum, 'pinguino')).map((e) => e.species.id)).toEqual(['gaviota', 'zarcillo']);
+  });
+
+  it('quien recibe ve si puede aceptar, con su propio álbum', () => {
+    expect(receivedTrade(trade, betoAlbum, 'beto').status).toBe('ready');
+    expect(receivedTrade(trade, buildAlbumView(catalog, [sticker('gaviota', { chrome })]), 'beto')).toMatchObject({ status: 'blocked', problem: 'receiver-missing-species' });
+    expect(receivedTrade(trade, anaAlbum, 'ana').status).toBe('own');
+    expect(receivedTrade({ ...trade, status: 'accepted' }, betoAlbum, 'beto').status).toBe('accepted');
   });
 });
