@@ -18,7 +18,8 @@ await build({
   bundle: true,
   platform: 'node',
   format: 'esm',
-  target: 'node24',
+  // Node 22: el trigger de Auth es de primera generación, que no admite Node 24.
+  target: 'node22',
   sourcemap: true,
   external,
   logLevel: 'info',
