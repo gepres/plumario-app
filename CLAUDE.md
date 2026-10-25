@@ -114,6 +114,13 @@ pnpm viewer           regenera viewer/index.html desde design/
 - **Los emuladores de Firebase piden Java 21+ y Android usa el 17.** `pnpm emulators` le pasa a la
   CLI de Firebase el Java de Android Studio sin tocar `JAVA_HOME`; no corras `firebase` a secas.
 - **Emulador sin servidor:** `adb reverse tcp:8081 tcp:8081`.
+- **Metro se cuelga si arranca mientras Gradle compila.** Sin Watchman, su vigilante
+  (`FallbackWatcher`) procesa uno a uno los miles de archivos que Gradle crea y borra, y deja de
+  responder (ni `/status`). Arranca Metro después de `pnpm android`, o reinícialo al terminar.
+- **La cámara del emulador saca fotos negras** con la hora en amarillo: es la cámara virtual, no la
+  app. Para ver una foto de verdad, usa la galería o un teléfono.
+- **Las Functions corren con Node 22**, no 24: el trigger de Auth es de primera generación, que no
+  admite Node 24 ni la región de Santiago (va a `southamerica-east1`).
 
 ## Tablero
 
