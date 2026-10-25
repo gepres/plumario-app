@@ -62,3 +62,4 @@ export { SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard } from './share/share-ca
 
 // Mapa del Perú con la región del álbum (Perfil, RegionLista).
 export { PeruMap } from './regions/peru-map';
+export { RegionMap } from './regions/region-map';

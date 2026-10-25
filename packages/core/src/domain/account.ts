@@ -62,6 +62,8 @@ export type UserProfile = {
   privacy: Privacy;
   /** La última vez que cambió su @usuario (se puede una vez cada 30 días). */
   handleChangedAt: Date | null;
+  /** RegionLista, «Avísame cuando esté»: las regiones que espera. */
+  regionAlerts: readonly RegionId[];
   createdAt: Date;
 };
 
@@ -76,6 +78,7 @@ export function newProfile(input: { displayName: string; handle: string; at: Dat
     favoriteSpeciesId: null,
     privacy: DEFAULT_PRIVACY,
     handleChangedAt: null,
+    regionAlerts: [],
     createdAt: input.at,
   };
 }

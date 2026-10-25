@@ -77,6 +77,7 @@ function RootStack() {
           <Stack.Screen name="profile/feedback" />
           <Stack.Screen name="profile/trades" />
           <Stack.Screen name="profile/policy" />
+          <Stack.Screen name="regions" />
         </Stack.Protected>
         <Stack.Protected guard={!signedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />

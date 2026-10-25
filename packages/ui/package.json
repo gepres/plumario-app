@@ -8,7 +8,8 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "figures": "node scripts/generate-figures.mjs",
-    "posters": "node scripts/generate-poster-scenes.mjs"
+    "posters": "node scripts/generate-poster-scenes.mjs",
+    "regions": "node scripts/generate-region-map.mjs"
   },
   "dependencies": {
     "@plumario/tokens": "workspace:*"

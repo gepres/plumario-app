@@ -12,7 +12,6 @@ import {
   makeUpdateProfile,
   makeCheckResetCode,
   makeGetAlbum,
-  makeGetAlbumSummary,
   makeListCoverPhotos,
   makeListSpeciesPhotos,
   makeProposeTrade,
@@ -26,7 +25,6 @@ import {
   makeSuggestSpecies,
   type AuthService,
   type GetAlbum,
-  type GetAlbumSummary,
   type PhotoStorage,
   type PosterRepository,
   type SightingRepository,
@@ -71,7 +69,6 @@ type Adapters = {
 export type Dependencies = {
   useCases: {
     getAlbum: GetAlbum;
-    getAlbumSummary: GetAlbumSummary;
     signIn: ReturnType<typeof makeSignIn>;
     signUp: ReturnType<typeof makeSignUp>;
     signOut: ReturnType<typeof makeSignOut>;
@@ -138,7 +135,6 @@ export function createDependencies(adapters: Adapters): Dependencies {
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
-      getAlbumSummary: makeGetAlbumSummary({ catalog, stickers }),
       signIn: makeSignIn({ auth }),
       signUp: makeSignUp({ auth, profiles, now: () => new Date() }),
       signOut: makeSignOut({ auth }),

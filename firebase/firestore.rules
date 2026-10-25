@@ -30,12 +30,13 @@ service cloud.firestore {
       // Los campos nuevos (ave favorita, nombre en lo compartido, IA, cambio de @usuario) pueden faltar
       // en perfiles creados antes.
       function validProfile(data) {
-        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'favoriteSpeciesId', 'privacy', 'handleChangedAt', 'createdAt'])
+        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'favoriteSpeciesId', 'privacy', 'handleChangedAt', 'regionAlerts', 'createdAt'])
           && isShortText(data.displayName, 40)
           && data.handle is string && data.handle.matches('^[a-z0-9_.]{3,24}$')
           && isShortText(data.regionId, 40)
           && (data.get('favoriteSpeciesId', null) == null || isShortText(data.favoriteSpeciesId, 80))
           && (data.get('handleChangedAt', null) == null || data.handleChangedAt is timestamp)
+          && (data.get('regionAlerts', []) is list && data.get('regionAlerts', []).size() <= 24)
           && data.privacy is map
           && data.privacy.keys().hasOnly(['saveLocation', 'albumVisibility', 'showName', 'improveAi'])
           && data.privacy.saveLocation is bool

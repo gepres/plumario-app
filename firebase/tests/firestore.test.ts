@@ -67,7 +67,8 @@ describe('perfil', () => {
   it('guarda el ave favorita y la privacidad completa', async () => {
     await seed('users/ana', profile);
     const privacy = { saveLocation: true, albumVisibility: 'link', showName: false, improveAi: true };
-    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { favoriteSpeciesId: 'calidris-alba', privacy }));
+    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { favoriteSpeciesId: 'calidris-alba', privacy, regionAlerts: ['are', 'cus'] }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { regionAlerts: 'are' }));
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { privacy: { ...privacy, albumVisibility: 'amigos' } }));
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { privacy: { ...privacy, extra: true } }));
   });

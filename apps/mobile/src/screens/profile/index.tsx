@@ -13,7 +13,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
-export type ProfileLink = 'edit' | 'privacy' | 'trades' | 'practices' | 'help' | 'design-system';
+export type ProfileLink = 'edit' | 'privacy' | 'trades' | 'practices' | 'help' | 'regions' | 'design-system';
 
 type Props = {
   onOpen: (link: ProfileLink) => void;
@@ -64,14 +64,22 @@ export function Profile({ onOpen, onOpenAlbum, onOpenRewards }: Props) {
           </Pressable>
         </View>
 
-        <View style={[styles.region, { backgroundColor: colors.surface, borderColor: colors.line }]} accessible accessibilityLabel={`Mi región: Ica${album ? `, ${album.registered} de ${album.total} especies` : ''}`}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Mi región: Ica${album ? `, ${album.registered} de ${album.total} especies` : ''}. Cambiar`}
+          onPress={() => onOpen('regions')}
+          style={[styles.region, { backgroundColor: colors.surface, borderColor: colors.line }]}>
           <PeruMap height={64} />
           <View style={styles.flex}>
             <ThemedText variant="eyebrow" color="primary">Mi región</ThemedText>
             <ThemedText variant="heading">Ica</ThemedText>
             {album && <ThemedText variant="caption" color="textSecondary">{album.registered} de {album.total} especies</ThemedText>}
           </View>
-        </View>
+          <View style={styles.change}>
+            <ThemedText variant="label">Cambiar</ThemedText>
+            <Icon name="chevronRight" color={colors.text} size={16} strokeWidth={2.2} />
+          </View>
+        </Pressable>
 
         <View accessibilityLabel="Resumen" style={styles.stats}>
           {stats.map((stat) => (
@@ -152,6 +160,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing[3],
+  },
+  change: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
   },
   stats: {
     flexDirection: 'row',

@@ -20,4 +20,4 @@ export interface UserProfileRepository {
   changeHandle(userId: UserId, from: string, to: string, at: Date): Promise<void>;
 }
 
-export type ProfileChanges = Partial<Pick<UserProfile, 'displayName' | 'favoriteSpeciesId' | 'privacy'>>;
+export type ProfileChanges = Partial<Pick<UserProfile, 'displayName' | 'favoriteSpeciesId' | 'privacy' | 'regionAlerts'>>;

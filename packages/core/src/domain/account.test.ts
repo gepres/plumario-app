@@ -34,7 +34,7 @@ describe('correo y perfil', () => {
   });
   it('un perfil nuevo arranca en Ica, sin ubicación y con el álbum privado', () => {
     expect(newProfile({ displayName: ' Ana ', handle: 'ana', at: new Date(2026, 9, 24) })).toEqual({
-      displayName: 'Ana', handle: 'ana', regionId: 'ica', favoriteSpeciesId: null, handleChangedAt: null,
+      displayName: 'Ana', handle: 'ana', regionId: 'ica', favoriteSpeciesId: null, handleChangedAt: null, regionAlerts: [],
       privacy: { saveLocation: false, albumVisibility: 'private', showName: true, improveAi: false }, createdAt: new Date(2026, 9, 24),
     });
   });

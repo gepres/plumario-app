@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState, type ComponentRef } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -16,6 +16,8 @@ type Props = {
   onOpenHabitat: (habitat: Habitat) => void;
   onOpenSpecies: (speciesId: string) => void;
   onAddPhoto: (speciesId: string, source: PhotoSource) => void;
+  /** Llega desde «Buscar» de Inicio: el buscador abre con el teclado. Cambia cada vez que se pide. */
+  focusSearch?: string;
 };
 
 /** Álbum (design/project/Album.dc.html): avance total, buscador y una tarjeta por hábitat. */
@@ -41,8 +43,16 @@ export function Album(props: Props) {
   );
 }
 
-function AlbumContent({ album, onOpenHabitat, onOpenSpecies, onAddPhoto }: Props & { album: AlbumView }) {
+function AlbumContent({ album, onOpenHabitat, onOpenSpecies, onAddPhoto, focusSearch }: Props & { album: AlbumView }) {
   const { colors } = useTheme();
+  const searchRef = useRef<ComponentRef<typeof TextInput>>(null);
+
+  useEffect(() => {
+    if (!focusSearch) return;
+    // Después de la transición de pestaña: antes, Android no abre el teclado.
+    const timer = setTimeout(() => searchRef.current?.focus(), 350);
+    return () => clearTimeout(timer);
+  }, [focusSearch]);
   const [query, setQuery] = useState('');
   const [sheet, setSheet] = useState<AlbumEntry | null>(null);
   const results = query.trim() ? searchEntries(album.entries, query) : null;
@@ -65,6 +75,7 @@ function AlbumContent({ album, onOpenHabitat, onOpenSpecies, onAddPhoto }: Props
       <View style={[styles.search, { backgroundColor: colors.field, borderColor: colors.border }]}>
         <Icon name="search" color={colors.textSecondary} size={18} strokeWidth={2} />
         <TextInput
+          ref={searchRef}
           value={query}
           onChangeText={setQuery}
           placeholder={`Buscar entre ${album.total} aves`}

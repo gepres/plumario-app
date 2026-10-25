@@ -25,6 +25,10 @@ export { DEFAULT_PRIVACY, DEFAULT_REGION_ID, DISPLAY_NAME_MAX, HANDLE_CHANGE_DAY
 export type { AlbumVisibility, HandleProblem, PasswordRule, Privacy, UserProfile } from './domain/account';
 export { FEEDBACK_MAX } from './domain/feedback';
 export { exifDate, exifLocation } from './domain/photo-metadata';
+export { REGIONS, regionById, regionByMapId, searchRegions } from './domain/regions';
+export type { Region } from './domain/regions';
+export { homeView } from './domain/home';
+export type { HomeView } from './domain/home';
 export type { PhotoLocation } from './domain/photo-metadata';
 export type { Feedback, FeedbackKind } from './domain/feedback';
 export type { ReceivedTrade, TradeProblem, TradeProposal, TradeResult, TradeSide, TradeStatus } from './domain/trade';

@@ -26,6 +26,7 @@ function toProfile(data: Record<string, unknown>): UserProfile {
       improveAi: privacy.improveAi === true,
     },
     handleChangedAt: toDate(data.handleChangedAt),
+    regionAlerts: Array.isArray(data.regionAlerts) ? data.regionAlerts.map(String) : [],
     createdAt: toDate(data.createdAt) ?? new Date(0),
   };
 }

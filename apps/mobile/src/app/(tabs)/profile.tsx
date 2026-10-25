@@ -8,6 +8,7 @@ export default function ProfileRoute() {
     <Profile
       onOpen={(link) => {
         if (link === 'design-system') router.push('/design-system');
+        else if (link === 'regions') router.push('/regions');
         else router.push(`/profile/${link}`);
       }}
       onOpenAlbum={() => router.navigate('/album')}
