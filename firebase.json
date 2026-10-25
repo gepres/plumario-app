@@ -9,7 +9,7 @@
   "functions": {
     "source": "functions/dist",
     "predeploy": [
-      "pnpm --filter @plumario/functions build"
+      "pnpm functions:build"
     ]
   },
   "emulators": {
