@@ -121,6 +121,15 @@ pnpm viewer           regenera viewer/index.html desde design/
   app. Para ver una foto de verdad, usa la galería o un teléfono.
 - **Las Functions corren con Node 22**, no 24: el trigger de Auth es de primera generación, que no
   admite Node 24 ni la región de Santiago (va a `southamerica-east1`).
+- **`setGlobalOptions` va en `functions/src/setup.ts`, importado primero.** Las funciones invocables
+  toman la región al definirse, y los módulos que las definen se evalúan antes que el cuerpo de
+  `index.ts`: ahí quedaban en `us-central1`. El emulador guarda las regiones de la primera carga:
+  tras cambiarlas, reinícialo.
+- **`pnpm install` falla con Metro abierto** (`ENOENT … raw-body_tmp_…`): Metro tiene abiertos
+  archivos de `node_modules` y Windows no deja moverlos. Detén Metro (y los emuladores) antes de
+  instalar.
+- **Gemini a veces está saturado** (503 o más de 15 s). `functions/src/gemini.ts` pasa a
+  `gemini-3.5-flash-lite` y vuelve a probar; no subas el tiempo de espera: alguien mira la pantalla.
 
 ## Tablero
 

@@ -1,11 +1,14 @@
 import { getFirestore, Timestamp, type DocumentReference } from 'firebase-admin/firestore';
+import { getStorage } from 'firebase-admin/storage';
 import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 
-import { achievementId, evaluateValidatedPhoto, sightingResultOf, type SightingResult } from '@plumario/core';
+import { achievementId, evaluateValidatedPhoto, sightingResultOf, type SightingResult, type Species } from '@plumario/core';
 
+import { GEMINI_API_KEY } from './ai.js';
+import { createGemini } from './gemini.js';
+import { checkPhotoAgainst, type CheckResult } from './identify.js';
 import { stickerDocument, toSpecies, toSticker } from './mappers.js';
-import { validatePhoto } from './test-identifier.js';
 
 // Cuando la app guarda un registro pendiente (users/{uid}/sightings/{id}), el servidor valida la
 // foto y, si es de la especie elegida, otorga lo que corresponde en una transacción: completa el
@@ -13,12 +16,34 @@ import { validatePhoto } from './test-identifier.js';
 // la app lo muestra (RegistrarCompletado, RevelarCromado). Las reglas no dejan que el cliente
 // escriba nada de esto.
 
+/**
+ * La IA revisa la foto guardada en Storage. Si la foto no es del usuario o no está, se rechaza; si
+ * la IA no responde, se da por buena: la app ya la revisó antes de guardar y el registro no debe
+ * quedar trabado por una falla de Gemini.
+ */
+async function validatePhoto(uid: string, photoPath: string, species: Species): Promise<CheckResult> {
+  if (!photoPath.startsWith(`users/${uid}/photos/`)) return { valid: false, reason: 'No encontramos tu foto.' };
+  let photo: Buffer;
+  try {
+    [photo] = await getStorage().bucket().file(photoPath).download();
+  } catch (error) {
+    logger.warn('No se pudo leer la foto', { uid, photoPath, error: String(error) });
+    return { valid: false, reason: 'No encontramos tu foto.' };
+  }
+  try {
+    return await checkPhotoAgainst(createGemini(GEMINI_API_KEY.value()), { mimeType: 'image/jpeg', data: photo.toString('base64') }, species);
+  } catch (error) {
+    logger.error('La IA no respondió; el registro se da por bueno', { uid, photoPath, error: String(error) });
+    return { valid: true };
+  }
+}
+
 async function reject(ref: DocumentReference, reason: string) {
   const result: SightingResult = { outcome: 'rejected', reason };
   await ref.update({ status: 'rejected', result, validatedAt: Timestamp.now() });
 }
 
-export const onSightingCreated = onDocumentCreated('users/{uid}/sightings/{sightingId}', async (event) => {
+export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sightings/{sightingId}', secrets: [GEMINI_API_KEY], memory: '512MiB' }, async (event) => {
   const snapshot = event.data;
   if (!snapshot) return;
   const sighting = snapshot.data();
@@ -31,7 +56,7 @@ export const onSightingCreated = onDocumentCreated('users/{uid}/sightings/{sight
   const species = catalog.find((s) => s.id === sighting.speciesId);
   if (!species) return reject(snapshot.ref, 'La especie no está en el catálogo de la región.');
 
-  const verdict = await validatePhoto(String(sighting.photoPath ?? ''), species);
+  const verdict = await validatePhoto(uid, String(sighting.photoPath ?? ''), species);
   if (!verdict.valid) return reject(snapshot.ref, verdict.reason ?? 'No se reconoce la especie en la foto.');
 
   const user = db.collection('users').doc(uid);

@@ -3,7 +3,10 @@
 //   monorepo) va adentro: Cloud Functions instala con npm y no conoce el espacio de trabajo.
 // - package.json: solo las dependencias de ejecución (firebase-admin y firebase-functions), que
 //   quedan fuera del paquete y se instalan al desplegar.
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+// - .secret.local, si existe: los secretos (GEMINI_API_KEY) para el emulador, que los busca junto al
+//   código. firebase.json ignora los *.local al desplegar; en producción salen de Secret Manager.
+import { existsSync } from 'node:fs';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 
 import { build } from 'esbuild';
 
@@ -28,3 +31,4 @@ await writeFile(
   'dist/package.json',
   `${JSON.stringify({ name: pkg.name, private: true, type: 'module', main: 'index.js', engines: pkg.engines, dependencies: pkg.dependencies }, null, 2)}\n`,
 );
+if (existsSync('.secret.local')) await copyFile('.secret.local', 'dist/.secret.local');

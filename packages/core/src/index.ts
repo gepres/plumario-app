@@ -49,6 +49,7 @@ export type { SightingRepository } from './application/ports/sighting-repository
 export { NetworkError } from './application/ports/sighting-queue';
 export type { QueuedSighting, SightingQueue } from './application/ports/sighting-queue';
 export type { SpeciesCatalog } from './application/ports/species-catalog';
+export { IdentifierError } from './application/ports/species-identifier';
 export type { SpeciesIdentifier, SpeciesSuggestion } from './application/ports/species-identifier';
 export type { StickerRepository } from './application/ports/sticker-repository';
 export type { TradeRepository } from './application/ports/trade-repository';

@@ -1,4 +1,3 @@
-import { testSpeciesIdentifier } from '../test-species-identifier';
 import { createFileSightingQueue } from '../device/file-sighting-queue';
 import { createFirebaseAuthService } from './firebase-auth-service';
 import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
@@ -11,6 +10,7 @@ import { createFirestoreSpeciesCatalog } from './firestore-species-catalog';
 import { createFirestoreStickerRepository } from './firestore-sticker-repository';
 import { createFirestoreTradeRepository } from './firestore-trade-repository';
 import { createFirestoreUserProfileRepository } from './firestore-user-profile-repository';
+import { createFunctionsSpeciesIdentifier } from './functions-species-identifier';
 
 /** Todos los adaptadores de Firebase juntos: la raíz de composición carga este módulo solo si los usa. */
 export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: string }) {
@@ -27,7 +27,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     trades: createFirestoreTradeRepository(services),
     feedback: createFirestoreFeedbackRepository(services),
     queue: createFileSightingQueue(),
-    // Hasta elegir el proveedor de IA (PA-12); la validación de verdad la hace el servidor.
-    identifier: testSpeciesIdentifier,
+    // Gemini, en las Functions suggestSpecies y checkPhoto; al guardar, el servidor revisa otra vez.
+    identifier: createFunctionsSpeciesIdentifier(services),
   };
 }

@@ -27,6 +27,8 @@ data/sources/*.xlsx
 # Variables de entorno: solo se versiona el ejemplo
 .env
 .env*.local
+# Secretos de Functions para el emulador (la clave de Gemini); en producción van en Secret Manager
+.secret.local
 
 # Expo y Metro (cada app ignora además lo suyo)
 .expo/

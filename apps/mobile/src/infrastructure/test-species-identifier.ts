@@ -1,10 +1,10 @@
 import type { SpeciesIdentifier } from '@plumario/core';
 
 /**
- * Identificador de prueba (puerto SpeciesIdentifier) hasta elegir el proveedor de IA (PA-12).
+ * Identificador de prueba (puerto SpeciesIdentifier) para la app sin Firebase (datos en memoria).
  * Sugiere especies del catálogo de forma estable para cada foto (la misma foto, las mismas
- * sugerencias) y da toda foto por buena, salvo que su nombre contenga «rechazar». El proveedor
- * real correrá en una Cloud Function, para que la clave nunca viaje en la app.
+ * sugerencias) y da toda foto por buena, salvo que su nombre contenga «rechazar». Con Firebase, la
+ * IA es Gemini, en una Cloud Function (functions-species-identifier.ts).
  */
 export const testSpeciesIdentifier: SpeciesIdentifier = {
   async suggest(photoUri, candidates, limit) {

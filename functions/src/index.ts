@@ -1,12 +1,10 @@
-import { initializeApp } from 'firebase-admin/app';
-import { setGlobalOptions } from 'firebase-functions/v2';
+import './setup.js';
+
 import { onRequest } from 'firebase-functions/v2/https';
 
-import { getHealth, REGION } from './health.js';
+import { getHealth } from './health.js';
 
-initializeApp();
-setGlobalOptions({ region: REGION });
-
+export { checkPhoto, suggestSpecies } from './ai.js';
 export { onSightingCreated } from './sightings.js';
 export { onTradeAcceptanceCreated } from './trades.js';
 export { onUserDeleted } from './accounts.js';

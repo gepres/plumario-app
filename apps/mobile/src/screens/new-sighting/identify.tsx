@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { formatAlbumNumber, searchEntries, type AlbumEntry, type Suggestion } from '@plumario/core';
+import { IdentifierError, formatAlbumNumber, searchEntries, type AlbumEntry, type Suggestion } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, Sheet, TextLink, ThemedText, TopBar, textStyles, useTheme } from '@plumario/ui';
 
@@ -21,6 +21,13 @@ type Props = {
 
 const TAGS = ['Más probable', 'Posible', 'Posible'];
 
+// Cuando la IA no sugiere nada: no vio un ave, no respondió o ya se usaron las consultas del día.
+const NOTICES = {
+  none: 'La IA no reconoció un ave en tu foto. Si sabes cuál es, búscala en el álbum.',
+  unavailable: 'No pudimos consultar a la IA. Revisa tu conexión o busca la especie en el álbum.',
+  quota: 'Ya usaste las consultas a la IA de hoy. Busca la especie en el álbum.',
+} as const;
+
 /** RegistrarIdentificar: la IA sugiere especies para la foto y se elige el sticker. */
 export function Identify({ photoUri, takenAt, onBack, onChoose }: Props) {
   const { useCases } = useDependencies();
@@ -28,6 +35,7 @@ export function Identify({ photoUri, takenAt, onBack, onChoose }: Props) {
   const insets = useSafeAreaInsets();
   const state = useAlbum();
   const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
+  const [failure, setFailure] = useState<IdentifierError['reason'] | null>(null);
   const [selected, setSelected] = useState<AlbumEntry | null>(null);
   const [manual, setManual] = useState<AlbumEntry | null>(null);
   const [picking, setPicking] = useState(false);
@@ -43,7 +51,11 @@ export function Identify({ photoUri, takenAt, onBack, onChoose }: Props) {
         setSuggestions(found);
         setSelected((prev) => prev ?? found[0]?.entry ?? null);
       })
-      .catch(() => current && setSuggestions([]));
+      .catch((error: unknown) => {
+        if (!current) return;
+        setFailure(error instanceof IdentifierError ? error.reason : 'unavailable');
+        setSuggestions([]);
+      });
     return () => {
       current = false;
     };
@@ -72,6 +84,11 @@ export function Identify({ photoUri, takenAt, onBack, onChoose }: Props) {
         </View>
 
         {!suggestions && <ActivityIndicator accessibilityLabel="La IA está mirando tu foto" style={styles.loading} />}
+        {suggestions?.length === 0 && (
+          <ThemedText variant="small" color="textSecondary" accessibilityLiveRegion="polite" style={styles.notice}>
+            {NOTICES[failure ?? 'none']}
+          </ThemedText>
+        )}
         <View accessibilityRole="radiogroup" accessibilityLabel="Especies sugeridas" style={styles.options}>
           {options.map(({ entry, tag }, i) => {
             const checked = entry.species.id === selected?.species.id;
@@ -210,6 +227,9 @@ const styles = StyleSheet.create({
   },
   loading: {
     marginTop: spacing[4],
+  },
+  notice: {
+    marginHorizontal: layout.textMargin,
   },
   options: {
     marginHorizontal: layout.cardMargin,

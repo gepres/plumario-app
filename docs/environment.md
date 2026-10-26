@@ -111,6 +111,13 @@ corta de otra forma (por ejemplo, al matarlo desde otra terminal) no se guardan:
 `pnpm emulators:export`. Una función con un trigger de Firestore **nuevo** se carga en caliente,
 pero el emulador de Firestore no le manda eventos hasta reiniciar los emuladores.
 
+**La IA (Gemini)** necesita su clave también en el emulador: va en `functions/.secret.local` con la
+línea `GEMINI_API_KEY=<clave>`. Está en `.gitignore`, y `pnpm functions:build` la copia junto al
+código, donde la busca el emulador. Al desplegar, `firebase.json` ignora los `*.local`; en el
+proyecto real la clave es un secreto de Secret Manager:
+`pnpm exec firebase functions:secrets:set GEMINI_API_KEY --project prod` (pide la clave y no la
+muestra). Sin la clave, las funciones de la IA no cargan.
+
 `firebase-tools` 15 exige **Java 21 o superior** para los emuladores, pero Android compila con el
 JDK 17 de `JAVA_HOME`. `scripts/firebase-emulators.mjs` resuelve el choque sin tocar el
 sistema: si `JAVA_HOME` es menor que 21, usa el Java de Android Studio (`jbr`) o el que diga

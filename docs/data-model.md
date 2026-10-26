@@ -21,6 +21,7 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
 | `users/{uid}/posters/{id}` | Póster guardado: `kind` (species/habitat), `number`, `habitat`, `speciesIds`, `seed`, `theme`, `title`, `savedAt` | el dueño | el dueño |
+| `users/{uid}/usage/{AAAA-MM-DD}` | Consultas a la IA del día: `aiCalls`, `updatedAt`. Tope de 60 por persona (`AI_DAILY_LIMIT`) | el servidor | nadie desde la app |
 | `trades/{tradeId}` | Propuesta de intercambio: `fromUid`, `fromHandle` (su @usuario, que las reglas comparan con su perfil), `offeredSpeciesId`, `requestedSpeciesId`, `status` (`open` → `accepted`/`cancelled`), `createdAt`; al aceptarla, el servidor suma `acceptedBy` y `acceptedAt` | quien propone la crea y puede cancelarla; aceptarla, el servidor | cualquiera con sesión que tenga el enlace (de a una); solo se listan las propias |
 | `trades/{tradeId}/acceptances/{id}` | Pedido de aceptar: `uid`, `createdAt`; el servidor responde con `result` (`accepted` o `rejected` y el motivo) y `answeredAt` | quien acepta lo crea, mientras la propuesta siga abierta y no sea la propia; el servidor responde | quien lo creó |
 
@@ -30,14 +31,19 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 
 ## Flujo de un registro
 
-1. La app achica la foto (lado mayor de 1600 px, JPEG), la sube a `users/{uid}/photos/{id}.jpg` y crea
+1. Antes de guardar, la IA ayuda a elegir: la app manda la foto (lado mayor de 1024 px) a las
+   funciones invocables `suggestSpecies` (RegistrarIdentificar: hasta 3 especies del álbum de la
+   región) y `checkPhoto` (RegistrarColocar: «La IA confirma»). Corren con Gemini
+   (`functions/src/ai.ts`); la clave es un secreto de Functions y nunca llega a la app. Piden sesión
+   y cuentan en `users/{uid}/usage`. Si la IA no responde, se puede elegir la especie a mano.
+2. La app achica la foto (lado mayor de 1600 px, JPEG), la sube a `users/{uid}/photos/{id}.jpg` y crea
    `users/{uid}/sightings/{id}` con `status: pending` (`makeRegisterSighting`).
-2. La Cloud Function `onSightingCreated` (`functions/src/sightings.ts`) valida la foto con el
-   identificador de especies (hoy uno de prueba; el proveedor de IA está por decidir) y, en una
-   transacción, aplica `evaluateValidatedPhoto` del núcleo: completa el sticker o suma la foto,
+3. La Cloud Function `onSightingCreated` (`functions/src/sightings.ts`) vuelve a revisar la foto con
+   Gemini, leyéndola de Storage (la app no es de fiar; si Gemini no responde, el registro se da por
+   bueno) y, en una transacción, aplica `evaluateValidatedPhoto` del núcleo: completa el sticker o suma la foto,
    decide el cromo (1 de 8 al azar al completar, o 5 fotos validadas) y guarda los logros nuevos. Si
    el registro ya no está pendiente (un reintento de la función), no otorga nada dos veces.
-3. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
+4. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
    RegistrarCompletado, RevelarCromado o RevelarDiamante, o que la foto no se reconoció.
 
 **Sin señal:** si la foto no se puede subir (Storage reintenta 12 s y el adaptador lo traduce a
