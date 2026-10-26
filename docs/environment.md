@@ -145,6 +145,19 @@ Perfiles en `apps/mobile/eas.json`: `development` (build de desarrollo, distribu
 `development-simulator` (iOS en simulador), `preview` (APK interno para probar) y `production`
 (tiendas, con número de versión automático).
 
+## Integración continua
+
+El repositorio está en GitHub (`gepres/plumario-app`, público). `.github/workflows/ci.yml` corre en
+cada push a `main` y en cada PR:
+
+- **Lint, tipos, pruebas y empaquetado:** `pnpm check` y `pnpm bundle-check`. Antes genera los tipos
+  de las rutas con `expo customize tsconfig.json`, porque `.expo/types` no se versiona y en local
+  los crea Metro.
+- **Reglas de Firestore y Storage:** `pnpm test:rules` contra los emuladores, con Java 21.
+
+Al ser público, nada con claves entra al repo: `.env`, los archivos de configuración de Firebase y
+las claves de cuentas de servicio están en `.gitignore`.
+
 ## Problemas conocidos
 
 - **La primera compilación de Android tarda mucho.** La caché de Gradle está en `C:` y el

@@ -1,0 +1,58 @@
+# Integración continua: en cada push a main y en cada PR corre lo mismo que `pnpm check` en local
+# (lint, tipos, pruebas y reglas de arquitectura), el empaquetado de Android y las pruebas de las
+# reglas de seguridad de Firestore y Storage contra los emuladores.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Un push nuevo a la misma rama cancela la corrida anterior.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint, tipos, pruebas y empaquetado
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      # La versión de pnpm sale de packageManager en package.json.
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Los tipos de las rutas (.expo/types) no se versionan: en local los genera Metro al arrancar.
+      # Sin ellos tsc no revisa las rutas de router.push; este comando los genera sin Metro y no
+      # cambia tsconfig.json.
+      - run: pnpm --filter @plumario/mobile exec expo customize tsconfig.json
+      - run: pnpm check
+      # Caza los fallos de resolución de módulos que tsc no ve.
+      - run: pnpm bundle-check
+
+  rules:
+    name: Reglas de Firestore y Storage
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      # Los emuladores de Firebase piden Java 21 o superior.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:rules
