@@ -1,10 +1,11 @@
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PHOTOS_FOR_CHROME, formatAlbumNumber, photosToChrome, type AlbumEntry, type AlbumView } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Card, Icon, ListRow, ProgressBar, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
+import { SpeciesSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS, CATEGORY_REASONS, formatShortDate } from '@/constants/cards';
 import { HABITAT_LABELS, stickerTint } from '@/constants/habitats';
@@ -43,7 +44,7 @@ export function SpeciesGallery({ speciesId, onBack, onOpenSticker, onAddPhoto }:
             </ThemedText>
           )}
         </View>
-        {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'loading' && <SpeciesSkeleton inset />}
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry && <ThemedText color="textSecondary" style={styles.message}>Esta especie no está en el álbum.</ThemedText>}
         {state.status === 'ready' && entry && <GalleryContent entry={entry} album={state.album} onOpenSticker={onOpenSticker} onAddPhoto={onAddPhoto} />}
@@ -137,9 +138,6 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     paddingRight: spacing[3],
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.cardMargin,

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { TradeProposal, TradeStatus } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Icon, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
+import { ListSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { formatShortDate } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
@@ -49,7 +50,7 @@ export function ProfileTrades({ onBack, onOpenTrade }: Props) {
         <ThemedText color="textSecondary" style={styles.intro}>
           Los intercambios son solo por enlace o código QR: uno por uno, con un cromo de igual o mayor categoría. Para proponer uno, entra a un sticker y toca «Pedir su cromo» u «Ofrecer en intercambio».
         </ThemedText>
-        {(trades === null || !entries) && trades !== 'error' && <ActivityIndicator style={styles.loading} />}
+        {(trades === null || !entries) && trades !== 'error' && <ListSkeleton rows={3} label="Cargando tus propuestas…" />}
         {trades === 'error' && <ThemedText color="error" style={styles.intro}>No se pudieron cargar tus propuestas. Revisa tu conexión.</ThemedText>}
         {list && entries && list.length === 0 && (
           <ThemedText variant="small" color="textSecondary" style={styles.intro}>Todavía no hiciste propuestas.</ThemedText>
@@ -89,9 +90,6 @@ export function ProfileTrades({ onBack, onOpenTrade }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[4],
   },
   content: {
     paddingHorizontal: layout.cardMargin,

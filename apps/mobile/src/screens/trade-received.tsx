@@ -1,11 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { ActivityIndicator, ScrollView, Share, StyleSheet, View } from 'react-native';
+import { ScrollView, Share, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { CATEGORY_RANK, receivedTrade, type AlbumEntry, type TradeProposal, type TradeResult } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Button, Icon, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS } from '@/constants/cards';
 import { tradeLink, tradeProblemMessage } from '@/constants/trades';
@@ -84,7 +85,7 @@ export function TradeReceived({ tradeId, onClose, onOpenSticker }: Props) {
   return (
     <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title="Propuesta de intercambio" onBack={onClose} close />
-      {(trade === null || (loaded && !view)) && <ActivityIndicator style={styles.loading} />}
+      {(trade === null || (loaded && !view)) && <PosterSkeleton inset />}
       {(trade === 'missing' || trade === 'error') && (
         <ThemedText color="textSecondary" style={styles.message}>
           {trade === 'missing' ? 'No encontramos esta propuesta. Pide que te manden el enlace de nuevo.' : 'No se pudo abrir la propuesta. Revisa tu conexión.'}
@@ -208,9 +209,6 @@ function Done({ offered, requested, onOpen, onClose }: { offered: AlbumEntry; re
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.textMargin,

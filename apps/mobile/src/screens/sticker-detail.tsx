@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Path } from 'react-native-svg';
 
@@ -6,6 +6,7 @@ import { formatAlbumNumber, sealsOf, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, FinishSwatch, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
+import { SpeciesSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS, CHROME_SOURCE_LABELS, SEAL_LABELS, formatLongDate } from '@/constants/cards';
 import { ALBUM_HABITAT_LABELS, stickerTint } from '@/constants/habitats';
@@ -45,7 +46,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTra
             <View style={styles.back} />
           )}
         </View>
-        {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'loading' && <SpeciesSkeleton inset />}
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
         {entry?.sticker && <DetailContent entry={entry} onOpenGallery={onOpenGallery} onShare={onShare} onTrade={onTrade} />}
@@ -147,9 +148,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.cardMargin,

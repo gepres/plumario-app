@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState, type ComponentRef } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { searchEntries, type AlbumEntry, type AlbumView, type Habitat } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, StatusBarScrim, ThemedText, textStyles, useTheme } from '@plumario/ui';
 
+import { AlbumSkeleton } from '@/components/screen-skeletons';
 import { useAlbum } from '@/hooks/use-album';
 
 import { HabitatCard } from './habitat-card';
@@ -29,7 +30,7 @@ export function Album(props: Props) {
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4], paddingBottom: layout.tabBar + insets.bottom + spacing[4] }]}>
-        {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'loading' && <AlbumSkeleton />}
         {state.status === 'error' && (
           <View style={styles.error}>
             <ThemedText color="error">No se pudo cargar tu álbum. Revisa tu conexión.</ThemedText>
@@ -120,9 +121,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: layout.cardMargin,
     gap: spacing[3],
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   error: {
     gap: spacing[3],

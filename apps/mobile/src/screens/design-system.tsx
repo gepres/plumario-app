@@ -5,6 +5,7 @@ import { HABITATS } from '@plumario/core';
 import { cardFinishes, layout, palette, radius, spacing, typography, type CardFinish, type Gradient, type TypeVariant } from '@plumario/tokens';
 import { Button, Card, Chip, GradientView, ListRow, ProgressBar, ThemedText, useTheme, type ColorToken } from '@plumario/ui';
 
+import { HomeSkeleton, SuggestionsSkeleton } from '@/components/screen-skeletons';
 import { HABITAT_LABELS } from '@/constants/habitats';
 import { useDependencies, type Dependencies } from '@/infrastructure/dependencies';
 
@@ -116,6 +117,13 @@ export function DesignSystem() {
           </View>
         </Card>
         <ListRow title="Privacidad" detail="Tus fotos sin ubicación pública" onPress={() => {}} />
+      </View>
+
+      <View style={styles.block}>
+        <ThemedText variant="section">Esqueletos de carga</ThemedText>
+        <ThemedText variant="caption" color="textSecondary">Mientras llegan los datos: Inicio y las sugerencias de la IA.</ThemedText>
+        <SuggestionsSkeleton />
+        <HomeSkeleton />
       </View>
 
       <View style={styles.block}>

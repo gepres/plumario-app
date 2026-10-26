@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, Share, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, Share, StyleSheet, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -7,6 +7,7 @@ import { offerOptions, requestOptions, TradeProposalError, type AlbumEntry } fro
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, Sheet, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
+import { ListSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS } from '@/constants/cards';
 import { CHROME_SOURCE_SHORT, tradeLink } from '@/constants/trades';
@@ -81,7 +82,7 @@ export function TradePropose({ mode, speciesId, onBack }: Props) {
   return (
     <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title={title} onBack={onBack} />
-      {!album && <ActivityIndicator style={styles.loading} />}
+      {!album && <ListSkeleton rows={4} inset />}
       {album && (!target || !valid) && (
         <ThemedText color="textSecondary" style={styles.message}>
           {mode === 'request' ? 'Solo se pide el cromo de una especie que ya registraste y que aún no tienes cromada.' : 'Solo se ofrece un cromo que tengas.'}
@@ -175,9 +176,6 @@ function Option({ entry, mode, selected, onPress }: { entry: AlbumEntry; mode: P
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.textMargin,

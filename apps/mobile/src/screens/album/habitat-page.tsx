@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { filterEntries, type AlbumEntry, type AlbumFilter, type Habitat, type HabitatSection } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { FilterChips, Icon, Medal, ProgressBar, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
+import { StickerGridSkeleton } from '@/components/screen-skeletons';
 import { ALBUM_HABITAT_LABELS, HABITAT_MEDALS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
@@ -62,7 +63,7 @@ export function HabitatPage({ habitat, onBack, onOpenSpecies, onAddPhoto }: Prop
           </View>
         </>
       )}
-      {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+      {state.status === 'loading' && <StickerGridSkeleton inset />}
       {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
       {section && entries.length === 0 && (
         <ThemedText color="textSecondary" style={styles.message}>
@@ -168,9 +169,6 @@ const styles = StyleSheet.create({
   },
   filters: {
     marginHorizontal: layout.cardMargin,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.cardMargin,

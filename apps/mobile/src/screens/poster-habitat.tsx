@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isHabitatPosterUnlocked, type Habitat, type PosterTheme } from '@plumario/core';
@@ -8,6 +8,7 @@ import { FilterChips, HabitatPoster, Icon, PosterFrame, ProgressBar, Switch, The
 
 import { habitatPosterCells, type HabitatOrder } from '@/components/poster-content';
 import { PosterExportActions } from '@/components/poster-export-actions';
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { ALBUM_HABITAT_LABELS, HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 import { useCoverPhotos } from '@/hooks/use-cover-photos';
@@ -43,7 +44,7 @@ export function PosterHabitat({ habitat: initial, onBack }: Props) {
     return (
       <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
         <TopBar title="Póster" onBack={onBack} />
-        {state.status === 'loading' ? <ActivityIndicator style={styles.loading} /> : <ThemedText color="textSecondary" style={styles.message}>Este hábitat aún no tiene especies en el álbum.</ThemedText>}
+        {state.status === 'loading' ? <PosterSkeleton inset /> : <ThemedText color="textSecondary" style={styles.message}>Este hábitat aún no tiene especies en el álbum.</ThemedText>}
       </View>
     );
   }
@@ -127,9 +128,6 @@ export function PosterHabitat({ habitat: initial, onBack }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.textMargin,

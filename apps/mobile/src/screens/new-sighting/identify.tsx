@@ -1,12 +1,13 @@
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IdentifierError, formatAlbumNumber, searchEntries, type AlbumEntry, type Suggestion } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, Sheet, TextLink, ThemedText, TopBar, textStyles, useTheme } from '@plumario/ui';
 
+import { SuggestionsSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { formatShortDate } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
@@ -83,7 +84,11 @@ export function Identify({ photoUri, takenAt, onBack, onChoose }: Props) {
           <ThemedText variant="caption" color="textSecondary">Toca el sticker que corresponde a tu foto.</ThemedText>
         </View>
 
-        {!suggestions && <ActivityIndicator accessibilityLabel="La IA está mirando tu foto" style={styles.loading} />}
+        {!suggestions && (
+          <View style={styles.options}>
+            <SuggestionsSkeleton />
+          </View>
+        )}
         {suggestions?.length === 0 && (
           <ThemedText variant="small" color="textSecondary" accessibilityLiveRegion="polite" style={styles.notice}>
             {NOTICES[failure ?? 'none']}
@@ -224,9 +229,6 @@ const styles = StyleSheet.create({
     marginHorizontal: layout.textMargin,
     marginTop: spacing[1],
     gap: 2,
-  },
-  loading: {
-    marginTop: spacing[4],
   },
   notice: {
     marginHorizontal: layout.textMargin,

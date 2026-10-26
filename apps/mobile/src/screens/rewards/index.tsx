@@ -1,10 +1,11 @@
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { chromesView, postersView, rewardsView, type Habitat } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Button, SegmentedTabs, StatusBarScrim, ThemedText } from '@plumario/ui';
 
+import { ListSkeleton, MedalsSkeleton } from '@/components/screen-skeletons';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
 import { usePosters } from '@/hooks/use-posters';
@@ -61,7 +62,7 @@ export function Rewards(props: Props) {
             { key: 'posters', label: 'Pósteres' },
           ]}
         />
-        {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'loading' && <MedalsSkeleton />}
         {state.status === 'error' && (
           <View style={styles.error}>
             <ThemedText color="error">No se pudieron cargar tus recompensas. Revisa tu conexión.</ThemedText>
@@ -72,7 +73,7 @@ export function Rewards(props: Props) {
         {state.status === 'ready' && tab === 'chromes' && (
           <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} onRequestTrade={props.onRequestTrade} />
         )}
-        {state.status === 'ready' && tab === 'posters' && !posters && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'ready' && tab === 'posters' && !posters && <ListSkeleton rows={3} label="Cargando tus pósteres…" />}
         {state.status === 'ready' && tab === 'posters' && posters && (
           <Posters
             album={state.album}
@@ -97,9 +98,6 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 4,
     gap: 2,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   error: {
     gap: spacing[3],

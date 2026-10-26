@@ -7,6 +7,7 @@ import { DEFAULT_REGION_ID, PLACE_NAME_MAX, type AlbumEntry, type PhotoLocation 
 import { layout, spacing } from '@plumario/tokens';
 import { Button, Icon, ThemedText, TopBar, textStyles, useTheme } from '@plumario/ui';
 
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { formatShortDate } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
@@ -40,7 +41,7 @@ export function Place({ photoUri, takenAt, location, speciesId, onBack, onChange
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title="Colocar foto" onBack={onBack} />
-      {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+      {state.status === 'loading' && <PosterSkeleton inset />}
       {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
       {state.status === 'ready' && !entry && <ThemedText color="textSecondary" style={styles.message}>Esta especie no está en el álbum.</ThemedText>}
       {entry && <PlaceContent entry={entry} photoUri={photoUri} takenAt={takenAt} location={location} onChangePhoto={onChangePhoto} onSaved={onSaved} onQueued={onQueued} />}
@@ -178,9 +179,6 @@ function PlaceContent({ entry, photoUri, takenAt, location, onChangePhoto, onSav
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.cardMargin,

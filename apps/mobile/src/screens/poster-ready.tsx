@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
@@ -8,6 +8,7 @@ import { Button, Icon, PosterFrame, SpeciesPoster, ThemedText, useTheme } from '
 
 import { speciesPosterProps } from '@/components/poster-content';
 import { PosterExportActions } from '@/components/poster-export-actions';
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { useAlbum } from '@/hooks/use-album';
 import { usePosters } from '@/hooks/use-posters';
 import { useCollectorName } from '@/hooks/use-profile';
@@ -27,7 +28,7 @@ export function PosterReady({ posterId, onClose }: Props) {
   const poster = posters?.find((p) => p.id === posterId);
   const album = state.status === 'ready' ? state.album : null;
 
-  if (!album || !posters) return <ActivityIndicator style={[styles.loading, { marginTop: insets.top + spacing[6] }]} />;
+  if (!album || !posters) return <View style={{ paddingTop: insets.top }}><PosterSkeleton inset /></View>;
   if (!poster || poster.number === null) {
     return (
       <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top + spacing[6] }]}>
@@ -86,9 +87,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: layout.cardMargin,
     gap: spacing[3],
-  },
-  loading: {
-    alignSelf: 'center',
   },
   message: {
     textAlign: 'center',

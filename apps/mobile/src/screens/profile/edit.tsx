@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { nextHandleChange, normalizeHandle, type UserProfile } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { BirdAvatar, Button, Icon, TextField, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
+import { SettingsSkeleton } from '@/components/screen-skeletons';
 import { AUTH_ERROR_MESSAGES, profileErrors, type ProfileErrors } from '@/constants/account-messages';
 import { stickerTint } from '@/constants/habitats';
 import { invalidateProfile } from '@/hooks/profile-version';
@@ -30,7 +31,7 @@ export function ProfileEdit({ onBack, onSaved }: Props) {
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title="Editar perfil" onBack={onBack} />
       {/* El formulario arranca con el perfil ya cargado, así sus valores iniciales son los de verdad. */}
-      {profile ? <EditForm profile={profile} onSaved={onSaved} /> : <ActivityIndicator style={styles.loading} />}
+      {profile ? <EditForm profile={profile} onSaved={onSaved} /> : <SettingsSkeleton inset />}
     </KeyboardAvoidingView>
   );
 }
@@ -158,9 +159,6 @@ function EditForm({ profile, onSaved }: { profile: UserProfile; onSaved: () => v
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   content: {
     paddingHorizontal: layout.cardMargin,

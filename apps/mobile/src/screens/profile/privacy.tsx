@@ -1,12 +1,13 @@
 import { File, Paths } from 'expo-file-system';
 import { useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { AlbumVisibility, Privacy, UserProfile } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { Button, Icon, SettingsList, Sheet, Switch, TextField, ThemedText, ToggleGroup, TopBar, useTheme } from '@plumario/ui';
 
+import { SettingsSkeleton } from '@/components/screen-skeletons';
 import { AUTH_ERROR_MESSAGES, authErrorCode } from '@/constants/account-messages';
 import { invalidateProfile } from '@/hooks/profile-version';
 import { useProfile } from '@/hooks/use-profile';
@@ -33,7 +34,7 @@ export function ProfilePrivacy({ onBack, onOpenPolicy }: Props) {
   return (
     <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title="Privacidad" onBack={onBack} />
-      {profile ? <PrivacyContent profile={profile} onOpenPolicy={onOpenPolicy} /> : <ActivityIndicator style={styles.loading} />}
+      {profile ? <PrivacyContent profile={profile} onOpenPolicy={onOpenPolicy} /> : <SettingsSkeleton inset />}
     </View>
   );
 }
@@ -197,9 +198,6 @@ function DeleteAccountSheet({ visible, onClose }: { visible: boolean; onClose: (
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   content: {
     paddingHorizontal: layout.cardMargin,

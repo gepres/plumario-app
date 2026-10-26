@@ -29,6 +29,7 @@ export { ProgressBar } from './components/progress-bar';
 export { Rays } from './components/rays';
 export { Screen } from './components/screen';
 export { SegmentedTabs } from './components/segmented-tabs';
+export { Skeleton, SkeletonBlock, SkeletonStickers } from './components/skeleton';
 export { Sheet } from './components/sheet';
 export { StatusBarScrim } from './components/status-bar-scrim';
 export { HOLOGRAPHIC } from './components/sticker-finishes';

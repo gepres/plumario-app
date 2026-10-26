@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { DEFAULT_REGION_ID, homeView, regionById, rewardsView, SPECIES_PER_POSTER, type AlbumEntry, type AlbumView, type Habitat } from '@plumario/core';
@@ -7,6 +7,7 @@ import { layout, spacing } from '@plumario/tokens';
 import { Button, GradientView, Icon, PosterFrame, ProgressBar, SpeciesPoster, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
+import { HomeSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker, stickerLabel } from '@/components/species-sticker';
 import { HABITAT_LABELS } from '@/constants/habitats';
 import { useAchievements } from '@/hooks/use-achievements';
@@ -59,7 +60,7 @@ export function Home(props: Props) {
           </Pressable>
         </View>
 
-        {state.status === 'loading' && <ActivityIndicator style={styles.loading} />}
+        {state.status === 'loading' && <HomeSkeleton />}
         {state.status === 'error' && (
           <View style={styles.section}>
             <ThemedText color="error">No se pudo cargar tu álbum. Revisa tu conexión.</ThemedText>
@@ -282,9 +283,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   hero: {
     borderRadius: 20,

@@ -6,6 +6,7 @@ import type { SpeciesPhoto } from '@plumario/core';
 import { radius, spacing } from '@plumario/tokens';
 import { Icon, ThemedText, useTheme } from '@plumario/ui';
 
+import { StickerGridSkeleton } from '@/components/screen-skeletons';
 import { formatShortDate } from '@/constants/cards';
 import { useSpeciesPhotos } from '@/hooks/use-species-photos';
 
@@ -21,7 +22,7 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
   // Proporción de cada foto, que se conoce al cargarla; hasta entonces, 4:3.
   const [ratios, setRatios] = useState<Record<string, number>>({});
 
-  if (state.status === 'loading') return <ActivityIndicator style={styles.loading} />;
+  if (state.status === 'loading') return <StickerGridSkeleton count={3} />;
   if (state.status === 'error' || state.photos.length === 0) {
     return (
       <View style={[styles.empty, { borderColor: colors.border }]}>
@@ -103,9 +104,6 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
 }
 
 const styles = StyleSheet.create({
-  loading: {
-    marginTop: spacing[4],
-  },
   flex: {
     flex: 1,
   },

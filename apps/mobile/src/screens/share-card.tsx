@@ -1,5 +1,5 @@
 import { useState, type ComponentProps } from 'react';
-import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { achievementId, formatAlbumNumber, type AlbumView, type EarnedAchievement } from '@plumario/core';
@@ -7,6 +7,7 @@ import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, ScaledFrame, SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard, Switch, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
 import { useOffscreenCapture } from '@/components/offscreen-capture';
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { achievementLabel, achievementTitle, medalKind } from '@/constants/achievements';
 import { formatShortDate } from '@/constants/cards';
 import { stickerTint } from '@/constants/habitats';
@@ -67,7 +68,7 @@ export function ShareCardScreen({ subject, withPhoto = false, onBack }: Props) {
   return (
     <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title="Compartir" onBack={onBack} />
-      {loading && <ActivityIndicator style={styles.loading} />}
+      {loading && <PosterSkeleton inset />}
       {!loading && !card && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este logro para compartir.</ThemedText>}
       {card && (
         <>
@@ -165,9 +166,6 @@ function cardFor(
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.textMargin,

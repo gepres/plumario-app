@@ -44,7 +44,7 @@ const RULES = [
     why: 'la UI es solo presentación: ni dominio, ni rutas, ni Firebase',
     allows: (t, dir) => {
       if (t.path !== undefined) return inside(t.path, dir);
-      return ['react', 'react-native', 'react-native-svg', 'react-native-safe-area-context', '@plumario/tokens'].includes(t.pkg) || t.pkg.startsWith('@expo-google-fonts/');
+      return ['react', 'react-native', 'react-native-svg', 'react-native-safe-area-context', 'react-native-reanimated', '@plumario/tokens'].includes(t.pkg) || t.pkg.startsWith('@expo-google-fonts/');
     },
   },
   {

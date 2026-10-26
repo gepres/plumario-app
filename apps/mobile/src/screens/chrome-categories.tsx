@@ -1,10 +1,11 @@
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { chromesView, type AlbumEntry, type CardCategory } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, InfoNote, ProgressBar, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
+import { ListSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
@@ -51,7 +52,7 @@ export function ChromeCategories({ onBack }: { onBack: () => void }) {
         <ThemedText variant="small" color="textSecondary" style={styles.intro}>
           Cada especie tiene una categoría. Si su cromo sale, sale con ese acabado.
         </ThemedText>
-        {!view && <ActivityIndicator />}
+        {!view && <ListSkeleton rows={5} />}
         {view &&
           album &&
           view.categories.map((c) => {

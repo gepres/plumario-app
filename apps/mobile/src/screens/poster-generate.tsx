@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { POSTER_TITLE_MAX, posterSpecies, SPECIES_PER_POSTER, type PosterTheme } from '@plumario/core';
@@ -7,6 +7,7 @@ import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, PosterFrame, SpeciesPoster, ThemedText, ToggleGroup, TopBar, textStyles, useTheme } from '@plumario/ui';
 
 import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
+import { PosterSkeleton } from '@/components/screen-skeletons';
 import { invalidatePosters } from '@/hooks/posters-version';
 import { useAlbum } from '@/hooks/use-album';
 import { useCollectorName } from '@/hooks/use-profile';
@@ -55,7 +56,7 @@ export function PosterGenerate({ number, onBack, onSaved }: Props) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
       <TopBar title={`Tu póster ${number}`} onBack={onBack} />
-      {!album && <ActivityIndicator style={styles.loading} />}
+      {!album && <PosterSkeleton inset />}
       {album && !ready && (
         <ThemedText color="textSecondary" style={styles.message}>
           Este póster se arma al llegar a {number * SPECIES_PER_POSTER} especies. Tienes {album.registered}.
@@ -124,9 +125,6 @@ export function PosterGenerate({ number, onBack, onSaved }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    marginTop: spacing[6],
   },
   message: {
     marginHorizontal: layout.textMargin,
