@@ -3,6 +3,7 @@ import { createFirebaseAuthService } from './firebase-auth-service';
 import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
 import { createFirestoreFeedbackRepository } from './firestore-feedback-repository';
 import { createFirebasePhotoStorage } from './firebase-photo-storage';
+import { createFirebasePushNotifications } from './firebase-push-notifications';
 import { connectFirebase } from './firebase-services';
 import { createFirestorePosterRepository } from './firestore-poster-repository';
 import { createFirestoreSightingRepository } from './firestore-sighting-repository';
@@ -29,5 +30,6 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     queue: createFileSightingQueue(),
     // Gemini, en las Functions suggestSpecies y checkPhoto; al guardar, el servidor revisa otra vez.
     identifier: createFunctionsSpeciesIdentifier(services),
+    push: createFirebasePushNotifications(services),
   };
 }

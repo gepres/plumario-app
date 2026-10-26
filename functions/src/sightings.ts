@@ -3,12 +3,14 @@ import { getStorage } from 'firebase-admin/storage';
 import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 
-import { achievementId, evaluateValidatedPhoto, sightingResultOf, type SightingResult, type Species } from '@plumario/core';
+import { achievementId, evaluateValidatedPhoto, sightingResultOf, type Achievement, type SightingResult, type Species } from '@plumario/core';
 
 import { GEMINI_API_KEY } from './ai.js';
 import { createGemini } from './gemini.js';
 import { checkPhotoAgainst, type CheckResult } from './identify.js';
 import { stickerDocument, toSpecies, toSticker } from './mappers.js';
+import { achievementsNotice } from './notices.js';
+import { notifyUser } from './notify.js';
 
 // Cuando la app guarda un registro pendiente (users/{uid}/sightings/{id}), el servidor valida la
 // foto y, si es de la especie elegida, otorga lo que corresponde en una transacción: completa el
@@ -60,7 +62,9 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
   if (!verdict.valid) return reject(snapshot.ref, verdict.reason ?? 'No se reconoce la especie en la foto.');
 
   const user = db.collection('users').doc(uid);
+  let earned: Achievement[] = [];
   await db.runTransaction(async (tx) => {
+    earned = [];
     // Primero todas las lecturas (lo pide la transacción); si el registro ya no está pendiente es
     // un reintento de la función y no se otorga dos veces.
     const [current, stickersSnapshot] = await Promise.all([tx.get(snapshot.ref), tx.get(user.collection('stickers'))]);
@@ -68,6 +72,7 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
     const stickers = stickersSnapshot.docs.map((doc) => toSticker(doc.id, doc.data()));
     const now = new Date();
     const result = evaluateValidatedPhoto({ species, catalog, stickers, at: now, roll: Math.random() });
+    earned = [...result.achievements];
 
     tx.set(user.collection('stickers').doc(species.id), stickerDocument(result.sticker, result.category));
     for (const achievement of result.achievements) {
@@ -76,4 +81,8 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
     tx.update(snapshot.ref, { status: 'validated', result: sightingResultOf(result), validatedAt: Timestamp.fromDate(now) });
   });
   logger.info('Registro validado', { uid, sightingId: event.params.sightingId, speciesId: species.id });
+  // Con la app abierta la medalla ya se celebra; el aviso sirve si se validó con la app cerrada
+  // (un registro que se subió solo al volver la señal).
+  const notice = achievementsNotice(earned);
+  if (notice) await notifyUser(uid, notice);
 });

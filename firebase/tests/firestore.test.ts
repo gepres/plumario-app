@@ -73,6 +73,13 @@ describe('perfil', () => {
     await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { privacy: { ...privacy, extra: true } }));
   });
 
+  it('guarda qué notificaciones quiere, y nada más', async () => {
+    await seed('users/ana', profile);
+    await assertSucceeds(updateDoc(doc(as('ana'), 'users/ana'), { notifications: { achievements: true, trades: false, regions: true } }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { notifications: { trades: 'no' } }));
+    await assertFails(updateDoc(doc(as('ana'), 'users/ana'), { notifications: { spam: true } }));
+  });
+
   it('cambia el @usuario reservando el nuevo y liberando el anterior, una vez cada 30 días', async () => {
     await seed('handles/ana.ica', { uid: 'ana', createdAt: now });
     await seed('users/ana', profile);
@@ -181,6 +188,24 @@ describe('pósteres', () => {
     await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/posters/p1'), poster));
     await assertFails(setDoc(doc(as('ana'), 'users/ana/posters/p2'), { ...poster, theme: 'neón' }));
     await assertFails(setDoc(doc(as('beto'), 'users/ana/posters/p3'), poster));
+  });
+});
+
+describe('teléfonos para los avisos', () => {
+  const device = () => ({ platform: 'android', updatedAt: serverTimestamp() });
+  it('el dueño registra y borra los suyos; nadie toca los ajenos', async () => {
+    await assertSucceeds(setDoc(doc(as('ana'), 'users/ana/devices/tok-1'), device()));
+    await assertSucceeds(getDoc(doc(as('ana'), 'users/ana/devices/tok-1')));
+    await assertFails(getDoc(doc(as('beto'), 'users/ana/devices/tok-1')));
+    await assertFails(setDoc(doc(as('beto'), 'users/ana/devices/tok-2'), device()));
+    await assertFails(deleteDoc(doc(as('beto'), 'users/ana/devices/tok-1')));
+    await assertSucceeds(deleteDoc(doc(as('ana'), 'users/ana/devices/tok-1')));
+  });
+
+  it('solo con la plataforma y la fecha del servidor', async () => {
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/devices/tok-1'), { platform: 'windows', updatedAt: serverTimestamp() }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/devices/tok-1'), { platform: 'android', updatedAt: now }));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/devices/tok-1'), { ...device(), uid: 'ana' }));
   });
 });
 

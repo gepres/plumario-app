@@ -128,6 +128,11 @@ pnpm viewer           regenera viewer/index.html desde design/
 - **`pnpm install` falla con Metro abierto** (`ENOENT … raw-body_tmp_…`): Metro tiene abiertos
   archivos de `node_modules` y Windows no deja moverlos. Detén Metro (y los emuladores) antes de
   instalar.
+- **El plugin de messaging solo nombra el ícono de las notificaciones** (`@drawable/notification_icon`)
+  y no lo crea: sin `plugins/with-notification-icon.js` la compilación falla. Y sin declarar
+  `POST_NOTIFICATIONS` en `app.config.ts`, Android 13 ni siquiera muestra el diálogo de permiso.
+- **No dejes la terminal dentro de `apps/mobile/android`**: `expo prebuild --clean` no puede borrar
+  la carpeta (`EBUSY`).
 - **Gemini a veces está saturado** (503 o más de 15 s). `functions/src/gemini.ts` pasa a
   `gemini-3.5-flash-lite` y vuelve a probar; no subas el tiempo de espera: alguien mira la pantalla.
 

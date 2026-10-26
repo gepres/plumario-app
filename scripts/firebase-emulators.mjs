@@ -54,6 +54,13 @@ const firebase = createRequire(import.meta.url).resolve('firebase-tools/lib/bin/
 console.log(`Java ${javaVersion(javaHome)} de ${javaHome}`);
 const child = spawn(process.execPath, [firebase, ...args], {
   stdio: 'inherit',
-  env: { ...process.env, JAVA_HOME: javaHome, PATH: join(javaHome, 'bin') + delimiter + process.env.PATH },
+  env: {
+    ...process.env,
+    JAVA_HOME: javaHome,
+    PATH: join(javaHome, 'bin') + delimiter + process.env.PATH,
+    // La CLI espera 10 s a que cargue el código de las Functions; con la máquina ocupada (Gradle
+    // compilando) no alcanza y arranca sin ninguna. En segundos.
+    FUNCTIONS_DISCOVERY_TIMEOUT: process.env.FUNCTIONS_DISCOVERY_TIMEOUT ?? '60',
+  },
 });
 child.on('exit', (code) => process.exit(code ?? 1));

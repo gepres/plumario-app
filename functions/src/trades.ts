@@ -5,6 +5,8 @@ import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { applyTrade, CATEGORY_RANK, tradeProblem, type CardCategory, type TradeResult, type TradeSide } from '@plumario/core';
 
 import { stickerDocument, toSticker } from './mappers.js';
+import { tradeAcceptedNotice } from './notices.js';
+import { notifyUser } from './notify.js';
 
 // Aceptar una propuesta de intercambio (IntercambioRecibido): la app crea
 // trades/{id}/acceptances/{acceptanceId} con su uid y el servidor hace el intercambio en una
@@ -27,7 +29,9 @@ export const onTradeAcceptanceCreated = onDocumentCreated('trades/{tradeId}/acce
   const db = getFirestore();
   const tradeRef = db.collection('trades').doc(tradeId);
 
+  let accepted: { fromUid: string; requestedSpeciesId: string } | null = null;
   const result = await db.runTransaction(async (tx): Promise<TradeResult | null> => {
+    accepted = null;
     const [current, trade] = await Promise.all([tx.get(snapshot.ref), tx.get(tradeRef)]);
     // Reintento de la función: ya se respondió.
     if (current.data()?.result) return null;
@@ -61,10 +65,22 @@ export const onTradeAcceptanceCreated = onDocumentCreated('trades/{tradeId}/acce
         for (const sticker of changes.receiver) tx.set(stickersOf(uid).doc(sticker.speciesId), stickerDocument(sticker, categories[sticker.speciesId]!));
         tx.update(tradeRef, { status: 'accepted', acceptedBy: uid, acceptedAt: Timestamp.fromDate(now) });
         answer = { outcome: 'accepted' };
+        accepted = { fromUid: String(data.fromUid), requestedSpeciesId: requestedId };
       }
     }
     tx.update(snapshot.ref, { result: answer, answeredAt: Timestamp.now() });
     return answer;
   });
   if (result) logger.info('Aceptación de intercambio', { tradeId, uid, outcome: result.outcome, reason: result.outcome === 'rejected' ? result.reason : undefined });
+  if (accepted) await notifyProposer(accepted, uid);
 });
+
+/** Aviso a quien propuso: quién aceptó y qué cromo recibió (el que pidió). */
+async function notifyProposer({ fromUid, requestedSpeciesId }: { fromUid: string; requestedSpeciesId: string }, receiverUid: string) {
+  const db = getFirestore();
+  const [receiver, proposer] = await Promise.all([db.collection('users').doc(receiverUid).get(), db.collection('users').doc(fromUid).get()]);
+  const regionId = String(proposer.data()?.regionId ?? 'ica');
+  const species = await db.collection('regions').doc(regionId).collection('species').doc(requestedSpeciesId).get();
+  const speciesName = typeof species.data()?.commonName === 'string' ? String(species.data()?.commonName) : null;
+  await notifyUser(fromUid, tradeAcceptedNotice({ handle: String(receiver.data()?.handle ?? 'alguien'), speciesName }));
+}

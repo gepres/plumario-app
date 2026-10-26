@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, ErrorBoundary as RouterErrorBoundary, Stack, ThemeProvider, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -7,12 +7,19 @@ import { useEffect } from 'react';
 import { fonts, textStyles, useTheme } from '@plumario/ui';
 
 import { CelebrationHost } from '@/components/celebration-host';
+import { PushNotificationsHost } from '@/components/push-notifications-host';
 import { SightingQueueSync } from '@/components/sighting-queue-sync';
 import { useResumeLinkAfterSignIn } from '@/hooks/use-resume-link-after-sign-in';
 import { useSession } from '@/hooks/use-session';
-import { DependenciesProvider } from '@/infrastructure/dependencies';
+import { DependenciesProvider, errorReporter } from '@/infrastructure/dependencies';
 
 SplashScreen.preventAutoHideAsync();
+
+/** Si una pantalla falla al dibujarse: la pantalla de error de expo-router, y el error a Crashlytics. */
+export function ErrorBoundary(props: ErrorBoundaryProps) {
+  useEffect(() => errorReporter.record(props.error, 'Pantalla'), [props.error]);
+  return <RouterErrorBoundary {...props} />;
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts(fonts);
@@ -75,6 +82,7 @@ function RootStack() {
           <Stack.Screen name="share/medal/[id]" />
           <Stack.Screen name="profile/edit" />
           <Stack.Screen name="profile/appearance" />
+          <Stack.Screen name="profile/notifications" />
           <Stack.Screen name="profile/privacy" />
           <Stack.Screen name="profile/practices" />
           <Stack.Screen name="profile/help" />
@@ -101,6 +109,8 @@ function RootStack() {
       {signedIn && <CelebrationHost />}
       {/* Los registros guardados sin señal se suben solos al volver la conexión. */}
       {signedIn && <SightingQueueSync />}
+      {/* Los avisos push: registrar el teléfono, abrir lo que avisan y mostrar los que llegan con la app abierta. */}
+      {signedIn && <PushNotificationsHost />}
     </>
   );
 }

@@ -53,6 +53,9 @@ const OUTPUTS = {
   // fondo verde lo pone app.config.ts.
   'android-icon-foreground.png': canvas(1024, 0.56, mark()),
   'android-icon-monochrome.png': canvas(1024, 0.56, monochrome()),
+  // Ícono de las notificaciones de Android: solo el alfa, en 24 dp (96 px en xxxhdpi). Lo copia
+  // plugins/with-notification-icon.js a los recursos nativos.
+  'notification-icon.png': canvas(96, 0.92, monochrome()),
   // Arranque: el ícono con esquinas, porque la tarjeta casi blanca se perdería sobre el fondo blanco.
   'splash-icon.png': canvas(512, 0.8, mark(), { background: t.logoIcono, cornerRadius: 512 * 0.225 }),
   'favicon.png': canvas(48, 0.8, mark(), { background: t.logoIcono, cornerRadius: 48 * 0.225 }),

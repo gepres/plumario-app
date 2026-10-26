@@ -4,6 +4,8 @@ import { connectFirestoreEmulator, getFirestore } from '@react-native-firebase/f
 import { connectFunctionsEmulator, getFunctions } from '@react-native-firebase/functions';
 import { connectStorageEmulator, getStorage } from '@react-native-firebase/storage';
 
+import { startAppCheck } from './app-check';
+
 // Las instancias de Firebase que usan los adaptadores.
 //
 // Con `emulatorHost`, todo va a los emuladores locales (pnpm emulators) y con el proyecto
@@ -29,7 +31,11 @@ export type FirebaseServices = {
 };
 
 export async function connectFirebase({ emulatorHost }: { emulatorHost?: string } = {}): Promise<FirebaseServices> {
-  if (!emulatorHost) return { db: getFirestore(), auth: getAuth(), storage: getStorage(), functions: getFunctions(getApp(), FUNCTIONS_REGION) };
+  if (!emulatorHost) {
+    // App Check va antes del primer pedido al proyecto real.
+    await startAppCheck();
+    return { db: getFirestore(), auth: getAuth(), storage: getStorage(), functions: getFunctions(getApp(), FUNCTIONS_REGION) };
+  }
 
   const app =
     getApps().find((a) => a.name === EMULATOR_APP_NAME) ??

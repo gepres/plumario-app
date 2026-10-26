@@ -9,6 +9,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 const LIGHT_BACKGROUND = '#FFFFFF';
 const DARK_BACKGROUND = '#101311';
 const ICON_GREEN = '#3E6A2B';
+// El de las notificaciones de Android: blanco sobre transparente (pnpm icons).
+const NOTIFICATION_ICON = './assets/images/notification-icon.png';
 
 // Los archivos de configuración de Firebase se descargan de la consola del proyecto y no se
 // versionan. En EAS llegan como variables de entorno de tipo archivo (ver docs/environment.md).
@@ -29,6 +31,16 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     console.warn(`Firebase queda desactivado en esta build: falta ${missing} en apps/mobile/firebase/.`);
   }
 
+  const firebasePlugins: NonNullable<ExpoConfig['plugins']> = [
+    '@react-native-firebase/app',
+    '@react-native-firebase/auth',
+    '@react-native-firebase/app-check',
+    '@react-native-firebase/crashlytics',
+    ['@react-native-firebase/messaging', { android: { notificationIcon: NOTIFICATION_ICON, notificationColor: ICON_GREEN } }],
+    // Los recursos del ícono de las notificaciones, que el plugin de messaging solo nombra.
+    ['./plugins/with-notification-icon', { icon: NOTIFICATION_ICON, color: ICON_GREEN }],
+  ];
+
   return {
     ...config,
     name: 'Plumario',
@@ -42,6 +54,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       bundleIdentifier: 'com.gepres.plumario',
       supportsTablet: false,
       googleServicesFile: googleServicesIos,
+      // Avisos push (FCM por APNs): falta subir la clave de APNs a la consola de Firebase, con la
+      // cuenta de Apple Developer.
+      entitlements: { 'aps-environment': 'production' },
+      infoPlist: { UIBackgroundModes: ['remote-notification'] },
     },
     android: {
       package: 'com.gepres.plumario',
@@ -52,6 +68,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       predictiveBackGestureEnabled: false,
       googleServicesFile: googleServicesAndroid,
+      // Android 13 o más pide permiso para mostrar notificaciones; sin declararlo, ni pregunta.
+      permissions: ['android.permission.POST_NOTIFICATIONS'],
     },
     web: {
       output: 'single',
@@ -72,7 +90,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       // Android: el SDK de Firebase que trae React Native Firebase 27 está compilado con Kotlin 2.4,
       // y con el 2.2 de Expo falla al compilar («incompatible version of Kotlin … expected 2.2.0»).
       ['expo-build-properties', { ios: { useFrameworks: 'dynamic' }, android: { kotlinVersion: '2.4.0' } }],
-      ...(firebase ? ['@react-native-firebase/app', '@react-native-firebase/auth'] : []),
+      ...(firebase ? firebasePlugins : []),
       // Registrar un ave (cámara y galería), pósteres (guardar y compartir) e intercambios (QR).
       [
         'expo-camera',

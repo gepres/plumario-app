@@ -15,7 +15,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
-export type ProfileLink = 'edit' | 'appearance' | 'privacy' | 'trades' | 'practices' | 'help' | 'regions' | 'design-system';
+export type ProfileLink = 'edit' | 'notifications' | 'appearance' | 'privacy' | 'trades' | 'practices' | 'help' | 'regions' | 'design-system';
 
 type Props = {
   onOpen: (link: ProfileLink) => void;
@@ -103,8 +103,7 @@ export function Profile({ onOpen, onOpenAlbum, onOpenRewards }: Props) {
           <SettingsList
             label="Ajustes"
             items={[
-              // Las notificaciones llegan con los avisos push; mientras, la fila se ve apagada.
-              { key: 'notifications', icon: 'bell', title: 'Notificaciones', detail: 'Pronto: logros, intercambios y nuevas regiones' },
+              { key: 'notifications', icon: 'bell', title: 'Notificaciones', detail: 'Logros, intercambios y nuevas regiones', onPress: () => onOpen('notifications') },
               { key: 'appearance', icon: 'appearance', title: 'Apariencia', detail: APPEARANCE_LABELS[appearance].title, onPress: () => onOpen('appearance') },
               { key: 'privacy', icon: 'shield', title: 'Privacidad', detail: 'La ubicación de tus fotos no se comparte', onPress: () => onOpen('privacy') },
               { key: 'trades', icon: 'swap', title: 'Intercambios', detail: 'Solo por enlace o código QR · tus propuestas', onPress: () => onOpen('trades') },

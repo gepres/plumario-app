@@ -24,6 +24,7 @@ export type { IconName } from './components/icon';
 export { ListRow } from './components/list-row';
 export { Logo } from './components/logo';
 export { Medal } from './components/medal';
+export { NoticeBanner } from './components/notice-banner';
 export type { MedalKind } from './components/medal';
 export { ProgressBar } from './components/progress-bar';
 export { Rays } from './components/rays';

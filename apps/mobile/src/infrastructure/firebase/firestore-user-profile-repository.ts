@@ -1,6 +1,6 @@
 import { Timestamp, doc, getDoc, serverTimestamp, updateDoc, writeBatch } from '@react-native-firebase/firestore';
 
-import { DEFAULT_PRIVACY, HandleTakenError, type AlbumVisibility, type UserProfile, type UserProfileRepository } from '@plumario/core';
+import { DEFAULT_PRIVACY, HandleTakenError, notificationSettingsOf, type AlbumVisibility, type UserProfile, type UserProfileRepository } from '@plumario/core';
 
 import { firebaseErrorCode, type FirebaseServices } from './firebase-services';
 
@@ -27,6 +27,7 @@ function toProfile(data: Record<string, unknown>): UserProfile {
     },
     handleChangedAt: toDate(data.handleChangedAt),
     regionAlerts: Array.isArray(data.regionAlerts) ? data.regionAlerts.map(String) : [],
+    notifications: notificationSettingsOf(data.notifications),
     createdAt: toDate(data.createdAt) ?? new Date(0),
   };
 }

@@ -30,7 +30,7 @@ service cloud.firestore {
       // Los campos nuevos (ave favorita, nombre en lo compartido, IA, cambio de @usuario) pueden faltar
       // en perfiles creados antes.
       function validProfile(data) {
-        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'favoriteSpeciesId', 'privacy', 'handleChangedAt', 'regionAlerts', 'createdAt'])
+        return data.keys().hasOnly(['displayName', 'handle', 'regionId', 'favoriteSpeciesId', 'privacy', 'handleChangedAt', 'regionAlerts', 'notifications', 'createdAt'])
           && isShortText(data.displayName, 40)
           && data.handle is string && data.handle.matches('^[a-z0-9_.]{3,24}$')
           && isShortText(data.regionId, 40)
@@ -43,7 +43,16 @@ service cloud.firestore {
           && data.privacy.albumVisibility in ['private', 'link', 'public']
           && data.privacy.get('showName', true) is bool
           && data.privacy.get('improveAi', false) is bool
+          && (data.get('notifications', null) == null || validNotifications(data.notifications))
           && data.createdAt is timestamp;
+      }
+      // Perfil › Notificaciones: qué avisos quiere (logros, intercambios, regiones).
+      function validNotifications(notifications) {
+        return notifications is map
+          && notifications.keys().hasOnly(['achievements', 'trades', 'regions'])
+          && notifications.get('achievements', true) is bool
+          && notifications.get('trades', true) is bool
+          && notifications.get('regions', true) is bool;
       }
       // El @usuario tiene que estar reservado a su nombre en la misma escritura (handles/).
       function ownsHandle(handle) {
@@ -120,6 +129,17 @@ service cloud.firestore {
         }
         allow read, delete: if isOwner(uid);
         allow create, update: if isOwner(uid) && validPoster(request.resource.data);
+      }
+
+      // Los teléfonos de la cuenta, para mandarles avisos (FCM): el id es el token del teléfono. El
+      // dueño lo registra al activar las notificaciones y lo borra al cerrar sesión; el servidor
+      // borra los que ya no sirven.
+      match /devices/{token} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.keys().hasOnly(['platform', 'updatedAt'])
+          && request.resource.data.platform in ['android', 'ios']
+          && request.resource.data.updatedAt == request.time;
       }
     }
 

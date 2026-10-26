@@ -14,13 +14,14 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 |---|---|---|---|
 | `regions/{regionId}` | La región-álbum: `name`, `albumClass`, `speciesCount`, `albumCount` | `tools/species/seed.mjs` | todos, sin sesión |
 | `regions/{regionId}/species/{speciesId}` | Catálogo (ver `data/README.md`) | `tools/species/seed.mjs` | todos, sin sesión |
-| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public, showName, improveAi }`, `handleChangedAt`, `regionAlerts` (las regiones que espera, «Avísame cuando esté»), `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
+| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public, showName, improveAi }`, `handleChangedAt`, `regionAlerts` (las regiones que espera, «Avísame cuando esté»), `notifications { achievements, trades, regions }` (los avisos que quiere; lo que falta cuenta como encendido), `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
 | `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño; la borra solo al cambiar de @usuario, en la misma escritura en que su perfil deja de usarla | cualquiera, de a uno (para ver si está libre); no se listan |
 | `feedback/{id}` | Comentario (PerfilComentario): `userId`, `kind` (idea/error/bird/other), `text` (hasta 500), `replyTo` (el correo, solo si deja responder), `screenshotPath`, `appVersion`, `platform`, `createdAt` | quien tiene sesión, a su nombre | nadie desde la app (el equipo, en la consola) |
 | `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, cromo, logros, avance) y `validatedAt`. En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente*; el servidor cambia el estado y escribe el resultado | el dueño |
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
 | `users/{uid}/posters/{id}` | Póster guardado: `kind` (species/habitat), `number`, `habitat`, `speciesIds`, `seed`, `theme`, `title`, `savedAt` | el dueño | el dueño |
+| `users/{uid}/devices/{token}` | Teléfono que recibe los avisos push (el id es su token de FCM): `platform` (android/ios), `updatedAt` | el dueño lo registra al activar las notificaciones y lo borra al cerrar sesión; el servidor borra los que FCM ya no acepta | el dueño |
 | `users/{uid}/usage/{AAAA-MM-DD}` | Consultas a la IA del día: `aiCalls`, `updatedAt`. Tope de 60 por persona (`AI_DAILY_LIMIT`) | el servidor | nadie desde la app |
 | `trades/{tradeId}` | Propuesta de intercambio: `fromUid`, `fromHandle` (su @usuario, que las reglas comparan con su perfil), `offeredSpeciesId`, `requestedSpeciesId`, `status` (`open` → `accepted`/`cancelled`), `createdAt`; al aceptarla, el servidor suma `acceptedBy` y `acceptedAt` | quien propone la crea y puede cancelarla; aceptarla, el servidor | cualquiera con sesión que tenga el enlace (de a una); solo se listan las propias |
 | `trades/{tradeId}/acceptances/{id}` | Pedido de aceptar: `uid`, `createdAt`; el servidor responde con `result` (`accepted` o `rejected` y el motivo) y `answeredAt` | quien acepta lo crea, mientras la propuesta siga abierta y no sea la propia; el servidor responde | quien lo creó |
@@ -96,3 +97,15 @@ No se comparten fotos ni ubicación: la propuesta solo lleva especies y el @usua
   `onUserDeleted` (`functions/src/accounts.ts`) borra el perfil y todo lo que cuelga de él, sus fotos
   y su @usuario, y cancela sus propuestas abiertas.
 
+## Avisos push
+
+`functions/src/notify.ts` manda un aviso a los teléfonos de `users/{uid}/devices` si la persona lo
+quiere (`users/{uid}.notifications`). Lo mandan tres Functions:
+
+| Aviso | Cuándo | Abre |
+|---|---|---|
+| Medalla nueva | `onSightingCreated` otorga logros. Con la app abierta no se muestra: ya se celebra en pantalla | `/rewards` |
+| Aceptaron tu intercambio | `onTradeAcceptanceCreated` acepta una propuesta: le avisa a quien la hizo | `/profile/trades` |
+| Abrió una región | `onRegionCreated`: se crea `regions/{id}` (al cargar su catálogo) y se avisa a quienes la tienen en `regionAlerts` | `/regions` |
+
+Un aviso que no sale no rompe la Function que lo pidió: se registra en el log y sigue.

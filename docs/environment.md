@@ -152,6 +152,31 @@ Perfiles en `apps/mobile/eas.json`: `development` (build de desarrollo, distribu
 `development-simulator` (iOS en simulador), `preview` (APK interno para probar) y `production`
 (tiendas, con número de versión automático).
 
+## Avisos, App Check y Crashlytics
+
+- **Avisos push (FCM).** La app pide el permiso desde Perfil › Notificaciones y guarda el token
+  del teléfono en `users/{uid}/devices`. FCM usa siempre el proyecto real (el de
+  `google-services.json`): con los emuladores, el teléfono se registra en la base del emulador,
+  pero el emulador de Functions no puede mandar avisos (lo deja en el log). Para iOS falta subir la
+  clave de APNs (cuenta de Apple Developer) en la consola: Configuración del proyecto › Cloud
+  Messaging.
+- **App Check.** `apps/mobile/src/infrastructure/firebase/app-check.ts` lo arranca antes del primer
+  pedido al proyecto real: Play Integrity en Android y App Attest en iOS, o el proveedor de
+  depuración en las builds de desarrollo. Mientras la consola no lo exija, los pedidos sin prueba
+  siguen pasando. Para exigirlo:
+  1. Registrar las apps en la consola (App Check): Android con Play Integrity (pide la app en Google
+     Play Console) e iOS con App Attest.
+  2. Registrar el token de depuración de cada build de desarrollo: sale en
+     `adb logcat | grep DebugAppCheckProvider` y se agrega en App Check › Administrar tokens de depuración.
+  3. Mirar las métricas unos días y recién entonces activar «Aplicar» para Firestore, Storage y
+     Functions (en las invocables, `enforceAppCheck: true` en `functions/src/ai.ts`).
+- **Crashlytics.** Recoge solo los cierres inesperados de las builds de publicación (en las de
+  desarrollo está apagado). La app le pasa el uid de la sesión y los errores de dibujo de pantalla
+  (`ErrorBoundary` en `src/app/_layout.tsx`).
+- **Alerta de presupuesto.** Va en la consola de Google Cloud, con la cuenta dueña: Facturación ›
+  Presupuestos y alertas › Crear presupuesto, para el proyecto `link-dynamic-74b85`, con avisos por
+  correo al 50, 90 y 100 %.
+
 ## Integración continua
 
 El repositorio está en GitHub (`gepres/plumario-app`, público). `.github/workflows/ci.yml` corre en

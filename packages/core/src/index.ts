@@ -32,6 +32,8 @@ export type { HomeView } from './domain/home';
 export type { PhotoLocation } from './domain/photo-metadata';
 export type { Feedback, FeedbackKind } from './domain/feedback';
 export { APPEARANCES, parseAppearance } from './domain/appearance';
+export { DEFAULT_NOTIFICATIONS, NOTIFICATION_TOPICS, notificationSettingsOf } from './domain/notifications';
+export type { NotificationSettings, NotificationTopic } from './domain/notifications';
 export type { Appearance } from './domain/appearance';
 export type { ReceivedTrade, TradeProblem, TradeProposal, TradeResult, TradeSide, TradeStatus } from './domain/trade';
 
@@ -43,6 +45,8 @@ export type { ProfileChanges, UserProfileRepository } from './application/ports/
 export type { FeedbackRepository } from './application/ports/feedback-repository';
 export type { AchievementRepository, EarnedAchievement } from './application/ports/achievement-repository';
 export type { AppearanceSettings } from './application/ports/appearance-settings';
+export type { ErrorReporter } from './application/ports/error-reporter';
+export type { PushNotice, PushNotifications, PushPermission } from './application/ports/push-notifications';
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { PosterRepository } from './application/ports/poster-repository';
 export type { SightingRepository } from './application/ports/sighting-repository';
@@ -71,4 +75,5 @@ export type { SpeciesPhoto } from './application/use-cases/list-species-photos';
 export type { ValidatedPhotoResult } from './application/use-cases/evaluate-validated-photo';
 export { SignUpValidationError, makeSignUp, signUpProblems } from './application/use-cases/sign-up';
 export { makeCheckResetCode, makeRequestPasswordReset, makeResetPassword, makeSignIn, makeSignOut } from './application/use-cases/account-access';
+export { makeEnablePushNotifications, makeRegisterDevice } from './application/use-cases/notifications';
 export type { SignUpInput, SignUpProblems } from './application/use-cases/sign-up';

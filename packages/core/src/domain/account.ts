@@ -1,3 +1,4 @@
+import { DEFAULT_NOTIFICATIONS, type NotificationSettings } from './notifications';
 import type { RegionId, SpeciesId } from './species';
 
 // Reglas de la cuenta (design/project/Registro.dc.html y NuevaContrasena.dc.html).
@@ -64,6 +65,8 @@ export type UserProfile = {
   handleChangedAt: Date | null;
   /** RegionLista, «Avísame cuando esté»: las regiones que espera. */
   regionAlerts: readonly RegionId[];
+  /** Perfil › Notificaciones: qué avisos quiere en el teléfono. */
+  notifications: NotificationSettings;
   createdAt: Date;
 };
 
@@ -79,6 +82,7 @@ export function newProfile(input: { displayName: string; handle: string; at: Dat
     privacy: DEFAULT_PRIVACY,
     handleChangedAt: null,
     regionAlerts: [],
+    notifications: DEFAULT_NOTIFICATIONS,
     createdAt: input.at,
   };
 }

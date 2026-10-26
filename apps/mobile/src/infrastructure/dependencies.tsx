@@ -1,14 +1,19 @@
 import { createContext, use, useEffect, useState, type ReactNode } from 'react';
+import { Platform } from 'react-native';
 
 import {
   type AchievementRepository,
   type AppearanceSettings,
+  type ErrorReporter,
+  type PushNotifications,
   type FeedbackRepository,
   type SightingQueue,
   makeChangeEmail,
   makeChangeHandle,
   makeCheckPhoto,
   makeDeleteAccount,
+  makeEnablePushNotifications,
+  makeRegisterDevice,
   makeExportUserData,
   makeSendFeedback,
   makeSendQueuedSightings,
@@ -38,11 +43,13 @@ import {
   type UserProfileRepository,
 } from '@plumario/core';
 
+import { consoleErrorReporter } from './console-error-reporter';
 import { createDeviceAppearanceSettings } from './device/device-appearance-settings';
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
 import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
+import { createInMemoryPushNotifications } from './in-memory/in-memory-push-notifications';
 import { InMemoryFeedbackRepository } from './in-memory/in-memory-feedback-repository';
 import { InMemorySightingQueue } from './in-memory/in-memory-sighting-queue';
 import { InMemoryTradeRepository } from './in-memory/in-memory-trade-repository';
@@ -70,6 +77,7 @@ type Adapters = {
   feedback: FeedbackRepository;
   queue: SightingQueue;
   identifier: SpeciesIdentifier;
+  push: PushNotifications;
 };
 
 export type Dependencies = {
@@ -105,13 +113,21 @@ export type Dependencies = {
     /** «Adjuntar una captura de pantalla»: se sube con las fotos del usuario. */
     uploadScreenshot: (userId: string, localUri: string) => Promise<string>;
     exportUserData: ReturnType<typeof makeExportUserData>;
+    /** Perfil › Notificaciones, «Activar»: pide el permiso y registra el teléfono. */
+    enablePushNotifications: ReturnType<typeof makeEnablePushNotifications>;
+    /** Al entrar: registra el teléfono si ya tiene permiso. */
+    registerDevice: ReturnType<typeof makeRegisterDevice>;
   };
+  /** Los avisos push: el permiso, los que llegan con la app abierta y los que se tocan. */
+  notifications: Pick<PushNotifications, 'permission' | 'onForeground' | 'onOpened' | 'initialNotice'>;
   /** Seguir un registro hasta que el servidor lo valide (Registrar, resultado). */
   watchSighting: SightingRepository['watch'];
   /** Los logros: listarlos (Recompensas), escuchar los no celebrados y marcarlos vistos. */
   achievements: AchievementRepository;
   /** Perfil › Apariencia: claro, oscuro o como el teléfono. Es del teléfono, no de la cuenta. */
   appearance: AppearanceSettings;
+  /** Los errores inesperados (Crashlytics). */
+  errors: ErrorReporter;
   /** Quién tiene la sesión abierta, para useSession(). */
   session: Pick<AuthService, 'currentUser' | 'onChange'>;
   environment: { firebaseConfigured: boolean; dataSource: DataSource };
@@ -119,6 +135,16 @@ export type Dependencies = {
 
 // Se crea al cargar el módulo, antes del primer cuadro: así la app arranca con la apariencia elegida.
 const appearance = createDeviceAppearanceSettings();
+
+/**
+ * Dónde van los errores inesperados: Crashlytics si la build trae Firebase, y si no, la consola. Se
+ * crea al cargar el módulo para que la pantalla de error lo tenga aunque las dependencias fallen.
+ */
+export const errorReporter: ErrorReporter =
+  isFirebaseConfigured && Platform.OS !== 'web'
+    ? // eslint-disable-next-line @typescript-eslint/no-require-imports -- carga diferida a propósito, como los adaptadores
+      (require('./firebase/firebase-crash-reporter') as typeof import('./firebase/firebase-crash-reporter')).createCrashlyticsReporter()
+    : consoleErrorReporter;
 
 function createAdapters(): Adapters | Promise<Adapters> {
   if (dataSource === 'memory') {
@@ -137,6 +163,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
       queue: new InMemorySightingQueue(),
       sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
+      push: createInMemoryPushNotifications(),
     };
   }
   // Se carga solo cuando hace falta: en web y sin Firebase no hay módulos nativos que importar.
@@ -146,13 +173,13 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, queue, identifier } = adapters;
+  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, queue, identifier, push } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
       signIn: makeSignIn({ auth }),
       signUp: makeSignUp({ auth, profiles, now: () => new Date() }),
-      signOut: makeSignOut({ auth }),
+      signOut: makeSignOut({ auth, push }),
       requestPasswordReset: makeRequestPasswordReset({ auth }),
       checkResetCode: makeCheckResetCode({ auth }),
       resetPassword: makeResetPassword({ auth }),
@@ -178,10 +205,14 @@ export function createDependencies(adapters: Adapters): Dependencies {
       sendFeedback: makeSendFeedback({ feedback, now: () => new Date() }),
       uploadScreenshot: (userId, localUri) => photos.upload(userId, localUri, `comentario-${Date.now()}.jpg`),
       exportUserData: makeExportUserData({ profiles, stickers, sightings, achievements, posters, photos, now: () => new Date() }),
+      enablePushNotifications: makeEnablePushNotifications({ push }),
+      registerDevice: makeRegisterDevice({ push }),
     },
+    notifications: push,
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     achievements,
     appearance,
+    errors: errorReporter,
     session: auth,
     environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
   };
