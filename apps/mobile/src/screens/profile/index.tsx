@@ -5,15 +5,17 @@ import { rewardsView } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
 import { BirdAvatar, Button, Icon, PeruMap, SettingsList, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
+import { APPEARANCE_LABELS } from '@/constants/appearance';
 import { stickerTint } from '@/constants/habitats';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
+import { useAppearance } from '@/hooks/use-appearance';
 import { usePosters } from '@/hooks/use-posters';
 import { useProfile } from '@/hooks/use-profile';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
 
-export type ProfileLink = 'edit' | 'privacy' | 'trades' | 'practices' | 'help' | 'regions' | 'design-system';
+export type ProfileLink = 'edit' | 'appearance' | 'privacy' | 'trades' | 'practices' | 'help' | 'regions' | 'design-system';
 
 type Props = {
   onOpen: (link: ProfileLink) => void;
@@ -33,6 +35,7 @@ export function Profile({ onOpen, onOpenAlbum, onOpenRewards }: Props) {
   const state = useAlbum();
   const records = useAchievements();
   const posters = usePosters();
+  const [appearance] = useAppearance();
   const album = state.status === 'ready' ? state.album : null;
   const favorite = album?.entries.find((e) => e.species.id === profile?.favoriteSpeciesId);
   const rewards = album ? rewardsView(album, records ?? []) : null;
@@ -102,6 +105,7 @@ export function Profile({ onOpen, onOpenAlbum, onOpenRewards }: Props) {
             items={[
               // Las notificaciones llegan con los avisos push; mientras, la fila se ve apagada.
               { key: 'notifications', icon: 'bell', title: 'Notificaciones', detail: 'Pronto: logros, intercambios y nuevas regiones' },
+              { key: 'appearance', icon: 'appearance', title: 'Apariencia', detail: APPEARANCE_LABELS[appearance].title, onPress: () => onOpen('appearance') },
               { key: 'privacy', icon: 'shield', title: 'Privacidad', detail: 'La ubicación de tus fotos no se comparte', onPress: () => onOpen('privacy') },
               { key: 'trades', icon: 'swap', title: 'Intercambios', detail: 'Solo por enlace o código QR · tus propuestas', onPress: () => onOpen('trades') },
               { key: 'practices', icon: 'eye', title: 'Buenas prácticas', detail: 'Cómo observar sin molestar a las aves', onPress: () => onOpen('practices') },

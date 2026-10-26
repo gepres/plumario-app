@@ -74,6 +74,7 @@ function RootStack() {
           <Stack.Screen name="share/sticker/[id]" />
           <Stack.Screen name="share/medal/[id]" />
           <Stack.Screen name="profile/edit" />
+          <Stack.Screen name="profile/appearance" />
           <Stack.Screen name="profile/privacy" />
           <Stack.Screen name="profile/practices" />
           <Stack.Screen name="profile/help" />

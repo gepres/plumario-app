@@ -2,6 +2,7 @@ import { createContext, use, useEffect, useState, type ReactNode } from 'react';
 
 import {
   type AchievementRepository,
+  type AppearanceSettings,
   type FeedbackRepository,
   type SightingQueue,
   makeChangeEmail,
@@ -37,6 +38,7 @@ import {
   type UserProfileRepository,
 } from '@plumario/core';
 
+import { createDeviceAppearanceSettings } from './device/device-appearance-settings';
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
@@ -108,10 +110,15 @@ export type Dependencies = {
   watchSighting: SightingRepository['watch'];
   /** Los logros: listarlos (Recompensas), escuchar los no celebrados y marcarlos vistos. */
   achievements: AchievementRepository;
+  /** Perfil › Apariencia: claro, oscuro o como el teléfono. Es del teléfono, no de la cuenta. */
+  appearance: AppearanceSettings;
   /** Quién tiene la sesión abierta, para useSession(). */
   session: Pick<AuthService, 'currentUser' | 'onChange'>;
   environment: { firebaseConfigured: boolean; dataSource: DataSource };
 };
+
+// Se crea al cargar el módulo, antes del primer cuadro: así la app arranca con la apariencia elegida.
+const appearance = createDeviceAppearanceSettings();
 
 function createAdapters(): Adapters | Promise<Adapters> {
   if (dataSource === 'memory') {
@@ -174,6 +181,7 @@ export function createDependencies(adapters: Adapters): Dependencies {
     },
     watchSighting: (userId, sightingId, listener) => sightings.watch(userId, sightingId, listener),
     achievements,
+    appearance,
     session: auth,
     environment: { firebaseConfigured: isFirebaseConfigured, dataSource },
   };

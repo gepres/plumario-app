@@ -31,6 +31,8 @@ export { homeView } from './domain/home';
 export type { HomeView } from './domain/home';
 export type { PhotoLocation } from './domain/photo-metadata';
 export type { Feedback, FeedbackKind } from './domain/feedback';
+export { APPEARANCES, parseAppearance } from './domain/appearance';
+export type { Appearance } from './domain/appearance';
 export type { ReceivedTrade, TradeProblem, TradeProposal, TradeResult, TradeSide, TradeStatus } from './domain/trade';
 
 // Puertos: lo que el núcleo necesita del mundo y cada plataforma implementa con un adaptador.
@@ -40,6 +42,7 @@ export { HandleTakenError } from './application/ports/user-profile-repository';
 export type { ProfileChanges, UserProfileRepository } from './application/ports/user-profile-repository';
 export type { FeedbackRepository } from './application/ports/feedback-repository';
 export type { AchievementRepository, EarnedAchievement } from './application/ports/achievement-repository';
+export type { AppearanceSettings } from './application/ports/appearance-settings';
 export type { PhotoStorage } from './application/ports/photo-storage';
 export type { PosterRepository } from './application/ports/poster-repository';
 export type { SightingRepository } from './application/ports/sighting-repository';
