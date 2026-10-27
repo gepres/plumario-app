@@ -99,7 +99,7 @@ function RootStack() {
           name="sticker-pilot"
           options={{
             headerShown: true,
-            title: 'Piloto de stickers',
+            title: 'Plumario · stickers',
             headerTintColor: colors.text,
             headerStyle: { backgroundColor: colors.background },
             headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },

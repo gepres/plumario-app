@@ -1,7 +1,9 @@
 // GENERADO por tools/stickers/pilot/build-pilot-data.mjs — no editar a mano.
 import type { ImageSourcePropType } from 'react-native';
 
-export const ILLUSTRATION_MODELS = [{"letter":"B","label":"Gemini (Antigravity)"},{"letter":"C","label":"Codex"}] as const;
+export const FORM_NAME = 'opinion-stickers';
+
+export const ILLUSTRATION_MODELS = [{"letter":"B","label":"Gemini"},{"letter":"C","label":"ChatGPT"}] as const;
 
 export const PILOT_SPECIES: {
   id: string;
@@ -16,7 +18,7 @@ export const PILOT_SPECIES: {
   emblematic: boolean;
   /** Vía A: el dibujo vectorial. */
   vector: string;
-  /** Vía B: la ilustración de cada modelo, o null si aún no se generó. */
+  /** Vías B y C: la ilustración de cada una, o null si aún no se generó. */
   illustrations: (ImageSourcePropType | null)[];
 }[] = [
   {
@@ -31,7 +33,7 @@ export const PILOT_SPECIES: {
     endemic: false,
     emblematic: false,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M112 160 L108 192 M128 160 L130 192\" fill=\"none\" stroke=\"#231D1B\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M98 194 H116 M122 194 H140\" fill=\"none\" stroke=\"#231D1B\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M146 138 L214 164 L206 178 L142 158 Z\" fill=\"#3B302C\"></path><path d=\"M74 112 C76 94 98 88 118 96 C142 106 162 124 170 142 C160 160 132 168 108 162 C86 156 72 136 74 112 Z\" fill=\"#E2452C\"></path><path d=\"M120 150 C132 156 148 156 160 150\" fill=\"none\" stroke=\"#F06A4C\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M98 98 C122 92 152 108 172 136 C178 146 176 154 168 156 C146 150 122 140 106 126 C98 118 94 108 98 100 Z\" fill=\"#45372F\"></path><path d=\"M118 118 L162 142 M114 128 L154 150\" fill=\"none\" stroke=\"#6E5D52\" stroke-width=\"3\" stroke-linecap=\"round\"></path><circle cx=\"86\" cy=\"92\" r=\"20\" fill=\"#E2452C\"></circle><path d=\"M70 82 C72 66 92 60 104 70 L102 80 C94 76 82 76 70 82 Z\" fill=\"#E2452C\"></path><path d=\"M66 89 C78 84 98 85 110 94 L108 104 C96 98 80 97 66 96 Z\" fill=\"#45372F\"></path><path d=\"M68 89 L48 94 L68 99 Z\" fill=\"#1E1A1A\"></path><circle cx=\"83\" cy=\"92\" r=\"3.6\" fill=\"#120F0F\"></circle><circle cx=\"84\" cy=\"91\" r=\"1.2\" fill=\"#FFFFFF\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/pyrocephalus-rubinus.png'), require('../../../assets/sticker-pilot/codex/pyrocephalus-rubinus.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/pyrocephalus-rubinus.png'), require('@/assets/sticker-pilot/codex/pyrocephalus-rubinus.png')],
   },
   {
     id: 'phoenicopterus-chilensis',
@@ -45,7 +47,7 @@ export const PILOT_SPECIES: {
     endemic: false,
     emblematic: true,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M150 128 L150 226\" fill=\"none\" stroke=\"#9AA2A7\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M140 228 H162\" fill=\"none\" stroke=\"#9AA2A7\" stroke-width=\"5\" stroke-linecap=\"round\"></path><circle cx=\"150\" cy=\"180\" r=\"5\" fill=\"#D9687E\"></circle><path d=\"M156 132 L172 160 L156 172\" fill=\"none\" stroke=\"#9AA2A7\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><circle cx=\"172\" cy=\"160\" r=\"4\" fill=\"#D9687E\"></circle><path d=\"M112 100 C122 80 172 76 198 94 C212 104 210 120 192 128 C168 138 132 134 118 120 C110 112 108 106 112 100 Z\" fill=\"#F2A9B6\"></path><path d=\"M142 92 C172 86 198 96 208 110 C190 116 162 120 142 114 Z\" fill=\"#E4768C\"></path><path d=\"M196 114 L222 122 L200 126 Z\" fill=\"#2A2526\"></path><path d=\"M120 106 C94 100 86 78 98 62 C108 48 106 34 90 32\" fill=\"none\" stroke=\"#F2A9B6\" stroke-width=\"12\" stroke-linecap=\"round\"></path><circle cx=\"88\" cy=\"32\" r=\"11\" fill=\"#F2A9B6\"></circle><path d=\"M80 28 C66 30 61 40 65 52 C69 48 72 42 82 37 Z\" fill=\"#F4EFE6\"></path><path d=\"M63 40 C62 46 63 50 65 52 C68 48 71 43 75 39.5 C71 38.5 66 38.8 63 40 Z\" fill=\"#1E1C1D\"></path><circle cx=\"90\" cy=\"29\" r=\"2.2\" fill=\"#1E1C1D\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/phoenicopterus-chilensis.png'), require('../../../assets/sticker-pilot/codex/phoenicopterus-chilensis.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/phoenicopterus-chilensis.png'), require('@/assets/sticker-pilot/codex/phoenicopterus-chilensis.png')],
   },
   {
     id: 'pelecanus-thagus',
@@ -59,7 +61,7 @@ export const PILOT_SPECIES: {
     endemic: false,
     emblematic: true,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M140 178 L136 208 M162 178 L164 208\" fill=\"none\" stroke=\"#3B3A40\" stroke-width=\"7\" stroke-linecap=\"round\"></path><path d=\"M124 210 H146 M154 210 H176\" fill=\"none\" stroke=\"#3B3A40\" stroke-width=\"6\" stroke-linecap=\"round\"></path><path d=\"M198 150 L230 166 L200 172 Z\" fill=\"#34333A\"></path><path d=\"M96 144 C102 114 150 106 190 122 C214 132 216 162 198 174 C172 192 120 190 102 170 C94 162 93 152 96 144 Z\" fill=\"#504F57\"></path><path d=\"M122 132 C152 118 192 124 214 152 C192 154 162 164 132 164 C120 158 116 142 122 132 Z\" fill=\"#77757E\"></path><path d=\"M142 142 L192 150 M138 152 L186 160\" fill=\"none\" stroke=\"#9D9BA4\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M100 70 C96 92 100 112 120 134 L100 146 C80 124 76 98 84 74 Z\" fill=\"#6B4636\"></path><path d=\"M84 74 C76 98 80 124 100 146 L94 150 C72 126 68 98 78 76 Z\" fill=\"#F3EFE7\"></path><circle cx=\"92\" cy=\"62\" r=\"17\" fill=\"#F3EFE7\"></circle><path d=\"M76 58 C78 44 104 40 109 58 C100 51 86 51 76 58 Z\" fill=\"#E4C766\"></path><path d=\"M82 70 C66 82 44 102 28 118 C48 120 72 104 90 80 Z\" fill=\"#4A3E48\"></path><path d=\"M80 58 C60 68 38 90 20 116 C22 120 27 120 29 116 C46 94 66 78 86 70 Z\" fill=\"#D39A5F\"></path><path d=\"M20 116 C17 121 20 126 25 124 L29 116 Z\" fill=\"#B8523B\"></path><circle cx=\"90\" cy=\"61\" r=\"3.4\" fill=\"#1C1B1F\"></circle><circle cx=\"91\" cy=\"60\" r=\"1.1\" fill=\"#FFFFFF\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/pelecanus-thagus.png'), require('../../../assets/sticker-pilot/codex/pelecanus-thagus.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/pelecanus-thagus.png'), require('@/assets/sticker-pilot/codex/pelecanus-thagus.png')],
   },
   {
     id: 'rhodopis-vesper',
@@ -73,7 +75,7 @@ export const PILOT_SPECIES: {
     endemic: false,
     emblematic: false,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M118 112 C120 80 142 54 176 40 C166 72 150 98 128 118 Z\" fill=\"#5C5850\"></path><path d=\"M158 150 L210 200 L200 202 L152 158 Z\" fill=\"#3F3A35\"></path><path d=\"M162 146 L226 178 L222 188 L158 156 Z\" fill=\"#3F3A35\"></path><path d=\"M154 146 L176 160 L170 168 L150 154 Z\" fill=\"#C47A44\"></path><path d=\"M100 122 C104 108 120 104 134 112 C148 122 164 140 178 162 C160 160 144 152 132 144 C116 142 104 134 100 122 Z\" fill=\"#EEEAE0\"></path><path d=\"M106 112 C118 104 136 108 150 122 C162 134 172 148 178 162 C162 150 146 140 128 132 C116 126 108 120 106 112 Z\" fill=\"#7F8A4F\"></path><path d=\"M146 136 C158 144 168 152 176 160 C164 156 154 150 144 142 Z\" fill=\"#C47A44\"></path><path d=\"M112 140 C122 146 136 148 146 146\" fill=\"none\" stroke=\"#C9C3B6\" stroke-width=\"3\" stroke-linecap=\"round\"></path><circle cx=\"104\" cy=\"114\" r=\"13\" fill=\"#7F8A4F\"></circle><path d=\"M93 118 C97 128 108 133 119 129 C114 124 106 120 99 115 Z\" fill=\"#A53D90\"></path><path d=\"M93 112 C76 111 58 115 40 125\" fill=\"none\" stroke=\"#1E1C1C\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M128 120 C150 104 176 94 206 94 C186 112 162 126 136 132 Z\" fill=\"#6A665D\"></path><path d=\"M146 116 L190 102 M150 124 L184 114\" fill=\"none\" stroke=\"#8A867C\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><circle cx=\"111\" cy=\"112\" r=\"2.6\" fill=\"#F5F2EA\"></circle><circle cx=\"101\" cy=\"111\" r=\"2.8\" fill=\"#120F0F\"></circle><circle cx=\"102\" cy=\"110\" r=\"0.9\" fill=\"#FFFFFF\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/rhodopis-vesper.png'), require('../../../assets/sticker-pilot/codex/rhodopis-vesper.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/rhodopis-vesper.png'), require('@/assets/sticker-pilot/codex/rhodopis-vesper.png')],
   },
   {
     id: 'quechuavis-decussata',
@@ -87,7 +89,7 @@ export const PILOT_SPECIES: {
     endemic: false,
     emblematic: false,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M112 172 L110 182 M126 172 L127 182\" fill=\"none\" stroke=\"#5A4C40\" stroke-width=\"3.5\" stroke-linecap=\"round\"></path><path d=\"M104 184 H114 M122 184 H132\" fill=\"none\" stroke=\"#5A4C40\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M194 146 L234 156 L232 166 L194 162 Z\" fill=\"#7B6B58\"></path><path d=\"M225 158 L234 156 L232 166 L224 165 Z\" fill=\"#F2EEE6\"></path><path d=\"M60 150 C64 126 92 116 124 120 C160 124 196 138 220 152 C196 164 156 174 120 172 C90 170 62 166 60 150 Z\" fill=\"#8E7C67\"></path><path d=\"M42 146 C42 128 60 118 80 121 C96 124 104 138 100 150 C88 160 56 162 42 146 Z\" fill=\"#8E7C67\"></path><path d=\"M48 152 C58 159 74 160 86 155 C76 151 60 150 48 152 Z\" fill=\"#F0E9DA\"></path><path d=\"M92 128 C130 122 174 134 216 150 C178 152 136 152 104 148 C94 144 88 136 92 128 Z\" fill=\"#6E5F4E\"></path><path d=\"M150 140 L162 142 L158 150 L146 148 Z\" fill=\"#F2EEE6\"></path><path d=\"M100 136 q8 3 16 0 M122 140 q8 3 16 0 M174 144 q8 3 16 0 M70 160 q8 3 16 0 M110 160 q8 3 16 0 M150 162 q8 3 16 0\" fill=\"none\" stroke=\"#B5A48A\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><circle cx=\"58\" cy=\"128\" r=\"2.2\" fill=\"#55493D\"></circle><circle cx=\"80\" cy=\"126\" r=\"2.2\" fill=\"#55493D\"></circle><circle cx=\"90\" cy=\"136\" r=\"2\" fill=\"#55493D\"></circle><path d=\"M43 142 L34 146 L43 149 Z\" fill=\"#2A2420\"></path><circle cx=\"64\" cy=\"136\" r=\"5.4\" fill=\"#16110E\"></circle><circle cx=\"66\" cy=\"134\" r=\"1.7\" fill=\"#FFFFFF\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/quechuavis-decussata.png'), require('../../../assets/sticker-pilot/codex/quechuavis-decussata.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/quechuavis-decussata.png'), require('@/assets/sticker-pilot/codex/quechuavis-decussata.png')],
   },
   {
     id: 'geositta-peruviana',
@@ -101,6 +103,90 @@ export const PILOT_SPECIES: {
     endemic: true,
     emblematic: false,
     vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M112 164 L109 196 M127 164 L129 196\" fill=\"none\" stroke=\"#4A4038\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M98 198 H116 M121 198 H139\" fill=\"none\" stroke=\"#4A4038\" stroke-width=\"3.5\" stroke-linecap=\"round\"></path><path d=\"M150 144 L196 158 L192 172 L146 162 Z\" fill=\"#4E4238\"></path><path d=\"M152 158 L192 170\" fill=\"none\" stroke=\"#CDB894\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M74 122 C76 102 100 94 124 100 C148 106 166 124 172 144 C160 164 132 170 108 166 C86 160 72 144 74 122 Z\" fill=\"#F2ECDF\"></path><path d=\"M90 106 C114 96 148 108 170 136 C172 146 166 154 158 154 C136 148 112 138 98 126 C90 120 86 112 90 106 Z\" fill=\"#BCA887\"></path><path d=\"M116 120 q10 4 20 0 M126 132 q10 4 20 0\" fill=\"none\" stroke=\"#D8CAAB\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><path d=\"M128 142 C140 148 152 152 162 152\" fill=\"none\" stroke=\"#C68B52\" stroke-width=\"4\" stroke-linecap=\"round\"></path><circle cx=\"88\" cy=\"100\" r=\"19\" fill=\"#BCA887\"></circle><path d=\"M70 105 C74 116 86 122 101 120 C92 114 80 110 70 105 Z\" fill=\"#F2ECDF\"></path><path d=\"M74 93 C82 87 96 87 106 94\" fill=\"none\" stroke=\"#F4EFE3\" stroke-width=\"3.5\" stroke-linecap=\"round\"></path><path d=\"M71 99 C64 100 57 103 52 108 C59 107 65 106 71 104 Z\" fill=\"#3C3430\"></path><circle cx=\"82\" cy=\"99\" r=\"3.2\" fill=\"#120F0F\"></circle><circle cx=\"83\" cy=\"98\" r=\"1.1\" fill=\"#FFFFFF\"></circle></svg>",
-    illustrations: [require('../../../assets/sticker-pilot/antigravity/geositta-peruviana.png'), require('../../../assets/sticker-pilot/codex/geositta-peruviana.png')],
+    illustrations: [require('@/assets/sticker-pilot/antigravity/geositta-peruviana.png'), require('@/assets/sticker-pilot/codex/geositta-peruviana.png')],
+  },
+  {
+    id: 'larosterna-inca',
+    commonName: "Gaviotín Zarcillo",
+    scientificName: "Larosterna inca",
+    albumNumber: 56,
+    habitat: 'coast',
+    family: 'Laridae',
+    genus: 'Larosterna',
+    iucn: "NT",
+    endemic: false,
+    emblematic: false,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M128 172 L124 198 M146 172 L148 198\" fill=\"none\" stroke=\"#C8423A\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M114 200 H132 M142 200 H160\" fill=\"none\" stroke=\"#C8423A\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M84 118 C96 96 126 96 146 110 C172 126 202 138 228 152 C198 154 176 162 152 172 C122 184 92 172 82 150 C78 140 79 128 84 118 Z\" fill=\"#5E6872\"></path><path d=\"M116 116 C152 118 198 134 230 158 C198 160 162 164 130 162 C114 152 108 128 116 116 Z\" fill=\"#46505A\"></path><path d=\"M150 140 L214 156\" fill=\"none\" stroke=\"#5E6872\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><circle cx=\"86\" cy=\"104\" r=\"21\" fill=\"#5E6872\"></circle><path d=\"M66 100 C68 80 100 74 112 96 C100 90 82 90 66 100 Z\" fill=\"#2F363D\"></path><path d=\"M68 102 L30 110 L68 114 Z\" fill=\"#D2413A\"></path><path d=\"M64 112 C68 118 74 118 78 114 C74 110 68 110 64 112 Z\" fill=\"#E8C24E\"></path><path d=\"M70 114 C84 118 98 130 102 148 C104 158 98 166 90 162 C97 156 96 146 90 136 C84 126 76 119 70 114 Z\" fill=\"#F8F6F1\"></path><circle cx=\"81\" cy=\"100\" r=\"3\" fill=\"#15181B\"></circle><circle cx=\"82\" cy=\"99\" r=\"1\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/larosterna-inca.png')],
+  },
+  {
+    id: 'vultur-gryphus',
+    commonName: "Cóndor Andino",
+    scientificName: "Vultur gryphus",
+    albumNumber: 33,
+    habitat: 'highlands',
+    family: 'Cathartidae',
+    genus: 'Vultur',
+    iucn: "VU",
+    endemic: false,
+    emblematic: false,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M128 180 L124 208 M150 180 L152 208\" fill=\"none\" stroke=\"#5D5A57\" stroke-width=\"7\" stroke-linecap=\"round\"></path><path d=\"M110 211 H130 M140 211 H162\" fill=\"none\" stroke=\"#5D5A57\" stroke-width=\"6\" stroke-linecap=\"round\"></path><path d=\"M176 158 L216 178 L208 190 L170 176 Z\" fill=\"#1C1C1F\"></path><path d=\"M84 140 C88 108 124 96 160 104 C190 112 210 134 206 160 C200 182 168 192 134 188 C104 184 82 166 84 140 Z\" fill=\"#232326\"></path><path d=\"M104 120 C134 106 178 112 206 140 C210 152 206 162 196 166 C164 162 130 152 110 138 Z\" fill=\"#2C2C30\"></path><path d=\"M122 126 C150 118 180 128 200 146 C186 151 162 149 140 143 C130 139 122 133 122 126 Z\" fill=\"#ECEAE4\"></path><path d=\"M142 126 L150 145 M162 129 L168 148 M180 136 L184 150\" fill=\"none\" stroke=\"#C9C6BE\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><path d=\"M84 104 C80 92 72 84 66 80 L60 88 C66 94 72 102 76 112 Z\" fill=\"#6E4A48\"></path><path d=\"M70 110 C72 98 86 92 98 98 C108 104 110 118 102 126 C92 134 76 130 72 122 C66 120 66 114 70 110 Z\" fill=\"#F2F0EA\"></path><path d=\"M78 106 q6 -4 12 0 M86 118 q6 -4 12 0\" fill=\"none\" stroke=\"#D8D4CA\" stroke-width=\"2\" stroke-linecap=\"round\"></path><circle cx=\"64\" cy=\"74\" r=\"14\" fill=\"#6E4A48\"></circle><path d=\"M52 64 C54 52 68 50 74 58 C68 58 62 61 58 68 Z\" fill=\"#4A3533\"></path><path d=\"M52 70 C44 72 38 78 38 86 C42 84 47 81 53 79 Z\" fill=\"#E6DCC8\"></path><path d=\"M52 68 L56 69 L56 78 L52 79 Z\" fill=\"#3A2E2D\"></path><circle cx=\"62\" cy=\"71\" r=\"2.8\" fill=\"#1A1414\"></circle><circle cx=\"63\" cy=\"70\" r=\"0.9\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/vultur-gryphus.png')],
+  },
+  {
+    id: 'phalacrocorax-bougainvillii',
+    commonName: "Cormorán Guanay",
+    scientificName: "Phalacrocorax bougainvillii",
+    albumNumber: 284,
+    habitat: 'coast',
+    family: 'Phalacrocoracidae',
+    genus: 'Phalacrocorax',
+    iucn: null,
+    endemic: false,
+    emblematic: true,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M122 188 L120 206 M138 188 L140 206\" fill=\"none\" stroke=\"#E39A98\" stroke-width=\"6\" stroke-linecap=\"round\"></path><path d=\"M106 209 H128 M132 209 H154\" fill=\"none\" stroke=\"#E39A98\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M148 178 L176 214 L164 217 L140 186 Z\" fill=\"#1A202B\"></path><path d=\"M100 120 C106 100 130 96 146 110 C160 124 162 156 152 178 C144 196 120 200 106 188 C94 176 94 140 100 120 Z\" fill=\"#1F2633\"></path><path d=\"M100 126 C97 150 100 176 112 190 C122 196 132 192 136 184 C120 172 110 150 108 126 Z\" fill=\"#F4F2EC\"></path><path d=\"M126 112 C146 112 160 132 160 160 C158 176 150 186 142 190 C138 168 130 140 126 112 Z\" fill=\"#2B3444\"></path><path d=\"M134 128 q8 4 16 2 M136 144 q8 4 16 2 M138 160 q7 4 14 2\" fill=\"none\" stroke=\"#4A5568\" stroke-width=\"2.5\" stroke-linecap=\"round\"></path><path d=\"M104 122 C96 104 92 88 96 74 L112 74 C110 90 112 104 118 116 Z\" fill=\"#1F2633\"></path><path d=\"M96 78 C92 94 96 110 104 124 L110 120 C104 106 101 92 103 80 Z\" fill=\"#F4F2EC\"></path><circle cx=\"104\" cy=\"66\" r=\"14\" fill=\"#1F2633\"></circle><path d=\"M108 53 C112 46 120 46 122 50 C118 52 113 55 109 57 Z\" fill=\"#1F2633\"></path><path d=\"M92 63 L58 69 C55 70 55 74 58 74 L92 70 Z\" fill=\"#8C8580\"></path><path d=\"M60 69 C55 69 54 74 57 77\" fill=\"none\" stroke=\"#8C8580\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M92 59 C96 55 104 57 106 63 C102 67 96 68 92 66 Z\" fill=\"#D9473B\"></path><circle cx=\"100\" cy=\"62\" r=\"2.8\" fill=\"#14201A\"></circle><circle cx=\"101\" cy=\"61\" r=\"0.9\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/phalacrocorax-bougainvillii.png')],
+  },
+  {
+    id: 'falco-sparverius',
+    commonName: "Cernícalo Americano",
+    scientificName: "Falco sparverius",
+    albumNumber: 122,
+    habitat: 'desert',
+    family: 'Falconidae',
+    genus: 'Falco',
+    iucn: "LC",
+    endemic: false,
+    emblematic: false,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M118 174 L116 198 M132 174 L134 198\" fill=\"none\" stroke=\"#E3A33B\" stroke-width=\"5\" stroke-linecap=\"round\"></path><path d=\"M104 200 H120 M126 200 H142\" fill=\"none\" stroke=\"#E3A33B\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M146 158 L202 194 L194 206 L140 170 Z\" fill=\"#C8653A\"></path><path d=\"M180 183 L198 195 L192 203 L174 191 Z\" fill=\"#1E1A18\"></path><path d=\"M90 112 C94 96 116 90 132 98 C150 108 158 132 154 152 C150 170 132 180 116 178 C98 174 88 150 90 112 Z\" fill=\"#F3E2C6\"></path><circle cx=\"102\" cy=\"132\" r=\"2.2\" fill=\"#2A2422\"></circle><circle cx=\"110\" cy=\"146\" r=\"2.2\" fill=\"#2A2422\"></circle><circle cx=\"98\" cy=\"150\" r=\"2.2\" fill=\"#2A2422\"></circle><circle cx=\"118\" cy=\"160\" r=\"2.2\" fill=\"#2A2422\"></circle><path d=\"M106 100 C126 94 148 106 156 128 C160 142 158 156 152 164 C138 150 120 134 108 118 C104 112 104 104 106 100 Z\" fill=\"#C8653A\"></path><path d=\"M120 106 L128 103 M130 116 L139 112 M138 128 L147 124\" fill=\"none\" stroke=\"#2A2422\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M112 122 C132 120 152 138 160 164 C162 172 158 177 152 176 C138 166 122 148 114 134 Z\" fill=\"#7F93A8\"></path><path d=\"M128 140 l7 1 M140 152 l7 1 M148 164 l6 1\" fill=\"none\" stroke=\"#2A2422\" stroke-width=\"3\" stroke-linecap=\"round\"></path><circle cx=\"96\" cy=\"92\" r=\"18\" fill=\"#F4EFE6\"></circle><path d=\"M80 86 C82 72 100 68 112 76 C110 84 104 86 96 84 C90 84 84 86 80 86 Z\" fill=\"#7F93A8\"></path><circle cx=\"100\" cy=\"76\" r=\"4\" fill=\"#C8653A\"></circle><path d=\"M110 80 C116 86 118 96 114 104 L108 100 C110 94 110 88 108 84 Z\" fill=\"#C8653A\"></path><path d=\"M88 96 C88 103 90 109 92 113 M104 95 C106 101 108 107 110 111\" fill=\"none\" stroke=\"#1E1A18\" stroke-width=\"4\" stroke-linecap=\"round\"></path><path d=\"M80 89 L85 91 L85 95 L80 96 Z\" fill=\"#E3A33B\"></path><path d=\"M80 90 C74 90 70 94 70 99 C72 97 76 96 80 96 Z\" fill=\"#4A4E58\"></path><circle cx=\"91\" cy=\"90\" r=\"3.6\" fill=\"#120F0F\"></circle><circle cx=\"92\" cy=\"89\" r=\"1.2\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/falco-sparverius.png')],
+  },
+  {
+    id: 'columbina-cruziana',
+    commonName: "Tortolita Peruana",
+    scientificName: "Columbina cruziana",
+    albumNumber: 111,
+    habitat: 'desert',
+    family: 'Columbidae',
+    genus: 'Columbina',
+    iucn: "LC",
+    endemic: false,
+    emblematic: false,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M118 170 L116 194 M132 170 L134 194\" fill=\"none\" stroke=\"#D98C8C\" stroke-width=\"4.5\" stroke-linecap=\"round\"></path><path d=\"M106 196 H122 M126 196 H142\" fill=\"none\" stroke=\"#D98C8C\" stroke-width=\"3.5\" stroke-linecap=\"round\"></path><path d=\"M150 148 L198 164 L194 176 L146 162 Z\" fill=\"#4A403C\"></path><path d=\"M76 124 C78 104 102 96 126 102 C150 108 166 128 168 146 C158 166 130 174 108 170 C88 164 74 146 76 124 Z\" fill=\"#B9A6A0\"></path><path d=\"M78 128 C80 146 92 162 110 168 C100 154 94 138 92 124 Z\" fill=\"#CDB2AE\"></path><path d=\"M100 108 C124 100 152 114 166 138 C168 148 164 156 156 156 C136 150 116 138 104 124 C98 118 96 112 100 108 Z\" fill=\"#8E7F78\"></path><path d=\"M106 113 C118 108 132 112 141 121 C130 124 117 122 106 118 Z\" fill=\"#7A3B42\"></path><circle cx=\"132\" cy=\"133\" r=\"2.6\" fill=\"#3E3330\"></circle><circle cx=\"145\" cy=\"139\" r=\"2.6\" fill=\"#3E3330\"></circle><circle cx=\"124\" cy=\"141\" r=\"2.6\" fill=\"#3E3330\"></circle><circle cx=\"84\" cy=\"100\" r=\"17\" fill=\"#9AA0AE\"></circle><path d=\"M68 97 L55 101 L68 105 Z\" fill=\"#E8B02E\"></path><path d=\"M60 99.5 L55 101 L60 102.6 Z\" fill=\"#3A3230\"></path><circle cx=\"79\" cy=\"97\" r=\"3\" fill=\"#2A1E1E\"></circle><circle cx=\"80\" cy=\"96\" r=\"1\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/columbina-cruziana.png')],
+  },
+  {
+    id: 'zonotrichia-capensis',
+    commonName: "Gorrión de Collar Rufo",
+    scientificName: "Zonotrichia capensis",
+    albumNumber: 166,
+    habitat: 'highlands',
+    family: 'Passerellidae',
+    genus: 'Zonotrichia',
+    iucn: "LC",
+    endemic: false,
+    emblematic: false,
+    vector: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 240\"><path d=\"M112 160 L108 192 M128 160 L130 192\" fill=\"none\" stroke=\"#B08A78\" stroke-width=\"4.5\" stroke-linecap=\"round\"></path><path d=\"M98 194 H116 M122 194 H140\" fill=\"none\" stroke=\"#B08A78\" stroke-width=\"3.5\" stroke-linecap=\"round\"></path><path d=\"M146 138 L210 164 L204 176 L142 156 Z\" fill=\"#6B5442\"></path><path d=\"M74 112 C76 94 98 88 118 96 C142 106 162 124 170 142 C160 160 132 168 108 162 C86 156 72 136 74 112 Z\" fill=\"#DAD7D0\"></path><path d=\"M98 100 C122 92 152 108 172 136 C178 146 176 154 168 156 C146 150 122 140 106 126 C98 118 94 108 98 100 Z\" fill=\"#8B6A4E\"></path><path d=\"M116 106 L132 113 M128 116 L146 124 M146 128 L160 136\" fill=\"none\" stroke=\"#4A3828\" stroke-width=\"3\" stroke-linecap=\"round\"></path><path d=\"M118 128 L150 142 M114 137 L144 151\" fill=\"none\" stroke=\"#F2EEE6\" stroke-width=\"2.6\" stroke-linecap=\"round\"></path><path d=\"M92 82 C104 82 114 92 116 106 C110 110 103 110 98 106 C98 98 96 90 92 82 Z\" fill=\"#B5652F\"></path><path d=\"M84 109 C91 106 98 110 101 117 C94 120 88 118 85 114 Z\" fill=\"#1E1A18\"></path><circle cx=\"84\" cy=\"92\" r=\"18\" fill=\"#9C9E9F\"></circle><path d=\"M72 80 C74 66 92 62 102 72 L98 78 C90 74 80 76 72 80 Z\" fill=\"#9C9E9F\"></path><path d=\"M70 82 C78 74 92 72 100 78 M74 90 C82 88 92 88 101 92\" fill=\"none\" stroke=\"#1E1A18\" stroke-width=\"3.2\" stroke-linecap=\"round\"></path><path d=\"M70 98 C74 106 82 110 90 108 C84 104 78 100 70 98 Z\" fill=\"#F2F0EA\"></path><path d=\"M68 89 L52 93 L68 98 Z\" fill=\"#6E6A66\"></path><circle cx=\"80\" cy=\"91\" r=\"3.2\" fill=\"#120F0F\"></circle><circle cx=\"81\" cy=\"90\" r=\"1.1\" fill=\"#FFFFFF\"></circle></svg>",
+    illustrations: [null, require('@/assets/sticker-pilot/codex/zonotrichia-capensis.png')],
   },
 ];
