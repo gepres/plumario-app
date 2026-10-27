@@ -94,6 +94,17 @@ function RootStack() {
         <Stack.Protected guard={!signedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
+        {/* Piloto PA-30: el sticker con un dibujo por especie (rama pilot/sticker-art). */}
+        <Stack.Screen
+          name="sticker-pilot"
+          options={{
+            headerShown: true,
+            title: 'Piloto de stickers',
+            headerTintColor: colors.text,
+            headerStyle: { backgroundColor: colors.background },
+            headerTitleStyle: { fontFamily: textStyles.heading.fontFamily },
+          }}
+        />
         <Stack.Screen
           name="design-system"
           options={{

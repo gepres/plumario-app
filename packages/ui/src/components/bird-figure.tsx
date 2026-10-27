@@ -1,14 +1,19 @@
 import { memo } from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
+import { Image, View, type ImageSourcePropType, type StyleProp, type ViewStyle } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import { FIGURE_SVGS, type FigureName } from '../figures/figure-svgs';
+
+/** El dibujo propio de una especie: un SVG (vectores) o una imagen (ilustración). */
+export type BirdArt = { xml: string } | { image: ImageSourcePropType };
 
 type Props = {
   figure: FigureName;
   size: number;
   /** Sin color: la silueta de una especie que aún no está en el álbum. */
   silhouette?: { color: string; opacity: number };
+  /** El dibujo de la especie, en lugar de la figura de su grupo. La silueta sigue siendo la del grupo. */
+  art?: BirdArt;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -26,8 +31,15 @@ function silhouetteXml(figure: FigureName, color: string): string {
   return xml;
 }
 
-/** La figura del grupo de un ave (SistemaSiluetas): en color o como silueta. */
-export const BirdFigure = memo(function BirdFigure({ figure, size, silhouette, style }: Props) {
-  const xml = silhouette ? silhouetteXml(figure, silhouette.color) : FIGURE_SVGS[figure];
+/** La figura de un ave: el dibujo de la especie o el de su grupo (SistemaSiluetas), en color o como silueta. */
+export const BirdFigure = memo(function BirdFigure({ figure, size, silhouette, art, style }: Props) {
+  if (!silhouette && art && 'image' in art) {
+    return (
+      <View style={[{ width: size, height: size }, style]}>
+        <Image source={art.image} style={{ width: size, height: size }} resizeMode="contain" />
+      </View>
+    );
+  }
+  const xml = silhouette ? silhouetteXml(figure, silhouette.color) : art && 'xml' in art ? art.xml : FIGURE_SVGS[figure];
   return <SvgXml xml={xml} width={size} height={size} style={[silhouette && { opacity: silhouette.opacity }, style]} />;
 });

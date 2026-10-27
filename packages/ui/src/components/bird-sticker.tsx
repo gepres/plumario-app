@@ -5,7 +5,7 @@ import Svg, { ClipPath, Defs, G, Path, Pattern, Polygon, Rect } from 'react-nati
 import type { FigureName } from '../figures/figure-svgs';
 import { textStyles } from '../theme/fonts';
 import { useTheme } from '../theme/use-theme';
-import { BirdFigure } from './bird-figure';
+import { BirdFigure, type BirdArt } from './bird-figure';
 import { FINISHES, type ChromeFinish } from './sticker-finishes';
 import { ConicFill, paintDefinition, paintFill, type Paint } from './svg-paint';
 
@@ -27,6 +27,8 @@ type Props = {
   empty?: boolean;
   /** Ancho en puntos; el alto guarda la proporción 160 × 205. */
   size?: number;
+  /** El dibujo propio de la especie; sin él, la figura de su grupo. */
+  art?: BirdArt;
 };
 
 const W = 160;
@@ -49,7 +51,7 @@ function starPoints(cx: number, cy: number, size: number) {
   return [p(0.5, 0), p(0.61, 0.39), p(1, 0.5), p(0.61, 0.61), p(0.5, 1), p(0.39, 0.61), p(0, 0.5), p(0.39, 0.39)].join(' ');
 }
 
-export const BirdSticker = memo(function BirdSticker({ figure, name, number, tint, finish = 'normal', empty = false, size = 108 }: Props) {
+export const BirdSticker = memo(function BirdSticker({ figure, name, number, tint, finish = 'normal', empty = false, size = 108, art }: Props) {
   const { mode, colors } = useTheme();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const k = size / W;
@@ -108,6 +110,7 @@ export const BirdSticker = memo(function BirdSticker({ figure, name, number, tin
       <View style={[styles.plate, { left: 7 * k, top: 7 * k, width: 146 * k, height: 146 * k, borderRadius: 10 * k, backgroundColor: empty ? colors.surfaceAlt : tint }]}>
         <BirdFigure
           figure={figure}
+          art={art}
           size={136 * k}
           style={{ position: 'absolute', left: 5 * k, top: 5 * k }}
           silhouette={empty ? (mode === 'dark' ? { color: '#FFFFFF', opacity: 0.3 } : { color: '#000000', opacity: 0.17 }) : undefined}

@@ -5,7 +5,7 @@ export { fonts, textStyles } from './theme/fonts';
 
 // Componentes de la guía (design/project/GuiaComponentes.dc.html).
 export { BirdAvatar } from './components/bird-avatar';
-export { BirdFigure } from './components/bird-figure';
+export { BirdFigure, type BirdArt } from './components/bird-figure';
 export { BirdSticker } from './components/bird-sticker';
 export type { StickerFinish } from './components/bird-sticker';
 export { Button } from './components/button';
