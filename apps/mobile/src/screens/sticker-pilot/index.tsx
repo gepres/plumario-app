@@ -20,7 +20,7 @@ export function StickerPilot() {
     <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing[6] }]}>
       <ThemedText variant="title">Un dibujo por especie</ThemedText>
       <ThemedText variant="caption" color="textSecondary">
-        Hoy: la figura de su grupo. A: vectores en el estilo del diseño. B: ilustración de Gemini. La sombra sigue siendo la silueta del grupo.
+        Hoy: la figura de su grupo. A: vectores en el estilo del diseño. B: ilustración de Gemini en Antigravity. La sombra sigue siendo la silueta del grupo.
       </ThemedText>
       {PILOT_SPECIES.map((species) => {
         const figure = figureOf(species);
@@ -31,18 +31,22 @@ export function StickerPilot() {
           { label: 'Hoy', node: <BirdSticker {...common} /> },
           { label: 'A · normal', node: <BirdSticker {...common} art={vector} /> },
           { label: `A · ${CATEGORY_LABELS[category]}`, node: <BirdSticker {...common} art={vector} finish={category} /> },
-          ...ILLUSTRATION_MODELS.map((model, i) => {
+          ...ILLUSTRATION_MODELS.flatMap((model, i) => {
             const image = species.illustrations[i];
-            return {
-              label: `B · ${model}`,
-              node: image ? (
-                <BirdSticker {...common} art={{ image }} />
-              ) : (
-                <View style={[styles.missing, { width: SIZE, height: (SIZE * 205) / 160 }]}>
-                  <ThemedText variant="caption" color="textSecondary" style={styles.center}>Sin generar</ThemedText>
-                </View>
-              ),
-            };
+            if (!image) {
+              return [{
+                label: `B · ${model}`,
+                node: (
+                  <View style={[styles.missing, { width: SIZE, height: (SIZE * 205) / 160 }]}>
+                    <ThemedText variant="caption" color="textSecondary" style={styles.center}>Sin generar</ThemedText>
+                  </View>
+                ),
+              }];
+            }
+            return [
+              { label: 'B · normal', node: <BirdSticker {...common} art={{ image }} /> },
+              { label: `B · ${CATEGORY_LABELS[category]}`, node: <BirdSticker {...common} art={{ image }} finish={category} /> },
+            ];
           }),
           { label: 'Sombra', node: <BirdSticker {...common} empty /> },
         ];
