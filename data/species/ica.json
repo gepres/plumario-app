@@ -32,7 +32,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 1
     },
     {
@@ -58,7 +58,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 2
     },
     {
@@ -84,7 +84,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 3
     },
     {
@@ -110,7 +110,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 4
     },
     {
@@ -136,7 +136,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 5
     },
     {
@@ -162,7 +162,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 6
     },
     {
@@ -188,7 +188,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 7
     },
     {
@@ -214,7 +214,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 8
     },
     {
@@ -240,7 +240,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 9
     },
     {
@@ -266,7 +266,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 10
     },
     {
@@ -292,7 +292,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 11
     },
     {
@@ -318,7 +318,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 12
     },
     {
@@ -344,7 +344,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 13
     },
     {
@@ -370,7 +370,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 14
     },
     {
@@ -396,7 +396,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 15
     },
     {
@@ -422,7 +422,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 16
     },
     {
@@ -448,7 +448,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 17
     },
     {
@@ -474,7 +474,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 18
     },
     {
@@ -500,7 +500,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 19
     },
     {
@@ -526,7 +526,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 20
     },
     {
@@ -552,7 +552,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 21
     },
     {
@@ -578,7 +578,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 22
     },
     {
@@ -604,7 +604,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 23
     },
     {
@@ -630,7 +630,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 24
     },
     {
@@ -656,7 +656,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 25
     },
     {
@@ -682,7 +682,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 26
     },
     {
@@ -708,7 +708,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 27
     },
     {
@@ -1020,7 +1020,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 28
     },
     {
@@ -1046,7 +1046,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 29
     },
     {
@@ -1072,7 +1072,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 30
     },
     {
@@ -1306,7 +1306,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 31
     },
     {
@@ -1332,7 +1332,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 32
     },
     {
@@ -1358,7 +1358,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 33
     },
     {
@@ -1384,7 +1384,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 34
     },
     {
@@ -1410,7 +1410,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 35
     },
     {
@@ -1436,7 +1436,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 36
     },
     {
@@ -1462,7 +1462,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 37
     },
     {
@@ -1488,7 +1488,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 38
     },
     {
@@ -1514,7 +1514,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 39
     },
     {
@@ -1540,7 +1540,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 40
     },
     {
@@ -1566,7 +1566,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 41
     },
     {
@@ -1592,7 +1592,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 42
     },
     {
@@ -1618,7 +1618,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 43
     },
     {
@@ -1644,7 +1644,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 44
     },
     {
@@ -1670,7 +1670,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 45
     },
     {
@@ -1696,7 +1696,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 46
     },
     {
@@ -1722,7 +1722,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 47
     },
     {
@@ -1748,7 +1748,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 48
     },
     {
@@ -1774,7 +1774,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 49
     },
     {
@@ -1800,7 +1800,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 50
     },
     {
@@ -1826,7 +1826,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 51
     },
     {
@@ -1852,7 +1852,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 52
     },
     {
@@ -1878,7 +1878,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 53
     },
     {
@@ -1904,7 +1904,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 54
     },
     {
@@ -1930,7 +1930,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 55
     },
     {
@@ -1956,7 +1956,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 56
     },
     {
@@ -1982,7 +1982,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 57
     },
     {
@@ -2008,7 +2008,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 58
     },
     {
@@ -2034,7 +2034,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 59
     },
     {
@@ -2060,7 +2060,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 60
     },
     {
@@ -2086,7 +2086,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 61
     },
     {
@@ -2112,7 +2112,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 62
     },
     {
@@ -2138,7 +2138,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 63
     },
     {
@@ -2164,7 +2164,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 64
     },
     {
@@ -2190,7 +2190,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 65
     },
     {
@@ -2216,7 +2216,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 66
     },
     {
@@ -2242,7 +2242,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 67
     },
     {
@@ -2268,7 +2268,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 68
     },
     {
@@ -2294,7 +2294,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 69
     },
     {
@@ -2320,7 +2320,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 70
     },
     {
@@ -2346,7 +2346,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 71
     },
     {
@@ -2372,7 +2372,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 72
     },
     {
@@ -2398,7 +2398,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 73
     },
     {
@@ -2424,7 +2424,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 74
     },
     {
@@ -2450,7 +2450,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 75
     },
     {
@@ -2476,7 +2476,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 76
     },
     {
@@ -2502,7 +2502,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 77
     },
     {
@@ -2528,7 +2528,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 78
     },
     {
@@ -2554,7 +2554,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 79
     },
     {
@@ -2580,7 +2580,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 80
     },
     {
@@ -2606,7 +2606,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 81
     },
     {
@@ -2632,7 +2632,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 82
     },
     {
@@ -2658,7 +2658,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 83
     },
     {
@@ -2684,7 +2684,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 84
     },
     {
@@ -2710,7 +2710,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 85
     },
     {
@@ -2736,7 +2736,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 86
     },
     {
@@ -2762,7 +2762,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 87
     },
     {
@@ -2788,7 +2788,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 88
     },
     {
@@ -2814,7 +2814,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 89
     },
     {
@@ -2840,7 +2840,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 90
     },
     {
@@ -2866,7 +2866,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 91
     },
     {
@@ -2892,7 +2892,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 92
     },
     {
@@ -2918,7 +2918,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 93
     },
     {
@@ -2944,7 +2944,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 94
     },
     {
@@ -2970,7 +2970,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 95
     },
     {
@@ -2996,7 +2996,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 96
     },
     {
@@ -3022,7 +3022,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 97
     },
     {
@@ -3048,7 +3048,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 98
     },
     {
@@ -3074,7 +3074,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 99
     },
     {
@@ -3100,7 +3100,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 100
     },
     {
@@ -3126,7 +3126,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 101
     },
     {
@@ -3152,7 +3152,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 102
     },
     {
@@ -3178,7 +3178,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 103
     },
     {
@@ -3204,7 +3204,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 104
     },
     {
@@ -3230,7 +3230,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 105
     },
     {
@@ -3256,7 +3256,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 106
     },
     {
@@ -3282,7 +3282,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 107
     },
     {
@@ -3308,7 +3308,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 108
     },
     {
@@ -3438,7 +3438,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 109
     },
     {
@@ -3464,7 +3464,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 110
     },
     {
@@ -3490,7 +3490,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 111
     },
     {
@@ -3516,7 +3516,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 112
     },
     {
@@ -3542,7 +3542,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 113
     },
     {
@@ -3568,7 +3568,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 114
     },
     {
@@ -3594,7 +3594,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 115
     },
     {
@@ -3620,7 +3620,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 116
     },
     {
@@ -3646,7 +3646,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 117
     },
     {
@@ -3672,7 +3672,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 118
     },
     {
@@ -3698,7 +3698,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 119
     },
     {
@@ -3724,7 +3724,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 120
     },
     {
@@ -3750,7 +3750,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 121
     },
     {
@@ -3776,7 +3776,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 122
     },
     {
@@ -3802,7 +3802,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 123
     },
     {
@@ -3828,7 +3828,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 124
     },
     {
@@ -3854,7 +3854,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 125
     },
     {
@@ -3880,7 +3880,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 126
     },
     {
@@ -3906,7 +3906,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 127
     },
     {
@@ -3932,7 +3932,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 128
     },
     {
@@ -3958,7 +3958,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 129
     },
     {
@@ -3984,7 +3984,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 130
     },
     {
@@ -4010,7 +4010,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 131
     },
     {
@@ -4036,7 +4036,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 132
     },
     {
@@ -4062,7 +4062,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 133
     },
     {
@@ -4088,7 +4088,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 134
     },
     {
@@ -4114,7 +4114,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 135
     },
     {
@@ -4140,7 +4140,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 136
     },
     {
@@ -4166,7 +4166,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 137
     },
     {
@@ -4192,7 +4192,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 138
     },
     {
@@ -4218,7 +4218,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 139
     },
     {
@@ -4244,7 +4244,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 140
     },
     {
@@ -4270,7 +4270,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 141
     },
     {
@@ -4296,7 +4296,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 142
     },
     {
@@ -4322,7 +4322,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 143
     },
     {
@@ -4348,7 +4348,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 144
     },
     {
@@ -4374,7 +4374,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 145
     },
     {
@@ -4400,7 +4400,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 146
     },
     {
@@ -4426,7 +4426,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 147
     },
     {
@@ -4452,7 +4452,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 148
     },
     {
@@ -4478,7 +4478,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 149
     },
     {
@@ -4504,7 +4504,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 150
     },
     {
@@ -4530,7 +4530,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 151
     },
     {
@@ -4556,7 +4556,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 152
     },
     {
@@ -4582,7 +4582,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 153
     },
     {
@@ -4608,7 +4608,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 154
     },
     {
@@ -4634,7 +4634,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 155
     },
     {
@@ -4660,7 +4660,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 156
     },
     {
@@ -4686,7 +4686,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 157
     },
     {
@@ -4712,7 +4712,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 158
     },
     {
@@ -4738,7 +4738,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 159
     },
     {
@@ -4764,7 +4764,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 160
     },
     {
@@ -4790,7 +4790,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 161
     },
     {
@@ -4816,7 +4816,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 162
     },
     {
@@ -4842,7 +4842,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 163
     },
     {
@@ -4868,7 +4868,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 164
     },
     {
@@ -4894,7 +4894,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 165
     },
     {
@@ -4920,7 +4920,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 166
     },
     {
@@ -4946,7 +4946,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 167
     },
     {
@@ -4972,7 +4972,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 168
     },
     {
@@ -4998,7 +4998,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 169
     },
     {
@@ -5024,7 +5024,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 170
     },
     {
@@ -5050,7 +5050,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 171
     },
     {
@@ -5076,7 +5076,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 172
     },
     {
@@ -5102,7 +5102,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 173
     },
     {
@@ -5128,7 +5128,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 174
     },
     {
@@ -5154,7 +5154,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 175
     },
     {
@@ -5180,7 +5180,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 176
     },
     {
@@ -5206,7 +5206,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 177
     },
     {
@@ -5232,7 +5232,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 178
     },
     {
@@ -5258,7 +5258,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 179
     },
     {
@@ -5284,7 +5284,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 180
     },
     {
@@ -5310,7 +5310,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 181
     },
     {
@@ -5336,7 +5336,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 182
     },
     {
@@ -5362,7 +5362,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 183
     },
     {
@@ -5388,7 +5388,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 184
     },
     {
@@ -5414,7 +5414,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 185
     },
     {
@@ -5440,7 +5440,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 186
     },
     {
@@ -5466,7 +5466,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 187
     },
     {
@@ -5492,7 +5492,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 188
     },
     {
@@ -5518,7 +5518,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 189
     },
     {
@@ -5544,7 +5544,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 190
     },
     {
@@ -5570,7 +5570,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 191
     },
     {
@@ -5596,7 +5596,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 192
     },
     {
@@ -5622,7 +5622,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 193
     },
     {
@@ -5648,7 +5648,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 194
     },
     {
@@ -5674,7 +5674,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 195
     },
     {
@@ -5700,7 +5700,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 196
     },
     {
@@ -5726,7 +5726,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 197
     },
     {
@@ -5752,7 +5752,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 198
     },
     {
@@ -5778,7 +5778,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 199
     },
     {
@@ -5804,7 +5804,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 200
     },
     {
@@ -5830,7 +5830,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 201
     },
     {
@@ -5856,7 +5856,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 202
     },
     {
@@ -5882,7 +5882,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 203
     },
     {
@@ -5908,7 +5908,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 204
     },
     {
@@ -5934,7 +5934,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 205
     },
     {
@@ -5960,7 +5960,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 206
     },
     {
@@ -5986,7 +5986,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 207
     },
     {
@@ -6012,7 +6012,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 208
     },
     {
@@ -6038,7 +6038,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 209
     },
     {
@@ -6064,7 +6064,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 210
     },
     {
@@ -6090,7 +6090,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 211
     },
     {
@@ -6116,7 +6116,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 212
     },
     {
@@ -6142,7 +6142,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 213
     },
     {
@@ -6168,7 +6168,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 214
     },
     {
@@ -6194,7 +6194,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 215
     },
     {
@@ -6220,7 +6220,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 216
     },
     {
@@ -6246,7 +6246,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 217
     },
     {
@@ -6272,7 +6272,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 218
     },
     {
@@ -6298,7 +6298,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 219
     },
     {
@@ -6324,7 +6324,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 220
     },
     {
@@ -6350,7 +6350,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 221
     },
     {
@@ -6376,7 +6376,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 222
     },
     {
@@ -6402,7 +6402,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 223
     },
     {
@@ -6428,7 +6428,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 224
     },
     {
@@ -6454,7 +6454,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 225
     },
     {
@@ -6480,7 +6480,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 226
     },
     {
@@ -6506,7 +6506,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 227
     },
     {
@@ -6532,7 +6532,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 228
     },
     {
@@ -6558,7 +6558,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 229
     },
     {
@@ -6584,7 +6584,7 @@
       "emblematic": true,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 230
     },
     {
@@ -6610,7 +6610,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 231
     },
     {
@@ -6636,7 +6636,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 232
     },
     {
@@ -6662,7 +6662,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 233
     },
     {
@@ -6688,7 +6688,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 234
     },
     {
@@ -6714,7 +6714,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 235
     },
     {
@@ -6740,7 +6740,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 236
     },
     {
@@ -6766,7 +6766,7 @@
       "emblematic": true,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 237
     },
     {
@@ -6792,7 +6792,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 238
     },
     {
@@ -6818,7 +6818,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 239
     },
     {
@@ -6844,7 +6844,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 240
     },
     {
@@ -6870,7 +6870,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 241
     },
     {
@@ -6896,7 +6896,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 242
     },
     {
@@ -6922,7 +6922,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "wetlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 243
     },
     {
@@ -6948,7 +6948,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 244
     },
     {
@@ -6974,7 +6974,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 245
     },
     {
@@ -7000,7 +7000,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 246
     },
     {
@@ -7026,7 +7026,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 247
     },
     {
@@ -7052,7 +7052,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 248
     },
     {
@@ -7078,7 +7078,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 249
     },
     {
@@ -7104,7 +7104,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 250
     },
     {
@@ -7130,7 +7130,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 251
     },
     {
@@ -7156,7 +7156,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 252
     },
     {
@@ -7182,7 +7182,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 253
     },
     {
@@ -7208,7 +7208,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 254
     },
     {
@@ -7234,7 +7234,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 255
     },
     {
@@ -7260,7 +7260,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 256
     },
     {
@@ -7286,7 +7286,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 257
     },
     {
@@ -7312,7 +7312,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 258
     },
     {
@@ -7338,7 +7338,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 259
     },
     {
@@ -7364,7 +7364,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 260
     },
     {
@@ -7390,7 +7390,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 261
     },
     {
@@ -7416,7 +7416,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 262
     },
     {
@@ -7442,7 +7442,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 263
     },
     {
@@ -7468,7 +7468,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 264
     },
     {
@@ -7494,7 +7494,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 265
     },
     {
@@ -7520,7 +7520,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 266
     },
     {
@@ -7546,7 +7546,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 267
     },
     {
@@ -7572,7 +7572,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 268
     },
     {
@@ -7598,7 +7598,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 269
     },
     {
@@ -7624,7 +7624,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 270
     },
     {
@@ -7650,7 +7650,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 271
     },
     {
@@ -7676,7 +7676,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 272
     },
     {
@@ -7702,7 +7702,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 273
     },
     {
@@ -7728,7 +7728,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 274
     },
     {
@@ -7754,7 +7754,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 275
     },
     {
@@ -7936,7 +7936,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 276
     },
     {
@@ -8144,7 +8144,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 277
     },
     {
@@ -8170,7 +8170,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 278
     },
     {
@@ -8196,7 +8196,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 279
     },
     {
@@ -8222,7 +8222,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 280
     },
     {
@@ -8248,7 +8248,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "desert",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 281
     },
     {
@@ -8274,7 +8274,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 282
     },
     {
@@ -8300,7 +8300,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 283
     },
     {
@@ -8326,7 +8326,7 @@
       "emblematic": true,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 284
     },
     {
@@ -8352,7 +8352,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 285
     },
     {
@@ -8378,7 +8378,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 286
     },
     {
@@ -8404,7 +8404,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 287
     },
     {
@@ -8430,7 +8430,7 @@
       "emblematic": false,
       "threatened": true,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 288
     },
     {
@@ -8456,7 +8456,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 289
     },
     {
@@ -8482,7 +8482,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "openSea",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 290
     },
     {
@@ -8508,7 +8508,7 @@
       "emblematic": true,
       "threatened": true,
       "habitat": "coast",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 291
     },
     {
@@ -8638,7 +8638,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 292
     },
     {
@@ -8664,7 +8664,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 293
     },
     {
@@ -8690,7 +8690,7 @@
       "emblematic": false,
       "threatened": false,
       "habitat": "highlands",
-      "habitatReviewed": false,
+      "habitatReviewed": true,
       "albumNumber": 294
     }
   ]
