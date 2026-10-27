@@ -9,8 +9,10 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const IDS = ['pyrocephalus-rubinus', 'phoenicopterus-chilensis', 'pelecanus-thagus', 'rhodopis-vesper', 'quechuavis-decussata', 'geositta-peruviana'];
-export const MODELS = [
-  ['antigravity', 'Gemini (Antigravity)'],
+// Carpeta de las ilustraciones ya recortadas, letra de la vía y quién las generó.
+const MODELS = [
+  ['antigravity', 'B', 'Gemini (Antigravity)'],
+  ['codex', 'C', 'Codex'],
 ];
 
 const catalog = JSON.parse(await readFile(join(ROOT, 'data', 'species', 'ica.json'), 'utf8'));
@@ -44,7 +46,7 @@ await writeFile(
   `// GENERADO por tools/stickers/pilot/build-pilot-data.mjs — no editar a mano.
 import type { ImageSourcePropType } from 'react-native';
 
-export const ILLUSTRATION_MODELS = ${JSON.stringify(MODELS.map(([, label]) => label))} as const;
+export const ILLUSTRATION_MODELS = ${JSON.stringify(MODELS.map(([, letter, label]) => ({ letter, label })))} as const;
 
 export const PILOT_SPECIES: {
   id: string;

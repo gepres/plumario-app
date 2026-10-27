@@ -13,14 +13,14 @@ import { ILLUSTRATION_MODELS, PILOT_SPECIES } from './pilot-data';
 const SIZE = 116;
 const CATEGORY_LABELS = { holographic: 'holográfico', silver: 'plata', gold: 'oro', ruby: 'rubí', diamond: 'diamante' } as const;
 
-/** Piloto (PA-30): el sticker de 6 especies con la figura de hoy, con vectores (A) y con IA (B). */
+/** Piloto (PA-30): el sticker de 6 especies con la figura de hoy, con vectores (A) y con IA (B y C). */
 export function StickerPilot() {
   const insets = useSafeAreaInsets();
   return (
     <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing[6] }]}>
       <ThemedText variant="title">Un dibujo por especie</ThemedText>
       <ThemedText variant="caption" color="textSecondary">
-        Hoy: la figura de su grupo. A: vectores en el estilo del diseño. B: ilustración de Gemini en Antigravity. La sombra sigue siendo la silueta del grupo.
+        Hoy: la figura de su grupo. A: vectores en el estilo del diseño. B: ilustración de Gemini en Antigravity. C: ilustración de Codex. La sombra sigue siendo la silueta del grupo.
       </ThemedText>
       {PILOT_SPECIES.map((species) => {
         const figure = figureOf(species);
@@ -31,11 +31,11 @@ export function StickerPilot() {
           { label: 'Hoy', node: <BirdSticker {...common} /> },
           { label: 'A · normal', node: <BirdSticker {...common} art={vector} /> },
           { label: `A · ${CATEGORY_LABELS[category]}`, node: <BirdSticker {...common} art={vector} finish={category} /> },
-          ...ILLUSTRATION_MODELS.flatMap((model, i) => {
+          ...ILLUSTRATION_MODELS.flatMap(({ letter, label }, i) => {
             const image = species.illustrations[i];
             if (!image) {
               return [{
-                label: `B · ${model}`,
+                label: `${letter} · ${label}`,
                 node: (
                   <View style={[styles.missing, { width: SIZE, height: (SIZE * 205) / 160 }]}>
                     <ThemedText variant="caption" color="textSecondary" style={styles.center}>Sin generar</ThemedText>
@@ -44,8 +44,8 @@ export function StickerPilot() {
               }];
             }
             return [
-              { label: 'B · normal', node: <BirdSticker {...common} art={{ image }} /> },
-              { label: `B · ${CATEGORY_LABELS[category]}`, node: <BirdSticker {...common} art={{ image }} finish={category} /> },
+              { label: `${letter} · normal`, node: <BirdSticker {...common} art={{ image }} /> },
+              { label: `${letter} · ${CATEGORY_LABELS[category]}`, node: <BirdSticker {...common} art={{ image }} finish={category} /> },
             ];
           }),
           { label: 'Sombra', node: <BirdSticker {...common} empty /> },

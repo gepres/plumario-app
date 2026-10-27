@@ -41,5 +41,5 @@ Thumbs.db
 *.log
 .emulator-data/
 
-# Originales de Antigravity del piloto de stickers (PA-30): pesan; se versionan los recortados.
-apps/mobile/assets/sticker-pilot/raw/
+# Originales de Antigravity y Codex del piloto de stickers (PA-30): pesan; se versionan los recortados.
+apps/mobile/assets/sticker-pilot/raw*/
