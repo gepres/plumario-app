@@ -43,3 +43,11 @@ Thumbs.db
 
 # Originales de Antigravity y Codex del piloto de stickers (PA-30): pesan; se versionan los recortados.
 apps/mobile/assets/sticker-pilot/raw*/
+
+# Originales de las ilustraciones de los stickers (Gemini en Antigravity): pesan, no se versionan.
+data/stickers/raw/
+data/stickers/review/
+data/stickers/raw-v1/
+data/stickers/raw-rejected/
+# Encargos de cada tanda: los generan make-batches.mjs y pending.mjs.
+tools/stickers/batches/

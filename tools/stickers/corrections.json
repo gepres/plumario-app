@@ -1,0 +1,24 @@
+{
+  "mirror": [
+    "amazilis-amazilia",
+    "calidris-virgata",
+    "falco-femoralis",
+    "fregata-magnificens",
+    "hydrobates-tethys",
+    "larus-belcheri",
+    "oressochen-melanopterus",
+    "pelecanus-thagus",
+    "phalcoboenus-megalopterus",
+    "phrygilus-punensis",
+    "polyonymus-caroli",
+    "porphyrio-martinica",
+    "rhopospina-fruticeti",
+    "spinus-crassirostris",
+    "stercorarius-chilensis",
+    "sula-granti"
+  ],
+  "groundFrom": {
+    "phrygilus-atriceps": 896,
+    "sporophila-peruviana": 880
+  }
+}

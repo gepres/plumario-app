@@ -1,17 +1,23 @@
 # Quita el fondo plano de las ilustraciones de la vía B y las deja listas para el sticker: fondo
 # transparente, el ave centrada y a 512 × 512.
 # Uso (desde la raíz): python tools/stickers/pilot/remove-background.py <entrada.png>… --out <carpeta>
+#                      [--corrections tools/stickers/corrections.json]
 #
 # El color del fondo se mide en el borde de la imagen (el modelo no siempre da el tono exacto que se
 # le pide). Se quita el fondo que toca el borde y los bolsones del color casi puro que quedan
 # encerrados (entre las patas, bajo el pico), sin agujerear un ave que tenga un tono parecido; el
 # borde suave se des-mezcla del fondo para que no quede un halo de color.
+#
+# Las correcciones de la revisión final se aplican al recortar y los originales no se tocan:
+# `mirror` son las aves que salieron mirando a la derecha (el álbum las quiere todas a la izquierda)
+# y `groundFrom` da, por ave, la fila del original desde la que hay un resto de suelo.
 import argparse
+import json
 from collections import deque
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageOps
 
 SIZE = 512
 FILL = 0.86  # el lado mayor del ave ocupa este tanto del cuadro
@@ -40,12 +46,17 @@ def flood(mask: np.ndarray, seeds: np.ndarray) -> np.ndarray:
     return seen
 
 
-def process(path: Path, out: Path) -> None:
+def process(path: Path, out: Path, corrections: dict) -> None:
     image = Image.open(path).convert('RGB')
     if max(image.size) > 1024:
         image = image.resize((1024, 1024), Image.LANCZOS)
-    rgb = np.asarray(image, dtype=np.float32)
+    if path.stem in corrections.get('mirror', []):
+        image = ImageOps.mirror(image)
+    rgb = np.array(image, dtype=np.float32)
     bg = background_color(rgb)
+    ground = corrections.get('groundFrom', {}).get(path.stem)
+    if ground is not None:
+        rgb[ground:] = bg
     distance = np.linalg.norm(rgb - bg, axis=2)
 
     # El fondo es lo parecido al color del borde que se une al borde o a un bolsón del color puro.
@@ -73,7 +84,9 @@ def process(path: Path, out: Path) -> None:
 parser = argparse.ArgumentParser()
 parser.add_argument('inputs', nargs='+', type=Path)
 parser.add_argument('--out', type=Path, required=True)
+parser.add_argument('--corrections', type=Path)
 args = parser.parse_args()
 args.out.mkdir(parents=True, exist_ok=True)
+corrections = json.loads(args.corrections.read_text(encoding='utf-8')) if args.corrections else {}
 for item in args.inputs:
-    process(item, args.out)
+    process(item, args.out, corrections)
