@@ -30,6 +30,9 @@ entorno en `docs/environment.md`.
 - **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `design/palettes/palettes.json`
   (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
   es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
+- **Las reglas de cromos, sobres y plumas están en `docs/card-progression.md`.** El acabado se gana, ya
+  no depende de la especie. El dominio cambia en la fase 1: hasta entonces, si el código y ese documento
+  no coinciden, manda el documento.
 - **Las ilustraciones de los stickers van dentro del paquete** (`apps/mobile/assets/stickers/`, en
   WebP), para que se vean sin señal. Los originales están en `data/stickers/raw/`, fuera de git; para
   espejar un ave o quitarle un resto de suelo, edita `tools/stickers/corrections.json` y corre
