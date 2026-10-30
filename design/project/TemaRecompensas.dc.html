@@ -17,7 +17,7 @@ body{margin:0}
 
 <header style="flex: none; padding: 16px 20px 0; display: flex; flex-direction: column; gap: 2px">
 <span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 27px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1">Mis recompensas</span>
-<span style="font-size: 13px; color: {{t.txt2}}">12 de 289 especies · 3 medallas · 2 cromos</span>
+<span style="font-size: 13px; color: {{t.txt2}}">12 de 294 especies · 3 medallas · 2 cromos</span>
 </header>
 <div style="flex: none; margin: 12px 16px 0; padding: 4px; background: {{t.sup2}}; border-radius: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
 <span style="min-height: 46px; border-radius: 10px; background: {{t.sup}}; box-shadow: 0 1px 2px rgba(0,0,0,0.12); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">Medallas</span>
@@ -67,7 +67,7 @@ class Component extends DCLogic {
     const t = TEMAS[this.props.tema] || TEMAS['a-claro'];
     return Object.assign({ t }, (t => ({
   medallas: [ { kind: 'hito', numero: '10', nombre: '10 especies', fecha: '9 oct' }, { kind: 'explorador', numero: '', nombre: 'Explorador', fecha: '2 may' }, { kind: 'primera', numero: '', nombre: 'Mi primera ave', fecha: '14 mar' } ],
-  pendientes: [ { kind: 'litoral', p: 0.19, nombre: 'Litoral', v: '8 de 43' }, { kind: 'humedales', p: 0.07, nombre: 'Humedales', v: '3 de 42' }, { kind: 'completo', p: 0.04, nombre: 'Álbum completo', v: '12 de 289' } ]
+  pendientes: [ { kind: 'litoral', p: 0.16, nombre: 'Litoral', v: '8 de 50' }, { kind: 'humedales', p: 0.06, nombre: 'Humedales', v: '3 de 48' }, { kind: 'completo', p: 0.04, nombre: 'Álbum completo', v: '12 de 294' } ]
 }))(t));
   }
 }

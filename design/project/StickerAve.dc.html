@@ -28,23 +28,32 @@ body{margin:0}
 <sc-for list="{{stars}}" as="s" hint-placeholder-count="3">
 <div aria-hidden="true" style="position: absolute; left: {{s.l}}px; top: {{s.t}}px; width: {{s.s}}px; height: {{s.s}}px; background: {{s.c}}; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%)"></div>
 </sc-for>
+<sc-if value="{{conSello}}" hint-placeholder-val="{{ false }}">
 <div style="position: absolute; left: 124px; top: -6px; width: 42px; height: 42px; box-sizing: border-box; border-radius: 50%; border: {{badgeBorder}}; background: {{badgeBg}}; box-shadow: {{badgeShadow}}; display: flex; align-items: center; justify-content: center">
-<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}" fill="{{iconFill}}" fill-rule="evenodd"></path><path d="{{icon2}}" fill="{{icon2Fill}}"></path></svg>
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}" fill="{{iconFill}}" fill-rule="evenodd"></path></svg>
 </div>
+</sc-if>
 </sc-if>
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"img":{"editor":null,"default":"/_blob/700e5a92d8dae9ed43cb6af87296da4a"},"nombre":{"editor":"text","default":"Playero Arenero"},"num":{"editor":"text","default":"011"},"tint":{"editor":"color","default":"#D2E4EC","options":["#D2E4EC","#D9EADB","#EADFCB","#E0DDEA","#CFDCE8"]},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"cromado"},"sombra":{"editor":"boolean","default":false},"size":{"editor":"int","default":160,"min":32,"max":640},"$preview":{"width":160,"height":205}}'>
-// acabado: "cromado" es el cromo holográfico (categoría base). plata, oro, rubi y diamante son las categorías especiales.
+<script type="text/x-dc" data-dc-script data-props='{"img":{"editor":null,"default":"/_blob/700e5a92d8dae9ed43cb6af87296da4a"},"nombre":{"editor":"text","default":"Playero Arenero"},"num":{"editor":"text","default":"011"},"tint":{"editor":"color","default":"#D2E4EC","options":["#D2E4EC","#D9EADB","#EADFCB","#E0DDEA","#CFDCE8"]},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"cromado"},"sello":{"editor":"enum","options":["ninguno","amenazada","emblematica","endemica","casi"],"default":"ninguno"},"sombra":{"editor":"boolean","default":false},"size":{"editor":"int","default":160,"min":32,"max":640},"$preview":{"width":160,"height":205}}'>
+// acabado: "cromado" es el cromo holográfico, el primero de la escalera. Le siguen plata, oro, rubi y diamante.
+// La esquina lleva el sello de la especie, no el acabado: uno solo, y los demás van en la ficha.
+// Prioridad: amenazada, emblemática, endémica y casi amenazada.
 const ICON = {
-  star: 'M12 2.5l2.7 6.1 6.6.6-5 4.4 1.5 6.5L12 16.8 6.2 20.1l1.5-6.5-5-4.4 6.6-.6z',
   shield: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z',
   pin: 'M12 2.2a7 7 0 0 0-7 7c0 5.2 7 12.6 7 12.6s7-7.4 7-12.6a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z',
-  flag: 'M5 2.5h2.2v19H5z M8.2 3.5H19l-3.2 4.6L19 12.7H8.2z',
-  gem: 'M7 3.5h10l4.5 5.5L12 21 2.5 9z',
-  gemTop: 'M7 3.5h10l4.5 5.5h-19z'
+  flag: 'M5 2.5h2.2v19H5z M8.2 3.5H19l-3.2 4.6L19 12.7H8.2z'
 };
+const SELLOS = {
+  amenazada: ICON.shield,
+  emblematica: ICON.flag,
+  endemica: ICON.pin,
+  casi: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z M12 6.2L7.4 8v3.5c0 2.8 1.9 5.2 4.6 6.3 2.7-1.1 4.6-3.5 4.6-6.3V8z'
+};
+// Sello de las aves de muestra, para no repetirlo en cada artboard.
+const SELLO_MUESTRA = { '025': 'amenazada', '032': 'amenazada', '038': 'amenazada', '184': 'amenazada', '042': 'endemica', '050': 'emblematica' };
 const HOLO = 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)';
 const star = (cx, cy, s, c) => ({ l: cx - s / 2, t: cy - s / 2, s, c });
 const STARS3 = c => [star(110, 40, 18, c), star(27, 122, 14, c), star(139, 104, 10, c)];
@@ -57,7 +66,7 @@ const TIER = {
     plateSheen: 'linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.5) 44%, rgba(255,255,255,0) 58%), conic-gradient(from 90deg at 70% 30%, rgba(244,198,214,0.3), rgba(197,217,245,0.3), rgba(195,238,220,0.3), rgba(242,234,184,0.3), rgba(244,198,214,0.3))',
     stars: STARS3('#FFFFFF'),
     badgeBg: HOLO, badgeBorder: '3px solid #FFFFFF', badgeShadow: '0 2px 6px rgba(20,48,47,0.28)',
-    icon: ICON.star, iconFill: '#14302F', icon2: '', icon2Fill: 'none',
+    iconFill: '#14302F',
     nameColor: '#14302F', nameShadow: 'none', numColor: '#14302F', numBg: '#FFFFFF'
   },
   plata: {
@@ -67,7 +76,7 @@ const TIER = {
     plateSheen: 'linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.55) 44%, rgba(255,255,255,0) 58%)',
     stars: [star(110, 40, 14, '#FFFFFF'), star(27, 122, 10, '#FFFFFF')],
     badgeBg: 'linear-gradient(135deg, #FFFFFF 0%, #B9C2C9 45%, #EEF1F3 62%, #95A1AA 100%)', badgeBorder: '3px solid #FFFFFF', badgeShadow: '0 2px 6px rgba(20,48,47,0.28)',
-    icon: ICON.shield, iconFill: '#2F3B43', icon2: '', icon2Fill: 'none',
+    iconFill: '#2F3B43',
     nameColor: '#1E2A31', nameShadow: 'none', numColor: '#1E2A31', numBg: '#FFFFFF'
   },
   oro: {
@@ -77,7 +86,7 @@ const TIER = {
     plateSheen: 'linear-gradient(120deg, rgba(255,240,190,0) 30%, rgba(255,240,190,0.55) 44%, rgba(255,240,190,0) 58%)',
     stars: STARS3('#FFF6D5'),
     badgeBg: 'linear-gradient(135deg, #FFF3C4 0%, #D9A93E 50%, #F7DE8E 70%, #B07F22 100%)', badgeBorder: '3px solid #FFF8E1', badgeShadow: '0 2px 6px rgba(74,52,16,0.35)',
-    icon: ICON.pin, iconFill: '#4A3410', icon2: '', icon2Fill: 'none',
+    iconFill: '#4A3410',
     nameColor: '#3B2A0C', nameShadow: 'none', numColor: '#3B2A0C', numBg: '#FFF8E6'
   },
   rubi: {
@@ -87,7 +96,7 @@ const TIER = {
     plateSheen: 'linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.45) 44%, rgba(255,255,255,0) 58%)',
     stars: STARS3('#FFE7A8'),
     badgeBg: 'linear-gradient(135deg, #E8687C 0%, #9C1B31 55%, #6A0F1F 100%)', badgeBorder: '3px solid #E9C46A', badgeShadow: '0 2px 6px rgba(60,10,20,0.4)',
-    icon: ICON.flag, iconFill: '#FFFFFF', icon2: '', icon2Fill: 'none',
+    iconFill: '#FFFFFF',
     nameColor: '#FFFFFF', nameShadow: '0 1px 1px rgba(40,0,10,0.45)', numColor: '#6A0F1F', numBg: '#FFFFFF'
   },
   diamante: {
@@ -97,7 +106,7 @@ const TIER = {
     plateSheen: 'linear-gradient(120deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.6) 42%, rgba(255,255,255,0) 56%), conic-gradient(from 90deg at 70% 30%, rgba(197,217,245,0.28), rgba(244,198,214,0.28), rgba(195,238,220,0.28), rgba(197,217,245,0.28))',
     stars: [star(110, 40, 20, '#FFFFFF'), star(27, 122, 16, '#FFFFFF'), star(139, 104, 12, '#FFFFFF'), star(34, 30, 10, '#FFFFFF'), star(112, 140, 9, '#FFFFFF')],
     badgeBg: '#16324A', badgeBorder: '3px solid #FFFFFF', badgeShadow: '0 0 0 2px #BFE3F2, 0 2px 8px rgba(20,48,47,0.35)',
-    icon: ICON.gem, iconFill: '#9FD3EA', icon2: ICON.gemTop, icon2Fill: '#FFFFFF',
+    iconFill: '#9FD3EA',
     nameColor: '#14302F', nameShadow: 'none', numColor: '#16324A', numBg: '#FFFFFF'
   }
 };
@@ -108,6 +117,8 @@ class Component extends DCLogic {
     const sombra = this.props.sombra === true || this.props.sombra === 'true';
     const acabado = this.props.acabado ?? 'cromado';
     const tier = sombra ? null : TIER[acabado];
+    const num = this.props.num ?? '011';
+    const sello = this.props.sello ?? SELLO_MUESTRA[num];
     const tint = this.props.tint ?? '#D2E4EC';
     const base = {
       w: size,
@@ -115,8 +126,10 @@ class Component extends DCLogic {
       scale: size / 160,
       img: this.props.img ?? '/_blob/700e5a92d8dae9ed43cb6af87296da4a',
       nombre: this.props.nombre ?? 'Playero Arenero',
-      num: this.props.num ?? '011',
+      num,
       isCromo: !!tier,
+      conSello: !!tier && !!SELLOS[sello],
+      icon: SELLOS[sello] ?? '',
       frameBorder: '0',
       frameShadow: 'none',
       nameShadow: 'none',

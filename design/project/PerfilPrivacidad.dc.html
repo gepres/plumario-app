@@ -23,7 +23,7 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Privacidad</h1>
 </header>
 
-<p style="flex: none; margin: 0 20px 12px; font-size: 14px; line-height: 1.45; color: #3F504E">Tú decides qué se ve de tu álbum. Tus fotos y su ubicación son tuyas.</p>
+<p style="flex: none; margin: 0 20px 12px; font-size: 14px; line-height: 1.45; color: #3F504E">Tus fotos y su ubicación son tuyas.</p>
 
 <main style="flex: 1; min-height: 0; padding: 0 16px; display: flex; flex-direction: column; gap: 14px">
 
@@ -45,14 +45,8 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <section aria-labelledby="album" style="display: flex; flex-direction: column; gap: 6px">
 <h2 id="album" style="margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4E5E5C">Tu álbum</h2>
 <div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 18px">
-<div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
-<span style="font-size: 14.5px; font-weight: 700">Quién puede ver tu álbum</span>
-<div role="group" aria-label="Quién puede ver tu álbum" style="padding: 3px; background: #E7DFCF; border-radius: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px">
-<sc-for list="{{visibilidad}}" as="v" hint-placeholder-count="3">
-<button aria-pressed="{{v.pressed}}" onClick="{{v.pick}}" style="min-height: 38px; border: 0; border-radius: 9px; background: {{v.bg}}; box-shadow: {{v.shadow}}; color: #14302F; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">{{v.label}}</button>
-</sc-for>
-</div>
-<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">{{visNota}}</span>
+<div style="padding: 12px 14px">
+<span style="font-size: 14.5px; font-weight: 700">Por ahora, solo tú ves tu álbum</span>
 </div>
 <div style="min-height: 64px; box-sizing: border-box; padding: 10px 14px; border-top: 1px solid #E3DACA; display: flex; align-items: center; gap: 12px">
 <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span id="l-nombre" style="font-size: 14.5px; font-weight: 700">Tu nombre en lo que compartes</span><span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">En pósteres y tarjetas. Apagado, sale tu usuario.</span></span>
@@ -89,7 +83,7 @@ a{color:#14302F}a:hover{color:#2C6A86}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ubic: true, nombre: true, ia: false, vis: 'enlace' };
+    this.state = { ubic: true, nombre: true, ia: false };
   }
   renderVals() {
     const st = this.state;
@@ -99,21 +93,7 @@ class Component extends DCLogic {
       [key + 'Knob']: st[key] ? 23 : 3,
       ['toggle' + key.charAt(0).toUpperCase() + key.slice(1)]: () => this.setState({ [key]: !st[key] })
     });
-    const NOTAS = {
-      yo: 'Nadie más ve tu álbum. Los intercambios siguen funcionando por enlace o QR.',
-      enlace: 'Lo ve quien reciba tu enlace. No aparece en búsquedas.',
-      todos: 'Cualquier persona puede ver tus stickers y medallas. Nunca tus fotos ni su ubicación.'
-    };
-    return Object.assign({}, sw('ubic'), sw('nombre'), sw('ia'), {
-      visNota: NOTAS[st.vis],
-      visibilidad: [{ id: 'yo', label: 'Solo yo' }, { id: 'enlace', label: 'Con enlace' }, { id: 'todos', label: 'Todos' }].map(v => ({
-        label: v.label,
-        pressed: st.vis === v.id ? 'true' : 'false',
-        bg: st.vis === v.id ? '#FBF8F2' : 'transparent',
-        shadow: st.vis === v.id ? '0 1px 2px rgba(20,48,47,0.14)' : 'none',
-        pick: () => this.setState({ vis: v.id })
-      }))
-    });
+    return Object.assign({}, sw('ubic'), sw('nombre'), sw('ia'));
   }
 }
 </script>

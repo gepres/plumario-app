@@ -4,10 +4,14 @@ Copia local del canvas de Claude Design
 <https://claude.ai/code/artifact/b2c44b8d-f350-4ef2-9295-42cf3386f318>
 (versión `1792827069-ebff`, bajada el 24 oct 2026).
 
+**`design/` va por delante del canvas.** El 30 oct 2026 los artboards pasaron a las reglas de
+`docs/card-progression.md` y se sumaron los de sobres, repetidas, compra, trivia y plumas. Esos cambios
+solo están aquí: antes de volver a bajar el canvas hay que publicarlos en él, o se pierden.
+
 | Carpeta | Qué hay |
 |---|---|
 | `project/canvas.json` | Índice del canvas: posición y título de cada artboard, secciones (`notes`) y páginas (`v2` «Sistema v2», `v1` «Versión 1»). |
-| `project/*.dc.html` | Los 64 artboards. Cada uno es una pantalla o componente en formato Design Component. |
+| `project/*.dc.html` | Los 90 artboards. Cada uno es una pantalla o componente en formato Design Component. |
 | `assets/<id>.svg` | Las imágenes subidas al canvas (aves, siluetas, mapa). En los artboards aparecen como `/_blob/<id>`. |
 | `runtime/dc-runtime.js` | El intérprete del formato `.dc.html` (trae React empaquetado). En el canvas se sirve como `support.js`. |
 | `reference/dc-format.md` | La sintaxis del formato: huecos `{{…}}`, `<sc-for>`, `<sc-if>`, `<dc-import>`, eventos y estado. |
@@ -21,7 +25,7 @@ Los artboards `Paleta*.dc.html` se generan desde `palettes.json` con
 `canvas.json`. El logo con los colores de cada tema es `TemaLogo.dc.html`.
 
 Componentes que importan otras pantallas con `<dc-import>`: `BarraNav`, `Boton`, `Campo`,
-`Medalla`, `Sticker`, `StickerAve`, `Poster10`, `PosterHabitat`, `PosterLitoral`, `TarjetaLogro`.
+`Medalla`, `MonedaPluma`, `Sticker`, `StickerAve`, `Poster10`, `PosterHabitat`, `PosterLitoral`, `TarjetaLogro`.
 
 La guía visual (color, letra, espacio, íconos y componentes) está en `GuiaFundamentos.dc.html`
 y `GuiaComponentes.dc.html`.

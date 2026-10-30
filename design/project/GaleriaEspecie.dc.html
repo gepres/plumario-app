@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Pelícano Peruano · Galería y cromo por fotos</title>
+<title>Pelícano Peruano · Galería y progreso</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -29,21 +29,33 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 25px; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em">Pelícano Peruano</h1>
 <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 18px; color: #3F504E">Pelecanus thagus</span>
 <span style="align-self: flex-start; margin-top: 2px; font-size: 12px; font-weight: 700; color: #2D5F41; background: #E3EEE6; border-radius: 999px; padding: 4px 9px">Tu primera ave · 14 mar 2026</span>
+<span style="display: flex; flex-wrap: wrap; gap: 4px">
+<span style="font-size: 11.5px; font-weight: 700; color: #16324A; background: #D3E8F1; border-radius: 999px; padding: 3px 8px">Amenazada</span>
+<span style="font-size: 11.5px; font-weight: 600; color: #3F504E; border: 1px dashed #C9BEA9; border-radius: 999px; padding: 2px 8px">Emblemática</span>
+</span>
 </div>
 </section>
 
-<section aria-labelledby="cromo-fotos" style="flex: none; margin: 10px 16px 0; padding: 12px 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 16px; display: flex; flex-direction: column; gap: 7px">
+<section aria-labelledby="progreso" style="flex: none; margin: 10px 16px 0; padding: 12px 14px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 16px; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
-<h2 id="cromo-fotos" style="margin: 0; font-size: 15px; font-weight: 700">Cromo por fotos</h2>
-<span style="font-size: 13.5px; font-weight: 700">4 de 5 validadas</span>
+<h2 id="progreso" style="margin: 0; font-size: 15px; font-weight: 700">Próximo acabado</h2>
+<span style="font-size: 13.5px; font-weight: 700">2/3 · a una del holográfico</span>
 </div>
-<div style="height: 8px; border-radius: 4px; background: #E3DACA; overflow: hidden"><div style="width: 80%; height: 100%; border-radius: 4px; background: linear-gradient(90deg, #D24A60, #A51E36)"></div></div>
-<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Una foto válida más y su sticker pasa a <b style="color: #8E1A2E">cromo rubí</b>, por ser emblemática. La IA revisa que se vea esta especie.</span>
+<div role="img" aria-label="Paradas en 3, 5, 10, 20 y 35 observaciones. Llevas 2." style="position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr))">
+<div aria-hidden="true" style="position: absolute; left: 10%; right: 10%; top: 13px; height: 4px; border-radius: 2px; background: #E3DACA"></div>
+<sc-for list="{{paradas}}" as="p" hint-placeholder-count="5">
+<span style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px">
+<span aria-hidden="true" style="width: 30px; height: 30px; box-sizing: border-box; border-radius: 50%; border: {{p.borde}}; background: {{p.bg}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800">{{p.n}}</span>
+<span style="font-size: 11px; font-weight: 600; color: #3F504E">{{p.nombre}}</span>
+</span>
+</sc-for>
+</div>
+<span style="font-size: 12.5px; line-height: 1.35; color: #4E5E5C">Obsérvala de lejos: no te acerques a nidos. La IA revisa que se vea esta especie.</span>
 </section>
 
 <div style="flex: none; margin: 14px 16px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px">
 <div style="display: flex; flex-direction: column; gap: 1px">
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 17px; font-weight: 700">Tu galería · 5 fotos</h2>
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 17px; font-weight: 700">Tu galería · 6 fotos</h2>
 <span style="font-size: 12.5px; color: #4E5E5C">Completas, sin recortes. No suman especies.</span>
 </div>
 <button style="flex: none; min-height: 44px; box-sizing: border-box; border-radius: 12px; border: 1.5px solid #14302F; background: transparent; color: #14302F; font-family: inherit; font-size: 13.5px; font-weight: 700; padding: 0 14px; display: flex; align-items: center; gap: 6px; cursor: pointer">
@@ -73,7 +85,11 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <div style="position: relative; height: 63px; border-radius: 10px; background: #CFCBC4; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #3F504E; font-size: 11.5px; font-weight: 700">16:9
 <span aria-hidden="true" style="position: absolute; right: 6px; top: 6px; width: 20px; height: 20px; border-radius: 50%; background: #A0541F; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">!</span>
 </div>
-<span style="font-size: 11.5px; line-height: 1.3; font-weight: 600; color: #7A3E14">No se ve el ave. No cuenta para el cromo.</span>
+<span style="font-size: 11.5px; line-height: 1.3; font-weight: 600; color: #7A3E14">No se ve el ave. No cuenta.</span>
+<div style="position: relative; height: 63px; border-radius: 10px; background: #D8D0BF; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #3F504E; font-size: 11.5px; font-weight: 700">16:9
+<span aria-hidden="true" style="position: absolute; right: 6px; top: 6px; width: 20px; height: 20px; border-radius: 50%; background: #A0541F; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">!</span>
+</div>
+<span style="font-size: 11.5px; line-height: 1.3; font-weight: 600; color: #7A3E14">Cuenta una vez por semana para no molestarla.</span>
 </div>
 </div>
 
@@ -83,7 +99,7 @@ a{color:#14302F}a:hover{color:#2C6A86}
 </span>
 <div style="display: flex; flex-direction: column; gap: 2px">
 <span style="font-size: 14px; font-weight: 700">La IA validó tu foto</span>
-<span style="font-size: 12.5px; line-height: 1.35; color: #C9D8D4">Te falta 1 para el cromo rubí del Pelícano Peruano.</span>
+<span style="font-size: 12.5px; line-height: 1.35; color: #C9D8D4">Te falta 1 para el holográfico del Pelícano Peruano.</span>
 </div>
 </div>
 
@@ -92,7 +108,17 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
   renderVals() {
-    return {};
+    const HOLO = 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)';
+    const nada = { borde: '1.5px solid #C9BEA9', bg: '#FBF8F2' };
+    return {
+      paradas: [
+        { n: 3, nombre: 'Holo', borde: '2px solid #14302F', bg: HOLO },
+        Object.assign({ n: 5, nombre: 'Plata' }, nada),
+        Object.assign({ n: 10, nombre: 'Oro' }, nada),
+        Object.assign({ n: 20, nombre: 'Rubí' }, nada),
+        Object.assign({ n: 35, nombre: 'Diamante' }, nada)
+      ]
+    };
   }
 }
 </script>

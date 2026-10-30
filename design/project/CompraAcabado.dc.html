@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Subir de acabado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; justify-content: space-between; gap: 4px; height: 56px; padding: 0 12px 0 8px">
+<a href="StickerDetalle.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="flex: 1; margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Subir de acabado</h1>
+<span style="flex: none; min-height: 40px; box-sizing: border-box; padding: 0 12px 0 8px; border-radius: 999px; background: #FBF8F2; border: 1px solid #E3DACA; display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700"><dc-import name="MonedaPluma" size="20" hint-size="20px,20px"></dc-import>{{saldo}}</span>
+</header>
+
+<section aria-label="Cambio de acabado" style="flex: none; margin: 8px 16px 0; padding: 18px 10px; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; display: grid; grid-template-columns: 1fr 40px 1fr; align-items: center">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4E5E5C">Ahora</span>
+<dc-import name="StickerAve" img="/_blob/95828bd5b7fe0dda93d787c2e178af86" nombre="Gaviota Peruana" num="022" tint="#D2E4EC" acabado="{{antes.id}}" size="128" hint-size="128px,164px"></dc-import>
+<span style="font-size: 14px; font-weight: 700">{{antes.nombre}}</span>
+</div>
+<span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #14302F; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2D5F41">Sube a</span>
+<dc-import name="StickerAve" img="/_blob/95828bd5b7fe0dda93d787c2e178af86" nombre="Gaviota Peruana" num="022" tint="#D2E4EC" acabado="{{despues.id}}" size="128" hint-size="128px,164px"></dc-import>
+<span style="font-size: 14px; font-weight: 700">{{despues.nombre}}</span>
+</div>
+</section>
+
+<ul style="flex: none; margin: 16px 20px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{notas}}" as="n" hint-placeholder-count="3">
+<li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.4">
+<span aria-hidden="true" style="flex: none; width: 22px; height: 22px; border-radius: 50%; background: #E3DACA; color: #14302F; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">i</span>
+<span>{{n}}</span>
+</li>
+</sc-for>
+</ul>
+
+<div style="margin-top: auto; padding: 0 16px 22px; flex: none; display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{cupo}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="padding: 12px 14px; border-radius: 16px; background: #F4E3E5; color: #7A1226; font-size: 14px; font-weight: 600; line-height: 1.4">Ya compraste un rubí o diamante este mes. Vuelve el 1 de noviembre.</div>
+<span aria-disabled="true" style="min-height: 52px; border-radius: 14px; background: #E7DFCF; color: #5F5B54; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{boton}}</span>
+</sc-if>
+<sc-if value="{{disponible}}" hint-placeholder-val="{{ true }}">
+<button onClick="{{comprar}}" style="min-height: 52px; border: 0; border-radius: 14px; background: #14302F; color: #FFFFFF; font-family: inherit; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><dc-import name="MonedaPluma" size="22" hint-size="22px,22px"></dc-import>{{boton}}</button>
+</sc-if>
+<a href="StickerDetalle.dc.html" style="min-height: 48px; box-sizing: border-box; border-radius: 14px; border: 1.5px solid #C9BEA9; color: #14302F; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Ahora no</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"paso":{"editor":"int","default":0,"min":0,"max":2},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { paso: props.paso ?? 0 };
+  }
+  renderVals() {
+    const NIVELES = [
+      { id: 'plata', nombre: 'Plata' },
+      { id: 'oro', nombre: 'Oro' },
+      { id: 'rubi', nombre: 'Rubí' },
+      { id: 'diamante', nombre: 'Diamante' }
+    ];
+    const PRECIO = [20, 50, 120];
+    const SALDOS = [194, 174, 124];
+    const paso = Math.min(this.state.paso, 2);
+    const precio = PRECIO[paso];
+    const saldo = SALDOS[paso];
+    // El tercer paso muestra el cupo agotado: ya se compró un rubí este mes.
+    const cupo = paso === 2;
+    return {
+      saldo,
+      antes: NIVELES[paso],
+      despues: NIVELES[paso + 1],
+      cupo,
+      disponible: !cupo,
+      boton: 'Subir a ' + NIVELES[paso + 1].nombre.toLowerCase() + ' · ' + precio + ' plumas',
+      notas: [
+        'Solo se sube al acabado siguiente.',
+        cupo ? 'Puedes seguir observando: el hito de diamante sigue en pie.' : 'Te quedarán ' + (saldo - precio) + ' plumas.',
+        'Comprar no suma observaciones ni registra aves.'
+      ],
+      comprar: () => this.setState({ paso: paso + 1 })
+    };
+  }
+}
+</script>
+</body>
+</html>

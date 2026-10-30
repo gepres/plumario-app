@@ -56,7 +56,7 @@
     },
     "CategoriasCromos.dc.html": {
       "h": 1300,
-      "title": "Cromos por categoría · criterios y reglas",
+      "title": "Escalera de acabados · reglas y plumas",
       "w": 1280,
       "x": 3980,
       "y": 4290
@@ -80,7 +80,7 @@
     "CromosCategorias.dc.html": {
       "h": 844,
       "is_interactive": true,
-      "title": "Mis cromos por categoría",
+      "title": "Mis acabados",
       "w": 390,
       "x": 3040,
       "y": 4290
@@ -109,7 +109,7 @@
     "GaleriaEspecie.dc.html": {
       "h": 844,
       "is_interactive": true,
-      "title": "Galería · cromo con 5 fotos validadas",
+      "title": "Galería · progreso de la especie",
       "w": 390,
       "x": 2350,
       "y": 0
@@ -428,7 +428,7 @@
     "RevelarCromado.dc.html": {
       "h": 844,
       "is_interactive": true,
-      "title": "Registrar 4 · ¡salió cromado!",
+      "title": "Registrar 4 · revelado de cromo (plantilla base)",
       "w": 390,
       "x": 1880,
       "y": 2880
@@ -436,7 +436,7 @@
     "RevelarDiamante.dc.html": {
       "h": 844,
       "is_interactive": true,
-      "title": "Revelado · cromo diamante (especie amenazada)",
+      "title": "Revelado · cromo diamante (variante)",
       "w": 390,
       "x": 3510,
       "y": 4290
@@ -643,6 +643,61 @@
       "h": 1240,
       "title": "Opción F · Ribera · oscuro",
       "page": "paletas"
+    },
+    "SobreAbrir.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Sobre · listo para abrir",
+      "w": 390,
+      "x": 1960,
+      "y": 6040
+    },
+    "SobreResultado.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Sobre · mejora o repetida",
+      "w": 390,
+      "x": 2430,
+      "y": 6040
+    },
+    "MisRepetidas.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mis repetidas y saldo de plumas",
+      "w": 390,
+      "x": 2900,
+      "y": 6040
+    },
+    "CompraAcabado.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Comprar el siguiente acabado",
+      "w": 390,
+      "x": 3370,
+      "y": 6040
+    },
+    "TriviaDiaria.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Trivia del día",
+      "w": 390,
+      "x": 3840,
+      "y": 6040
+    },
+    "IntercambioPausa.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Intercambio en pausa (fase 1)",
+      "w": 390,
+      "x": 4310,
+      "y": 6040
+    },
+    "MonedaPluma.dc.html": {
+      "h": 48,
+      "title": "Componente · Moneda de plumas",
+      "w": 48,
+      "x": 4780,
+      "y": 6040
     }
   },
   "createdOnFiles": {
@@ -665,7 +720,7 @@
     "t-cromos": {
       "kind": "title1",
       "maxW": 5260,
-      "text": "Cromos: categorías, intercambio y compartir",
+      "text": "Cromos: acabados, intercambio y compartir",
       "w": 240,
       "x": 0,
       "y": 3990
@@ -806,6 +861,14 @@
       "text": "Opción F · Ribera: garza blanca, totora y junco",
       "x": 0,
       "y": 12864
+    },
+    "t-sobres": {
+      "kind": "title1",
+      "maxW": 2870,
+      "text": "Sobres, repetidas y plumas",
+      "w": 240,
+      "x": 1960,
+      "y": 5740
     }
   },
   "order": [
@@ -847,6 +910,13 @@
     "PosterGenerado.dc.html",
     "CromosCategorias.dc.html",
     "RevelarDiamante.dc.html",
+    "SobreAbrir.dc.html",
+    "SobreResultado.dc.html",
+    "MisRepetidas.dc.html",
+    "CompraAcabado.dc.html",
+    "TriviaDiaria.dc.html",
+    "IntercambioPausa.dc.html",
+    "MonedaPluma.dc.html",
     "CategoriasCromos.dc.html",
     "FlujoPoster10.dc.html",
     "PosterGenerar.dc.html",

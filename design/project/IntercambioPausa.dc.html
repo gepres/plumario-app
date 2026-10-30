@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Intercambio en pausa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14302F}a:hover{color:#2C6A86}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="flex: none; display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px">
+<a href="RecompensasStickers.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Intercambio</h1>
+</header>
+
+<section role="status" style="flex: 1; min-height: 0; padding: 0 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center">
+<div aria-hidden="true" style="position: relative; width: 132px; height: 132px; border-radius: 50%; background: #FBF8F2; border: 1px solid #E3DACA; display: flex; align-items: center; justify-content: center; color: #14302F">
+<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3-3M20 16H6l3 3"></path></svg>
+<span style="position: absolute; right: -4px; bottom: -4px"><dc-import name="MonedaPluma" size="52" hint-size="52px,52px"></dc-import></span>
+</div>
+<h2 style="margin: 14px 0 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.1">Vuelve pronto con plumas</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.45; color: #3F504E">Estamos preparando un intercambio en el que tu álbum no pierde nada. Mientras tanto, sigue observando.</p>
+</section>
+
+<div style="padding: 0 16px 22px; flex: none">
+<dc-import name="Boton" texto="Volver a mis recompensas" variante="primario" href="RecompensasStickers.dc.html" ancho="358" hint-size="358px,52px"></dc-import>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

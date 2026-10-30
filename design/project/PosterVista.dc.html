@@ -87,11 +87,11 @@ class Component extends DCLogic {
   }
   renderVals() {
     const H = [
-      { id: 'LIT', label: 'Litoral', nombre: 'Litoral y mar', done: 8, total: 43 },
-      { id: 'HUM', label: 'Humedales', nombre: 'Humedales', done: 3, total: 42 },
-      { id: 'DES', label: 'Desierto', nombre: 'Desierto y valles', done: 1, total: 63 },
-      { id: 'AND', label: 'Sierra', nombre: 'Sierra y puna', done: 0, total: 107 },
-      { id: 'PEL', label: 'Mar abierto', nombre: 'Mar abierto', done: 0, total: 34 }
+      { id: 'LIT', label: 'Litoral', nombre: 'Litoral y mar', done: 8, total: 50 },
+      { id: 'HUM', label: 'Humedales', nombre: 'Humedales', done: 3, total: 48 },
+      { id: 'DES', label: 'Desierto', nombre: 'Desierto y valles', done: 1, total: 68 },
+      { id: 'AND', label: 'Sierra', nombre: 'Sierra y puna', done: 0, total: 83 },
+      { id: 'PEL', label: 'Mar abierto', nombre: 'Mar abierto', done: 0, total: 45 }
     ];
     const st = this.state;
     const h = H.filter(function (x) { return x.id === st.hab; })[0];

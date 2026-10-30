@@ -57,7 +57,7 @@ body{margin:0}
 </div>
 </div>
 <div style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
-<h3 style="margin: 0; font-size: 15px; font-weight: 700">Hábitats y categorías de cromo</h3>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700">Hábitats y acabados de cromo</h3>
 <div style="display: flex; gap: 8px">
 <sc-for list="{{habitats}}" as="h" hint-placeholder-count="5">
 <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span aria-hidden="true" style="height: 30px; border-radius: 8px; background: {{h.hex}}"></span><span style="font-size: 11.5px; font-weight: 600; color: #3F504E">{{h.n}}</span></span>
@@ -157,12 +157,12 @@ class Component extends DCLogic {
         { n: 'Diamante', bg: 'conic-gradient(from 22deg, #F7FCFF, #B5D2E2, #FFFFFF, #A9C8DA, #F7FCFF)' }
       ],
       tipos: [
-        t('Hoja de sistema', 'Categorías', BR, 40, 800, 'Bricolage 40 · ExtraBold', { track: '-0.02em' }),
+        t('Hoja de sistema', 'Acabados', BR, 40, 800, 'Bricolage 40 · ExtraBold', { track: '-0.02em' }),
         t('Revelado', 'Playero Arenero', BR, 32, 800, 'Bricolage 32 · ExtraBold', { track: '-0.015em' }),
         t('Título principal', 'Mis recompensas', BR, 27, 800, 'Bricolage 27 · ExtraBold', { track: '-0.02em' }),
         t('Encabezado', 'Elige tu región', BR, 20, 700, 'Bricolage 20 · Bold'),
         t('Botón', 'Guardar póster', IN, 15.5, 700, 'Instrument Sans 15,5 · Bold'),
-        t('Cuerpo', 'Cada especie tiene una categoría.', IN, 15, 400, 'Instrument Sans 15 · Regular'),
+        t('Cuerpo', 'Toda especie puede llegar a diamante.', IN, 15, 400, 'Instrument Sans 15 · Regular'),
         t('Ayuda', 'Así aparece en tus pósteres.', IN, 12.5, 400, 'Instrument Sans 12,5 · Regular'),
         t('Antetítulo', 'Medalla desbloqueada', IN, 12, 700, 'Instrument Sans 12 · Bold · +0,1 em', { track: '0.1em', caja: 'uppercase' }),
         t('Nombre científico', 'Calidris alba', SE, 20, 400, 'Instrument Serif 20 · Itálica', { estilo: 'italic' })
@@ -196,7 +196,7 @@ class Component extends DCLogic {
       ],
       reglas: [
         { t: 'Tocar sin fallar', d: 'Todo lo que se toca mide al menos 44 × 44. Los textos cumplen contraste AA sobre su fondo.' },
-        { t: 'Nunca solo color', d: 'Categorías, estados y pestañas llevan ícono, forma o texto además del color.' },
+        { t: 'Nunca solo color', d: 'Acabados, estados y pestañas llevan ícono, forma o texto además del color.' },
         { t: 'Hablamos de tú', d: 'Español claro y corto. Nombres comunes de aves con mayúscula inicial; el científico en itálica.' }
       ]
     };

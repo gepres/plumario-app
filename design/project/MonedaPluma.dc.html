@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Moneda · Pluma</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<svg width="{{size}}" height="{{size}}" viewBox="0 0 48 48" role="img" aria-label="Pluma" style="display: block">
+<circle cx="24" cy="24" r="23" fill="#8A4F12"></circle>
+<circle cx="24" cy="24" r="20" fill="#F0C14B"></circle>
+<circle cx="24" cy="24" r="17.5" fill="none" stroke="#B9782A" stroke-width="1.5" stroke-dasharray="1.5 3"></circle>
+<path d="M34.5 12.5c-7.8.3-14 4.2-16.6 11.2-1.1 3-1.3 5.9-.8 8.2l-3.6 4.6 2.2 1.7 3.5-4.5c2.8.7 5.9.2 8.6-1.4 6.4-3.7 8.8-11.7 6.7-19.8z" fill="#5A3F0E"></path>
+<path d="M19.5 31.2c3.4-5.9 7.2-10.3 12-13.9" fill="none" stroke="#F0C14B" stroke-width="1.8" stroke-linecap="round"></path>
+<path d="M24.6 25.8l5.5.6M21.9 29.6l4.6 1.1M27.6 22l1.2-4.4" fill="none" stroke="#F0C14B" stroke-width="1.5" stroke-linecap="round"></path>
+</svg>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"size":{"editor":"int","default":48,"min":14,"max":200},"$preview":{"width":48,"height":48}}'>
+// Moneda de las plumas: círculo plano con borde bronce, para distinguirla del acabado oro, que es metálico.
+class Component extends DCLogic {
+  renderVals() {
+    return { size: this.props.size ?? 48 };
+  }
+}
+</script>
+</body>
+</html>
