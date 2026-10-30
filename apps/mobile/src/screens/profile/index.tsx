@@ -7,6 +7,7 @@ import { BirdAvatar, Button, Icon, PeruMap, SettingsList, StatusBarScrim, Themed
 
 import { APPEARANCE_LABELS } from '@/constants/appearance';
 import { stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
 import { useAppearance } from '@/hooks/use-appearance';
@@ -53,7 +54,7 @@ export function Profile({ onOpen, onOpenAlbum, onOpenRewards }: Props) {
       <ScrollView contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4], paddingBottom: layout.tabBar + insets.bottom + spacing[4] }]}>
         <View style={styles.header}>
           <View style={[styles.avatar, { boxShadow: `0 0 0 3px ${colors.surface}, 0 0 0 4px ${colors.line}` }]}>
-            <BirdAvatar figure={favorite?.species.figure ?? 'gull'} tint={stickerTint(favorite?.species.habitat ?? 'coast')} empty={!favorite} size={72} />
+            <BirdAvatar figure={favorite?.species.figure ?? 'gull'} tint={stickerTint(favorite?.species.habitat ?? 'coast')} empty={!favorite} size={72} art={favorite && STICKER_ART[favorite.species.id]} />
           </View>
           <View style={styles.flex}>
             <ThemedText variant="title" accessibilityRole="header" numberOfLines={2}>{profile?.displayName || 'Tu perfil'}</ThemedText>

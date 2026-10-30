@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
-import { BirdFigure } from '../components/bird-figure';
+import { BirdFigure, type BirdArt } from '../components/bird-figure';
 import { HOLOGRAPHIC } from '../components/sticker-finishes';
 import type { FigureName } from '../figures/figure-svgs';
 import { textStyles } from '../theme/fonts';
@@ -21,6 +21,8 @@ export type HabitatPosterCell = {
   ring: 'holo' | 'silver' | null;
   /** «Usar mis fotos»: la foto propia en lugar de la figura. */
   photoUri?: string | null;
+  /** El dibujo propio de la especie; sin él, la figura de su grupo. */
+  art?: BirdArt;
 };
 
 type Props = {
@@ -106,7 +108,7 @@ export function HabitatPoster({ habitat, theme, name, collector, cells, usePhoto
                       <Image source={{ uri: photo }} style={styles.photo} />
                     ) : (
                       <View style={[styles.round, { backgroundColor: cell.tint }]}>
-                        <BirdFigure figure={cell.figure} size={inner} />
+                        <BirdFigure figure={cell.figure} art={cell.art} size={inner} />
                       </View>
                     )
                   ) : (

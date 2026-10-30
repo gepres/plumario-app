@@ -4,7 +4,7 @@ import Svg, { ClipPath, Defs, Rect } from 'react-native-svg';
 
 import type { FigureName } from '../figures/figure-svgs';
 import { useTheme } from '../theme/use-theme';
-import { BirdFigure } from './bird-figure';
+import { BirdFigure, type BirdArt } from './bird-figure';
 import { HOLOGRAPHIC } from './sticker-finishes';
 import { ConicFill } from './svg-paint';
 
@@ -17,10 +17,12 @@ type Props = {
   /** Ya salió en cromo: aro holográfico. */
   chromed?: boolean;
   size?: number;
+  /** El dibujo propio de la especie; sin él, la figura de su grupo. */
+  art?: BirdArt;
 };
 
 /** Figurita redonda de las tarjetas de hábitat en Álbum (design/project/Album.dc.html, TemaAlbum). */
-export const BirdAvatar = memo(function BirdAvatar({ figure, tint, empty = false, chromed = false, size = 36 }: Props) {
+export const BirdAvatar = memo(function BirdAvatar({ figure, tint, empty = false, chromed = false, size = 36, art }: Props) {
   const { mode, colors } = useTheme();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const ring = chromed && !empty ? 2 : 0;
@@ -55,6 +57,7 @@ export const BirdAvatar = memo(function BirdAvatar({ figure, tint, empty = false
         }}>
         <BirdFigure
           figure={figure}
+          art={art}
           size={inner * (empty ? 0.82 : 0.88)}
           silhouette={empty ? (mode === 'dark' ? { color: '#FFFFFF', opacity: 0.5 } : { color: '#000000', opacity: 0.22 }) : undefined}
         />

@@ -76,6 +76,7 @@ export function habitatPosterCells(section: HabitatSection, order: HabitatOrder,
     tint: stickerTint(e.species.habitat),
     ring: e.sticker?.chrome ? (e.category === 'silver' ? 'silver' : 'holo') : null,
     photoUri: photos[e.species.id] ?? null,
+    art: STICKER_ART[e.species.id],
   }));
 }
 

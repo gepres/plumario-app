@@ -9,6 +9,7 @@ import { BirdAvatar, Button, Icon, TextField, ThemedText, TopBar, useTheme } fro
 import { SettingsSkeleton } from '@/components/screen-skeletons';
 import { AUTH_ERROR_MESSAGES, profileErrors, type ProfileErrors } from '@/constants/account-messages';
 import { stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 import { invalidateProfile } from '@/hooks/profile-version';
 import { useAlbum } from '@/hooks/use-album';
 import { useProfile } from '@/hooks/use-profile';
@@ -95,7 +96,7 @@ function EditForm({ profile, onSaved }: { profile: UserProfile; onSaved: () => v
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
         <View style={[styles.favorite, { backgroundColor: colors.surface, borderColor: colors.line }]}>
           <View style={styles.favoriteHead}>
-            <BirdAvatar figure={chosen?.species.figure ?? 'gull'} tint={stickerTint(chosen?.species.habitat ?? 'coast')} empty={!chosen} size={64} />
+            <BirdAvatar figure={chosen?.species.figure ?? 'gull'} tint={stickerTint(chosen?.species.habitat ?? 'coast')} empty={!chosen} size={64} art={chosen && STICKER_ART[chosen.species.id]} />
             <View style={styles.flex}>
               <ThemedText variant="eyebrow" color="primary">Tu ave favorita</ThemedText>
               <ThemedText variant="bodyStrong">{chosen?.species.commonName ?? 'Sin elegir'}</ThemedText>
@@ -114,7 +115,7 @@ function EditForm({ profile, onSaved }: { profile: UserProfile; onSaved: () => v
                     accessibilityLabel={entry.species.commonName}
                     onPress={() => setFavorite(entry.species.id)}
                     style={[styles.bird, selected && { boxShadow: `0 0 0 3px ${colors.surface}, 0 0 0 5px ${colors.text}` }]}>
-                    <BirdAvatar figure={entry.species.figure} tint={stickerTint(entry.species.habitat)} chromed={!!entry.sticker?.chrome} size={50} />
+                    <BirdAvatar figure={entry.species.figure} tint={stickerTint(entry.species.habitat)} chromed={!!entry.sticker?.chrome} size={50} art={STICKER_ART[entry.species.id]} />
                   </Pressable>
                 );
               })}

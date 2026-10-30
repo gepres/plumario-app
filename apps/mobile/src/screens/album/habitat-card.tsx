@@ -5,6 +5,7 @@ import { radius, spacing } from '@plumario/tokens';
 import { BirdAvatar, Icon, ProgressBar, ThemedText, useTheme } from '@plumario/ui';
 
 import { ALBUM_HABITAT_LABELS, stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 
 const PREVIEW = 5;
 
@@ -33,7 +34,7 @@ export function HabitatCard({ section, onPress }: { section: HabitatSection; onP
       <ProgressBar current={section.registered} total={section.total} showValue={false} size="thin" color={colors.habitats[section.habitat]} />
       <View style={styles.preview}>
         {habitatPreview(section, PREVIEW).map(({ species, sticker }) => (
-          <BirdAvatar key={species.id} figure={species.figure} tint={stickerTint(species.habitat)} empty={!sticker} chromed={!!sticker?.chrome} size={36} />
+          <BirdAvatar key={species.id} figure={species.figure} tint={stickerTint(species.habitat)} empty={!sticker} chromed={!!sticker?.chrome} size={36} art={STICKER_ART[species.id]} />
         ))}
         <ThemedText variant="caption" color="textSecondary" style={styles.missing}>
           {missing === 0 ? '¡Completo!' : `${missing} por descubrir`}
