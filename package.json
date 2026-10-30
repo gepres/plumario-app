@@ -25,6 +25,7 @@
     "functions:build": "pnpm --filter @plumario/functions build",
     "species:convert": "node tools/species/convert.mjs",
     "species:seed": "node tools/species/seed.mjs",
+    "stickers:export": "python tools/stickers/build-review.py && python tools/stickers/export-art.py",
     "test:rules": "node scripts/firebase-emulators.mjs emulators:exec --only firestore,storage \"pnpm --filter @plumario/firebase test:rules\"",
     "dev:stickers": "node tools/dev/seed-stickers.mjs",
     "dev:trade": "node tools/dev/seed-trade.mjs"

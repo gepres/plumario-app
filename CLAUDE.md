@@ -30,6 +30,10 @@ entorno en `docs/environment.md`.
 - **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `design/palettes/palettes.json`
   (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
   es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
+- **Las ilustraciones de los stickers van dentro del paquete** (`apps/mobile/assets/stickers/`, en
+  WebP), para que se vean sin señal. Los originales están en `data/stickers/raw/`, fuera de git; para
+  espejar un ave o quitarle un resto de suelo, edita `tools/stickers/corrections.json` y corre
+  `pnpm stickers:export`. La sombra sigue siendo la figura del grupo.
 - **Las claves del diseño se traducen** con `designKeyMap` (en `colors.ts`): `{{t.sup}}` en un
   artboard es `colors.surface` en la app; `pri` → `primary`, `ink` → `text`, `txt2` →
   `textSecondary`, `hab` → `habitats`…
@@ -71,6 +75,7 @@ pnpm tokens           regenera los colores desde design/palettes/palettes.json
 pnpm icons            regenera los íconos de la app desde el logo del diseño
 pnpm species:convert  regenera data/species/ica.json desde el Excel y la tabla de hábitats
 pnpm species:seed     carga el catálogo al emulador (--prod: al proyecto real, con hábitats revisados)
+pnpm stickers:export  recorta las ilustraciones y las lleva a la app (WebP y su mapa por especie)
 pnpm viewer           regenera viewer/index.html desde design/
 ```
 

@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Svg, { Defs, G, Path, RadialGradient, Rect, Stop } from 'react-native-svg';
 
+import type { BirdArt } from '../components/bird-figure';
 import { BirdSticker, type StickerFinish } from '../components/bird-sticker';
 import { Medal, type MedalKind } from '../components/medal';
 import type { FigureName } from '../figures/figure-svgs';
@@ -12,7 +13,7 @@ export const SHARE_CARD_HEIGHT = 1350;
 
 type Props = {
   /** Lo que se celebra: un sticker (con la foto propia, si se elige) o una medalla. */
-  art: { sticker: { figure: FigureName; name: string; number: string; tint: string; finish: StickerFinish } } | { medal: { kind: MedalKind; number?: number } };
+  art: { sticker: { figure: FigureName; name: string; number: string; tint: string; finish: StickerFinish; art?: BirdArt } } | { medal: { kind: MedalKind; number?: number } };
   /** La píldora de arriba: «¡Me salió cromado!». */
   badge: string;
   name: string;

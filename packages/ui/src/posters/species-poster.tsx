@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Defs, Pattern, Rect } from 'react-native-svg';
 
+import type { BirdArt } from '../components/bird-figure';
 import { BirdSticker, type StickerFinish } from '../components/bird-sticker';
 import type { FigureName } from '../figures/figure-svgs';
 import { textStyles } from '../theme/fonts';
@@ -9,7 +10,7 @@ import { POSTER_HEIGHT, POSTER_WIDTH } from './poster-frame';
 // El póster de cada 10 especies (design/project/Poster10.dc.html): 10 stickers girados sobre papel
 // punteado, con el sello del número. Es de papel: claro u oscuro según se elija, no según el modo.
 
-export type PosterSticker = { figure: FigureName; name: string; number: string; tint: string; finish: StickerFinish };
+export type PosterSticker = { figure: FigureName; name: string; number: string; tint: string; finish: StickerFinish; art?: BirdArt };
 
 type Props = {
   theme: 'light' | 'dark';
@@ -85,7 +86,7 @@ export function SpeciesPoster({ theme, number, title, subtitle, meta, footer, co
           return (
             <View key={i} style={{ position: 'absolute', left: slot.x, top: slot.y, transform: [{ rotate: `${slot.rot}deg` }] }}>
               {sticker ? (
-                <BirdSticker figure={sticker.figure} name={sticker.name} number={sticker.number} tint={sticker.tint} finish={sticker.finish} size={slot.w} />
+                <BirdSticker figure={sticker.figure} name={sticker.name} number={sticker.number} tint={sticker.tint} finish={sticker.finish} art={sticker.art} size={slot.w} />
               ) : (
                 <View style={[styles.empty, { width: slot.w, height, borderColor: t.emptyBorder, backgroundColor: t.emptyBg }]}>
                   <Text style={[styles.emptyMark, { color: t.emptyInk }]}>?</Text>

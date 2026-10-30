@@ -6,6 +6,7 @@ import { POSTER_HEIGHT, POSTER_WIDTH, type HabitatPosterCell, type PosterSticker
 import { useOffscreenCapture } from '@/components/offscreen-capture';
 import { formatShortDate } from '@/constants/cards';
 import { stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 import { POSTER_EXPORT_WIDTH } from '@/utils/export-poster';
 
 // Del álbum a lo que dibujan los pósteres de @plumario/ui.
@@ -19,6 +20,7 @@ function toSticker(entry: AlbumEntry): PosterSticker {
     number: formatAlbumNumber(entry.species.albumNumber),
     tint: stickerTint(entry.species.habitat),
     finish: entry.sticker?.chrome ? entry.category : 'normal',
+    art: STICKER_ART[entry.species.id],
   };
 }
 

@@ -11,6 +11,7 @@ import { PosterSkeleton } from '@/components/screen-skeletons';
 import { achievementLabel, achievementTitle, medalKind } from '@/constants/achievements';
 import { formatShortDate } from '@/constants/cards';
 import { stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
 import { useSpeciesPhotos } from '@/hooks/use-species-photos';
@@ -150,7 +151,7 @@ function cardFor(
   // «Cromo 2»: el segundo cromo que consiguió, por fecha.
   const chromes = album.entries.filter((e) => e.sticker?.chrome).sort((a, b) => a.sticker!.chrome!.at.getTime() - b.sticker!.chrome!.at.getTime());
   return {
-    art: { sticker: { figure: species.figure, name: species.commonName, number: formatAlbumNumber(species.albumNumber), tint: stickerTint(species.habitat), finish: sticker.chrome ? category : 'normal' } },
+    art: { sticker: { figure: species.figure, name: species.commonName, number: formatAlbumNumber(species.albumNumber), tint: stickerTint(species.habitat), finish: sticker.chrome ? category : 'normal', art: STICKER_ART[species.id] } },
     badge: sticker.chrome ? '¡Me salió cromado!' : '¡Nuevo en mi álbum!',
     name: species.commonName,
     scientificName: species.scientificName,

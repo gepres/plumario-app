@@ -2,6 +2,7 @@ import { formatAlbumNumber, type AlbumEntry } from '@plumario/core';
 import { BirdSticker } from '@plumario/ui';
 
 import { stickerTint } from '@/constants/habitats';
+import { STICKER_ART } from '@/constants/sticker-art';
 
 /**
  * El sticker de una entrada del álbum: en sombra, normal o cromado con el acabado de su categoría.
@@ -18,6 +19,7 @@ export function SpeciesSticker({ entry, size, chromed }: { entry: AlbumEntry; si
       finish={(chromed ?? !!sticker?.chrome) ? category : 'normal'}
       empty={!sticker && !chromed}
       size={size}
+      art={STICKER_ART[species.id]}
     />
   );
 }
