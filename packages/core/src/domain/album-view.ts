@@ -70,7 +70,7 @@ export function filterEntries(entries: readonly AlbumEntry[], filter: AlbumFilte
 
 const fold = (text: string) => text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
 
-/** «Buscar entre 289 aves»: por nombre común o científico, sin importar tildes ni mayúsculas, o por número. */
+/** «Buscar entre 294 aves»: por nombre común o científico, sin importar tildes ni mayúsculas, o por número. */
 export function searchEntries(entries: readonly AlbumEntry[], query: string): AlbumEntry[] {
   const q = fold(query);
   if (!q) return [...entries];

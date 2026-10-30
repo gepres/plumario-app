@@ -24,7 +24,7 @@ entorno en `docs/environment.md`.
 
 ## De dónde sale cada cosa
 
-- **El diseño manda.** `design/project/*.dc.html` son los 64 artboards del canvas de Claude Design
+- **El diseño manda.** `design/project/*.dc.html` son los 90 artboards del diseño de Claude Design
   (origen y formato en `design/README.md`). Para verlos: `viewer/index.html` con doble clic. Cada
   pantalla pendiente dice qué artboards la definen (`ComingSoon`).
 - **La paleta es la F · Ribera** (elegida el 24 oct 2026), en `design/palettes/palettes.json`
