@@ -18,6 +18,8 @@ export const GEMINI_API_KEY = defineSecret('GEMINI_API_KEY');
 
 /** Consultas a la IA por persona y por día (sugerir y revisar). Registrar 20 aves gasta 40. */
 export const AI_DAILY_LIMIT = 60;
+/** Revisiones de registros guardados por persona y por día; las hace el servidor y también cuestan. */
+export const VALIDATION_DAILY_LIMIT = 60;
 /** La foto llega en base64; la app la achica a 1024 px, así que pesa bastante menos. */
 const MAX_PHOTO_BASE64 = 4_000_000;
 const CATALOG_TTL_MS = 10 * 60_000;
@@ -54,16 +56,25 @@ function photoFrom(value: unknown): GeminiImage {
   return { mimeType: 'image/jpeg', data: value };
 }
 
-/** Suma una consulta del día; si ya llegó al tope, no deja seguir. */
-async function useQuota(uid: string) {
+/** Suma uno al contador del día si no llegó al tope, y dice si lo sumó. */
+async function spendDaily(uid: string, field: 'aiCalls' | 'validations', limit: number): Promise<boolean> {
   const db = getFirestore();
   const ref = db.collection('users').doc(uid).collection('usage').doc(new Date().toISOString().slice(0, 10));
-  await db.runTransaction(async (tx) => {
-    const used = Number((await tx.get(ref)).data()?.aiCalls ?? 0);
-    if (used >= AI_DAILY_LIMIT) throw new HttpsError('resource-exhausted', 'Llegaste al máximo de consultas a la IA por hoy.');
-    tx.set(ref, { aiCalls: used + 1, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+  return db.runTransaction(async (tx) => {
+    const used = Number((await tx.get(ref)).data()?.[field] ?? 0);
+    if (used >= limit) return false;
+    tx.set(ref, { [field]: used + 1, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    return true;
   });
 }
+
+/** Suma una consulta del día; si ya llegó al tope, no deja seguir. */
+async function useQuota(uid: string) {
+  if (!(await spendDaily(uid, 'aiCalls', AI_DAILY_LIMIT))) throw new HttpsError('resource-exhausted', 'Llegaste al máximo de consultas a la IA por hoy.');
+}
+
+/** Suma una revisión del día; false si ya llegó al tope y no se debe llamar a la IA. */
+export const spendValidation = (uid: string) => spendDaily(uid, 'validations', VALIDATION_DAILY_LIMIT);
 
 /** Lo que falle de Gemini llega a la app como «no disponible»: la persona puede elegir a mano. */
 function unavailable(error: unknown, uid: string): never {

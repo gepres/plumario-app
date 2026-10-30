@@ -161,9 +161,23 @@ describe('registros', () => {
     await assertFails(updateDoc(doc(as('ana'), 'users/ana/sightings/s1'), { status: 'validated' }));
   });
 
+  it('no se borra desde la app', async () => {
+    await seed('users/ana/sightings/s1', sighting('ana'));
+    await assertFails(deleteDoc(doc(as('ana'), 'users/ana/sightings/s1')));
+  });
+
   it('nadie ve los registros ajenos (ni su ubicación)', async () => {
     await seed('users/ana/sightings/s1', sighting('ana'));
     await assertFails(getDoc(doc(as('beto'), 'users/ana/sightings/s1')));
+  });
+
+  it('las huellas de las fotos y el uso diario son solo del servidor', async () => {
+    await seed('users/ana/photoClaims/abc', { sightingId: 's1', claimedAt: now });
+    await seed('users/ana/usage/2026-10-30', { aiCalls: 3, validations: 2 });
+    await assertFails(getDoc(doc(as('ana'), 'users/ana/photoClaims/abc')));
+    await assertFails(deleteDoc(doc(as('ana'), 'users/ana/photoClaims/abc')));
+    await assertFails(getDoc(doc(as('ana'), 'users/ana/usage/2026-10-30')));
+    await assertFails(setDoc(doc(as('ana'), 'users/ana/usage/2026-10-30'), { validations: 0 }));
   });
 });
 

@@ -97,10 +97,11 @@ service cloud.firestore {
             && (data.get('placeName', null) == null || isShortText(data.placeName, 60))
             && (!isThreatened(data) || (data.location == null && data.get('placeName', null) == null));
         }
+        // Tampoco se borran desde la app: el registro es la prueba de lo que se otorgó. Al eliminar la
+        // cuenta los borra el servidor.
         allow read: if isOwner(uid);
         allow create: if isOwner(uid) && validSighting(request.resource.data);
-        allow update: if false;
-        allow delete: if isOwner(uid);
+        allow update, delete: if false;
       }
 
       // Stickers y cromos: solo el servidor.

@@ -14,15 +14,16 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 |---|---|---|---|
 | `regions/{regionId}` | La región-álbum: `name`, `albumClass`, `speciesCount`, `albumCount` | `tools/species/seed.mjs` | todos, sin sesión |
 | `regions/{regionId}/species/{speciesId}` | Catálogo (ver `data/README.md`) | `tools/species/seed.mjs` | todos, sin sesión |
-| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public, showName, improveAi }`, `handleChangedAt`, `regionAlerts` (las regiones que espera, «Avísame cuando esté»), `notifications { achievements, trades, regions }` (los avisos que quiere; lo que falta cuenta como encendido), `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
+| `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public (la app aún no lo ofrece: el álbum solo lo ve su dueño), showName, improveAi }`, `handleChangedAt`, `regionAlerts` (las regiones que espera, «Avísame cuando esté»), `notifications { achievements, trades, regions }` (los avisos que quiere; lo que falta cuenta como encendido), `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
 | `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño; la borra solo al cambiar de @usuario, en la misma escritura en que su perfil deja de usarla | cualquiera, de a uno (para ver si está libre); no se listan |
 | `feedback/{id}` | Comentario (PerfilComentario): `userId`, `kind` (idea/error/bird/other), `text` (hasta 500), `replyTo` (el correo, solo si deja responder), `screenshotPath`, `appVersion`, `platform`, `createdAt` | quien tiene sesión, a su nombre | nadie desde la app (el equipo, en la consola) |
-| `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, cromo, logros, avance) y `validatedAt`. En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente*; el servidor cambia el estado y escribe el resultado | el dueño |
+| `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, cromo, logros, avance) y `validatedAt`. En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente* y no puede editarlo ni borrarlo; el servidor cambia el estado y escribe el resultado | el dueño |
+| `users/{uid}/photoClaims/{sha256}` | Huella de una foto que ya contó: `sightingId`, `claimedAt`. El id es el SHA-256 del archivo, así el mismo archivo no cuenta dos veces aunque se suba de nuevo o varios registros apunten a él | el servidor | nadie desde la app |
 | `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
 | `users/{uid}/posters/{id}` | Póster guardado: `kind` (species/habitat), `number`, `habitat`, `speciesIds`, `seed`, `theme`, `title`, `savedAt` | el dueño | el dueño |
 | `users/{uid}/devices/{token}` | Teléfono que recibe los avisos push (el id es su token de FCM): `platform` (android/ios), `updatedAt` | el dueño lo registra al activar las notificaciones y lo borra al cerrar sesión; el servidor borra los que FCM ya no acepta | el dueño |
-| `users/{uid}/usage/{AAAA-MM-DD}` | Consultas a la IA del día: `aiCalls`, `updatedAt`. Tope de 60 por persona (`AI_DAILY_LIMIT`) | el servidor | nadie desde la app |
+| `users/{uid}/usage/{AAAA-MM-DD}` | Uso de la IA en el día: `aiCalls` (sugerir y revisar antes de guardar, tope de 60, `AI_DAILY_LIMIT`), `validations` (revisiones de registros guardados, tope de 60, `VALIDATION_DAILY_LIMIT`), `updatedAt` | el servidor | nadie desde la app |
 | `trades/{tradeId}` | Propuesta de intercambio: `fromUid`, `fromHandle` (su @usuario, que las reglas comparan con su perfil), `offeredSpeciesId`, `requestedSpeciesId`, `status` (`open` → `accepted`/`cancelled`), `createdAt`; al aceptarla, el servidor suma `acceptedBy` y `acceptedAt` | quien propone la crea y puede cancelarla; aceptarla, el servidor | cualquiera con sesión que tenga el enlace (de a una); solo se listan las propias |
 | `trades/{tradeId}/acceptances/{id}` | Pedido de aceptar: `uid`, `createdAt`; el servidor responde con `result` (`accepted` o `rejected` y el motivo) y `answeredAt` | quien acepta lo crea, mientras la propuesta siga abierta y no sea la propia; el servidor responde | quien lo creó |
 
@@ -39,11 +40,13 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
    y cuentan en `users/{uid}/usage`. Si la IA no responde, se puede elegir la especie a mano.
 2. La app achica la foto (lado mayor de 1600 px, JPEG), la sube a `users/{uid}/photos/{id}.jpg` y crea
    `users/{uid}/sightings/{id}` con `status: pending` (`makeRegisterSighting`).
-3. La Cloud Function `onSightingCreated` (`functions/src/sightings.ts`) vuelve a revisar la foto con
-   Gemini, leyéndola de Storage (la app no es de fiar; si Gemini no responde, el registro se da por
-   bueno) y, en una transacción, aplica `evaluateValidatedPhoto` del núcleo: completa el sticker o suma la foto,
-   decide el cromo (1 de 8 al azar al completar, o 5 fotos validadas) y guarda los logros nuevos. Si
-   el registro ya no está pendiente (un reintento de la función), no otorga nada dos veces.
+3. La Cloud Function `onSightingCreated` (`functions/src/sightings.ts`) lee la foto de Storage y, antes
+   de gastar IA, rechaza el registro si ese archivo ya contó (`photoClaims`) o si se llegó al tope
+   diario. Después vuelve a revisar la foto con Gemini (la app no es de fiar; si Gemini no responde, el
+   registro se da por bueno) y, en una transacción, guarda la huella y aplica `evaluateValidatedPhoto`
+   del núcleo: completa el sticker o suma la foto, decide el cromo (1 de 8 al azar al completar, o 5
+   fotos validadas) y guarda los logros nuevos. Si el registro ya no está pendiente (un reintento de
+   la función), no otorga nada dos veces; si dos registros traen la misma foto a la vez, cuenta uno.
 4. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
    RegistrarCompletado, RevelarCromado o RevelarDiamante, o que la foto no se reconoció.
 
