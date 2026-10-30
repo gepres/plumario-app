@@ -49,5 +49,6 @@ data/stickers/raw/
 data/stickers/review/
 data/stickers/raw-v1/
 data/stickers/raw-rejected/
+data/stickers/site/
 # Encargos de cada tanda: los generan make-batches.mjs y pending.mjs.
 tools/stickers/batches/

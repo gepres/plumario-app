@@ -1,9 +1,13 @@
 # Galería de revisión de las ilustraciones de los stickers (PA-30): recorta las de
 # data/stickers/raw/ que aún no estén recortadas y arma data/stickers/review/index.html, con cada ave
 # sobre el color de su hábitat, en el orden del álbum. Se abre con doble clic.
-# Uso (desde la raíz): python tools/stickers/build-review.py
+# Uso (desde la raíz): python tools/stickers/build-review.py [--site <carpeta>]
+# Con --site arma además la versión para publicar, con los WebP de la app: corre antes
+# `pnpm stickers:export`.
+import argparse
 import html
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -17,9 +21,15 @@ RAW_V1 = ROOT / 'data' / 'stickers' / 'raw-v1'
 ART_V1 = REVIEW / 'art-v1'
 # Las correcciones de la revisión final (espejadas, restos de suelo), solo para las de data/stickers/raw/.
 CORRECTIONS = ROOT / 'tools' / 'stickers' / 'corrections.json'
+ASSETS = ROOT / 'apps' / 'mobile' / 'assets' / 'stickers'
 # El color de la placa del sticker por hábitat (packages/tokens/src/card-finishes.ts).
 TINTS = {'coast': '#D2E4EC', 'wetlands': '#D9EADB', 'desert': '#EADFCB', 'highlands': '#E0DDEA', 'openSea': '#CFDCE8'}
 HABITATS = {'coast': 'Litoral', 'wetlands': 'Humedales', 'desert': 'Desierto', 'highlands': 'Sierra', 'openSea': 'Mar abierto'}
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--site', type=Path)
+args = parser.parse_args()
+
 
 def cut_out(source, target, corrections=None):
     target.mkdir(parents=True, exist_ok=True)
@@ -53,7 +63,7 @@ for s in birds:
     old = ART_V1 / f"{s['id']}.png"
     tint = TINTS.get(s['habitat'], TINTS['coast'])
     if art.exists():
-        figure, state = f'<img src="art/{s["id"]}.png" alt="">', ''
+        figure, state = f'<img src="art/{s["id"]}.png" alt="" loading="lazy">', ''
     elif old.exists():
         figure, state = f'<img src="art-v1/{s["id"]}.png" alt=""><em>versión anterior</em>', 'previous'
     else:
@@ -64,8 +74,8 @@ for s in birds:
         f'<figcaption>{html.escape(s["commonName"])}<i>{html.escape(s["scientificName"])}</i><small>{HABITATS.get(s["habitat"], "")}</small></figcaption></figure>'
     )
 
-(REVIEW / 'index.html').write_text(f'''<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+page = f'''<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
 <title>Stickers de Plumario · revisión</title>
 <style>
   :root {{ --bg:#F3EDE2; --ink:#14302F; --muted:#5B6B69; }}
@@ -86,7 +96,14 @@ for s in birds:
   figcaption i {{ display:block; font-weight:400; color:var(--muted); font-size:12px; }}
   figcaption small {{ display:block; font-weight:400; color:var(--muted); font-size:11px; }}
 </style></head>
-<body><header><h1>Stickers de Plumario</h1><p>{done} de {len(birds)} aves con ilustración nueva (Gemini, patas con forma), en el orden del álbum y sobre el color de su hábitat. Las atenuadas son la versión anterior, que se rehace al final.</p></header>
+<body><header><h1>Stickers de Plumario</h1><p>{done} de {len(birds)} aves con ilustración propia, en el orden del álbum y sobre el color de su hábitat.{" Las atenuadas son la versión anterior." if done < len(birds) else ""}</p></header>
 <main>{"".join(cards)}</main></body></html>
-''', encoding='utf-8')
+'''
+(REVIEW / 'index.html').write_text(page, encoding='utf-8')
 print(f'{done} de {len(birds)} aves; galería en {REVIEW / "index.html"}')
+
+if args.site:
+    args.site.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(ASSETS, args.site / 'art', dirs_exist_ok=True)
+    (args.site / 'index.html').write_text(page.replace('.png" alt', '.webp" alt'), encoding='utf-8')
+    print(f'Listo para publicar: {args.site}')
