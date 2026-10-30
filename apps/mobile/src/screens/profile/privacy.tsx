@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type { AlbumVisibility, Privacy, UserProfile } from '@plumario/core';
+import type { Privacy, UserProfile } from '@plumario/core';
 import { layout, spacing } from '@plumario/tokens';
-import { Button, Icon, SettingsList, Sheet, Switch, TextField, ThemedText, ToggleGroup, TopBar, useTheme } from '@plumario/ui';
+import { Button, Icon, SettingsList, Sheet, Switch, TextField, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
 import { SettingsSkeleton } from '@/components/screen-skeletons';
 import { AUTH_ERROR_MESSAGES, authErrorCode } from '@/constants/account-messages';
@@ -20,13 +20,7 @@ type Props = {
   onOpenPolicy: () => void;
 };
 
-const VISIBILITY_NOTES: Record<AlbumVisibility, string> = {
-  private: 'Nadie más ve tu álbum. Los intercambios siguen funcionando por enlace o QR.',
-  link: 'Lo ve quien reciba tu enlace. No aparece en búsquedas.',
-  public: 'Cualquier persona puede ver tus stickers y medallas. Nunca tus fotos ni su ubicación.',
-};
-
-/** PerfilPrivacidad: la ubicación de las fotos, quién ve el álbum y los datos propios. */
+/** PerfilPrivacidad: la ubicación de las fotos y los datos propios. El álbum aún no se comparte. */
 export function ProfilePrivacy({ onBack, onOpenPolicy }: Props) {
   const profile = useProfile();
   const { colors } = useTheme();
@@ -84,7 +78,7 @@ function PrivacyContent({ profile, onOpenPolicy }: { profile: UserProfile; onOpe
 
   return (
     <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing[6] }]}>
-      <ThemedText color="textSecondary" style={styles.intro}>Tú decides qué se ve de tu álbum. Tus fotos y su ubicación son tuyas.</ThemedText>
+      <ThemedText color="textSecondary" style={styles.intro}>Tus fotos y su ubicación son tuyas.</ThemedText>
 
       <View style={styles.section}>
         <ThemedText variant="section" accessibilityRole="header" style={styles.sectionTitle}>Ubicación de tus fotos</ThemedText>
@@ -109,18 +103,7 @@ function PrivacyContent({ profile, onOpenPolicy }: { profile: UserProfile; onOpe
       <View style={styles.section}>
         <ThemedText variant="section" accessibilityRole="header" style={styles.sectionTitle}>Tu álbum</ThemedText>
         <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.line }]}>
-          <ThemedText variant="bodyStrong">Quién puede ver tu álbum</ThemedText>
-          <ToggleGroup
-            label="Quién puede ver tu álbum"
-            value={privacy.albumVisibility}
-            onChange={(albumVisibility) => void change({ albumVisibility })}
-            options={[
-              { key: 'private', label: 'Solo yo' },
-              { key: 'link', label: 'Con enlace' },
-              { key: 'public', label: 'Todos' },
-            ]}
-          />
-          <ThemedText variant="caption" color="textSecondary">{VISIBILITY_NOTES[privacy.albumVisibility]}</ThemedText>
+          <ThemedText variant="bodyStrong">Por ahora, solo tú ves tu álbum</ThemedText>
           <View style={[styles.divider, { backgroundColor: colors.line }]} />
           <Switch
             label="Tu nombre en lo que compartes"
