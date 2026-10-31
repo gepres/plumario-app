@@ -50,7 +50,7 @@ function asGradient(finish: CardFinish): Gradient {
 const SAMPLE_CARD: AlbumEntry = {
   species: {
     id: 'pelecanus-thagus', regionId: 'ica', taxonClass: 'bird', albumNumber: 230, commonName: 'Pelícano Peruano', scientificName: 'Pelecanus thagus',
-    habitat: 'coast', family: 'Pelecanidae', iucn: 'NT', nationalCategory: 'EN', threatened: true, endemic: false, emblematic: true, figure: 'pelican',
+    habitat: 'coast', family: 'Pelecanidae', iucn: 'NT', nationalCategory: 'EN', cites: null, threatened: true, endemic: false, emblematic: true, figure: 'pelican',
   },
   sticker: { ...newSticker('pelecanus-thagus', new Date(2026, 9, 12)), validPhotos: 7, observations: 5 },
   finish: null,

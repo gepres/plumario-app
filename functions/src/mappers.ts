@@ -25,6 +25,7 @@ export function toSpecies(id: string, data: Record<string, unknown>): Species {
     family: text(data.family),
     iucn: text(data.iucn),
     nationalCategory: text(data.nationalCategory),
+    cites: text(data.cites),
     threatened: data.threatened === true,
     endemic: data.endemic === true,
     emblematic: data.emblematic === true,

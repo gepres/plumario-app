@@ -24,6 +24,8 @@ export type Species = {
   iucn: string | null;
   /** Categoría de la lista nacional del Perú; puede ser más alta que la de la UICN. */
   nationalCategory: string | null;
+  /** Apéndice de CITES: «I», «II» o null si no está listada. */
+  cites: string | null;
   /** Si está amenazada, su ubicación se oculta siempre, también al compartir (PerfilPrivacidad). */
   threatened: boolean;
   endemic: boolean;

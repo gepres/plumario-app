@@ -7,7 +7,7 @@ export type { Sighting, SightingResult, SightingStatus, UserId } from './domain/
 export { ALBUM_CLASS, SPECIES_PER_POSTER, isInAlbum, nextPoster, summarizeAlbum } from './domain/album';
 export { buildAlbumView, filterEntries, formatAlbumNumber, habitatPreview, searchEntries } from './domain/album-view';
 export type { AlbumEntry, AlbumFilter, AlbumView, HabitatSection } from './domain/album-view';
-export { conservationStatus, formatMass, formatWing, speciesSeals } from './domain/species-card';
+export { conservationStatus, formatMass, formatWing, formatWingspan, speciesSeals } from './domain/species-card';
 export type { ConservationScope, ConservationStatus, Seal } from './domain/species-card';
 export { FIGURES, figureOf } from './domain/figure';
 export { CATEGORIES, chromesView, rewardsView, summaryOf } from './domain/rewards';

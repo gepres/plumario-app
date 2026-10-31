@@ -10,7 +10,8 @@
 | `species/proposals/` | Las dos propuestas independientes de hábitat (Claude y Codex) de las que sale la tabla. |
 | `sources/avonet-dataset-1.xlsx` | AVONET (Tobias et al. 2022, Ecology Letters, CC BY 4.0), [de Figshare](https://doi.org/10.6084/m9.figshare.16586228.v7). **No se versiona**: pesa 21 MB. |
 | `species/ica-measures.json` | Peso, ala y pico de las aves del álbum, sacados de AVONET. Cubre 291 de 294. |
-| `species/ica-families.json` | Nombre, dieta y rasgos de la carta para cada una de las 55 familias. **Borrador pendiente de la revisión del biólogo.** |
+| `species/ica-special-measures.json` | Lo que corrige o completa AVONET en la carta, como la envergadura del cóndor. |
+| `species/ica-families.json` | Nombre, dieta y rasgos de la carta para cada una de las 55 familias. **Borrador con las respuestas del biólogo aplicadas; faltan sus preguntas abiertas.** |
 
 ### Pasos
 
@@ -23,6 +24,7 @@ pnpm species:cards       # familias + medidas → apps/mobile/src/constants/card
 ```
 
 Los datos de la carta van dentro del paquete de la app, no en Firestore: cambiarlos no toca producción.
+Los sellos, en cambio, salen del catálogo: si cambian, hay que correr `pnpm species:seed --prod`.
 Cuando el biólogo los apruebe, pon `reviewed: true` en `ica-families.json` y en `ica-measures.json`.
 Si AVONET vuelve a generarse, `species:measures` reinicia esa marca.
 

@@ -14,10 +14,11 @@ const TARGET = join(ROOT, 'apps', 'mobile', 'src', 'constants', 'card-facts.ts')
 const MAX_TITLE = 26;
 const MAX_TEXT = 90;
 
-const [catalog, { families, reviewed }, measures] = await Promise.all([
+const [catalog, { families, reviewed }, measures, special] = await Promise.all([
   read('data', 'species', 'ica.json'),
   read('data', 'species', 'ica-families.json'),
   read('data', 'species', 'ica-measures.json'),
+  read('data', 'species', 'ica-special-measures.json'),
 ]);
 const album = catalog.species.filter((s) => s.albumNumber !== null);
 
@@ -32,6 +33,7 @@ for (const [family, { traits }] of Object.entries(families)) {
     if (text.length > MAX_TEXT) problems.push(`${family}: texto largo «${text}»`);
   }
 }
+for (const id of Object.keys(special.species)) if (!measures.species[id]) problems.push(`Medida especial de un ave sin medidas: ${id}`);
 for (const s of album) {
   const seals = [s.threatened || ['NT'].includes(s.iucn) || s.nationalCategory === 'NT', s.endemic, s.emblematic].filter(Boolean).length;
   if (seals > 2) problems.push(`${s.commonName} lleva más de 2 sellos: la carta solo tiene sitio para 2`);
@@ -48,7 +50,10 @@ const familyLines = Object.keys(families)
   });
 const measureLines = Object.entries(measures.species)
   .sort(([a], [b]) => a.localeCompare(b))
-  .map(([id, { massG, wingMm }]) => `  ${JSON.stringify(id)}: { massG: ${massG}, wingMm: ${wingMm} },`);
+  .map(([id, { massG, wingMm }]) => {
+    const wingspanM = special.species[id]?.wingspanM;
+    return `  ${JSON.stringify(id)}: { massG: ${massG}, wingMm: ${wingMm}${wingspanM ? `, wingspanM: ${wingspanM}` : ''} },`;
+  });
 
 await writeFile(
   TARGET,
@@ -56,7 +61,7 @@ await writeFile(
 // Familias: data/species/ica-families.json. Medidas: AVONET (Tobias et al. 2022, CC BY 4.0).
 
 export type FamilyFacts = { label: string; diet: string; traits: readonly { title: string; text: string }[] };
-export type SpeciesMeasures = { massG: number; wingMm: number };
+export type SpeciesMeasures = { massG: number; wingMm: number; wingspanM?: number };
 
 /** Mientras sea false, los textos son un borrador sin la revisión del biólogo. */
 export const CARD_FACTS_REVIEWED = ${reviewed && measures.reviewed};

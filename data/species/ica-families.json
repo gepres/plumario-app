@@ -2,60 +2,775 @@
   "note": "Textos de la carta por familia. Borrador escrito con IA, pendiente de la revisión del biólogo (nota «Revisión del biólogo · Cartas de aves» en Foundry). Cada frase debe valer para todas las aves del álbum en esa familia.",
   "reviewed": false,
   "families": {
-    "Accipitridae": { "label": "Águilas y gavilanes", "diet": "Vertebrados pequeños", "traits": [["Garras para cazar", "Atrapa a sus presas con patas de garras curvas y fuertes."], ["Vista muy aguda", "Detecta presas desde lejos, en vuelo o desde una percha."]] },
-    "Pandionidae": { "label": "Águila pescadora", "diet": "Peces", "traits": [["Especialista en peces", "Se lanza al agua con las patas por delante."], ["Patas que no resbalan", "Sus dedos ásperos sujetan a los peces."]] },
-    "Anatidae": { "label": "Patos", "diet": "Plantas e invertebrados", "traits": [["Pico con láminas", "Filtra alimento del agua o corta plantas."], ["Plumas impermeables", "Las cubre con aceite de una glándula para no mojarse."]] },
-    "Apodidae": { "label": "Vencejos", "diet": "Insectos", "traits": [["Vida en el aire", "Pasa casi todo el día volando y come en pleno vuelo."], ["Patas muy cortas", "Apenas camina y se cuelga de paredes y rocas para descansar."]] },
-    "Trochilidae": { "label": "Colibríes", "diet": "Néctar e insectos", "traits": [["Vuelo suspendido", "Bate las alas tan rápido que se queda quieto en el aire."], ["Lengua para néctar", "Toma néctar con una lengua larga y también caza insectos."]] },
-    "Caprimulgidae": { "label": "Chotacabras", "diet": "Insectos", "traits": [["Cazador nocturno", "Sale al atardecer y de noche a atrapar insectos en vuelo."], ["Camuflaje perfecto", "Su plumaje imita hojas y tierra mientras descansa."]] },
-    "Cathartidae": { "label": "Cóndores y gallinazos", "diet": "Carroña", "traits": [["Limpiador natural", "Come animales muertos y ayuda a reciclar la materia orgánica."], ["Cabeza sin plumas", "Su piel desnuda se mantiene más limpia al comer carroña."]] },
-    "Burhinidae": { "label": "Alcaravanes", "diet": "Insectos e invertebrados", "traits": [["Ojos grandes", "Le ayudan a estar activo al anochecer y de noche."], ["Corredor del desierto", "Prefiere correr y se camufla quedándose inmóvil."]] },
-    "Charadriidae": { "label": "Chorlos", "diet": "Invertebrados", "traits": [["Corre y se detiene", "Da unos pasos, se para y picotea cuando ve alimento."], ["Nido en el suelo", "Pone sus huevos en una leve depresión del terreno."]] },
-    "Haematopodidae": { "label": "Ostreros", "diet": "Moluscos e invertebrados", "traits": [["Pico de cuchillo", "Su pico largo y fuerte abre moluscos y conchas."], ["Ave de orilla", "Busca alimento entre rocas y playas del litoral."]] },
-    "Laridae": { "label": "Gaviotas y gaviotines", "diet": "Peces e invertebrados", "traits": [["Alas largas", "Planea con facilidad sobre la costa y el mar."], ["Vida en colonias", "Suele anidar en grupos, a veces muy numerosos."]] },
-    "Recurvirostridae": { "label": "Cigüeñuelas", "diet": "Invertebrados acuáticos", "traits": [["Patas larguísimas", "Camina en aguas poco profundas sin mojar el cuerpo."], ["Pico fino", "Recoge pequeños invertebrados del agua y del fango."]] },
-    "Scolopacidae": { "label": "Playeros", "diet": "Invertebrados", "traits": [["Pico sensible", "Detecta presas enterradas en arena o fango."], ["Grandes viajeros", "Muchas especies migran miles de kilómetros cada año."]] },
-    "Stercorariidae": { "label": "Salteadores", "diet": "Peces y otras presas", "traits": [["Pirata del mar", "Persigue a otras aves hasta que sueltan su comida."], ["Viajero oceánico", "Pasa gran parte del año en mar abierto."]] },
-    "Thinocoridae": { "label": "Agachonas", "diet": "Hojas y semillas", "traits": [["Se agacha para esconderse", "Ante el peligro se aplasta contra el suelo."], ["Come plantas", "A diferencia de otros playeros, se alimenta de brotes y semillas."]] },
-    "Ciconiidae": { "label": "Cigüeñas", "diet": "Peces y otros animales", "traits": [["Planeador térmico", "Aprovecha corrientes de aire caliente para planear."], ["Pico enorme", "Atrapa peces, ranas y otras presas en aguas poco profundas."]] },
-    "Columbidae": { "label": "Palomas y tórtolas", "diet": "Semillas", "traits": [["Bebe de un sorbo", "Succiona agua sin levantar la cabeza."], ["Leche de buche", "Alimenta a sus crías con una secreción nutritiva."]] },
-    "Alcedinidae": { "label": "Martines pescadores", "diet": "Peces", "traits": [["Zambullida precisa", "Se lanza de cabeza al agua desde una percha."], ["Nido en barrancos", "Cava túneles en orillas de tierra para anidar."]] },
-    "Cuculidae": { "label": "Garrapateros", "diet": "Insectos", "traits": [["Vida en grupo", "Comparte el nido y cuida a las crías en grupo."], ["Pico alto", "Su pico curvo y alto le da un perfil inconfundible."]] },
-    "Falconidae": { "label": "Halcones y cernícalos", "diet": "Vertebrados e insectos", "traits": [["Alas de velocidad", "Sus alas puntiagudas le ayudan a volar rápido."], ["Pico ganchudo", "Lo usa para sujetar y desgarrar a la presa."]] },
-    "Rallidae": { "label": "Gallaretas", "diet": "Plantas e invertebrados", "traits": [["Dedos largos", "Reparten su peso sobre la vegetación y el fango."], ["Escudo en la frente", "Muchas lucen una placa de color sobre el pico."]] },
-    "Cardinalidae": { "label": "Picogruesos", "diet": "Semillas, frutos e insectos", "traits": [["Pico fuerte", "Su pico grueso parte semillas con facilidad."], ["Canto melodioso", "Canta desde perchas altas."]] },
-    "Cinclidae": { "label": "Mirlos acuáticos", "diet": "Larvas acuáticas", "traits": [["Camina bajo el agua", "Bucea contra la corriente para atrapar larvas."], ["Vida en torrentes", "Siempre está cerca de ríos de agua rápida y limpia."]] },
-    "Fringillidae": { "label": "Jilgueros", "diet": "Semillas", "traits": [["Pico cónico", "Abre semillas pequeñas con rapidez."], ["Bandadas inquietas", "Suele moverse y alimentarse en grupo."]] },
-    "Furnariidae": { "label": "Horneros y afines", "diet": "Invertebrados", "traits": [["Constructor de nidos", "Muchas especies hacen nidos muy elaborados."], ["Buscador incansable", "Explora suelo, rocas y grietas en busca de presas."]] },
-    "Hirundinidae": { "label": "Golondrinas", "diet": "Insectos", "traits": [["Acróbata del aire", "Caza insectos en vuelo con giros rápidos."], ["Boca ancha", "Su pico corto se abre mucho para atrapar insectos."]] },
-    "Icteridae": { "label": "Tordos y afines", "diet": "Insectos y semillas", "traits": [["Pico que abre camino", "Lo clava y lo abre con fuerza para hallar comida."], ["Vida en bandadas", "Suele reunirse en grupos."]] },
-    "Mimidae": { "label": "Calandrias", "diet": "Insectos y frutos", "traits": [["Gran cantante", "Su canto es largo y variado."], ["Cola larga", "Le ayuda a mantener el equilibrio entre arbustos."]] },
-    "Motacillidae": { "label": "Cachirlas", "diet": "Insectos", "traits": [["Vida en el suelo", "Camina entre pastos en busca de insectos."], ["Uña larga", "Tiene una uña muy larga en el dedo trasero."]] },
-    "Parulidae": { "label": "Reinitas", "diet": "Insectos", "traits": [["Cazadora inquieta", "Se mueve sin parar entre hojas y ramas."], ["Pico fino", "Su pico delgado atrapa insectos pequeños."]] },
-    "Passerellidae": { "label": "Gorriones y matorraleros", "diet": "Semillas e insectos", "traits": [["Vida en el matorral", "Busca comida en el suelo, entre arbustos."], ["Pico cónico", "Come semillas, además de insectos y frutos."]] },
-    "Passeridae": { "label": "Gorrión casero", "diet": "Semillas y restos", "traits": [["Llegado de lejos", "Es una especie introducida en América."], ["Vive con nosotros", "Anida y se alimenta cerca de las personas."]] },
-    "Thraupidae": { "label": "Tangaras y semilleros", "diet": "Semillas, frutos o insectos", "traits": [["Familia muy diversa", "Su pico varía según lo que come cada especie."], ["Aves del Neotrópico", "Es una de las familias más numerosas de la región."]] },
-    "Troglodytidae": { "label": "Cucaracheros", "diet": "Insectos", "traits": [["Voz potente", "Su canto es fuerte para un ave tan pequeña."], ["Cola levantada", "Suele llevar la cola corta hacia arriba."]] },
-    "Turdidae": { "label": "Zorzales", "diet": "Frutos e invertebrados", "traits": [["Canto aflautado", "Su canto es claro y melodioso."], ["Busca en el suelo", "Corre, se detiene y observa antes de atrapar su presa."]] },
-    "Tyrannidae": { "label": "Mosqueros y tiranos", "diet": "Insectos", "traits": [["Caza desde una percha", "Sale volando, atrapa un insecto y regresa."], ["Familia enorme", "Es una de las más numerosas de América."]] },
-    "Ardeidae": { "label": "Garzas", "diet": "Peces, insectos y otros animales", "traits": [["Cazadora paciente", "Espera inmóvil y atrapa a su presa con un golpe rápido."], ["Cuello en S", "Vuela con el cuello recogido."]] },
-    "Pelecanidae": { "label": "Pelícanos", "diet": "Peces", "traits": [["Bolsa en el pico", "La usa como red para atrapar peces."], ["Vuelo en fila", "Suele volar en grupo, muy cerca del agua."]] },
-    "Threskiornithidae": { "label": "Ibis y espátulas", "diet": "Invertebrados", "traits": [["Pico especializado", "Curvo o en espátula, para buscar comida en barro o agua."], ["Ave de orilla", "Se alimenta caminando por zonas húmedas."]] },
-    "Phaethontidae": { "label": "Aves del trópico", "diet": "Peces y calamares", "traits": [["Cola de cintas", "Sus dos plumas centrales son muy largas."], ["Clavado en alta mar", "Se lanza desde el aire por peces y calamares."]] },
-    "Phoenicopteridae": { "label": "Flamencos", "diet": "Algas e invertebrados", "traits": [["Pico filtrador", "Come con la cabeza invertida y cuela su alimento."], ["Rosado por su dieta", "El color le viene de los carotenoides de lo que come."]] },
-    "Picidae": { "label": "Carpinteros", "diet": "Insectos", "traits": [["Pico cincel", "Lo usa para picar madera o tierra en busca de insectos."], ["Lengua larga", "La extiende para sacar insectos de grietas y hormigueros."]] },
-    "Podicipedidae": { "label": "Zambullidores", "diet": "Peces e invertebrados", "traits": [["Buceador experto", "Se sumerge para atrapar presas bajo el agua."], ["Patas muy atrás", "Nada muy bien, pero camina con dificultad en tierra."]] },
-    "Diomedeidae": { "label": "Albatros", "diet": "Calamares y peces", "traits": [["Planeador del océano", "Usa el viento sobre las olas para viajar lejos."], ["Vida en alta mar", "Pasa años en el mar antes de volver a criar."]] },
-    "Hydrobatidae": { "label": "Golondrinas de mar", "diet": "Plancton e invertebrados", "traits": [["Pequeña marina", "Está entre las aves marinas más pequeñas."], ["Nariz tubular", "Un tubo sobre el pico le ayuda a oler en el mar."]] },
-    "Oceanitidae": { "label": "Golondrinas de mar", "diet": "Plancton e invertebrados", "traits": [["Toca el agua con las patas", "Revolotea sobre la superficie mientras come."], ["Buen olfato", "Encuentra alimento en el mar guiándose por el olor."]] },
-    "Procellariidae": { "label": "Pardelas y petreles", "diet": "Peces, calamares y krill", "traits": [["Nariz tubular", "Un tubo sobre el pico le ayuda a oler y eliminar sal."], ["Grandes viajeras", "Recorren océanos enteros cada año."]] },
-    "Psittacidae": { "label": "Loros y pericos", "diet": "Frutos y semillas", "traits": [["Pico poderoso", "Curvo y fuerte para abrir frutos y semillas."], ["Patas que agarran", "Dos dedos adelante y dos atrás le ayudan a sujetar la comida."]] },
-    "Spheniscidae": { "label": "Pingüinos", "diet": "Peces", "traits": [["Alas como aletas", "No vuela en el aire, pero «vuela» bajo el agua."], ["Capa aislante", "Plumas densas y grasa lo protegen del agua fría."]] },
-    "Strigidae": { "label": "Búhos y lechuzas", "diet": "Animales pequeños", "traits": [["Vuelo silencioso", "Sus plumas amortiguan el sonido al volar."], ["Cabeza giratoria", "Gira mucho la cabeza porque sus ojos casi no se mueven."]] },
-    "Tytonidae": { "label": "Lechuzas de campanario", "diet": "Roedores", "traits": [["Cara de corazón", "Su disco facial dirige el sonido hacia los oídos."], ["Caza de oído", "Localiza presas por el sonido, incluso a oscuras."]] },
-    "Fregatidae": { "label": "Aves fragata", "diet": "Peces y calamares", "traits": [["Pirata del aire", "Roba comida a otras aves en pleno vuelo."], ["No se posa en el mar", "Sus plumas no son impermeables como las de otras aves marinas."]] },
-    "Phalacrocoracidae": { "label": "Cormoranes", "diet": "Peces", "traits": [["Buceador costero", "Persigue peces bajo el agua."], ["Alas al sol", "Suele extenderlas para secarlas."]] },
-    "Sulidae": { "label": "Piqueros", "diet": "Peces", "traits": [["Clavado en picada", "Cae desde lo alto y entra al agua como una flecha."], ["Cabeza reforzada", "Su cráneo y sacos de aire amortiguan el impacto."]] },
-    "Tinamidae": { "label": "Perdices", "diet": "Semillas e insectos", "traits": [["Mejor a pie", "Prefiere correr y vuela solo distancias cortas."], ["Huevos brillantes", "Sus huevos parecen de porcelana."]] }
+    "Accipitridae": {
+      "label": "Águilas y gavilanes",
+      "diet": "Vertebrados pequeños",
+      "traits": [
+        [
+          "Garras para cazar",
+          "Atrapa a sus presas con patas de garras curvas y fuertes."
+        ],
+        [
+          "Vista muy aguda",
+          "Detecta presas desde lejos, en vuelo o desde una percha."
+        ]
+      ]
+    },
+    "Pandionidae": {
+      "label": "Águila pescadora",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Especialista en peces",
+          "Se lanza al agua con las patas por delante."
+        ],
+        [
+          "Patas que no resbalan",
+          "Sus dedos ásperos sujetan a los peces."
+        ]
+      ]
+    },
+    "Anatidae": {
+      "label": "Patos",
+      "diet": "Plantas y animales",
+      "traits": [
+        [
+          "Pico con láminas",
+          "Filtra alimento del agua o corta plantas."
+        ],
+        [
+          "Plumas impermeables",
+          "Las cubre con aceite de una glándula para no mojarse."
+        ]
+      ]
+    },
+    "Apodidae": {
+      "label": "Vencejos",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Vida en el aire",
+          "Pasa casi todo el día volando y come en pleno vuelo."
+        ],
+        [
+          "Patas muy cortas",
+          "Apenas camina y se cuelga de paredes y rocas para descansar."
+        ]
+      ]
+    },
+    "Trochilidae": {
+      "label": "Colibríes",
+      "diet": "Néctar e insectos",
+      "traits": [
+        [
+          "Vuelo suspendido",
+          "Bate las alas tan rápido que se queda quieto en el aire."
+        ],
+        [
+          "Lengua para néctar",
+          "Toma néctar con una lengua larga y también caza insectos."
+        ]
+      ]
+    },
+    "Caprimulgidae": {
+      "label": "Chotacabras",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Cazador nocturno",
+          "Sale al atardecer y de noche a atrapar insectos en vuelo."
+        ],
+        [
+          "Camuflaje perfecto",
+          "Su plumaje imita hojas y tierra mientras descansa."
+        ]
+      ]
+    },
+    "Cathartidae": {
+      "label": "Cóndores y gallinazos",
+      "diet": "Carroña",
+      "traits": [
+        [
+          "Limpiador natural",
+          "Come animales muertos y ayuda a reciclar la materia orgánica."
+        ],
+        [
+          "Cabeza sin plumas",
+          "Su piel desnuda se mantiene más limpia al comer carroña."
+        ]
+      ]
+    },
+    "Burhinidae": {
+      "label": "Alcaravanes",
+      "diet": "Insectos e invertebrados",
+      "traits": [
+        [
+          "Ojos grandes",
+          "Le ayudan a estar activo al anochecer y de noche."
+        ],
+        [
+          "Corredor del desierto",
+          "Prefiere correr y se camufla quedándose inmóvil."
+        ]
+      ]
+    },
+    "Charadriidae": {
+      "label": "Chorlos",
+      "diet": "Animales pequeños",
+      "traits": [
+        [
+          "Corre y se detiene",
+          "Da unos pasos, se para y picotea cuando ve alimento."
+        ],
+        [
+          "Nido en el suelo",
+          "Pone sus huevos en una leve depresión del terreno."
+        ]
+      ]
+    },
+    "Haematopodidae": {
+      "label": "Ostreros",
+      "diet": "Moluscos e invertebrados",
+      "traits": [
+        [
+          "Pico de cuchillo",
+          "Su pico largo y fuerte abre moluscos y conchas."
+        ],
+        [
+          "Ave de orilla",
+          "Busca alimento entre rocas y playas del litoral."
+        ]
+      ]
+    },
+    "Laridae": {
+      "label": "Gaviotas y gaviotines",
+      "diet": "Peces y otros animales",
+      "traits": [
+        [
+          "Alas largas",
+          "Planea con facilidad sobre la costa y el mar."
+        ],
+        [
+          "Vida en colonias",
+          "Suele anidar en grupos, a veces muy numerosos."
+        ]
+      ]
+    },
+    "Recurvirostridae": {
+      "label": "Cigüeñuelas",
+      "diet": "Invertebrados acuáticos",
+      "traits": [
+        [
+          "Patas larguísimas",
+          "Camina en aguas poco profundas sin mojar el cuerpo."
+        ],
+        [
+          "Pico fino",
+          "Recoge pequeños invertebrados del agua y del fango."
+        ]
+      ]
+    },
+    "Scolopacidae": {
+      "label": "Playeros",
+      "diet": "Invertebrados",
+      "traits": [
+        [
+          "Pico sensible",
+          "Detecta presas enterradas en arena o fango."
+        ],
+        [
+          "Grandes viajeros",
+          "Muchas especies migran miles de kilómetros cada año."
+        ]
+      ]
+    },
+    "Stercorariidae": {
+      "label": "Salteadores",
+      "diet": "Peces y otras presas",
+      "traits": [
+        [
+          "Pirata del mar",
+          "Persigue a otras aves hasta que sueltan su comida."
+        ],
+        [
+          "Viajero oceánico",
+          "Pasa gran parte del año en mar abierto."
+        ]
+      ]
+    },
+    "Thinocoridae": {
+      "label": "Agachonas",
+      "diet": "Hojas y semillas",
+      "traits": [
+        [
+          "Se agacha para esconderse",
+          "Ante el peligro se aplasta contra el suelo."
+        ],
+        [
+          "Come plantas",
+          "A diferencia de otros playeros, se alimenta de brotes y semillas."
+        ]
+      ]
+    },
+    "Ciconiidae": {
+      "label": "Cigüeñas",
+      "diet": "Peces y otros animales",
+      "traits": [
+        [
+          "Planeador térmico",
+          "Aprovecha corrientes de aire caliente para planear."
+        ],
+        [
+          "Pico enorme",
+          "Atrapa peces, ranas y otras presas en aguas poco profundas."
+        ]
+      ]
+    },
+    "Columbidae": {
+      "label": "Palomas y tórtolas",
+      "diet": "Semillas",
+      "traits": [
+        [
+          "Bebe de un sorbo",
+          "Succiona agua sin levantar la cabeza."
+        ],
+        [
+          "Leche de buche",
+          "Alimenta a sus crías con una secreción nutritiva."
+        ]
+      ]
+    },
+    "Alcedinidae": {
+      "label": "Martines pescadores",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Zambullida precisa",
+          "Se lanza de cabeza al agua desde una percha."
+        ],
+        [
+          "Nido en barrancos",
+          "Cava túneles en orillas de tierra para anidar."
+        ]
+      ]
+    },
+    "Cuculidae": {
+      "label": "Garrapateros",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Vida en grupo",
+          "Comparte el nido y cuida a las crías en grupo."
+        ],
+        [
+          "Pico alto",
+          "Su pico curvo y alto le da un perfil inconfundible."
+        ]
+      ]
+    },
+    "Falconidae": {
+      "label": "Halcones y cernícalos",
+      "diet": "Animales y carroña",
+      "traits": [
+        [
+          "Alas de velocidad",
+          "Sus alas puntiagudas le ayudan a volar rápido."
+        ],
+        [
+          "Pico ganchudo",
+          "Lo usa para sujetar y desgarrar a la presa."
+        ]
+      ]
+    },
+    "Rallidae": {
+      "label": "Gallaretas",
+      "diet": "Omnívora",
+      "traits": [
+        [
+          "Dedos largos",
+          "Reparten su peso sobre la vegetación y el fango."
+        ],
+        [
+          "Escudo en la frente",
+          "Muchas lucen una placa de color sobre el pico."
+        ]
+      ]
+    },
+    "Cardinalidae": {
+      "label": "Picogruesos",
+      "diet": "Semillas, frutos e insectos",
+      "traits": [
+        [
+          "Pico fuerte",
+          "Su pico grueso parte semillas con facilidad."
+        ],
+        [
+          "Canto melodioso",
+          "Canta desde perchas altas."
+        ]
+      ]
+    },
+    "Cinclidae": {
+      "label": "Mirlos acuáticos",
+      "diet": "Larvas acuáticas",
+      "traits": [
+        [
+          "Camina bajo el agua",
+          "Bucea contra la corriente para atrapar larvas."
+        ],
+        [
+          "Vida en torrentes",
+          "Siempre está cerca de ríos de agua rápida y limpia."
+        ]
+      ]
+    },
+    "Fringillidae": {
+      "label": "Jilgueros",
+      "diet": "Semillas",
+      "traits": [
+        [
+          "Pico cónico",
+          "Abre semillas pequeñas con rapidez."
+        ],
+        [
+          "Bandadas inquietas",
+          "Suele moverse y alimentarse en grupo."
+        ]
+      ]
+    },
+    "Furnariidae": {
+      "label": "Horneros y afines",
+      "diet": "Animales y semillas",
+      "traits": [
+        [
+          "Constructor de nidos",
+          "Muchas especies hacen nidos muy elaborados."
+        ],
+        [
+          "Buscador incansable",
+          "Explora suelo, rocas y grietas en busca de presas."
+        ]
+      ]
+    },
+    "Hirundinidae": {
+      "label": "Golondrinas",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Acróbata del aire",
+          "Caza insectos en vuelo con giros rápidos."
+        ],
+        [
+          "Boca ancha",
+          "Su pico corto se abre mucho para atrapar insectos."
+        ]
+      ]
+    },
+    "Icteridae": {
+      "label": "Tordos y afines",
+      "diet": "Omnívora",
+      "traits": [
+        [
+          "Pico que abre camino",
+          "Lo clava y lo abre con fuerza para hallar comida."
+        ],
+        [
+          "Vida en bandadas",
+          "Suele reunirse en grupos."
+        ]
+      ]
+    },
+    "Mimidae": {
+      "label": "Calandrias",
+      "diet": "Insectos y frutos",
+      "traits": [
+        [
+          "Gran cantante",
+          "Su canto es largo y variado."
+        ],
+        [
+          "Cola larga",
+          "Le ayuda a mantener el equilibrio entre arbustos."
+        ]
+      ]
+    },
+    "Motacillidae": {
+      "label": "Cachirlas",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Vida en el suelo",
+          "Camina entre pastos en busca de insectos."
+        ],
+        [
+          "Uña larga",
+          "Tiene una uña muy larga en el dedo trasero."
+        ]
+      ]
+    },
+    "Parulidae": {
+      "label": "Reinitas",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Cazadora inquieta",
+          "Se mueve sin parar entre hojas y ramas."
+        ],
+        [
+          "Pico fino",
+          "Su pico delgado atrapa insectos pequeños."
+        ]
+      ]
+    },
+    "Passerellidae": {
+      "label": "Gorriones y matorraleros",
+      "diet": "Semillas e insectos",
+      "traits": [
+        [
+          "Vida en el matorral",
+          "Busca comida en el suelo, entre arbustos."
+        ],
+        [
+          "Pico cónico",
+          "Come semillas, además de insectos y frutos."
+        ]
+      ]
+    },
+    "Passeridae": {
+      "label": "Gorrión casero",
+      "diet": "Semillas y restos",
+      "traits": [
+        [
+          "Llegado de lejos",
+          "Es una especie introducida en América."
+        ],
+        [
+          "Vive con nosotros",
+          "Anida y se alimenta cerca de las personas."
+        ]
+      ]
+    },
+    "Thraupidae": {
+      "label": "Tangaras y semilleros",
+      "diet": "Semillas, frutos o insectos",
+      "traits": [
+        [
+          "Familia muy diversa",
+          "Su pico varía según lo que come cada especie."
+        ],
+        [
+          "Aves del Neotrópico",
+          "Es una de las familias más numerosas de la región."
+        ]
+      ]
+    },
+    "Troglodytidae": {
+      "label": "Cucaracheros",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Voz potente",
+          "Su canto es fuerte para un ave tan pequeña."
+        ],
+        [
+          "Cola levantada",
+          "Suele llevar la cola corta hacia arriba."
+        ]
+      ]
+    },
+    "Turdidae": {
+      "label": "Zorzales",
+      "diet": "Frutos e invertebrados",
+      "traits": [
+        [
+          "Canto aflautado",
+          "Su canto es claro y melodioso."
+        ],
+        [
+          "Busca en el suelo",
+          "Corre, se detiene y observa antes de atrapar su presa."
+        ]
+      ]
+    },
+    "Tyrannidae": {
+      "label": "Mosqueros y tiranos",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Caza desde una percha",
+          "Sale volando, atrapa un insecto y regresa."
+        ],
+        [
+          "Familia enorme",
+          "Es una de las más numerosas de América."
+        ]
+      ]
+    },
+    "Ardeidae": {
+      "label": "Garzas",
+      "diet": "Peces, insectos y otros animales",
+      "traits": [
+        [
+          "Cazadora paciente",
+          "Espera inmóvil y atrapa a su presa con un golpe rápido."
+        ],
+        [
+          "Cuello en S",
+          "Vuela con el cuello recogido."
+        ]
+      ]
+    },
+    "Pelecanidae": {
+      "label": "Pelícanos",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Bolsa en el pico",
+          "La usa como red para atrapar peces."
+        ],
+        [
+          "Vuelo en fila",
+          "Suele volar en grupo, muy cerca del agua."
+        ]
+      ]
+    },
+    "Threskiornithidae": {
+      "label": "Ibis y espátulas",
+      "diet": "Animales pequeños",
+      "traits": [
+        [
+          "Pico especializado",
+          "Curvo o en espátula, para buscar comida en barro o agua."
+        ],
+        [
+          "Ave de orilla",
+          "Se alimenta caminando por zonas húmedas."
+        ]
+      ]
+    },
+    "Phaethontidae": {
+      "label": "Aves del trópico",
+      "diet": "Peces y calamares",
+      "traits": [
+        [
+          "Cola de cintas",
+          "Sus dos plumas centrales son muy largas."
+        ],
+        [
+          "Clavado en alta mar",
+          "Se lanza desde el aire por peces y calamares."
+        ]
+      ]
+    },
+    "Phoenicopteridae": {
+      "label": "Flamencos",
+      "diet": "Algas y animales",
+      "traits": [
+        [
+          "Pico filtrador",
+          "Come con la cabeza invertida y cuela su alimento."
+        ],
+        [
+          "Rosado por su dieta",
+          "El color le viene de los carotenoides de lo que come."
+        ]
+      ]
+    },
+    "Picidae": {
+      "label": "Carpinteros",
+      "diet": "Insectos",
+      "traits": [
+        [
+          "Pico cincel",
+          "Lo usa para picar madera o tierra en busca de insectos."
+        ],
+        [
+          "Lengua larga",
+          "La extiende para sacar insectos de grietas y hormigueros."
+        ]
+      ]
+    },
+    "Podicipedidae": {
+      "label": "Zambullidores",
+      "diet": "Peces e invertebrados",
+      "traits": [
+        [
+          "Buceador experto",
+          "Se sumerge para atrapar presas bajo el agua."
+        ],
+        [
+          "Patas muy atrás",
+          "Nada muy bien, pero camina con dificultad en tierra."
+        ]
+      ]
+    },
+    "Diomedeidae": {
+      "label": "Albatros",
+      "diet": "Calamares y peces",
+      "traits": [
+        [
+          "Planeador del océano",
+          "Usa el viento sobre las olas para viajar lejos."
+        ],
+        [
+          "Vida en alta mar",
+          "Pasa años en el mar antes de volver a criar."
+        ]
+      ]
+    },
+    "Hydrobatidae": {
+      "label": "Golondrinas de mar",
+      "diet": "Plancton e invertebrados",
+      "traits": [
+        [
+          "Pequeña marina",
+          "Está entre las aves marinas más pequeñas."
+        ],
+        [
+          "Nariz tubular",
+          "Un tubo sobre el pico le ayuda a oler en el mar."
+        ]
+      ]
+    },
+    "Oceanitidae": {
+      "label": "Golondrinas de mar",
+      "diet": "Plancton e invertebrados",
+      "traits": [
+        [
+          "Toca el agua con las patas",
+          "Revolotea sobre la superficie mientras come."
+        ],
+        [
+          "Buen olfato",
+          "Encuentra alimento en el mar guiándose por el olor."
+        ]
+      ]
+    },
+    "Procellariidae": {
+      "label": "Pardelas y petreles",
+      "diet": "Peces, calamares y krill",
+      "traits": [
+        [
+          "Nariz tubular",
+          "Un tubo sobre el pico le ayuda a oler y eliminar sal."
+        ],
+        [
+          "Grandes viajeras",
+          "Recorren océanos enteros cada año."
+        ]
+      ]
+    },
+    "Psittacidae": {
+      "label": "Loros y pericos",
+      "diet": "Frutos y semillas",
+      "traits": [
+        [
+          "Pico poderoso",
+          "Curvo y fuerte para abrir frutos y semillas."
+        ],
+        [
+          "Patas que agarran",
+          "Dos dedos adelante y dos atrás le ayudan a sujetar la comida."
+        ]
+      ]
+    },
+    "Spheniscidae": {
+      "label": "Pingüinos",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Alas como aletas",
+          "No vuela en el aire, pero «vuela» bajo el agua."
+        ],
+        [
+          "Capa aislante",
+          "Plumas densas y grasa lo protegen del agua fría."
+        ]
+      ]
+    },
+    "Strigidae": {
+      "label": "Búhos y lechuzas",
+      "diet": "Animales pequeños",
+      "traits": [
+        [
+          "Vuelo silencioso",
+          "Sus plumas amortiguan el sonido al volar."
+        ],
+        [
+          "Cabeza giratoria",
+          "Gira mucho la cabeza porque sus ojos casi no se mueven."
+        ]
+      ]
+    },
+    "Tytonidae": {
+      "label": "Lechuzas de campanario",
+      "diet": "Roedores",
+      "traits": [
+        [
+          "Cara de corazón",
+          "Su disco facial dirige el sonido hacia los oídos."
+        ],
+        [
+          "Caza de oído",
+          "Localiza presas por el sonido, incluso a oscuras."
+        ]
+      ]
+    },
+    "Fregatidae": {
+      "label": "Aves fragata",
+      "diet": "Peces y calamares",
+      "traits": [
+        [
+          "Pirata del aire",
+          "Roba comida a otras aves en pleno vuelo."
+        ],
+        [
+          "No se posa en el mar",
+          "Sus plumas no son impermeables como las de otras aves marinas."
+        ]
+      ]
+    },
+    "Phalacrocoracidae": {
+      "label": "Cormoranes",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Buceador costero",
+          "Persigue peces bajo el agua."
+        ],
+        [
+          "Alas al sol",
+          "Suele extenderlas para secarlas."
+        ]
+      ]
+    },
+    "Sulidae": {
+      "label": "Piqueros",
+      "diet": "Peces",
+      "traits": [
+        [
+          "Clavado en picada",
+          "Cae desde lo alto y entra al agua como una flecha."
+        ],
+        [
+          "Cabeza reforzada",
+          "Su cráneo y sacos de aire amortiguan el impacto."
+        ]
+      ]
+    },
+    "Tinamidae": {
+      "label": "Perdices",
+      "diet": "Semillas e insectos",
+      "traits": [
+        [
+          "Mejor a pie",
+          "Prefiere correr y vuela solo distancias cortas."
+        ],
+        [
+          "Huevos brillantes",
+          "Sus huevos parecen de porcelana."
+        ]
+      ]
+    }
   }
 }

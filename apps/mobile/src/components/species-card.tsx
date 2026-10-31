@@ -3,6 +3,7 @@ import {
   formatAlbumNumber,
   formatMass,
   formatWing,
+  formatWingspan,
   lastUnlocked,
   speciesSeals,
   MILESTONES,
@@ -31,11 +32,12 @@ export const entryFinish = ({ finish }: AlbumEntry): StickerFinish => finish ?? 
 const frameOf = (entry: AlbumEntry, finish: StickerFinish) =>
   finish === 'normal' ? HABITAT_FRAMES[entry.species.habitat ?? 'coast'] : FINISH_FRAMES[finish];
 
+const categoryLabel = (category: string | null) => (category ? (CONSERVATION_LABELS[category] ?? category) : 'Sin categoría');
+
 function statusLabel(entry: AlbumEntry) {
   const status = conservationStatus(entry.species);
   if (!status) return 'Sin datos';
-  const label = CONSERVATION_LABELS[status.category] ?? status.category;
-  return status.scope === 'peru' ? `${label} (Perú)` : label;
+  return status.scope === 'peru' ? `${categoryLabel(status.category)} (Perú)` : categoryLabel(status.category);
 }
 
 type Props = {
@@ -55,7 +57,8 @@ export function SpeciesCard({ entry, total, size, finish = entryFinish(entry), s
   const family = FAMILY_FACTS[species.family ?? ''];
   const measures = SPECIES_MEASURES[species.id];
   const number = formatAlbumNumber(species.albumNumber);
-  const ribbon = [family?.label, measures && formatMass(measures.massG), measures && formatWing(measures.wingMm)].filter(Boolean).join(' · ');
+  const reach = measures && (measures.wingspanM ? formatWingspan(measures.wingspanM) : formatWing(measures.wingMm));
+  const ribbon = [family?.label, measures && formatMass(measures.massG), reach].filter(Boolean).join(' · ');
   return (
     <BirdCard
       finish={finish}
@@ -102,7 +105,9 @@ export function SpeciesCardBack({ entry, size, finish = entryFinish(entry) }: Pi
         { label: 'Esta carta', value: unlocked ? FINISH_SOURCE_SHORT[unlocked.source] : 'Primera foto' },
         { label: 'Hábitat', value: HABITAT_LABELS[species.habitat ?? 'coast'] },
         { label: 'Familia', value: FAMILY_FACTS[species.family ?? '']?.label ?? 'Sin datos' },
-        { label: 'Estado', value: statusLabel(entry) },
+        { label: 'Perú', value: categoryLabel(species.nationalCategory) },
+        { label: 'UICN', value: categoryLabel(species.iucn) },
+        { label: 'CITES', value: species.cites ? `Apéndice ${species.cites}` : 'No listada' },
       ]}
       seals={speciesSeals(species).map((seal) => ({ image: SEAL_ART[seal], label: SEAL_LABELS[seal], meaning: SEAL_MEANINGS[seal] }))}
       place={species.threatened ? 'Lugar oculto para proteger a esta ave.' : 'Tus lugares están en tu galería.'}

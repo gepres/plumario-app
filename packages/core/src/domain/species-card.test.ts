@@ -1,18 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
-import { conservationStatus, formatMass, formatWing, speciesSeals } from './species-card';
+import { conservationStatus, formatMass, formatWing, formatWingspan, speciesSeals } from './species-card';
 
 const none = { iucn: 'LC', nationalCategory: null, threatened: false, endemic: false, emblematic: false };
 
 describe('estado de conservación', () => {
-  it('usa la lista del Perú cuando es más alta que la UICN', () => {
+  it('manda la lista del Perú, sea más alta o más baja que la UICN', () => {
     expect(conservationStatus({ iucn: 'NT', nationalCategory: 'EN' })).toEqual({ category: 'EN', scope: 'peru' });
-    expect(conservationStatus({ iucn: 'NE', nationalCategory: 'EN' })).toEqual({ category: 'EN', scope: 'peru' });
+    expect(conservationStatus({ iucn: 'EN', nationalCategory: 'VU' })).toEqual({ category: 'VU', scope: 'peru' });
   });
 
-  it('se queda con la UICN cuando empatan o la del Perú es más baja', () => {
-    expect(conservationStatus({ iucn: 'NT', nationalCategory: 'NT' })).toEqual({ category: 'NT', scope: 'global' });
-    expect(conservationStatus({ iucn: 'EN', nationalCategory: 'VU' })).toEqual({ category: 'EN', scope: 'global' });
+  it('sin categoría peruana usa la UICN', () => {
+    expect(conservationStatus({ iucn: 'VU', nationalCategory: null })).toEqual({ category: 'VU', scope: 'global' });
   });
 
   it('no inventa un estado si no hay datos', () => {

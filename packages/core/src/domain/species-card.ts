@@ -9,19 +9,15 @@ export type ConservationScope = 'global' | 'peru';
 
 export type ConservationStatus = {
   category: string;
-  /** De qué lista sale: la del Perú solo se usa cuando es más alta que la de la UICN. */
+  /** De qué lista sale: la del Perú manda; la UICN solo vale para las aves sin categoría peruana. */
   scope: ConservationScope;
 };
 
 type ConservationData = Pick<Species, 'iucn' | 'nationalCategory'>;
 
-// De menor a mayor riesgo. DD y NE no dicen cuánto riesgo hay: no le ganan a ninguna categoría.
-const RISK_ORDER = ['LC', 'NT', 'VU', 'EN', 'CR'];
-const riskOf = (category: string | null) => RISK_ORDER.indexOf(category ?? '');
-
-/** La categoría más alta entre la UICN y la lista del Perú. */
+/** La categoría de la lista del Perú; sin ella, la de la UICN. */
 export function conservationStatus({ iucn, nationalCategory }: ConservationData): ConservationStatus | null {
-  if (nationalCategory && riskOf(nationalCategory) > riskOf(iucn)) return { category: nationalCategory, scope: 'peru' };
+  if (nationalCategory) return { category: nationalCategory, scope: 'peru' };
   return iucn ? { category: iucn, scope: 'global' } : null;
 }
 
@@ -42,6 +38,9 @@ const decimal = (value: number) => value.toFixed(1).replace(/\.0$/, '').replace(
 
 /** «151 g» o «3,4 kg». */
 export const formatMass = (grams: number) => (grams < 1000 ? `${Math.round(grams)} g` : `${decimal(grams / 1000)} kg`);
+
+/** «envergadura 3 m»: solo en las aves donde es lo representativo, como el cóndor. */
+export const formatWingspan = (meters: number) => `envergadura ${decimal(meters)} m`;
 
 /** «ala 62 cm» o, en aves pequeñas, «ala 10,3 cm». */
 export function formatWing(millimeters: number) {

@@ -27,6 +27,7 @@ function toSpecies(id: string, data: Record<string, unknown>): Species {
     family: typeof data.family === 'string' ? data.family : null,
     iucn: typeof data.iucn === 'string' ? data.iucn : null,
     nationalCategory: typeof data.nationalCategory === 'string' ? data.nationalCategory : null,
+    cites: typeof data.cites === 'string' ? data.cites : null,
     threatened: data.threatened === true,
     endemic: data.endemic === true,
     emblematic: data.emblematic === true,

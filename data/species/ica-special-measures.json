@@ -1,0 +1,8 @@
+{
+  "note": "Medidas que corrigen o completan AVONET en la carta. La envergadura es un caso especial que pidió el biólogo: reemplaza al ala donde es lo representativo.",
+  "species": {
+    "vultur-gryphus": {
+      "wingspanM": 3
+    }
+  }
+}
