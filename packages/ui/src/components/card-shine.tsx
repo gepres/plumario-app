@@ -39,7 +39,8 @@ export function CardShine({ width, height, colors, period, relief }: Props) {
 
   const animation = useMemo(() => {
     const end = percent(period);
-    const timing = { animationDuration: period, animationDelay: delay, animationIterationCount: 'infinite' as const, animationTimingFunction: SWEEP_EASING };
+    // backwards: durante la espera ya está fuera de la carta; si no, se ve quieta en su posición base.
+    const timing = { animationDuration: period, animationDelay: delay, animationFillMode: 'backwards' as const, animationIterationCount: 'infinite' as const, animationTimingFunction: SWEEP_EASING };
     return {
       band: {
         ...timing,
@@ -116,6 +117,7 @@ export function CardSparkle({ x, y, size, color, period }: { x: number; y: numbe
       },
       animationDuration: period,
       animationDelay: delay,
+      animationFillMode: 'backwards' as const,
       animationIterationCount: 'infinite' as const,
       animationTimingFunction: 'ease-in-out' as const,
     };
