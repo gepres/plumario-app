@@ -40,6 +40,22 @@ especie y nunca retrocede.
 Saltarse niveles no crea piezas de los niveles omitidos. Las colecciones piden un mínimo («oro o
 más»), nunca un acabado exacto. No hay más sorteos por especie: los sobres los sustituyen.
 
+## Sellos
+
+Son datos de la especie: van en todos los acabados, hasta 2 por carta, y nunca deciden el acabado.
+
+| Sello | Regla | Aves |
+|---|---|---|
+| Amenazada | `threatened` en el catálogo | 38 |
+| Casi amenazada | NT en la UICN o en el Perú, si no está amenazada | 25 |
+| Endémica | `endemic` en el catálogo | 8 |
+| Emblemática | `emblematic` en el catálogo | 4 |
+
+Una emblemática es la especie elegida para representar la identidad, la cultura, la historia, la fauna
+y los valores de un país, una región o una comunidad específica.
+
+El estado impreso en la carta usa la categoría más alta entre la UICN y la lista del Perú.
+
 ## Observaciones válidas
 
 Una foto validada entra en la galería, pero solo avanza hitos, sobres y plumas si cuenta como

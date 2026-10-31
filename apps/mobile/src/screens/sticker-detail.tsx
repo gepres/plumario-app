@@ -2,7 +2,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import { formatAlbumNumber, sealsOf, type AlbumEntry } from '@plumario/core';
+import { formatAlbumNumber, speciesSeals, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, FinishSwatch, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
@@ -88,7 +88,7 @@ function DetailContent({ entry, onOpenGallery, onShare, onTrade }: { entry: Albu
               <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[category]}</ThemedText>
             </View>
           )}
-          {sealsOf(species).map((seal) => (
+          {speciesSeals(species).map((seal) => (
             <View key={seal} style={[styles.chip, styles.seal, { borderColor: colors.border }]}>
               <ThemedText variant="caption" color="textSecondary">Sello: {SEAL_LABELS[seal]}</ThemedText>
             </View>

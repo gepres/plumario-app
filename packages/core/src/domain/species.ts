@@ -18,8 +18,12 @@ export type Species = {
   scientificName: string;
   /** Hábitat principal en el álbum; null mientras no esté asignado. */
   habitat: Habitat | null;
+  /** Familia científica (Pelecanidae…): los textos de la carta se escriben por familia. */
+  family: string | null;
   /** Categoría global de la Lista Roja de la UICN (LC, NT, VU, EN, CR…); decide el acabado del cromo. */
   iucn: string | null;
+  /** Categoría de la lista nacional del Perú; puede ser más alta que la de la UICN. */
+  nationalCategory: string | null;
   /** Si está amenazada, su ubicación se oculta siempre, también al compartir (PerfilPrivacidad). */
   threatened: boolean;
   endemic: boolean;

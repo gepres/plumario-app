@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { at, species, sticker } from '../testing';
-import { buildAlbumView, filterEntries, formatAlbumNumber, habitatPreview, searchEntries, sealsOf } from './album-view';
+import { buildAlbumView, filterEntries, formatAlbumNumber, habitatPreview, searchEntries } from './album-view';
 import { figureOf } from './figure';
 
 const catalog = [
@@ -42,17 +42,10 @@ describe('vista del álbum', () => {
   });
 });
 
-describe('número, sellos y figura', () => {
+describe('número y figura', () => {
   it('imprime el número con tres cifras', () => {
     expect(formatAlbumNumber(11)).toBe('011');
     expect(formatAlbumNumber(null)).toBe('—');
-  });
-
-  it('deja como sello lo que cumple además de su categoría', () => {
-    // Emblemática y casi amenazada: queda rubí, con el sello de casi amenazada.
-    expect(sealsOf({ iucn: 'NT', emblematic: true, endemic: false, threatened: false })).toEqual(['nearThreatened']);
-    expect(sealsOf({ iucn: 'EN', emblematic: false, endemic: true, threatened: true })).toEqual(['endemic']);
-    expect(sealsOf({ iucn: 'LC', emblematic: false, endemic: false, threatened: false })).toEqual([]);
   });
 
   it('elige la figura por familia y, en Laridae, por género', () => {

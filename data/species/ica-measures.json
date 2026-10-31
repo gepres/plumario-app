@@ -1,0 +1,1485 @@
+{
+  "source": {
+    "citation": "Tobias et al. (2022). AVONET: morphological, ecological and geographical data for all birds. Ecology Letters 25(3): 581-597.",
+    "doi": "https://doi.org/10.6084/m9.figshare.16586228.v7",
+    "license": "CC BY 4.0",
+    "units": {
+      "massG": "gramos",
+      "wingMm": "milímetros, del doblez a la punta",
+      "beakMm": "milímetros, culmen"
+    }
+  },
+  "reviewed": false,
+  "missing": [
+    "Troglodytes musculus",
+    "Tyto furcata",
+    "Sula brewsteri"
+  ],
+  "species": {
+    "circus-cinereus": {
+      "massG": 399.7,
+      "wingMm": 344.5,
+      "beakMm": 29.8
+    },
+    "geranoaetus-melanoleucus": {
+      "massG": 2378.6,
+      "wingMm": 496.2,
+      "beakMm": 50.5
+    },
+    "geranoaetus-polyosoma": {
+      "massG": 782.6,
+      "wingMm": 402,
+      "beakMm": 36.3
+    },
+    "parabuteo-unicinctus": {
+      "massG": 850.3,
+      "wingMm": 320.8,
+      "beakMm": 34.4
+    },
+    "pandion-haliaetus": {
+      "massG": 1483.2,
+      "wingMm": 468.4,
+      "beakMm": 47
+    },
+    "anas-bahamensis": {
+      "massG": 490,
+      "wingMm": 205.5,
+      "beakMm": 41.5
+    },
+    "anas-flavirostris": {
+      "massG": 434,
+      "wingMm": 191,
+      "beakMm": 35.3
+    },
+    "anas-georgica": {
+      "massG": 623.8,
+      "wingMm": 205.6,
+      "beakMm": 34.3
+    },
+    "lophonetta-specularioides": {
+      "massG": 1019.9,
+      "wingMm": 269.2,
+      "beakMm": 49.3
+    },
+    "merganetta-armata": {
+      "massG": 398.8,
+      "wingMm": 163.4,
+      "beakMm": 33.5
+    },
+    "oressochen-melanopterus": {
+      "massG": 2037,
+      "wingMm": 431.7,
+      "beakMm": 40.7
+    },
+    "oxyura-jamaicensis": {
+      "massG": 608.2,
+      "wingMm": 139.6,
+      "beakMm": 45.4
+    },
+    "sarkidiornis-sylvicola": {
+      "massG": 2610,
+      "wingMm": 304.5,
+      "beakMm": 52.5
+    },
+    "spatula-cyanoptera": {
+      "massG": 377.5,
+      "wingMm": 187.5,
+      "beakMm": 50.5
+    },
+    "spatula-discors": {
+      "massG": 359.4,
+      "wingMm": 178.3,
+      "beakMm": 47.3
+    },
+    "spatula-puna": {
+      "massG": 595.2,
+      "wingMm": 214,
+      "beakMm": 48.3
+    },
+    "aeronautes-andecolus": {
+      "massG": 17.6,
+      "wingMm": 140,
+      "beakMm": 7
+    },
+    "chaetura-pelagica": {
+      "massG": 23.6,
+      "wingMm": 124.4,
+      "beakMm": 6.3
+    },
+    "streptoprocne-zonaris": {
+      "massG": 86.8,
+      "wingMm": 212.5,
+      "beakMm": 14.4
+    },
+    "amazilis-amazilia": {
+      "massG": 4.3,
+      "wingMm": 61.8,
+      "beakMm": 20.7
+    },
+    "colibri-coruscans": {
+      "massG": 6.7,
+      "wingMm": 75.4,
+      "beakMm": 29.1
+    },
+    "metallura-phoebe": {
+      "massG": 5.4,
+      "wingMm": 70.6,
+      "beakMm": 21.7
+    },
+    "myrtis-fanny": {
+      "massG": 2.3,
+      "wingMm": 39.3,
+      "beakMm": 20.9
+    },
+    "patagona-gigas": {
+      "massG": 20.2,
+      "wingMm": 135.7,
+      "beakMm": 45.2
+    },
+    "polyonymus-caroli": {
+      "massG": 4.8,
+      "wingMm": 64.4,
+      "beakMm": 23.2
+    },
+    "rhodopis-vesper": {
+      "massG": 3.8,
+      "wingMm": 55.5,
+      "beakMm": 34.8
+    },
+    "thaumastura-cora": {
+      "massG": 1.9,
+      "wingMm": 40.3,
+      "beakMm": 16
+    },
+    "chordeiles-acutipennis": {
+      "massG": 48.4,
+      "wingMm": 164.8,
+      "beakMm": 8.5
+    },
+    "quechuavis-decussata": {
+      "massG": 45.6,
+      "wingMm": 133.2,
+      "beakMm": 22.3,
+      "avonetName": "Systellura decussata"
+    },
+    "systellura-longirostris": {
+      "massG": 45.6,
+      "wingMm": 158.3,
+      "beakMm": 20.9
+    },
+    "cathartes-aura": {
+      "massG": 1518.2,
+      "wingMm": 508.5,
+      "beakMm": 51.5
+    },
+    "coragyps-atratus": {
+      "massG": 1881.7,
+      "wingMm": 410.1,
+      "beakMm": 60
+    },
+    "vultur-gryphus": {
+      "massG": 11236.1,
+      "wingMm": 789.9,
+      "beakMm": 96.8
+    },
+    "hesperoburhinus-superciliaris": {
+      "massG": 480,
+      "wingMm": 221.2,
+      "beakMm": 40.6,
+      "avonetName": "Burhinus superciliaris"
+    },
+    "anarhynchus-alticola": {
+      "massG": 44.9,
+      "wingMm": 117.5,
+      "beakMm": 16.7,
+      "avonetName": "Charadrius alticola"
+    },
+    "anarhynchus-collaris": {
+      "massG": 28.3,
+      "wingMm": 95.6,
+      "beakMm": 17.3,
+      "avonetName": "Charadrius collaris"
+    },
+    "anarhynchus-falklandicus": {
+      "massG": 65,
+      "wingMm": 126,
+      "beakMm": 20.1,
+      "avonetName": "Charadrius falklandicus"
+    },
+    "anarhynchus-mongolus": {
+      "massG": 64,
+      "wingMm": 128.8,
+      "beakMm": 18,
+      "avonetName": "Charadrius mongolus"
+    },
+    "anarhynchus-nivosus": {
+      "massG": 42.3,
+      "wingMm": 102.5,
+      "beakMm": 16.8,
+      "avonetName": "Charadrius nivosus"
+    },
+    "anarhynchus-wilsonia": {
+      "massG": 55.1,
+      "wingMm": 117.4,
+      "beakMm": 22.9,
+      "avonetName": "Charadrius wilsonia"
+    },
+    "charadrius-semipalmatus": {
+      "massG": 46.7,
+      "wingMm": 118.4,
+      "beakMm": 14.5
+    },
+    "charadrius-vociferus": {
+      "massG": 96.4,
+      "wingMm": 158.8,
+      "beakMm": 21.5
+    },
+    "oreopholus-ruficollis": {
+      "massG": 131,
+      "wingMm": 162.7,
+      "beakMm": 33.2
+    },
+    "pluvialis-dominica": {
+      "massG": 151.5,
+      "wingMm": 181.8,
+      "beakMm": 26.3
+    },
+    "pluvialis-squatarola": {
+      "massG": 250,
+      "wingMm": 184.4,
+      "beakMm": 32
+    },
+    "vanellus-resplendens": {
+      "massG": 214,
+      "wingMm": 217.6,
+      "beakMm": 36.9
+    },
+    "zonibyx-modestus": {
+      "massG": 78,
+      "wingMm": 141.4,
+      "beakMm": 20.8,
+      "avonetName": "Charadrius modestus"
+    },
+    "haematopus-ater": {
+      "massG": 724,
+      "wingMm": 261.4,
+      "beakMm": 76.3
+    },
+    "haematopus-palliatus": {
+      "massG": 601.5,
+      "wingMm": 246.8,
+      "beakMm": 86
+    },
+    "chlidonias-niger": {
+      "massG": 65.3,
+      "wingMm": 201.7,
+      "beakMm": 31.1
+    },
+    "chroicocephalus-cirrocephalus": {
+      "massG": 374.7,
+      "wingMm": 319,
+      "beakMm": 47.5
+    },
+    "chroicocephalus-maculipennis": {
+      "massG": 339,
+      "wingMm": 291.2,
+      "beakMm": 41.4
+    },
+    "chroicocephalus-serranus": {
+      "massG": 478,
+      "wingMm": 352.8,
+      "beakMm": 41.9
+    },
+    "creagrus-furcatus": {
+      "massG": 687,
+      "wingMm": 409,
+      "beakMm": 62.2
+    },
+    "gelochelidon-nilotica": {
+      "massG": 218.3,
+      "wingMm": 307.7,
+      "beakMm": 43.9
+    },
+    "larosterna-inca": {
+      "massG": 219,
+      "wingMm": 277.2,
+      "beakMm": 48.8
+    },
+    "larus-belcheri": {
+      "massG": 638.6,
+      "wingMm": 365.2,
+      "beakMm": 58.7
+    },
+    "larus-dominicanus": {
+      "massG": 952.4,
+      "wingMm": 402,
+      "beakMm": 64.7
+    },
+    "leucophaeus-atricilla": {
+      "massG": 307.4,
+      "wingMm": 298.4,
+      "beakMm": 44.1
+    },
+    "leucophaeus-modestus": {
+      "massG": 344,
+      "wingMm": 318,
+      "beakMm": 50.7
+    },
+    "leucophaeus-pipixcan": {
+      "massG": 280,
+      "wingMm": 279.4,
+      "beakMm": 39.8
+    },
+    "phaetusa-simplex": {
+      "massG": 235,
+      "wingMm": 291.6,
+      "beakMm": 72.1
+    },
+    "rynchops-niger": {
+      "massG": 297.7,
+      "wingMm": 365.7,
+      "beakMm": 83.7
+    },
+    "sterna-hirundinacea": {
+      "massG": 188,
+      "wingMm": 296.6,
+      "beakMm": 49.9
+    },
+    "sterna-hirundo": {
+      "massG": 129.2,
+      "wingMm": 253.3,
+      "beakMm": 44.5
+    },
+    "sterna-paradisaea": {
+      "massG": 110,
+      "wingMm": 262.7,
+      "beakMm": 37.8
+    },
+    "sterna-trudeaui": {
+      "massG": 153,
+      "wingMm": 256.2,
+      "beakMm": 47.8
+    },
+    "sternula-antillarum": {
+      "massG": 45.9,
+      "wingMm": 165.1,
+      "beakMm": 29.5
+    },
+    "sternula-lorata": {
+      "massG": 53.8,
+      "wingMm": 173.5,
+      "beakMm": 34.7
+    },
+    "thalasseus-elegans": {
+      "massG": 260,
+      "wingMm": 296.6,
+      "beakMm": 64.4
+    },
+    "thalasseus-maximus": {
+      "massG": 415.3,
+      "wingMm": 364.3,
+      "beakMm": 73.5
+    },
+    "thalasseus-sandvicensis": {
+      "massG": 199.8,
+      "wingMm": 288.5,
+      "beakMm": 60.5
+    },
+    "xema-sabini": {
+      "massG": 198,
+      "wingMm": 265,
+      "beakMm": 32.1
+    },
+    "himantopus-mexicanus": {
+      "massG": 176.8,
+      "wingMm": 223.7,
+      "beakMm": 66.6
+    },
+    "actitis-macularius": {
+      "massG": 40.4,
+      "wingMm": 100.4,
+      "beakMm": 25.7
+    },
+    "arenaria-interpres": {
+      "massG": 136,
+      "wingMm": 148.8,
+      "beakMm": 25.4
+    },
+    "bartramia-longicauda": {
+      "massG": 158.9,
+      "wingMm": 159,
+      "beakMm": 32.9
+    },
+    "calidris-alba": {
+      "massG": 51.7,
+      "wingMm": 119.6,
+      "beakMm": 30
+    },
+    "calidris-bairdii": {
+      "massG": 41,
+      "wingMm": 121.8,
+      "beakMm": 25.5
+    },
+    "calidris-canutus": {
+      "massG": 141.9,
+      "wingMm": 164.4,
+      "beakMm": 37.5
+    },
+    "calidris-ferruginea": {
+      "massG": 58.1,
+      "wingMm": 129,
+      "beakMm": 38.5
+    },
+    "calidris-fuscicollis": {
+      "massG": 43,
+      "wingMm": 118.4,
+      "beakMm": 26.5
+    },
+    "calidris-himantopus": {
+      "massG": 57.2,
+      "wingMm": 126.8,
+      "beakMm": 43
+    },
+    "calidris-mauri": {
+      "massG": 27.8,
+      "wingMm": 92.2,
+      "beakMm": 21
+    },
+    "calidris-melanotos": {
+      "massG": 79.7,
+      "wingMm": 125.2,
+      "beakMm": 32.1
+    },
+    "calidris-minutilla": {
+      "massG": 22.9,
+      "wingMm": 86.4,
+      "beakMm": 20.3
+    },
+    "calidris-pusilla": {
+      "massG": 27.5,
+      "wingMm": 92.7,
+      "beakMm": 22.2
+    },
+    "calidris-virgata": {
+      "massG": 201,
+      "wingMm": 173,
+      "beakMm": 29
+    },
+    "limnodromus-griseus": {
+      "massG": 110.5,
+      "wingMm": 143,
+      "beakMm": 61
+    },
+    "limosa-fedoa": {
+      "massG": 357,
+      "wingMm": 224.8,
+      "beakMm": 112.5
+    },
+    "limosa-haemastica": {
+      "massG": 253.3,
+      "wingMm": 210.2,
+      "beakMm": 86.2
+    },
+    "limosa-lapponica": {
+      "massG": 291.7,
+      "wingMm": 210.1,
+      "beakMm": 92.5
+    },
+    "numenius-americanus": {
+      "massG": 583.9,
+      "wingMm": 266.8,
+      "beakMm": 164
+    },
+    "numenius-phaeopus": {
+      "massG": 364.6,
+      "wingMm": 233,
+      "beakMm": 92.1
+    },
+    "phalaropus-fulicarius": {
+      "massG": 55.6,
+      "wingMm": 126.3,
+      "beakMm": 31.4
+    },
+    "phalaropus-lobatus": {
+      "massG": 36.7,
+      "wingMm": 109,
+      "beakMm": 24.4
+    },
+    "phalaropus-tricolor": {
+      "massG": 59.4,
+      "wingMm": 127.8,
+      "beakMm": 27.3
+    },
+    "tringa-flavipes": {
+      "massG": 77.5,
+      "wingMm": 152.6,
+      "beakMm": 41.4
+    },
+    "tringa-incana": {
+      "massG": 108.2,
+      "wingMm": 164.6,
+      "beakMm": 45.1
+    },
+    "tringa-melanoleuca": {
+      "massG": 161.7,
+      "wingMm": 194.5,
+      "beakMm": 59.9
+    },
+    "tringa-semipalmata": {
+      "massG": 245.7,
+      "wingMm": 203.5,
+      "beakMm": 67.4
+    },
+    "tringa-solitaria": {
+      "massG": 48.4,
+      "wingMm": 126.6,
+      "beakMm": 32.7
+    },
+    "stercorarius-chilensis": {
+      "massG": 1367.8,
+      "wingMm": 379.6,
+      "beakMm": 53.6
+    },
+    "stercorarius-longicaudus": {
+      "massG": 287.9,
+      "wingMm": 301.7,
+      "beakMm": 32.9
+    },
+    "stercorarius-maccormicki": {
+      "massG": 1347.1,
+      "wingMm": 386.8,
+      "beakMm": 52.7
+    },
+    "stercorarius-parasiticus": {
+      "massG": 444.3,
+      "wingMm": 310.5,
+      "beakMm": 36.1
+    },
+    "stercorarius-pomarinus": {
+      "massG": 692.5,
+      "wingMm": 350.8,
+      "beakMm": 45.8
+    },
+    "thinocorus-rumicivorus": {
+      "massG": 53.1,
+      "wingMm": 110.6,
+      "beakMm": 12.7
+    },
+    "jabiru-mycteria": {
+      "massG": 5996.3,
+      "wingMm": 640.8,
+      "beakMm": 309.5
+    },
+    "columba-livia": {
+      "massG": 354.2,
+      "wingMm": 219.6,
+      "beakMm": 23.2
+    },
+    "columbina-cruziana": {
+      "massG": 50.1,
+      "wingMm": 86.6,
+      "beakMm": 15.1
+    },
+    "metriopelia-aymara": {
+      "massG": 61.8,
+      "wingMm": 116.2,
+      "beakMm": 12.9
+    },
+    "metriopelia-ceciliae": {
+      "massG": 55.1,
+      "wingMm": 95,
+      "beakMm": 13.8
+    },
+    "metriopelia-melanoptera": {
+      "massG": 100,
+      "wingMm": 130.6,
+      "beakMm": 15
+    },
+    "patagioenas-maculosa": {
+      "massG": 347,
+      "wingMm": 221.9,
+      "beakMm": 23.5
+    },
+    "zenaida-auriculata": {
+      "massG": 110.2,
+      "wingMm": 136.2,
+      "beakMm": 19
+    },
+    "zenaida-meloda": {
+      "massG": 209.2,
+      "wingMm": 158,
+      "beakMm": 23.1
+    },
+    "chloroceryle-americana": {
+      "massG": 33.7,
+      "wingMm": 76.8,
+      "beakMm": 42
+    },
+    "crotophaga-sulcirostris": {
+      "massG": 82,
+      "wingMm": 129.3,
+      "beakMm": 26.9
+    },
+    "falco-femoralis": {
+      "massG": 335.8,
+      "wingMm": 245.1,
+      "beakMm": 21.4
+    },
+    "falco-peregrinus": {
+      "massG": 760,
+      "wingMm": 314.7,
+      "beakMm": 31.1
+    },
+    "falco-sparverius": {
+      "massG": 114.6,
+      "wingMm": 182.4,
+      "beakMm": 17.1
+    },
+    "phalcoboenus-megalopterus": {
+      "massG": 788,
+      "wingMm": 371.8,
+      "beakMm": 40.2
+    },
+    "fulica-ardesiaca": {
+      "massG": 988,
+      "wingMm": 218,
+      "beakMm": 41.6
+    },
+    "fulica-gigantea": {
+      "massG": 2442.7,
+      "wingMm": 268.2,
+      "beakMm": 51.5
+    },
+    "fulica-rufifrons": {
+      "massG": 644,
+      "wingMm": 168.8,
+      "beakMm": 37.5
+    },
+    "gallinula-galeata": {
+      "massG": 339.6,
+      "wingMm": 176.1,
+      "beakMm": 31.4
+    },
+    "pardirallus-sanguinolentus": {
+      "massG": 232,
+      "wingMm": 126.2,
+      "beakMm": 54.1
+    },
+    "porphyrio-martinica": {
+      "massG": 235.1,
+      "wingMm": 174.4,
+      "beakMm": 30.6
+    },
+    "pheucticus-chrysogaster": {
+      "massG": 55.8,
+      "wingMm": 106.5,
+      "beakMm": 22.8
+    },
+    "cinclus-leucocephalus": {
+      "massG": 44,
+      "wingMm": 85.6,
+      "beakMm": 18.3
+    },
+    "spinus-atratus": {
+      "massG": 16,
+      "wingMm": 79.6,
+      "beakMm": 11.6
+    },
+    "spinus-crassirostris": {
+      "massG": 19,
+      "wingMm": 79.4,
+      "beakMm": 14.3
+    },
+    "spinus-magellanicus": {
+      "massG": 13.6,
+      "wingMm": 69.5,
+      "beakMm": 12
+    },
+    "asthenes-dorbignyi": {
+      "massG": 15.9,
+      "wingMm": 65.8,
+      "beakMm": 14.7
+    },
+    "asthenes-pudibunda": {
+      "massG": 14.9,
+      "wingMm": 59.8,
+      "beakMm": 17.1
+    },
+    "cinclodes-albiventris": {
+      "massG": 30,
+      "wingMm": 94.2,
+      "beakMm": 17.9
+    },
+    "cinclodes-atacamensis": {
+      "massG": 53,
+      "wingMm": 110.4,
+      "beakMm": 25.8
+    },
+    "cinclodes-taczanowskii": {
+      "massG": 64.5,
+      "wingMm": 113.6,
+      "beakMm": 26.3
+    },
+    "geositta-crassirostris": {
+      "massG": 55.8,
+      "wingMm": 90,
+      "beakMm": 27.8
+    },
+    "geositta-cunicularia": {
+      "massG": 28.5,
+      "wingMm": 89.8,
+      "beakMm": 20.2
+    },
+    "geositta-maritima": {
+      "massG": 16.5,
+      "wingMm": 81.8,
+      "beakMm": 15.2
+    },
+    "geositta-peruviana": {
+      "massG": 20.8,
+      "wingMm": 77.5,
+      "beakMm": 17.3
+    },
+    "geositta-tenuirostris": {
+      "massG": 32.2,
+      "wingMm": 110.6,
+      "beakMm": 30.8
+    },
+    "leptasthenura-striata": {
+      "massG": 8.9,
+      "wingMm": 60.6,
+      "beakMm": 10.3
+    },
+    "phleocryptes-melanops": {
+      "massG": 14.6,
+      "wingMm": 57,
+      "beakMm": 18.2
+    },
+    "pseudasthenes-cactorum": {
+      "massG": 17.4,
+      "wingMm": 59,
+      "beakMm": 18.7
+    },
+    "hirundo-rustica": {
+      "massG": 17.9,
+      "wingMm": 115.8,
+      "beakMm": 12.4
+    },
+    "orochelidon-andecola": {
+      "massG": 17,
+      "wingMm": 119.9,
+      "beakMm": 10.2
+    },
+    "orochelidon-murina": {
+      "massG": 11.7,
+      "wingMm": 112.7,
+      "beakMm": 9.8
+    },
+    "petrochelidon-pyrrhonota": {
+      "massG": 21.6,
+      "wingMm": 109.3,
+      "beakMm": 11.3
+    },
+    "petrochelidon-rufocollaris": {
+      "massG": 15.9,
+      "wingMm": 98,
+      "beakMm": 9.7
+    },
+    "progne-murphyi": {
+      "massG": 41.4,
+      "wingMm": 132,
+      "beakMm": 15.1
+    },
+    "progne-tapera": {
+      "massG": 32,
+      "wingMm": 128.3,
+      "beakMm": 15.8
+    },
+    "pygochelidon-cyanoleuca": {
+      "massG": 9.7,
+      "wingMm": 92.3,
+      "beakMm": 8.6
+    },
+    "riparia-riparia": {
+      "massG": 12.7,
+      "wingMm": 101.8,
+      "beakMm": 9.4
+    },
+    "dives-warczewiczi": {
+      "massG": 73.3,
+      "wingMm": 128.1,
+      "beakMm": 29.3
+    },
+    "dolichonyx-oryzivorus": {
+      "massG": 31.5,
+      "wingMm": 90.2,
+      "beakMm": 16.2
+    },
+    "leistes-bellicosus": {
+      "massG": 58,
+      "wingMm": 109.8,
+      "beakMm": 26.6
+    },
+    "molothrus-bonariensis": {
+      "massG": 41.5,
+      "wingMm": 109.9,
+      "beakMm": 19.7
+    },
+    "mimus-longicaudatus": {
+      "massG": 66.6,
+      "wingMm": 121.7,
+      "beakMm": 26.2
+    },
+    "anthus-peruvianus": {
+      "massG": 12.6,
+      "wingMm": 64,
+      "beakMm": 14.5
+    },
+    "geothlypis-aequinoctialis": {
+      "massG": 13.1,
+      "wingMm": 57.9,
+      "beakMm": 14.2
+    },
+    "setophaga-ruticilla": {
+      "massG": 8.2,
+      "wingMm": 62,
+      "beakMm": 12.3
+    },
+    "atlapetes-nationi": {
+      "massG": 41.6,
+      "wingMm": 81,
+      "beakMm": 17.4
+    },
+    "zonotrichia-capensis": {
+      "massG": 20.3,
+      "wingMm": 63.9,
+      "beakMm": 13.6
+    },
+    "passer-domesticus": {
+      "massG": 26.5,
+      "wingMm": 74.9,
+      "beakMm": 13.5
+    },
+    "asemospiza-obscura": {
+      "massG": 11.2,
+      "wingMm": 52.4,
+      "beakMm": 10.4
+    },
+    "catamenia-analis": {
+      "massG": 12,
+      "wingMm": 65.5,
+      "beakMm": 10.6
+    },
+    "catamenia-inornata": {
+      "massG": 13.4,
+      "wingMm": 70.7,
+      "beakMm": 10.1
+    },
+    "conirostrum-cinereum": {
+      "massG": 8.8,
+      "wingMm": 61.8,
+      "beakMm": 11.9
+    },
+    "diglossa-brunneiventris": {
+      "massG": 12,
+      "wingMm": 64.9,
+      "beakMm": 13.4
+    },
+    "geospizopsis-plebejus": {
+      "massG": 14.7,
+      "wingMm": 73.8,
+      "beakMm": 12.7
+    },
+    "geospizopsis-unicolor": {
+      "massG": 21.9,
+      "wingMm": 87.1,
+      "beakMm": 13.7
+    },
+    "phrygilus-atriceps": {
+      "massG": 24.3,
+      "wingMm": 94.4,
+      "beakMm": 17.9
+    },
+    "phrygilus-punensis": {
+      "massG": 37.2,
+      "wingMm": 96.6,
+      "beakMm": 18.6
+    },
+    "poospiza-hispaniolensis": {
+      "massG": 16.5,
+      "wingMm": 60.8,
+      "beakMm": 12.9
+    },
+    "rauenia-bonariensis": {
+      "massG": 36,
+      "wingMm": 89,
+      "beakMm": 15.8
+    },
+    "rhopospina-alaudina": {
+      "massG": 23.9,
+      "wingMm": 75.1,
+      "beakMm": 14.7
+    },
+    "rhopospina-fruticeti": {
+      "massG": 38.8,
+      "wingMm": 95.6,
+      "beakMm": 15.8
+    },
+    "saltator-aurantiirostris": {
+      "massG": 41.9,
+      "wingMm": 100.7,
+      "beakMm": 21.9
+    },
+    "saltator-striatipectus": {
+      "massG": 39,
+      "wingMm": 90.8,
+      "beakMm": 19.5
+    },
+    "sicalis-flaveola": {
+      "massG": 16.9,
+      "wingMm": 69.5,
+      "beakMm": 11.2
+    },
+    "sicalis-lutea": {
+      "massG": 16.3,
+      "wingMm": 81.4,
+      "beakMm": 14.5
+    },
+    "sicalis-luteola": {
+      "massG": 15.9,
+      "wingMm": 67,
+      "beakMm": 9.3
+    },
+    "sicalis-olivascens": {
+      "massG": 21.8,
+      "wingMm": 78.1,
+      "beakMm": 13.6
+    },
+    "sicalis-raimondii": {
+      "massG": 15.8,
+      "wingMm": 71.8,
+      "beakMm": 12.8
+    },
+    "sicalis-uropygialis": {
+      "massG": 22.5,
+      "wingMm": 84.4,
+      "beakMm": 12.2
+    },
+    "sporophila-peruviana": {
+      "massG": 12.6,
+      "wingMm": 60.3,
+      "beakMm": 12.6
+    },
+    "sporophila-simplex": {
+      "massG": 28,
+      "wingMm": 56.9,
+      "beakMm": 11
+    },
+    "sporophila-telasco": {
+      "massG": 9.6,
+      "wingMm": 54.1,
+      "beakMm": 10.1
+    },
+    "volatinia-jacarina": {
+      "massG": 9.9,
+      "wingMm": 47.8,
+      "beakMm": 10.4
+    },
+    "xenospingus-concolor": {
+      "massG": 21,
+      "wingMm": 69.8,
+      "beakMm": 15.2
+    },
+    "turdus-chiguanco": {
+      "massG": 93.3,
+      "wingMm": 136.4,
+      "beakMm": 29.4
+    },
+    "agriornis-montanus": {
+      "massG": 63.3,
+      "wingMm": 131.3,
+      "beakMm": 30.4
+    },
+    "anairetes-flavirostris": {
+      "massG": 6,
+      "wingMm": 48,
+      "beakMm": 10.7
+    },
+    "anairetes-reguloides": {
+      "massG": 5.9,
+      "wingMm": 52.4,
+      "beakMm": 15
+    },
+    "cnemarchus-rufipennis": {
+      "massG": 34.5,
+      "wingMm": 127.2,
+      "beakMm": 25
+    },
+    "elaenia-albiceps": {
+      "massG": 15.5,
+      "wingMm": 74.5,
+      "beakMm": 13.4
+    },
+    "lessonia-oreas": {
+      "massG": 13.8,
+      "wingMm": 79.3,
+      "beakMm": 13.6
+    },
+    "muscigralla-brevicauda": {
+      "massG": 12.6,
+      "wingMm": 60.9,
+      "beakMm": 14.9
+    },
+    "muscisaxicola-albifrons": {
+      "massG": 34,
+      "wingMm": 159.8,
+      "beakMm": 22.9
+    },
+    "muscisaxicola-capistratus": {
+      "massG": 26.6,
+      "wingMm": 114.6,
+      "beakMm": 19.3
+    },
+    "muscisaxicola-frontalis": {
+      "massG": 28.9,
+      "wingMm": 117.3,
+      "beakMm": 21.3
+    },
+    "muscisaxicola-griseus": {
+      "massG": 20.2,
+      "wingMm": 120.2,
+      "beakMm": 19.2
+    },
+    "muscisaxicola-juninensis": {
+      "massG": 22.2,
+      "wingMm": 111.4,
+      "beakMm": 17
+    },
+    "muscisaxicola-maclovianus": {
+      "massG": 23.8,
+      "wingMm": 104.1,
+      "beakMm": 17.5
+    },
+    "muscisaxicola-maculirostris": {
+      "massG": 14.2,
+      "wingMm": 85.5,
+      "beakMm": 16.5
+    },
+    "muscisaxicola-rufivertex": {
+      "massG": 20,
+      "wingMm": 105.2,
+      "beakMm": 19.5
+    },
+    "myiophobus-rufescens": {
+      "massG": 9.9,
+      "wingMm": 61,
+      "beakMm": 15.9
+    },
+    "myiotheretes-striaticollis": {
+      "massG": 61.2,
+      "wingMm": 140.1,
+      "beakMm": 27.4
+    },
+    "ochthoeca-leucophrys": {
+      "massG": 13.1,
+      "wingMm": 75.7,
+      "beakMm": 14.8
+    },
+    "ochthoeca-oenanthoides": {
+      "massG": 17.7,
+      "wingMm": 82.1,
+      "beakMm": 15.9
+    },
+    "pyrocephalus-rubinus": {
+      "massG": 14.4,
+      "wingMm": 74.3,
+      "beakMm": 14.4
+    },
+    "tachuris-rubrigastra": {
+      "massG": 7.8,
+      "wingMm": 50.5,
+      "beakMm": 16
+    },
+    "tyrannus-melancholicus": {
+      "massG": 37.4,
+      "wingMm": 108.8,
+      "beakMm": 23.5
+    },
+    "tyrannus-savana": {
+      "massG": 31.9,
+      "wingMm": 105.6,
+      "beakMm": 20.1
+    },
+    "tyrannus-tyrannus": {
+      "massG": 39.9,
+      "wingMm": 116.7,
+      "beakMm": 21.5
+    },
+    "ardea-alba": {
+      "massG": 871.3,
+      "wingMm": 378.8,
+      "beakMm": 126.3
+    },
+    "ardea-cocoi": {
+      "massG": 1752.4,
+      "wingMm": 466.3,
+      "beakMm": 146.9
+    },
+    "ardea-ibis": {
+      "massG": 366,
+      "wingMm": 244.4,
+      "beakMm": 63.3,
+      "avonetName": "Bubulcus ibis"
+    },
+    "butorides-striata": {
+      "massG": 201.5,
+      "wingMm": 173.9,
+      "beakMm": 70.3
+    },
+    "egretta-caerulea": {
+      "massG": 338.6,
+      "wingMm": 257.8,
+      "beakMm": 78.1
+    },
+    "egretta-thula": {
+      "massG": 371,
+      "wingMm": 252.8,
+      "beakMm": 86.3
+    },
+    "egretta-tricolor": {
+      "massG": 372.3,
+      "wingMm": 248.8,
+      "beakMm": 102.7
+    },
+    "nyctanassa-violacea": {
+      "massG": 681.7,
+      "wingMm": 283.8,
+      "beakMm": 76.5
+    },
+    "nycticorax-nycticorax": {
+      "massG": 810,
+      "wingMm": 285.7,
+      "beakMm": 80.5
+    },
+    "pelecanus-occidentalis": {
+      "massG": 3427.8,
+      "wingMm": 494.6,
+      "beakMm": 319.5
+    },
+    "pelecanus-thagus": {
+      "massG": 3427.8,
+      "wingMm": 615,
+      "beakMm": 380.4
+    },
+    "platalea-ajaja": {
+      "massG": 1490,
+      "wingMm": 349,
+      "beakMm": 159.8
+    },
+    "plegadis-ridgwayi": {
+      "massG": 579.4,
+      "wingMm": 277.8,
+      "beakMm": 101.9
+    },
+    "theristicus-melanopis": {
+      "massG": 1250,
+      "wingMm": 382,
+      "beakMm": 142.8
+    },
+    "phaethon-aethereus": {
+      "massG": 750,
+      "wingMm": 309.2,
+      "beakMm": 66.4
+    },
+    "phoenicoparrus-andinus": {
+      "massG": 4900,
+      "wingMm": 425,
+      "beakMm": 113.3
+    },
+    "phoenicoparrus-jamesi": {
+      "massG": 2000,
+      "wingMm": 411.7,
+      "beakMm": 86.5
+    },
+    "phoenicopterus-chilensis": {
+      "massG": 2277,
+      "wingMm": 401.8,
+      "beakMm": 106.4
+    },
+    "colaptes-atricollis": {
+      "massG": 76.1,
+      "wingMm": 118.5,
+      "beakMm": 31.8
+    },
+    "colaptes-rupicola": {
+      "massG": 174,
+      "wingMm": 167.2,
+      "beakMm": 50.9
+    },
+    "podiceps-major": {
+      "massG": 1646,
+      "wingMm": 181.4,
+      "beakMm": 82
+    },
+    "podiceps-occipitalis": {
+      "massG": 320.7,
+      "wingMm": 126.4,
+      "beakMm": 22.5
+    },
+    "podilymbus-podiceps": {
+      "massG": 411.9,
+      "wingMm": 125.6,
+      "beakMm": 28.8
+    },
+    "rollandia-rolland": {
+      "massG": 324.3,
+      "wingMm": 134.6,
+      "beakMm": 32.8
+    },
+    "phoebastria-irrorata": {
+      "massG": 3376.4,
+      "wingMm": 534.5,
+      "beakMm": 151.1
+    },
+    "thalassarche-bulleri": {
+      "massG": 2781.5,
+      "wingMm": 501.2,
+      "beakMm": 121.9
+    },
+    "thalassarche-eremita": {
+      "massG": 3897.7,
+      "wingMm": 542,
+      "beakMm": 127.2
+    },
+    "thalassarche-melanophris": {
+      "massG": 3202.9,
+      "wingMm": 506.9,
+      "beakMm": 115
+    },
+    "thalassarche-salvini": {
+      "massG": 3897.7,
+      "wingMm": 558,
+      "beakMm": 127.3
+    },
+    "hydrobates-hornbyi": {
+      "massG": 40.6,
+      "wingMm": 163.2,
+      "beakMm": 20.8
+    },
+    "hydrobates-markhami": {
+      "massG": 53.1,
+      "wingMm": 170.8,
+      "beakMm": 20.1
+    },
+    "hydrobates-melania": {
+      "massG": 61.5,
+      "wingMm": 172.2,
+      "beakMm": 17.5
+    },
+    "hydrobates-tethys": {
+      "massG": 22.6,
+      "wingMm": 129.8,
+      "beakMm": 13.3
+    },
+    "fregetta-grallaria": {
+      "massG": 50.6,
+      "wingMm": 168.6,
+      "beakMm": 19.3
+    },
+    "oceanites-gracilis": {
+      "massG": 16.7,
+      "wingMm": 133.4,
+      "beakMm": 13
+    },
+    "oceanites-oceanicus": {
+      "massG": 30.4,
+      "wingMm": 147.2,
+      "beakMm": 16.3
+    },
+    "pelagodroma-marina": {
+      "massG": 47.2,
+      "wingMm": 158.2,
+      "beakMm": 21.1
+    },
+    "ardenna-bulleri": {
+      "massG": 407,
+      "wingMm": 276.2,
+      "beakMm": 41
+    },
+    "ardenna-creatopus": {
+      "massG": 744,
+      "wingMm": 324,
+      "beakMm": 48.4
+    },
+    "ardenna-grisea": {
+      "massG": 787,
+      "wingMm": 295.6,
+      "beakMm": 47.8
+    },
+    "daption-capense": {
+      "massG": 429.6,
+      "wingMm": 249.8,
+      "beakMm": 36.6
+    },
+    "fulmarus-glacialoides": {
+      "massG": 793.4,
+      "wingMm": 315,
+      "beakMm": 45.7
+    },
+    "macronectes-giganteus": {
+      "massG": 3591.7,
+      "wingMm": 493.6,
+      "beakMm": 91.6
+    },
+    "macronectes-halli": {
+      "massG": 4206.3,
+      "wingMm": 498,
+      "beakMm": 101.7
+    },
+    "pachyptila-belcheri": {
+      "massG": 145,
+      "wingMm": 175.8,
+      "beakMm": 28.5
+    },
+    "pachyptila-desolata": {
+      "massG": 147,
+      "wingMm": 182.4,
+      "beakMm": 29.7
+    },
+    "pelecanoides-garnotii": {
+      "massG": 219.7,
+      "wingMm": 134.2,
+      "beakMm": 30.1
+    },
+    "procellaria-aequinoctialis": {
+      "massG": 1213,
+      "wingMm": 382.6,
+      "beakMm": 54.4
+    },
+    "procellaria-parkinsoni": {
+      "massG": 702.2,
+      "wingMm": 363,
+      "beakMm": 51
+    },
+    "pterodroma-cookii": {
+      "massG": 177.9,
+      "wingMm": 213.2,
+      "beakMm": 25.5
+    },
+    "pterodroma-defilippiana": {
+      "massG": 169,
+      "wingMm": 226,
+      "beakMm": 27.5
+    },
+    "pterodroma-externa": {
+      "massG": 428,
+      "wingMm": 291.3,
+      "beakMm": 37.8
+    },
+    "forpus-coelestis": {
+      "massG": 26.1,
+      "wingMm": 76.8,
+      "beakMm": 16.6
+    },
+    "pionus-menstruus": {
+      "massG": 251,
+      "wingMm": 178.5,
+      "beakMm": 26.9
+    },
+    "psilopsiagon-aurifrons": {
+      "massG": 33.6,
+      "wingMm": 92.4,
+      "beakMm": 13.5
+    },
+    "psittacara-frontatus": {
+      "massG": 194,
+      "wingMm": 217.4,
+      "beakMm": 36.5
+    },
+    "spheniscus-humboldti": {
+      "massG": 4366.4,
+      "wingMm": 105.2,
+      "beakMm": 63.7
+    },
+    "asio-clamator": {
+      "massG": 443.3,
+      "wingMm": 248.9,
+      "beakMm": 32.9
+    },
+    "asio-flammeus": {
+      "massG": 322.6,
+      "wingMm": 297.2,
+      "beakMm": 27.3
+    },
+    "athene-cunicularia": {
+      "massG": 150.6,
+      "wingMm": 180,
+      "beakMm": 24.1
+    },
+    "glaucidium-peruanum": {
+      "massG": 62.4,
+      "wingMm": 94.2,
+      "beakMm": 15.3
+    },
+    "fregata-magnificens": {
+      "massG": 1490.5,
+      "wingMm": 642,
+      "beakMm": 121.9
+    },
+    "fregata-minor": {
+      "massG": 1274.7,
+      "wingMm": 567.8,
+      "beakMm": 116.8
+    },
+    "phalacrocorax-bougainvillii": {
+      "massG": 2485,
+      "wingMm": 292.8,
+      "beakMm": 69.7
+    },
+    "phalacrocorax-gaimardi": {
+      "massG": 1358.34,
+      "wingMm": 246.5,
+      "beakMm": 65.5
+    },
+    "sula-dactylatra": {
+      "massG": 1732.1,
+      "wingMm": 412.2,
+      "beakMm": 96
+    },
+    "sula-granti": {
+      "massG": 1732.1,
+      "wingMm": 416.8,
+      "beakMm": 102
+    },
+    "sula-nebouxii": {
+      "massG": 1520.1,
+      "wingMm": 410.4,
+      "beakMm": 99.8
+    },
+    "sula-sula": {
+      "massG": 1031.1,
+      "wingMm": 366.8,
+      "beakMm": 79.3
+    },
+    "sula-variegata": {
+      "massG": 1432.5,
+      "wingMm": 370.4,
+      "beakMm": 88.9
+    },
+    "nothoprocta-ornata": {
+      "massG": 619.3,
+      "wingMm": 185.6,
+      "beakMm": 30.9
+    },
+    "nothoprocta-pentlandii": {
+      "massG": 300.7,
+      "wingMm": 148.2,
+      "beakMm": 27.9
+    },
+    "tinamotis-pentlandii": {
+      "massG": 650,
+      "wingMm": 253.4,
+      "beakMm": 31.2
+    }
+  }
+}

@@ -52,3 +52,6 @@ data/stickers/raw-rejected/
 data/stickers/site/
 # Encargos de cada tanda: los generan make-batches.mjs y pending.mjs.
 tools/stickers/batches/
+
+# Originales del arte de las cartas (Codex y Gemini): pesan; se versionan los de apps/mobile/assets/cards.
+data/cards/raw/

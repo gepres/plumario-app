@@ -83,21 +83,3 @@ export function searchEntries(entries: readonly AlbumEntry[], query: string): Al
 
 /** El número del sticker como lo imprime el álbum: «011». */
 export const formatAlbumNumber = (albumNumber: number | null) => (albumNumber === null ? '—' : String(albumNumber).padStart(3, '0'));
-
-export type Seal = 'threatened' | 'emblematic' | 'endemic' | 'nearThreatened';
-
-const SEAL_CATEGORY: Record<Seal, CardCategory> = { threatened: 'diamond', emblematic: 'ruby', endemic: 'gold', nearThreatened: 'silver' };
-
-/**
- * «Si cumple varias, gana la más alta. Lo demás queda como sello en la ficha de la especie»
- * (CategoriasCromos): los criterios que cumple además del que decide su categoría.
- */
-export function sealsOf(species: Pick<Species, 'iucn' | 'endemic' | 'emblematic' | 'threatened'>): Seal[] {
-  const met: Seal[] = [];
-  if (species.threatened || ['VU', 'EN', 'CR'].includes(species.iucn ?? '')) met.push('threatened');
-  if (species.emblematic) met.push('emblematic');
-  if (species.endemic) met.push('endemic');
-  if (species.iucn === 'NT') met.push('nearThreatened');
-  const category = categoryOf(species);
-  return met.filter((seal) => SEAL_CATEGORY[seal] !== category);
-}

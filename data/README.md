@@ -8,6 +8,9 @@
 | `species/ica.json` | El catálogo que se carga a Firestore, generado desde el Excel. Claves en inglés. |
 | `species/ica-habitats.xlsx` | El hábitat del álbum de cada especie, para revisar a mano en Excel: trae filtros y listas desplegables. |
 | `species/proposals/` | Las dos propuestas independientes de hábitat (Claude y Codex) de las que sale la tabla. |
+| `sources/avonet-dataset-1.xlsx` | AVONET (Tobias et al. 2022, Ecology Letters, CC BY 4.0), [de Figshare](https://doi.org/10.6084/m9.figshare.16586228.v7). **No se versiona**: pesa 21 MB. |
+| `species/ica-measures.json` | Peso, ala y pico de las aves del álbum, sacados de AVONET. Cubre 291 de 294. |
+| `species/ica-families.json` | Nombre, dieta y rasgos de la carta para cada una de las 55 familias. **Borrador pendiente de la revisión del biólogo.** |
 
 ### Pasos
 
@@ -15,7 +18,13 @@
 pnpm species:convert     # Excel + tabla de hábitats → species/ica.json
 pnpm species:seed        # carga ica.json al emulador (con pnpm emulators corriendo)
 pnpm species:seed --prod # carga al proyecto real: exige los hábitats del álbum revisados
+pnpm species:measures    # AVONET → species/ica-measures.json
+pnpm species:cards       # familias + medidas → apps/mobile/src/constants/card-facts.ts
 ```
+
+Los datos de la carta van dentro del paquete de la app, no en Firestore: cambiarlos no toca producción.
+Cuando el biólogo los apruebe, pon `reviewed: true` en `ica-families.json` y en `ica-measures.json`.
+Si AVONET vuelve a generarse, `species:measures` reinicia esa marca.
 
 ### Revisar los hábitats
 
