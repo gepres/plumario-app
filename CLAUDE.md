@@ -136,6 +136,8 @@ pnpm viewer           regenera viewer/index.html desde design/
   app. Para ver una foto de verdad, usa la galería o un teléfono.
 - **Las Functions corren con Node 22**, no 24: el trigger de Auth es de primera generación, que no
   admite Node 24 ni la región de Santiago (va a `southamerica-east1`).
+- **Cloud Scheduler no existe en Santiago.** Una función con `onSchedule` en `southamerica-west1` falla
+  al desplegar (`is not a valid location`): va con `SCHEDULER_REGION`, en `southamerica-east1`.
 - **`setGlobalOptions` va en `functions/src/setup.ts`, importado primero.** Las funciones invocables
   toman la región al definirse, y los módulos que las definen se evalúan antes que el cuerpo de
   `index.ts`: ahí quedaban en `us-central1`. El emulador guarda las regiones de la primera carga:

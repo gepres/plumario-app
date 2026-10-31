@@ -52,7 +52,7 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 4. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
    RegistrarCompletado, RevelarCromado o RevelarDiamante, o que la foto no se reconoció.
 5. **Si Gemini no respondió**, la foto entró sin contar: `reviewPending: true` y `blocked: review`.
-   `revalidateSightings` (`functions/src/revalidate.ts`, cada 30 min y de a 20) las busca con
+   `revalidateSightings` (`functions/src/revalidate.ts`, cada 30 min y de a 20, en São Paulo porque Cloud Scheduler no existe en Santiago) las busca con
    `collectionGroup` y las vuelve a revisar: la aprobada cuenta en ese momento y la rechazada pasa a
    `rejected` y resta 1 de `validPhotos`. Por eso `firestore.indexes.json` declara el campo
    `reviewPending` también a nivel de grupo.

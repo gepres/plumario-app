@@ -5,6 +5,7 @@ import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { evaluateRevalidatedPhoto, nextFinishMilestone, type SightingResult } from '@plumario/core';
 
 import { GEMINI_API_KEY } from './ai.js';
+import { SCHEDULER_REGION } from './health.js';
 import { stickerDocument, toSpecies, toSticker } from './mappers.js';
 import { readPhoto, resultDocument, reviewPhoto } from './sightings.js';
 
@@ -75,7 +76,7 @@ export async function revalidatePending() {
   return pending.size;
 }
 
-export const revalidateSightings = onSchedule({ schedule: 'every 30 minutes', secrets: [GEMINI_API_KEY], memory: '512MiB', timeoutSeconds: 300 }, async () => {
+export const revalidateSightings = onSchedule({ region: SCHEDULER_REGION, schedule: 'every 30 minutes', secrets: [GEMINI_API_KEY], memory: '512MiB', timeoutSeconds: 300 }, async () => {
   const size = await revalidatePending();
   if (size > 0) logger.info('Registros revalidados', { size });
 });

@@ -6,6 +6,9 @@ export const REGION = 'southamerica-west1';
 // Paulo, la región más cercana que la tiene.
 export const AUTH_TRIGGER_REGION = 'southamerica-east1';
 
+// Cloud Scheduler tampoco existe en Santiago, y la tarea se crea en la región de su función.
+export const SCHEDULER_REGION = 'southamerica-east1';
+
 /** Respuesta de la función de salud: sirve para comprobar que el despliegue o el emulador responden. */
 export function getHealth() {
   return { ok: true, service: 'plumario', region: REGION } as const;
