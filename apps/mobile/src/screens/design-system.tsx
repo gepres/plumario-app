@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { HABITATS } from '@plumario/core';
+import { HABITATS, type AlbumEntry } from '@plumario/core';
 import { cardFinishes, layout, palette, radius, spacing, typography, type CardFinish, type Gradient, type TypeVariant } from '@plumario/tokens';
-import { Button, Card, Chip, GradientView, ListRow, ProgressBar, ThemedText, useTheme, type ColorToken } from '@plumario/ui';
+import { Button, Card, Chip, GradientView, ListRow, ProgressBar, ThemedText, useTheme, type ColorToken, type StickerFinish } from '@plumario/ui';
 
 import { HomeSkeleton, SuggestionsSkeleton } from '@/components/screen-skeletons';
+import { SpeciesCard, SpeciesCardBack } from '@/components/species-card';
 import { HABITAT_LABELS } from '@/constants/habitats';
 import { useDependencies, type Dependencies } from '@/infrastructure/dependencies';
 
@@ -44,6 +45,17 @@ function asGradient(finish: CardFinish): Gradient {
   const last = finish.colors.length - 1;
   return { type: 'linear', angle: finish.from, stops: finish.colors.map((color, i) => ({ color, position: i / last })), css: finish.css };
 }
+
+// El Pelícano Peruano lleva dos sellos: sirve para ver la carta más cargada en los seis acabados.
+const SAMPLE_CARD: AlbumEntry = {
+  species: {
+    id: 'pelecanus-thagus', regionId: 'ica', taxonClass: 'bird', albumNumber: 230, commonName: 'Pelícano Peruano', scientificName: 'Pelecanus thagus',
+    habitat: 'coast', family: 'Pelecanidae', iucn: 'NT', nationalCategory: 'EN', threatened: true, endemic: false, emblematic: true, figure: 'pelican',
+  },
+  sticker: { speciesId: 'pelecanus-thagus', completedAt: new Date(2026, 9, 12), validPhotos: 5, chrome: null },
+  category: 'diamond',
+};
+const SAMPLE_FINISHES: readonly StickerFinish[] = ['normal', 'holographic', 'silver', 'gold', 'ruby', 'diamond'];
 
 /** Catálogo vivo de tokens y componentes: para revisar la paleta F en claro y oscuro en el teléfono. */
 export function DesignSystem() {
@@ -100,6 +112,17 @@ export function DesignSystem() {
       </View>
 
       <View style={styles.block}>
+        <ThemedText variant="section">Cartas</ThemedText>
+        <ThemedText variant="caption" color="textSecondary">Del cromado al diamante brillan solas y al tocarlas. La normal no brilla.</ThemedText>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cards}>
+          {SAMPLE_FINISHES.map((finish) => (
+            <SpeciesCard key={finish} entry={SAMPLE_CARD} total={294} size={250} finish={finish} />
+          ))}
+          <SpeciesCardBack entry={SAMPLE_CARD} size={250} finish="gold" />
+        </ScrollView>
+      </View>
+
+      <View style={styles.block}>
         <ThemedText variant="section">Componentes</ThemedText>
         <Button label="Primario" onPress={() => {}} icon="camera" />
         <Button label="Secundario" variant="secondary" onPress={() => {}} />
@@ -150,6 +173,10 @@ export function DesignSystem() {
 }
 
 const styles = StyleSheet.create({
+  cards: {
+    gap: spacing[3],
+    paddingVertical: spacing[2],
+  },
   content: {
     padding: layout.cardMargin,
     gap: spacing[6],

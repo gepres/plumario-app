@@ -16,9 +16,11 @@ import {
 } from '@plumario/core';
 import type { Gradient } from '@plumario/tokens';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, GradientView, HOLOGRAPHIC, Icon, ProgressBar, Rays, ThemedText, useTheme } from '@plumario/ui';
+import { BirdCardCover, Button, CARD_HEIGHT, CARD_WIDTH, FlipCard, GradientView, HOLOGRAPHIC, Icon, ProgressBar, Rays, ThemedText, useTheme } from '@plumario/ui';
 
+import { SpeciesCard } from '@/components/species-card';
 import { SpeciesSticker } from '@/components/species-sticker';
+import { CARD_BACK } from '@/constants/card-art';
 import { CATEGORY_LABELS, CATEGORY_REASONS } from '@/constants/cards';
 import { invalidateAlbum } from '@/hooks/album-version';
 import { useAlbum } from '@/hooks/use-album';
@@ -115,12 +117,24 @@ const DIAMOND_NIGHT: Gradient = {
 
 const IUCN_LABELS: Record<string, string> = { VU: 'Vulnerable', EN: 'En peligro', CR: 'En peligro crítico' };
 
-/** RevelarCromado / RevelarDiamante: el cromo sale sobre fondo de noche, con destellos. */
+const REVEAL_CARD_WIDTH = 270;
+/** Lo que la carta se queda de espaldas antes de girar: un momento de intriga. */
+const REVEAL_DELAY = 750;
+
+/** RevelarCromado / RevelarDiamante: la carta sale de espaldas sobre fondo de noche y gira para mostrarse. */
 function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
+  const [revealed, setRevealed] = useState(false);
+  const cardSize = Math.min(width - spacing[6] * 2, REVEAL_CARD_WIDTH);
   const diamond = result.category === 'diamond';
+
+  useEffect(() => {
+    const timer = setTimeout(() => setRevealed(true), REVEAL_DELAY);
+    return () => clearTimeout(timer);
+  }, []);
+
   const accent = diamond ? '#BFE3F2' : '#F2EAB8';
   const soft = diamond ? '#C3D6E0' : colors.onRevealSecondary;
   const label = CATEGORY_LABELS[result.category];
@@ -153,11 +167,16 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
           <View style={styles.closeButton} />
         </View>
 
-        <View style={styles.stickerStage}>
+        <View style={[styles.stickerStage, { height: (cardSize * CARD_HEIGHT) / CARD_WIDTH + spacing[5] }]}>
           <Sparkles width={Math.min(width, 390)} colors={diamond ? ['#FFFFFF', '#BFE3F2'] : HOLOGRAPHIC.colors.slice(0, 5)} />
           <Animated.View entering={ZoomIn.springify().damping(12)}>
-            <View style={[styles.tilt, { boxShadow: `0 0 30px ${diamond ? 'rgba(159,211,234,0.55)' : 'rgba(197,217,245,0.45)'}` }]}>
-              <SpeciesSticker entry={entryAfter(entry, result)} size={diamond ? 200 : 216} />
+            <View style={[styles.cardGlow, { boxShadow: `0 0 30px ${diamond ? 'rgba(159,211,234,0.55)' : 'rgba(197,217,245,0.45)'}` }]}>
+              <FlipCard
+                size={cardSize}
+                flipped={revealed}
+                front={<BirdCardCover image={CARD_BACK} size={cardSize} />}
+                back={<SpeciesCard entry={entryAfter(entry, result)} total={result.total} size={cardSize} />}
+              />
             </View>
           </Animated.View>
         </View>
@@ -450,6 +469,9 @@ const styles = StyleSheet.create({
   tilt: {
     transform: [{ rotate: '-4deg' }],
     borderRadius: 14,
+  },
+  cardGlow: {
+    borderRadius: 16,
   },
   // Los textos van a todo el ancho y centrados: con alignItems center, Android los mide por su
   // ancho intrínseco y a veces corta la segunda palabra (pasaba con el nombre científico en itálica).

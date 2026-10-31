@@ -1,15 +1,16 @@
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Circle, Path } from 'react-native-svg';
 
-import { formatAlbumNumber, speciesSeals, type AlbumEntry } from '@plumario/core';
+import { formatAlbumNumber, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, FinishSwatch, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
+import { Button, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSkeleton } from '@/components/screen-skeletons';
-import { SpeciesSticker } from '@/components/species-sticker';
-import { CATEGORY_LABELS, CHROME_SOURCE_LABELS, SEAL_LABELS, formatLongDate } from '@/constants/cards';
-import { ALBUM_HABITAT_LABELS, stickerTint } from '@/constants/habitats';
+import { SpeciesCard, SpeciesCardBack } from '@/components/species-card';
+import { CATEGORY_LABELS, CHROME_SOURCE_LABELS, formatLongDate } from '@/constants/cards';
+import { ALBUM_HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
 type Props = {
@@ -22,7 +23,7 @@ type Props = {
   onTrade: (mode: 'offer' | 'request', speciesId: string) => void;
 };
 
-/** StickerDetalle: el sticker grande, su categoría y sellos, y cómo y cuándo se obtuvo. */
+/** StickerDetalle: la carta de la especie, con su reverso, y cómo y cuándo se obtuvo. */
 export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTrade }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
@@ -37,7 +38,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTra
           <Pressable accessibilityRole="button" accessibilityLabel="Volver" onPress={onBack} style={styles.back}>
             <Icon name="back" color={colors.text} size={22} strokeWidth={2} />
           </Pressable>
-          <ThemedText variant="bodyStrong" accessibilityRole="header">{chromed ? 'Sticker cromado' : 'Sticker'}</ThemedText>
+          <ThemedText variant="bodyStrong" accessibilityRole="header">{chromed ? 'Carta cromada' : 'Carta'}</ThemedText>
           {entry?.sticker ? (
             <Pressable accessibilityRole="button" accessibilityLabel="Compartir tarjeta" onPress={() => onShare(speciesId, false)} style={styles.back}>
               <Icon name="share" color={colors.text} size={20} strokeWidth={1.8} />
@@ -49,33 +50,42 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTra
         {state.status === 'loading' && <SpeciesSkeleton inset />}
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
-        {entry?.sticker && <DetailContent entry={entry} onOpenGallery={onOpenGallery} onShare={onShare} onTrade={onTrade} />}
+        {state.status === 'ready' && entry?.sticker && (
+          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onShare={onShare} onTrade={onTrade} />
+        )}
       </ScrollView>
       <StatusBarScrim />
     </>
   );
 }
 
-function DetailContent({ entry, onOpenGallery, onShare, onTrade }: { entry: AlbumEntry } & Pick<Props, 'onOpenGallery' | 'onShare' | 'onTrade'>) {
-  const { mode, colors } = useTheme();
+function DetailContent({ entry, total, onOpenGallery, onShare, onTrade }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onShare' | 'onTrade'>) {
+  const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const [flipped, setFlipped] = useState(false);
   const { species, category } = entry;
   const sticker = entry.sticker!;
   const number = formatAlbumNumber(species.albumNumber);
-  const tint = mode === 'dark' ? colors.surfaceAlt : stickerTint(species.habitat);
-  const decoration = mode === 'dark' ? 'rgba(255,255,255,0.14)' : 'rgba(20,48,47,0.14)';
+  const cardSize = Math.min(width - layout.cardMargin * 2, CARD_MAX_WIDTH);
+
+  const flip = () => {
+    void Haptics.selectionAsync();
+    setFlipped((side) => !side);
+  };
 
   return (
     <>
-      <View style={[styles.hero, { backgroundColor: tint }]}>
-        {/* Círculo punteado y olas, como en el diseño. */}
-        <Svg width="100%" height="100%" viewBox="0 0 358 262" preserveAspectRatio="xMidYMid slice" style={styles.decoration}>
-          <Circle cx={179} cy={131} r={118} fill="none" stroke={decoration} strokeWidth={1.5} strokeDasharray="3 6" />
-          <Path d="M-10 226 q22 -12 44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0" fill="none" stroke={decoration} strokeWidth={2} strokeLinecap="round" />
-          <Path d="M-32 244 q22 -12 44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0" fill="none" stroke={decoration} strokeWidth={2} strokeLinecap="round" />
-        </Svg>
-        <View style={styles.tilt}>
-          <SpeciesSticker entry={entry} size={172} />
-        </View>
+      <View style={styles.hero}>
+        <FlipCard
+          size={cardSize}
+          flipped={flipped}
+          front={<SpeciesCard entry={entry} total={total} size={cardSize} />}
+          back={<SpeciesCardBack entry={entry} size={cardSize} />}
+        />
+        <Pressable accessibilityRole="button" onPress={flip} style={styles.flip}>
+          <Icon name="swap" color={colors.text} size={18} strokeWidth={2} />
+          <ThemedText variant="label">{flipped ? 'Ver el anverso' : 'Dar vuelta'}</ThemedText>
+        </Pressable>
       </View>
 
       <View style={styles.titles}>
@@ -88,11 +98,6 @@ function DetailContent({ entry, onOpenGallery, onShare, onTrade }: { entry: Albu
               <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[category]}</ThemedText>
             </View>
           )}
-          {speciesSeals(species).map((seal) => (
-            <View key={seal} style={[styles.chip, styles.seal, { borderColor: colors.border }]}>
-              <ThemedText variant="caption" color="textSecondary">Sello: {SEAL_LABELS[seal]}</ThemedText>
-            </View>
-          ))}
           <View style={[styles.chip, { backgroundColor: colors.surface, borderColor: colors.line }]}>
             <ThemedText variant="caption" color="textSecondary">
               N.º {number}{species.habitat ? ` · ${ALBUM_HABITAT_LABELS[species.habitat]}` : ''}
@@ -134,6 +139,8 @@ function Fact({ term, value, last = false }: { term: string; value: string; last
   );
 }
 
+const CARD_MAX_WIDTH = 340;
+
 const styles = StyleSheet.create({
   topBar: {
     height: layout.header,
@@ -153,20 +160,16 @@ const styles = StyleSheet.create({
     marginHorizontal: layout.cardMargin,
   },
   hero: {
-    marginHorizontal: layout.cardMargin,
-    height: 262,
-    borderRadius: radius.sheet,
-    overflow: 'hidden',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: spacing[2],
+    paddingTop: spacing[1],
   },
-  decoration: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  tilt: {
-    transform: [{ rotate: '-4deg' }],
+  flip: {
+    minHeight: 44,
+    paddingHorizontal: spacing[3],
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   titles: {
     paddingHorizontal: layout.textMargin,
@@ -187,9 +190,6 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
     paddingHorizontal: 10,
     paddingVertical: 4,
-  },
-  seal: {
-    borderStyle: 'dashed',
   },
   facts: {
     marginTop: 10,

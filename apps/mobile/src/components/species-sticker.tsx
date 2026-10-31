@@ -1,14 +1,16 @@
-import { formatAlbumNumber, type AlbumEntry } from '@plumario/core';
+import { formatAlbumNumber, speciesSeals, type AlbumEntry } from '@plumario/core';
 import { BirdSticker } from '@plumario/ui';
 
+import { SEAL_ART } from '@/constants/card-art';
 import { stickerTint } from '@/constants/habitats';
 import { STICKER_ART } from '@/constants/sticker-art';
 
 /**
  * El sticker de una entrada del álbum: en sombra, normal o cromado con el acabado de su categoría.
- * Con `chromed` se dibuja su cromo aunque no se tenga (el que se pide en un intercambio).
+ * Con `chromed` se dibuja su cromo aunque no se tenga (el que se pide en un intercambio). Con
+ * `decorated` lleva sus sellos y el destello del acabado: es la miniatura de la carta en el álbum.
  */
-export function SpeciesSticker({ entry, size, chromed }: { entry: AlbumEntry; size: number; chromed?: boolean }) {
+export function SpeciesSticker({ entry, size, chromed, decorated }: { entry: AlbumEntry; size: number; chromed?: boolean; decorated?: boolean }) {
   const { species, sticker, category } = entry;
   return (
     <BirdSticker
@@ -20,6 +22,8 @@ export function SpeciesSticker({ entry, size, chromed }: { entry: AlbumEntry; si
       empty={!sticker && !chromed}
       size={size}
       art={STICKER_ART[species.id]}
+      seals={decorated ? speciesSeals(species).map((seal) => SEAL_ART[seal]) : undefined}
+      shine={decorated}
     />
   );
 }

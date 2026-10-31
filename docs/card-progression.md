@@ -56,6 +56,20 @@ y los valores de un país, una región o una comunidad específica.
 
 El estado impreso en la carta usa la categoría más alta entre la UICN y la lista del Perú.
 
+## La carta
+
+La ficha de un ave y el revelado muestran la carta completa, con su reverso. El álbum conserva el
+sticker como miniatura, con sus sellos y el destello del acabado.
+
+- **Estructura:** hábitat como tipo, observaciones propias, familia, peso y ala, 2 rasgos, dieta, hábitat
+  y estado. Rubí y diamante llevan el paisaje a toda la carta.
+- **Brillo:** de holográfico a diamante, un destello pasa solo cada 7 a 4,5 s y otro responde al dedo.
+  La carta normal no brilla.
+- **Datos:** dentro del paquete, sin tocar Firestore. Peso y ala salen de AVONET, y los textos, de
+  `data/species/ica-families.json`. **Son un borrador sin la revisión del biólogo.**
+- **Sobres:** los 3 diseños salen al azar en cada sobre y son solo apariencia. Llegan en la fase 2A.
+- **Maqueta:** [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk), página V2.
+
 ## Observaciones válidas
 
 Una foto validada entra en la galería, pero solo avanza hitos, sobres y plumas si cuenta como

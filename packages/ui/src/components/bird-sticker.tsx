@@ -1,11 +1,13 @@
 import { Fragment, memo, useId } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, type ImageSourcePropType } from 'react-native';
 import Svg, { ClipPath, Defs, G, Path, Pattern, Polygon, Rect } from 'react-native-svg';
 
 import type { FigureName } from '../figures/figure-svgs';
 import { textStyles } from '../theme/fonts';
 import { useTheme } from '../theme/use-theme';
 import { BirdFigure, type BirdArt } from './bird-figure';
+import { CARD_FACES } from './card-faces';
+import { CardShine } from './card-shine';
 import { FINISHES, type ChromeFinish } from './sticker-finishes';
 import { ConicFill, paintDefinition, paintFill, type Paint } from './svg-paint';
 
@@ -29,6 +31,10 @@ type Props = {
   size?: number;
   /** El dibujo propio de la especie; sin él, la figura de su grupo. */
   art?: BirdArt;
+  /** Sellos de la especie: ocupan la esquina en lugar de la insignia del acabado. */
+  seals?: readonly ImageSourcePropType[];
+  /** Destello del acabado, para el álbum. */
+  shine?: boolean;
 };
 
 const W = 160;
@@ -51,11 +57,12 @@ function starPoints(cx: number, cy: number, size: number) {
   return [p(0.5, 0), p(0.61, 0.39), p(1, 0.5), p(0.61, 0.61), p(0.5, 1), p(0.39, 0.61), p(0, 0.5), p(0.39, 0.39)].join(' ');
 }
 
-export const BirdSticker = memo(function BirdSticker({ figure, name, number, tint, finish = 'normal', empty = false, size = 108, art }: Props) {
+export const BirdSticker = memo(function BirdSticker({ figure, name, number, tint, finish = 'normal', empty = false, size = 108, art, seals, shine = false }: Props) {
   const { mode, colors } = useTheme();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const k = size / W;
   const chrome = !empty && finish !== 'normal' ? FINISHES[finish] : null;
+  const shineColors = CARD_FACES[finish].shine;
 
   // En sombra el sticker sigue la paleta (es un hueco del álbum); normal y cromado son de material.
   const nameColor = empty ? colors.textSecondary : (chrome?.name ?? '#14302F');
@@ -159,6 +166,24 @@ export const BirdSticker = memo(function BirdSticker({ figure, name, number, tin
               <Polygon key={i} points={starPoints(s.cx, s.cy, s.size)} fill={s.color} />
             ))}
           </Svg>
+          {shine && shineColors && (
+            <View style={[styles.fill, { borderRadius: 14 * k, overflow: 'hidden' }]} pointerEvents="none">
+              <CardShine width={size} height={(size * H) / W} colors={shineColors} period={CARD_FACES[finish].period} />
+            </View>
+          )}
+        </>
+      )}
+
+      {!empty && seals && seals.length > 0 && (
+        <View style={[styles.seals, { right: 4 * k, top: 4 * k }]} pointerEvents="none">
+          {seals.map((seal, i) => (
+            <Image key={i} source={seal} style={{ width: 44 * k, height: 44 * k }} />
+          ))}
+        </View>
+      )}
+
+      {chrome && !seals && (
+        <>
           <View
             style={[
               styles.badge,
@@ -224,5 +249,9 @@ const styles = StyleSheet.create({
   badge: {
     position: 'absolute',
     overflow: 'hidden',
+  },
+  seals: {
+    position: 'absolute',
+    flexDirection: 'row',
   },
 });

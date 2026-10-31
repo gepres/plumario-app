@@ -37,6 +37,10 @@ entorno en `docs/environment.md`.
   WebP), para que se vean sin señal. Los originales están en `data/stickers/raw/`, fuera de git; para
   espejar un ave o quitarle un resto de suelo, edita `tools/stickers/corrections.json` y corre
   `pnpm stickers:export`. La sombra sigue siendo la figura del grupo.
+- **El arte y los datos de las cartas también van dentro del paquete.** El arte está en
+  `apps/mobile/assets/cards/`, con sus originales en `data/cards/raw/`, fuera de git, y se recorta con
+  `tools/cards/`. Peso, ala y textos salen de `pnpm species:cards`. Los textos son un borrador hasta que
+  los apruebe el biólogo.
 - **Las claves del diseño se traducen** con `designKeyMap` (en `colors.ts`): `{{t.sup}}` en un
   artboard es `colors.surface` en la app; `pri` → `primary`, `ink` → `text`, `txt2` →
   `textSecondary`, `hab` → `habitats`…
@@ -79,6 +83,8 @@ pnpm icons            regenera los íconos de la app desde el logo del diseño
 pnpm species:convert  regenera data/species/ica.json desde el Excel y la tabla de hábitats
 pnpm species:seed     carga el catálogo al emulador (--prod: al proyecto real, con hábitats revisados)
 pnpm stickers:export  recorta las ilustraciones y las lleva a la app (WebP y su mapa por especie)
+pnpm species:measures saca de AVONET el peso y las medidas de las aves del álbum
+pnpm species:cards    genera card-facts.ts con los textos por familia y las medidas
 pnpm viewer           regenera viewer/index.html desde design/
 ```
 

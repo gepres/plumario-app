@@ -26,10 +26,36 @@ export const SEAL_LABELS: Record<Seal, string> = {
   nearThreatened: 'Casi amenazada',
 };
 
+/** Qué significa cada sello, en el reverso de la carta. */
+export const SEAL_MEANINGS: Record<Seal, string> = {
+  threatened: 'Su población está en riesgo.',
+  emblematic: 'Elegida como símbolo de su región.',
+  endemic: 'Solo vive en Perú.',
+  nearThreatened: 'Podría estar en riesgo pronto.',
+};
+
+/** Las categorías de la UICN y de la lista del Perú. */
+export const CONSERVATION_LABELS: Record<string, string> = {
+  LC: 'Preocupación menor',
+  NT: 'Casi amenazada',
+  VU: 'Vulnerable',
+  EN: 'En peligro',
+  CR: 'En peligro crítico',
+  DD: 'Datos insuficientes',
+  NE: 'Sin evaluar',
+};
+
 export const CHROME_SOURCE_LABELS: Record<ChromeSource, string> = {
   luck: 'Al azar, al completar su sticker.',
   photos: 'Con 5 fotos validadas de la especie.',
   trade: 'Por intercambio.',
+};
+
+/** Cómo se obtuvo, en corto, para el reverso de la carta. */
+export const CHROME_SOURCE_SHORT: Record<ChromeSource, string> = {
+  luck: 'Al azar',
+  photos: '5 fotos',
+  trade: 'Intercambio',
 };
 
 const longDate = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });

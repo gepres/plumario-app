@@ -20,7 +20,7 @@ export function useStickerSize() {
 export function StickerCell({ entry, size, onPress }: { entry: AlbumEntry; size: number; onPress: (entry: AlbumEntry) => void }) {
   return (
     <Pressable accessibilityRole="button" accessibilityLabel={stickerLabel(entry)} onPress={() => onPress(entry)} style={({ pressed }) => [styles.cell, pressed && styles.pressed]}>
-      <SpeciesSticker entry={entry} size={size} />
+      <SpeciesSticker entry={entry} size={size} decorated />
     </Pressable>
   );
 }

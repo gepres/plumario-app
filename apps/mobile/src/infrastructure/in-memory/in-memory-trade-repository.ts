@@ -7,8 +7,8 @@ export const SAMPLE_TRADE: TradeProposal = {
   id: 'muestra',
   fromUid: 'local-2',
   fromHandle: 'beto.ica',
-  offeredSpeciesId: 'flamenco-chileno',
-  requestedSpeciesId: 'playero-arenero',
+  offeredSpeciesId: 'phoenicopterus-chilensis',
+  requestedSpeciesId: 'calidris-alba',
   status: 'open',
   createdAt: new Date(2026, 9, 24),
 };

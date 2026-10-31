@@ -87,6 +87,7 @@ export function ProfileHelp({ onBack, onWrite }: Props) {
         </View>
 
         <ThemedText variant="caption" color="textSecondary" style={styles.version}>Plumario {Constants.expoConfig?.version ?? ''} · Edición Ica</ThemedText>
+        <ThemedText variant="caption" color="textSecondary" style={styles.version}>Peso y ala de las aves: AVONET (Tobias et al. 2022), CC BY 4.0.</ThemedText>
       </ScrollView>
     </View>
   );

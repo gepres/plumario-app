@@ -6,6 +6,9 @@ export { fonts, textStyles } from './theme/fonts';
 // Componentes de la guía (design/project/GuiaComponentes.dc.html).
 export { BirdAvatar } from './components/bird-avatar';
 export { BirdFigure, type BirdArt } from './components/bird-figure';
+export { BirdCard, BirdCardBack, BirdCardCover, CARD_HEIGHT, CARD_WIDTH, FlipCard } from './components/bird-card';
+export type { CardFact, CardSeal, CardTrait } from './components/bird-card';
+export type { CardHabitat } from './components/card-faces';
 export { BirdSticker } from './components/bird-sticker';
 export type { StickerFinish } from './components/bird-sticker';
 export { Button } from './components/button';
