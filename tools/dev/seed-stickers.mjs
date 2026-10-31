@@ -63,6 +63,8 @@ const random = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294
 const rest = album.filter((s) => !featured.includes(s.id)).sort(() => random() - 0.5);
 const chosen = [...featured.map((id) => album.find((s) => s.id === id)).filter(Boolean), ...rest].slice(0, count);
 
+const LIMA_OFFSET = 5 * 36e5;
+const DAY = 24 * 36e5;
 const now = Date.now();
 const batch = db.batch();
 chosen.forEach((s, i) => {
@@ -78,7 +80,7 @@ chosen.forEach((s, i) => {
     completedAt,
     validPhotos: observations + Math.floor(random() * 3),
     observations,
-    lastCountedAt: completedAt,
+    countedDays: Array.from({ length: observations }, (_, day) => Math.floor((completedAt.toMillis() - LIMA_OFFSET) / DAY) - day),
     serverDay: null,
     serverCount: 0,
     best,

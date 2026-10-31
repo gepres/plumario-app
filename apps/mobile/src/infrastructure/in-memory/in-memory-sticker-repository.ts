@@ -1,14 +1,14 @@
-import { newSticker, type Sticker, type StickerRepository, type UserId } from '@plumario/core';
+import { limaDay, newSticker, type Sticker, type StickerRepository, type UserId } from '@plumario/core';
 
 /** Lo que ya tiene la cuenta de muestra, para ver en la web los tres estados del sticker. */
 export const SAMPLE_STICKERS: readonly Sticker[] = [
-  { ...newSticker('calidris-alba', new Date(2026, 9, 23)), validPhotos: 1, observations: 1, lastCountedAt: new Date(2026, 9, 23), best: 'holographic', ownBest: 'holographic', unlocked: [{ finish: 'holographic', source: 'luck', at: new Date(2026, 9, 23) }] },
-  { ...newSticker('larus-belcheri', new Date(2026, 9, 12)), validPhotos: 2, observations: 2, lastCountedAt: new Date(2026, 9, 13) },
+  { ...newSticker('calidris-alba', new Date(2026, 9, 23)), validPhotos: 1, observations: 1, countedDays: [limaDay(new Date(2026, 9, 23))], best: 'holographic', ownBest: 'holographic', unlocked: [{ finish: 'holographic', source: 'luck', at: new Date(2026, 9, 23) }] },
+  { ...newSticker('larus-belcheri', new Date(2026, 9, 12)), validPhotos: 2, observations: 2, countedDays: [limaDay(new Date(2026, 9, 13))] },
   {
-    ...newSticker('sternula-lorata', new Date(2026, 9, 18)), validPhotos: 5, observations: 5, lastCountedAt: new Date(2026, 9, 20), best: 'silver', ownBest: 'silver', claimedMilestone: 5,
+    ...newSticker('sternula-lorata', new Date(2026, 9, 18)), validPhotos: 5, observations: 5, countedDays: [limaDay(new Date(2026, 9, 20))], best: 'silver', ownBest: 'silver', claimedMilestone: 5,
     unlocked: [{ finish: 'holographic', source: 'milestone', at: new Date(2026, 9, 19) }, { finish: 'silver', source: 'milestone', at: new Date(2026, 9, 20) }],
   },
-  { ...newSticker('phoenicopterus-chilensis', new Date(2026, 9, 21)), validPhotos: 4, observations: 2, lastCountedAt: new Date(2026, 9, 22) },
+  { ...newSticker('phoenicopterus-chilensis', new Date(2026, 9, 21)), validPhotos: 4, observations: 2, countedDays: [limaDay(new Date(2026, 9, 22))] },
 ];
 
 /**

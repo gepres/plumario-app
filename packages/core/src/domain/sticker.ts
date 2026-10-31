@@ -17,8 +17,8 @@ export type Sticker = {
   validPhotos: number;
   /** Fotos que contaron. Los hitos salen de aquí. */
   observations: number;
-  /** Cuándo se tomó la última foto que contó. */
-  lastCountedAt: Date | null;
+  /** Los días de Lima que ya contaron: una foto subida tarde cuenta su día, llegue en el orden que llegue. */
+  countedDays: readonly number[];
   /** Observaciones contadas en el día del servidor, para el tope de `SERVER_DAILY_LIMIT`. */
   serverDay: number | null;
   serverCount: number;
@@ -59,7 +59,7 @@ export const THREATENED_WAIT_DAYS = 7;
 
 export function newSticker(speciesId: SpeciesId, at: Date): Sticker {
   return {
-    speciesId, completedAt: at, validPhotos: 0, observations: 0, lastCountedAt: null,
+    speciesId, completedAt: at, validPhotos: 0, observations: 0, countedDays: [],
     serverDay: null, serverCount: 0, best: null, ownBest: null, claimedMilestone: 0, unlocked: [],
   };
 }
@@ -67,14 +67,15 @@ export function newSticker(speciesId: SpeciesId, at: Date): Sticker {
 /** El último acabado que ganó la carta, el que tiene hoy. */
 export const lastUnlocked = (sticker: Sticker): UnlockedFinish | null => sticker.unlocked[sticker.unlocked.length - 1] ?? null;
 
+/** El día de la foto; una fecha en el futuro cuenta como hoy. */
+const observationDay = (takenAt: Date, now: Date) => limaDay(takenAt > now ? now : takenAt);
+
 /** Por qué esta foto no puede contar; null si cuenta. */
 export function observationBlock(sticker: Sticker, species: Pick<Species, 'threatened'>, takenAt: Date, now: Date): NotCounted | null {
   if (sticker.serverDay === limaDay(now) && sticker.serverCount >= SERVER_DAILY_LIMIT) return 'server-limit';
-  if (!sticker.lastCountedAt) return null;
-  const taken = takenAt > now ? now : takenAt;
-  const gap = limaDay(taken) - limaDay(sticker.lastCountedAt);
-  if (species.threatened) return gap >= THREATENED_WAIT_DAYS ? null : 'week';
-  return gap >= 1 ? null : 'today';
+  const day = observationDay(takenAt, now);
+  if (species.threatened) return sticker.countedDays.some((counted) => Math.abs(day - counted) < THREATENED_WAIT_DAYS) ? 'week' : null;
+  return sticker.countedDays.includes(day) ? 'today' : null;
 }
 
 /** Sube el acabado si `finish` supera al que tiene; el que ya tiene nunca baja. */
@@ -97,12 +98,11 @@ export function grantFinish(sticker: Sticker, finish: CardCategory, source: Fini
  * `roll` ∈ [0, 1) se recibe de fuera para que la regla sea determinista y se pueda probar.
  */
 export function countObservation(sticker: Sticker, takenAt: Date, now: Date, roll: number): Pick<PhotoOutcome, 'sticker' | 'unlocked' | 'coveredMilestone'> {
-  const taken = takenAt > now ? now : takenAt;
   const today = limaDay(now);
   const counted: Sticker = {
     ...sticker,
     observations: sticker.observations + 1,
-    lastCountedAt: !sticker.lastCountedAt || taken > sticker.lastCountedAt ? taken : sticker.lastCountedAt,
+    countedDays: [...sticker.countedDays, observationDay(takenAt, now)],
     serverDay: today,
     serverCount: sticker.serverDay === today ? sticker.serverCount + 1 : 1,
   };

@@ -21,7 +21,7 @@ function toSticker(speciesId: string, data: Record<string, unknown>): Sticker {
     completedAt: toDate(data.completedAt),
     validPhotos: count(data.validPhotos),
     observations: count(data.observations),
-    lastCountedAt: data.lastCountedAt instanceof Timestamp ? data.lastCountedAt.toDate() : null,
+    countedDays: Array.isArray(data.countedDays) ? data.countedDays.map(Number) : [],
     serverDay: typeof data.serverDay === 'number' ? data.serverDay : null,
     serverCount: count(data.serverCount),
     best: finishOf(data.best),

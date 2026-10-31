@@ -1,7 +1,7 @@
 // Constructores para las pruebas del núcleo (no se exportan desde index.ts).
 import type { Habitat } from './domain/habitat';
 import type { Species, TaxonClass } from './domain/species';
-import { newSticker, type Sticker } from './domain/sticker';
+import { limaDay, newSticker, type Sticker } from './domain/sticker';
 
 export const at = (day: number) => new Date(2026, 9, day);
 
@@ -14,5 +14,5 @@ export function species(id: string, overrides: Partial<Species> & { habitat?: Ha
 }
 
 export function sticker(speciesId: string, overrides: Partial<Sticker> = {}): Sticker {
-  return { ...newSticker(speciesId, at(1)), validPhotos: 1, observations: 1, lastCountedAt: at(1), ...overrides };
+  return { ...newSticker(speciesId, at(1)), validPhotos: 1, observations: 1, countedDays: [limaDay(at(1))], ...overrides };
 }

@@ -15,7 +15,7 @@ describe('documentos de Firestore', () => {
 
   it('ida y vuelta de un sticker cromado', () => {
     const at = new Date(2026, 9, 24);
-    const sticker = { ...newSticker('x', at), validPhotos: 5, observations: 3, lastCountedAt: at, best: 'holographic' as const, ownBest: 'holographic' as const, claimedMilestone: 3, unlocked: [{ finish: 'holographic' as const, source: 'milestone' as const, at }] };
+    const sticker = { ...newSticker('x', at), validPhotos: 5, observations: 3, countedDays: [20387], best: 'holographic' as const, ownBest: 'holographic' as const, claimedMilestone: 3, unlocked: [{ finish: 'holographic' as const, source: 'milestone' as const, at }] };
     const doc = stickerDocument(sticker);
     expect(doc.unlocked[0]?.at).toBeInstanceOf(Timestamp);
     expect(toSticker('x', doc)).toEqual(sticker);

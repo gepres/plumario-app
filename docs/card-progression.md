@@ -91,7 +91,8 @@ observación.
 | En revisión | La revisaremos pronto. |
 
 **Detalle técnico:** el día sale de `takenAt` en `America/Lima`, para que una salida sin señal cuente
-los días reales. Como `takenAt` lo manda el cliente, el servidor admite como máximo 3 observaciones por
+los días reales: `countedDays` guarda los días que ya contaron, así que da igual el orden en que lleguen
+las fotos. Como `takenAt` lo manda el cliente, el servidor admite como máximo 3 observaciones por
 especie y día de servidor.
 
 ## Sobres
@@ -153,7 +154,7 @@ Solo escribe el servidor. El detalle se cierra en la fase que lo necesite.
 | Concepto | Dónde | Campos |
 |---|---|---|
 | Colección | `users/{uid}/stickers/{speciesId}` | `best`, `unlocked` (acabado, origen y fecha) |
-| Progreso | el mismo documento | `observations`, `ownBest` (ganado sin intercambio), `claimedMilestone`, `lastCountedAt` |
+| Progreso | el mismo documento | `observations`, `ownBest` (ganado sin intercambio), `claimedMilestone`, `countedDays` |
 | Saldo | `users/{uid}/economy/wallet` | `feathers`, avance del sobre, compras altas del mes |
 | Sobres | `users/{uid}/packs/{id}` | especies posibles, estado y resultado, que se decide al abrirlo |
 | Repetidas | `users/{uid}/pieces/{speciesId}` | cantidad por acabado |

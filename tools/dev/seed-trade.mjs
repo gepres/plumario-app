@@ -52,7 +52,7 @@ await db.collection('users').doc(beto.uid).set({
 });
 // Tiene el cromo que ofrece y el sticker normal del que pide.
 const betoStickers = db.collection('users').doc(beto.uid).collection('stickers');
-const sticker = { completedAt: now, validPhotos: 1, observations: 1, lastCountedAt: now, serverDay: null, serverCount: 0, claimedMilestone: 0 };
+const sticker = { completedAt: now, validPhotos: 1, observations: 1, countedDays: [Math.floor(now.seconds / 86400)], serverDay: null, serverCount: 0, claimedMilestone: 0 };
 await betoStickers.doc(offered.id).set({ ...sticker, best: requested.best, ownBest: requested.best, unlocked: [{ finish: requested.best, source: 'luck', at: now }] });
 await betoStickers.doc(requested.id).set({ ...sticker, best: null, ownBest: null, unlocked: [] });
 

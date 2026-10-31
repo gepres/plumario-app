@@ -59,7 +59,7 @@ describe('hitos', () => {
   });
 
   it('un acabado alto no retrocede cuando llega un hito menor', () => {
-    const current = sticker('playero', { observations: 2, lastCountedAt: at(2), best: 'gold', ownBest: 'gold' });
+    const current = sticker('playero', { observations: 2, countedDays: [limaDay(at(2))], best: 'gold', ownBest: 'gold' });
     const outcome = applyValidPhoto({ current, species: common, takenAt: at(3), at: at(3), roll: NO_LUCK, verified: true });
     expect(outcome.sticker.best).toBe('gold');
     expect(outcome).toMatchObject({ unlocked: null, coveredMilestone: 3 });
@@ -67,7 +67,7 @@ describe('hitos', () => {
   });
 
   it('un hito ya cobrado no se cobra otra vez, aunque se resten observaciones', () => {
-    const current = sticker('playero', { observations: 2, lastCountedAt: at(2), claimedMilestone: 3, best: 'holographic' });
+    const current = sticker('playero', { observations: 2, countedDays: [limaDay(at(2))], claimedMilestone: 3, best: 'holographic' });
     const outcome = applyValidPhoto({ current, species: common, takenAt: at(3), at: at(3), roll: NO_LUCK, verified: true });
     expect(outcome).toMatchObject({ unlocked: null, coveredMilestone: null });
   });
@@ -75,7 +75,7 @@ describe('hitos', () => {
 
 describe('elegibilidad', () => {
   it('una segunda foto del mismo día va a la galería y no avanza nada', () => {
-    const current = sticker('playero', { observations: 1, lastCountedAt: at(5) });
+    const current = sticker('playero', { observations: 1, countedDays: [limaDay(at(5))] });
     const outcome = applyValidPhoto({ current, species: common, takenAt: at(5), at: at(5), roll: LUCK, verified: true });
     expect(outcome).toMatchObject({ counted: false, blocked: 'today', unlocked: null });
     expect(outcome.sticker).toMatchObject({ validPhotos: 2, observations: 1 });
@@ -85,17 +85,17 @@ describe('elegibilidad', () => {
     const lastNight = new Date('2026-10-05T04:00:00Z');
     const afterMidnight = new Date('2026-10-05T05:30:00Z');
     expect(limaDay(afterMidnight) - limaDay(lastNight)).toBe(1);
-    expect(observationBlock(sticker('playero', { lastCountedAt: lastNight }), common, afterMidnight, afterMidnight)).toBeNull();
+    expect(observationBlock(sticker('playero', { countedDays: [limaDay(lastNight)] }), common, afterMidnight, afterMidnight)).toBeNull();
   });
 
   it('una especie amenazada cuenta una vez por semana', () => {
-    const current = sticker('zarcillo', { observations: 1, lastCountedAt: at(1) });
+    const current = sticker('zarcillo', { observations: 1, countedDays: [limaDay(at(1))] });
     expect(observationBlock(current, threatened, at(7), at(7))).toBe('week');
     expect(observationBlock(current, threatened, at(8), at(8))).toBeNull();
   });
 
   it('una salida sin señal cuenta por el día de la foto, con tope por día de servidor', () => {
-    let current: Sticker | null = sticker('playero', { observations: 1, lastCountedAt: at(1) });
+    let current: Sticker | null = sticker('playero', { observations: 1, countedDays: [limaDay(at(1))] });
     const blocks = [];
     for (let day = 2; day <= 2 + SERVER_DAILY_LIMIT; day++) {
       const outcome = applyValidPhoto({ current, species: common, takenAt: at(day), at: at(20), roll: NO_LUCK, verified: true });
@@ -106,8 +106,33 @@ describe('elegibilidad', () => {
     expect(current!.observations).toBe(4);
   });
 
+  it('las fotos de una salida cuentan sus días aunque lleguen en otro orden', () => {
+    let current: Sticker | null = null;
+    const counted = [];
+    for (const day of [6, 4, 5]) {
+      const outcome = applyValidPhoto({ current, species: common, takenAt: at(day), at: at(20), roll: NO_LUCK, verified: true });
+      counted.push(outcome.counted);
+      current = outcome.sticker;
+    }
+    expect(counted).toEqual([true, true, true]);
+    expect(current).toMatchObject({ observations: 3, best: 'holographic', claimedMilestone: 3 });
+  });
+
+  it('una foto vieja no cuenta si su día ya contó', () => {
+    const current = sticker('playero', { observations: 2, countedDays: [limaDay(at(4)), limaDay(at(6))] });
+    expect(observationBlock(current, common, at(4), at(20))).toBe('today');
+    expect(observationBlock(current, common, at(5), at(20))).toBeNull();
+  });
+
+  it('en una especie amenazada, la semana se mide antes y después de cada día contado', () => {
+    const current = sticker('zarcillo', { countedDays: [limaDay(at(10))] });
+    expect(observationBlock(current, threatened, at(4), at(20))).toBe('week');
+    expect(observationBlock(current, threatened, at(3), at(20))).toBeNull();
+    expect(observationBlock(current, threatened, at(17), at(20))).toBeNull();
+  });
+
   it('una fecha en el futuro no adelanta el contador', () => {
-    const current = sticker('playero', { observations: 1, lastCountedAt: at(5) });
+    const current = sticker('playero', { observations: 1, countedDays: [limaDay(at(5))] });
     expect(observationBlock(current, common, at(25), at(5))).toBe('today');
   });
 });

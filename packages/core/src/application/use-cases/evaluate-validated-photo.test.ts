@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { achievementId } from '../../domain/achievements';
+import { limaDay } from '../../domain/sticker';
 import { at, species, sticker } from '../../testing';
 import { evaluateRevalidatedPhoto, evaluateValidatedPhoto, sightingResultOf } from './evaluate-validated-photo';
 
@@ -21,7 +22,7 @@ describe('evaluateValidatedPhoto', () => {
   });
 
   it('una foto más de una especie ya registrada no da logros, pero avanza el hito', () => {
-    const stickers = [sticker('ave0', { validPhotos: 2, observations: 2, lastCountedAt: at(4) })];
+    const stickers = [sticker('ave0', { validPhotos: 2, observations: 2, countedDays: [limaDay(at(4))] })];
     const result = evaluateValidatedPhoto({ species: catalog[0]!, catalog, stickers, ...photo(5) });
     expect(result).toMatchObject({ completed: false, unlocked: { finish: 'holographic', source: 'milestone' } });
     expect(result.achievements).toEqual([]);
@@ -57,7 +58,7 @@ describe('evaluateValidatedPhoto', () => {
 });
 
 describe('evaluateRevalidatedPhoto', () => {
-  const pending = sticker('ave0', { validPhotos: 1, observations: 0, lastCountedAt: null });
+  const pending = sticker('ave0', { validPhotos: 1, observations: 0, countedDays: [] });
 
   it('al aprobarse después, cuenta y puede dar la suerte de la primera', () => {
     const result = evaluateRevalidatedPhoto({ sticker: pending, species: catalog[0]!, takenAt: at(9), at: at(9), roll: 0 });
@@ -66,7 +67,7 @@ describe('evaluateRevalidatedPhoto', () => {
   });
 
   it('no cuenta si entre tanto ya contó otra foto de ese día', () => {
-    const counted = sticker('ave0', { observations: 1, lastCountedAt: at(9) });
+    const counted = sticker('ave0', { observations: 1, countedDays: [limaDay(at(9))] });
     const result = evaluateRevalidatedPhoto({ sticker: counted, species: catalog[0]!, takenAt: at(9), at: at(10), roll: 0 });
     expect(result).toMatchObject({ counted: false, blocked: 'today' });
   });
