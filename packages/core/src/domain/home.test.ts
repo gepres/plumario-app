@@ -26,7 +26,7 @@ describe('Inicio', () => {
   it('muestra las tres últimas (las de hace menos de dos días, como nuevas)', () => {
     const album = buildAlbumView(catalog, [
       sticker('zonotrichia-capensis', { completedAt: at(1) }),
-      sticker('playero', { completedAt: at(10), chrome: { source: 'luck', at: at(24) } }),
+      sticker('playero', { completedAt: at(10), best: 'holographic', unlocked: [{ finish: 'holographic', source: 'luck', at: at(24) }] }),
       sticker('gaviota', { completedAt: at(20) }),
       sticker('coragyps-atratus', { completedAt: at(5) }),
     ]);

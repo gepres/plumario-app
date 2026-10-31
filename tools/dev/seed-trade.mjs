@@ -2,8 +2,9 @@
 // (@beto.ica), para probar IntercambioRecibido sin otro teléfono. Solo emuladores.
 // Uso (desde la raíz, con pnpm emulators corriendo y la cuenta con stickers de pnpm dev:stickers):
 //   pnpm dev:trade ana@ejemplo.com
-// Beto ofrece el cromo de una especie que la cuenta tiene normal y pide uno de sus cromos, de igual
-// o menor categoría. Imprime el enlace para abrirlo en el emulador de Android.
+// Beto ofrece el cromo de una especie que la cuenta tiene normal y pide uno de sus cromos, del mismo
+// acabado. Imprime el enlace para abrirlo en el emulador de Android.
+// El intercambio está en pausa (fase 1): hasta que vuelva, el enlace abre TradePaused.
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore, Timestamp } from 'firebase-admin/firestore';
@@ -26,15 +27,11 @@ if (!receiver) {
   process.exit(1);
 }
 
-// Las mismas categorías que CATEGORY_RANK de @plumario/core.
-const RANK = { holographic: 0, silver: 1, gold: 2, ruby: 3, diamond: 4 };
 const mine = (await db.collection('users').doc(receiver.uid).collection('stickers').get()).docs.map((d) => ({ id: d.id, ...d.data() }));
-const chromed = mine.filter((s) => s.chrome).sort((a, b) => RANK[a.category] - RANK[b.category]);
-const normal = mine.filter((s) => !s.chrome);
-const requested = chromed[0];
-const offered = requested && normal.find((s) => RANK[s.category] >= RANK[requested.category]);
+const requested = mine.find((s) => s.best);
+const offered = mine.find((s) => !s.best);
 if (!requested || !offered) {
-  console.error(`${email} necesita al menos un cromo y un sticker normal de igual o mayor categoría (pnpm dev:stickers ${email}).`);
+  console.error(`${email} necesita al menos un cromo y un sticker normal (pnpm dev:stickers ${email}).`);
   process.exit(1);
 }
 
@@ -55,8 +52,9 @@ await db.collection('users').doc(beto.uid).set({
 });
 // Tiene el cromo que ofrece y el sticker normal del que pide.
 const betoStickers = db.collection('users').doc(beto.uid).collection('stickers');
-await betoStickers.doc(offered.id).set({ completedAt: now, validPhotos: 1, chrome: { source: 'luck', at: now }, category: offered.category });
-await betoStickers.doc(requested.id).set({ completedAt: now, validPhotos: 1, chrome: null, category: requested.category });
+const sticker = { completedAt: now, validPhotos: 1, observations: 1, lastCountedAt: now, serverDay: null, serverCount: 0, claimedMilestone: 0 };
+await betoStickers.doc(offered.id).set({ ...sticker, best: requested.best, ownBest: requested.best, unlocked: [{ finish: requested.best, source: 'luck', at: now }] });
+await betoStickers.doc(requested.id).set({ ...sticker, best: null, ownBest: null, unlocked: [] });
 
 const trade = await db.collection('trades').add({
   fromUid: beto.uid,
@@ -66,6 +64,6 @@ const trade = await db.collection('trades').add({
   status: 'open',
   createdAt: now,
 });
-console.log(`@${BETO.handle} ofrece su cromo de ${offered.id} (${offered.category}) por el de ${requested.id} (${requested.category}).`);
+console.log(`@${BETO.handle} ofrece su cromo de ${offered.id} por el de ${requested.id} (${requested.best}).`);
 console.log(`Enlace: plumario://trade/${trade.id}`);
 console.log(`En el emulador: adb shell am start -a android.intent.action.VIEW -d "plumario://trade/${trade.id}" com.gepres.plumario`);

@@ -1,7 +1,7 @@
 import type { Achievement } from './achievements';
-import type { CardCategory } from './card';
+import type { CardCategory, Milestone } from './card';
 import type { RegionId, SpeciesId } from './species';
-import type { ChromeSource } from './sticker';
+import type { NotCounted, UnlockedFinish } from './sticker';
 
 export type UserId = string;
 
@@ -17,9 +17,16 @@ export type SightingResult =
       outcome: 'validated';
       /** Esta foto completó el sticker: especie nueva en el álbum. */
       completed: boolean;
-      /** Esta foto lo dejó cromado, y por qué vía. */
-      chromed: ChromeSource | null;
-      category: CardCategory;
+      /** Contó como observación; si no, `blocked` dice por qué. */
+      counted: boolean;
+      blocked: NotCounted | null;
+      /** El acabado que subió la carta con esta foto. */
+      unlocked: UnlockedFinish | null;
+      /** El mejor acabado de la especie después de esta foto. */
+      finish: CardCategory | null;
+      observations: number;
+      /** El hito que sigue. */
+      next: Milestone | null;
       /** Fotos validadas de la especie, contando esta. */
       validPhotos: number;
       /** Logros que dio esta foto. */

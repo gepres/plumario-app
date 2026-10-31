@@ -34,7 +34,7 @@ export function HabitatCard({ section, onPress }: { section: HabitatSection; onP
       <ProgressBar current={section.registered} total={section.total} showValue={false} size="thin" color={colors.habitats[section.habitat]} />
       <View style={styles.preview}>
         {habitatPreview(section, PREVIEW).map(({ species, sticker }) => (
-          <BirdAvatar key={species.id} figure={species.figure} tint={stickerTint(species.habitat)} empty={!sticker} chromed={!!sticker?.chrome} size={36} art={STICKER_ART[species.id]} />
+          <BirdAvatar key={species.id} figure={species.figure} tint={stickerTint(species.habitat)} empty={!sticker} chromed={!!sticker?.best} size={36} art={STICKER_ART[species.id]} />
         ))}
         <ThemedText variant="caption" color="textSecondary" style={styles.missing}>
           {missing === 0 ? '¡Completo!' : `${missing} por descubrir`}

@@ -1,7 +1,7 @@
 import { achievementId, earnedAchievements, EXPLORER_SPECIES, MILESTONE_STEP, type Achievement } from './achievements';
 import type { AlbumSummary } from './album';
 import type { AlbumEntry, AlbumView } from './album-view';
-import { CATEGORY_RANK, type CardCategory } from './card';
+import { CATEGORY_RANK, MILESTONES, nextFinishMilestone, type CardCategory } from './card';
 import type { Habitat } from './habitat';
 
 // Lo que muestra Recompensas (design/project/Main.dc.html y RecompensasStickers.dc.html).
@@ -65,7 +65,7 @@ export function rewardsView(album: AlbumView, records: readonly { achievement: A
   return {
     registered: r,
     total: album.total,
-    chromes: album.entries.filter((e) => e.sticker?.chrome).length,
+    chromes: album.entries.filter((e) => e.finish).length,
     earned,
     closest,
     habitats,
@@ -75,41 +75,43 @@ export function rewardsView(album: AlbumView, records: readonly { achievement: A
 
 export const CATEGORIES: readonly CardCategory[] = ['holographic', 'silver', 'gold', 'ruby', 'diamond'];
 
-export type CategoryProgress = {
-  category: CardCategory;
-  /** Especies del álbum con esa categoría. */
-  total: number;
-  /** De esas, las que ya registró. */
+export type FinishProgress = {
+  finish: CardCategory;
+  /** Observaciones que dan este acabado. */
+  milestone: number;
+  /** Especies registradas: cada una puede llegar a diamante. */
   registered: number;
-  /** Y las que ya tiene en cromo. */
-  chromed: number;
+  /** De esas, las que tienen este acabado o uno mejor. */
+  reached: number;
+  entries: AlbumEntry[];
 };
 
 export type ChromesView = {
-  categories: CategoryProgress[];
+  /** La escalera de acabados, de holográfico a diamante. */
+  ladder: FinishProgress[];
   /** Los cromos obtenidos, del más reciente al más antiguo. */
   chromed: AlbumEntry[];
-  /** «Casi listo»: la registrada sin cromo con más fotos validadas. */
+  /** «Casi listo»: la registrada a la que menos observaciones le faltan para subir de acabado. */
   closest: AlbumEntry | null;
-  /** Las demás registradas sin cromo, de la categoría más alta a la más baja: para pedir en intercambio. */
-  toTrade: AlbumEntry[];
   /** Cuántas registradas no tienen cromo todavía. */
   withoutChrome: number;
 };
 
+const lastUnlock = (entry: AlbumEntry) => Math.max(0, ...entry.sticker!.unlocked.map((u) => u.at.getTime()));
+
+/** Observaciones que le faltan a una especie para su siguiente hito; Infinity si ya los alcanzó todos. */
+function missing(entry: AlbumEntry) {
+  const next = nextFinishMilestone(entry.sticker!.observations);
+  return next ? next.observations - entry.sticker!.observations : Number.POSITIVE_INFINITY;
+}
+
 export function chromesView(album: AlbumView): ChromesView {
-  const categories = CATEGORIES.map((category) => {
-    const inCategory = album.entries.filter((e) => e.category === category);
-    return {
-      category,
-      total: inCategory.length,
-      registered: inCategory.filter((e) => e.sticker).length,
-      chromed: inCategory.filter((e) => e.sticker?.chrome).length,
-    };
+  const registered = album.entries.filter((e) => e.sticker);
+  const ladder = MILESTONES.map(({ finish, observations }) => {
+    const entries = registered.filter((e) => e.finish && CATEGORY_RANK[e.finish] >= CATEGORY_RANK[finish]);
+    return { finish, milestone: observations, registered: registered.length, reached: entries.length, entries };
   });
-  const chromed = album.entries.filter((e) => e.sticker?.chrome).sort((a, b) => b.sticker!.chrome!.at.getTime() - a.sticker!.chrome!.at.getTime());
-  const without = album.entries.filter((e) => e.sticker && !e.sticker.chrome);
-  const closest = [...without].sort((a, b) => b.sticker!.validPhotos - a.sticker!.validPhotos || CATEGORY_RANK[b.category] - CATEGORY_RANK[a.category])[0] ?? null;
-  const toTrade = without.filter((e) => e !== closest).sort((a, b) => CATEGORY_RANK[b.category] - CATEGORY_RANK[a.category]);
-  return { categories, chromed, closest, toTrade, withoutChrome: without.length };
+  const chromed = registered.filter((e) => e.finish).sort((a, b) => lastUnlock(b) - lastUnlock(a));
+  const closest = registered.filter((e) => missing(e) !== Number.POSITIVE_INFINITY).sort((a, b) => missing(a) - missing(b) || b.sticker!.observations - a.sticker!.observations)[0] ?? null;
+  return { ladder, chromed, closest, withoutChrome: registered.length - chromed.length };
 }

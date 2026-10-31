@@ -41,23 +41,22 @@ describe('medallas', () => {
 
 describe('cromos', () => {
   const album = buildAlbumView(catalog, [
-    sticker('l0', { chrome: { source: 'luck', at: at(2) } }),
-    sticker('w1', { chrome: { source: 'photos', at: at(5) } }),
-    sticker('l1', { validPhotos: 2 }),
-    sticker('w2', { validPhotos: 4 }),
-    sticker('l2', { validPhotos: 1 }),
+    sticker('l0', { best: 'holographic', observations: 3, unlocked: [{ finish: 'holographic', source: 'milestone', at: at(2) }] }),
+    sticker('w1', { best: 'gold', observations: 10, unlocked: [{ finish: 'gold', source: 'milestone', at: at(5) }] }),
+    sticker('l1', { observations: 1 }),
+    sticker('w2', { observations: 2 }),
+    sticker('l2', { observations: 1 }),
   ]);
   const view = chromesView(album);
 
-  it('cuenta por categoría lo registrado y lo cromado', () => {
-    expect(view.categories.find((c) => c.category === 'holographic')).toEqual({ category: 'holographic', total: 25, registered: 3, chromed: 1 });
-    expect(view.categories.find((c) => c.category === 'diamond')).toEqual({ category: 'diamond', total: 1, registered: 1, chromed: 1 });
+  it('la escalera cuenta cada acabado o uno mejor', () => {
+    expect(view.ladder.map((step) => [step.finish, step.reached])).toEqual([['holographic', 2], ['silver', 1], ['gold', 1], ['ruby', 0], ['diamond', 0]]);
+    expect(view.ladder[0]).toMatchObject({ milestone: 3, registered: 5 });
   });
 
-  it('obtenidos del más reciente, el más cerca de salir y el resto para intercambiar', () => {
+  it('los obtenidos van del más reciente y dice cuál está más cerca de subir', () => {
     expect(view.chromed.map((e) => e.species.id)).toEqual(['w1', 'l0']);
     expect(view.closest?.species.id).toBe('w2');
-    expect(view.toTrade.map((e) => e.species.id)).toEqual(['l1', 'l2']);
     expect(view.withoutChrome).toBe(3);
   });
 });

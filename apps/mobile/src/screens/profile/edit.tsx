@@ -115,7 +115,7 @@ function EditForm({ profile, onSaved }: { profile: UserProfile; onSaved: () => v
                     accessibilityLabel={entry.species.commonName}
                     onPress={() => setFavorite(entry.species.id)}
                     style={[styles.bird, selected && { boxShadow: `0 0 0 3px ${colors.surface}, 0 0 0 5px ${colors.text}` }]}>
-                    <BirdAvatar figure={entry.species.figure} tint={stickerTint(entry.species.habitat)} chromed={!!entry.sticker?.chrome} size={50} art={STICKER_ART[entry.species.id]} />
+                    <BirdAvatar figure={entry.species.figure} tint={stickerTint(entry.species.habitat)} chromed={!!entry.finish} size={50} art={STICKER_ART[entry.species.id]} />
                   </Pressable>
                 );
               })}

@@ -65,7 +65,7 @@ export const FINISHES: Record<ChromeFinish, FinishStyle> = {
     stars: [star(110, 40, 14, '#FFFFFF'), star(27, 122, 10, '#FFFFFF')],
     badge: {
       background: { type: 'linear', angle: 135, stops: even(['#FFFFFF', '#B9C2C9', '#EEF1F3', '#95A1AA'], [0, 0.45, 0.62, 1]) },
-      border: '#FFFFFF', shadow: BADGE_SHADOW, icon: ICON.shield, iconFill: '#2F3B43',
+      border: '#FFFFFF', shadow: BADGE_SHADOW, icon: ICON.star, iconFill: '#2F3B43',
     },
     name: '#1E2A31',
     number: { color: '#1E2A31', background: '#FFFFFF' },
@@ -79,7 +79,7 @@ export const FINISHES: Record<ChromeFinish, FinishStyle> = {
     stars: threeStars('#FFF6D5'),
     badge: {
       background: { type: 'linear', angle: 135, stops: even(['#FFF3C4', '#D9A93E', '#F7DE8E', '#B07F22'], [0, 0.5, 0.7, 1]) },
-      border: '#FFF8E1', shadow: '0 2px 6px rgba(74,52,16,0.35)', icon: ICON.pin, iconFill: '#4A3410',
+      border: '#FFF8E1', shadow: '0 2px 6px rgba(74,52,16,0.35)', icon: ICON.star, iconFill: '#4A3410',
     },
     name: '#3B2A0C',
     number: { color: '#3B2A0C', background: '#FFF8E6' },
@@ -93,7 +93,7 @@ export const FINISHES: Record<ChromeFinish, FinishStyle> = {
     stars: threeStars('#FFE7A8'),
     badge: {
       background: { type: 'linear', angle: 135, stops: even(['#E8687C', '#9C1B31', '#6A0F1F'], [0, 0.55, 1]) },
-      border: '#E9C46A', shadow: '0 2px 6px rgba(60,10,20,0.4)', icon: ICON.flag, iconFill: '#FFFFFF',
+      border: '#E9C46A', shadow: '0 2px 6px rgba(60,10,20,0.4)', icon: ICON.star, iconFill: '#FFFFFF',
     },
     name: '#FFFFFF',
     nameShadow: 'rgba(40,0,10,0.45)',

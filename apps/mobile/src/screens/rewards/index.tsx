@@ -27,7 +27,6 @@ type Props = {
   onOpenPoster: (posterId: string) => void;
   onGeneratePoster: (number: number) => void;
   onOpenHabitatPoster: (habitat: Habitat) => void;
-  onRequestTrade: (speciesId: string) => void;
   onShareMedal: (achievementId: string) => void;
 };
 
@@ -71,7 +70,7 @@ export function Rewards(props: Props) {
         )}
         {state.status === 'ready' && rewards && tab === 'medals' && <Medals rewards={rewards} onOpenAlbum={props.onOpenAlbum} onShareMedal={props.onShareMedal} />}
         {state.status === 'ready' && tab === 'chromes' && (
-          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} onRequestTrade={props.onRequestTrade} />
+          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} />
         )}
         {state.status === 'ready' && tab === 'posters' && !posters && <ListSkeleton rows={3} label="Cargando tus pósteres…" />}
         {state.status === 'ready' && tab === 'posters' && posters && (

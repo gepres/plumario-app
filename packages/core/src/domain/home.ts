@@ -26,7 +26,7 @@ export type HomeView =
     };
 
 /** Cuándo se consiguió por última vez algo de esa especie: el cromo o el sticker. */
-const lastChange = (e: AlbumEntry) => Math.max(e.sticker!.completedAt.getTime(), e.sticker!.chrome?.at.getTime() ?? 0);
+const lastChange = (e: AlbumEntry) => Math.max(e.sticker!.completedAt.getTime(), ...e.sticker!.unlocked.map((u) => u.at.getTime()));
 
 export function homeView(album: AlbumView, regionId: RegionId, now: Date): HomeView {
   const owned = album.entries.filter((e) => e.sticker);

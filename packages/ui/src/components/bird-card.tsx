@@ -244,11 +244,16 @@ export function BirdCard(props: FrontProps) {
   );
 }
 
+export type CardMilestone = { goal: number; label: string; image: ImageSourcePropType; reached: boolean };
+
 type BackProps = {
   /** «Tu registro · N.º 230». */
   eyebrow: string;
   name: string;
   rows: readonly CardFact[];
+  /** «Hitos · 5 observaciones». */
+  observations: string;
+  milestones: readonly CardMilestone[];
   seals: readonly (CardSeal & { meaning: string })[];
   /** Dato de campo, si la especie lo tiene. */
   note?: { label: string; text: string };
@@ -261,7 +266,7 @@ const PAPER_INK = '#1E2A1B';
 const PAPER_SOFT = '#4F5B43';
 
 /** El reverso: el registro de quien tiene la carta. */
-export function BirdCardBack({ eyebrow, name, rows, seals, note, place, frame, size = CARD_WIDTH }: BackProps) {
+export function BirdCardBack({ eyebrow, name, rows, observations, milestones, seals, note, place, frame, size = CARD_WIDTH }: BackProps) {
   const k = size / CARD_WIDTH;
   const label: TextStyle = { fontFamily: FONT.bold, fontSize: 9.5, lineHeight: 12, letterSpacing: 0.5, textTransform: 'uppercase', color: PAPER_SOFT };
   return (
@@ -277,9 +282,23 @@ export function BirdCardBack({ eyebrow, name, rows, seals, note, place, frame, s
             {rows.map((row) => (
               <View key={row.label} style={styles.row}>
                 <CardText lines={1} style={label}>{row.label}</CardText>
-                <CardText lines={1} style={{ fontFamily: FONT.bold, fontSize: 13, lineHeight: 16, color: PAPER_INK }}>{row.value}</CardText>
+                <CardText lines={2} style={{ fontFamily: FONT.bold, fontSize: 12.5, lineHeight: 14.5, color: PAPER_INK }}>{row.value}</CardText>
               </View>
             ))}
+          </View>
+          <View style={styles.section}>
+            <CardText style={label}>{observations}</CardText>
+            <View style={styles.milestones}>
+              {milestones.map((milestone) => (
+                <View key={milestone.goal} style={styles.milestone}>
+                  <View style={styles.milestoneBar}>
+                    {milestone.reached && <Image source={milestone.image} style={StyleSheet.absoluteFill} resizeMode="cover" />}
+                  </View>
+                  <CardText style={{ fontFamily: FONT.bold, fontSize: 11, lineHeight: 13, color: PAPER_INK }}>{milestone.goal}</CardText>
+                  <CardText lines={1} style={{ fontFamily: FONT.regular, fontSize: 7.6, lineHeight: 10, color: PAPER_SOFT }}>{milestone.label}</CardText>
+                </View>
+              ))}
+            </View>
           </View>
           {seals.length > 0 && (
             <View style={styles.section}>
@@ -481,6 +500,24 @@ const styles = StyleSheet.create({
     borderTopColor: 'rgba(30,42,27,0.2)',
     paddingTop: 7,
     gap: 3,
+  },
+  milestones: {
+    flexDirection: 'row',
+    gap: 5,
+  },
+  milestone: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 2,
+  },
+  milestoneBar: {
+    width: '100%',
+    height: 9,
+    borderRadius: 3,
+    overflow: 'hidden',
+    backgroundColor: '#E7EEDC',
+    borderWidth: 1,
+    borderColor: 'rgba(30,42,27,0.16)',
   },
   sealRow: {
     flexDirection: 'row',

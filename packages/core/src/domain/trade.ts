@@ -2,11 +2,13 @@ import type { AlbumEntry, AlbumView } from './album-view';
 import { isFairTrade, type CardCategory } from './card';
 import type { UserId } from './sighting';
 import type { SpeciesId } from './species';
-import type { Sticker } from './sticker';
+import { grantFinish, type Sticker } from './sticker';
 
-// Intercambio de cromos (design/project/IntercambioProponer.dc.html): uno por uno, dando un cromo de
-// igual o mayor categoría. Solo se recibe el cromo de una especie ya registrada, y al aceptar cada uno
-// recibe el cromo del otro mientras el suyo vuelve a la versión normal. No se comparten fotos ni ubicación.
+// Intercambio de cromos. Está en pausa desde la fase 1: sus reglas nuevas (mismo acabado, sin que tu
+// álbum pierda nada) llegan en la fase 2B, sobre esta misma infraestructura de propuestas y enlaces.
+
+/** Mientras sea true, la app muestra IntercambioPausa y el servidor rechaza las aceptaciones. */
+export const TRADES_PAUSED = true;
 
 export type TradeSide = {
   /** Stickers del participante, por especie. */
@@ -35,9 +37,9 @@ function cardsProblem(offered: TradeCard, requested: TradeCard): TradeProblem | 
 export function proposerProblem(proposer: TradeSide, offered: TradeCard, requested: TradeCard): TradeProblem | null {
   const problem = cardsProblem(offered, requested);
   if (problem) return problem;
-  if (!proposer.stickers.get(offered.speciesId)?.chrome) return 'offered-not-chromed';
+  if (!proposer.stickers.get(offered.speciesId)?.best) return 'offered-not-chromed';
   if (!proposer.stickers.has(requested.speciesId)) return 'proposer-missing-species';
-  if (proposer.stickers.get(requested.speciesId)?.chrome) return 'already-has-chrome';
+  if (proposer.stickers.get(requested.speciesId)?.best) return 'already-has-chrome';
   return null;
 }
 
@@ -45,9 +47,9 @@ export function proposerProblem(proposer: TradeSide, offered: TradeCard, request
 export function receiverProblem(receiver: TradeSide, offered: TradeCard, requested: TradeCard): TradeProblem | null {
   const problem = cardsProblem(offered, requested);
   if (problem) return problem;
-  if (!receiver.stickers.get(requested.speciesId)?.chrome) return 'requested-not-chromed';
+  if (!receiver.stickers.get(requested.speciesId)?.best) return 'requested-not-chromed';
   if (!receiver.stickers.has(offered.speciesId)) return 'receiver-missing-species';
-  if (receiver.stickers.get(offered.speciesId)?.chrome) return 'already-has-chrome';
+  if (receiver.stickers.get(offered.speciesId)?.best) return 'already-has-chrome';
   return null;
 }
 
@@ -67,11 +69,11 @@ export function applyTrade(
   requested: SpeciesId,
   at: Date,
 ): { proposer: Sticker[]; receiver: Sticker[] } {
-  const take = (side: TradeSide, id: SpeciesId): Sticker => ({ ...side.stickers.get(id)!, chrome: null });
-  const give = (side: TradeSide, id: SpeciesId): Sticker => ({ ...side.stickers.get(id)!, chrome: { source: 'trade', at } });
+  const take = (side: TradeSide, id: SpeciesId): Sticker => ({ ...side.stickers.get(id)!, best: null });
+  const give = (side: TradeSide, id: SpeciesId, from: TradeSide): Sticker => grantFinish(side.stickers.get(id)!, from.stickers.get(id)!.best!, 'trade', at).sticker;
   return {
-    proposer: [take(proposer, offered), give(proposer, requested)],
-    receiver: [take(receiver, requested), give(receiver, offered)],
+    proposer: [take(proposer, offered), give(proposer, requested, receiver)],
+    receiver: [take(receiver, requested), give(receiver, offered, proposer)],
   };
 }
 
@@ -90,23 +92,23 @@ export type TradeProposal = {
 };
 
 /** Lo que responde el servidor al aceptar. */
-export type TradeResult = { outcome: 'accepted' } | { outcome: 'rejected'; reason: TradeProblem | 'closed' | 'own-trade' };
+export type TradeResult = { outcome: 'accepted' } | { outcome: 'rejected'; reason: TradeProblem | 'closed' | 'own-trade' | 'paused' };
 
 const sideOf = (album: AlbumView): TradeSide => ({
   stickers: new Map(album.entries.filter((e) => e.sticker).map((e) => [e.species.id, e.sticker!])),
 });
-const cardOf = (entry: AlbumEntry): TradeCard => ({ speciesId: entry.species.id, category: entry.category });
+const cardOf = (entry: AlbumEntry): TradeCard => ({ speciesId: entry.species.id, category: entry.finish ?? 'holographic' });
 
 /** IntercambioProponer, «Ofreces a cambio»: mis cromos que alcanzan para pedir el de `requested`. */
 export function offerOptions(album: AlbumView, requested: AlbumEntry): AlbumEntry[] {
   const me = sideOf(album);
-  return album.entries.filter((e) => e.sticker?.chrome && proposerProblem(me, cardOf(e), cardOf(requested)) === null);
+  return album.entries.filter((e) => e.sticker?.best && proposerProblem(me, cardOf(e), cardOf(requested)) === null);
 }
 
 /** Al ofrecer un cromo propio: las especies que puedo pedir a cambio (registradas, sin cromo, de igual o menor categoría). */
 export function requestOptions(album: AlbumView, offered: AlbumEntry): AlbumEntry[] {
   const me = sideOf(album);
-  return album.entries.filter((e) => e.sticker && !e.sticker.chrome && proposerProblem(me, cardOf(offered), cardOf(e)) === null);
+  return album.entries.filter((e) => e.sticker && !e.sticker.best && proposerProblem(me, cardOf(offered), cardOf(e)) === null);
 }
 
 /** Antes de proponer: por qué no se puede, o null. */

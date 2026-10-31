@@ -19,7 +19,7 @@ function toSticker(entry: AlbumEntry): PosterSticker {
     name: entry.species.commonName,
     number: formatAlbumNumber(entry.species.albumNumber),
     tint: stickerTint(entry.species.habitat),
-    finish: entry.sticker?.chrome ? entry.category : 'normal',
+    finish: entry.finish ?? 'normal',
     art: STICKER_ART[entry.species.id],
   };
 }
@@ -74,7 +74,7 @@ export function habitatPosterCells(section: HabitatSection, order: HabitatOrder,
     name: e.species.commonName,
     done: !!e.sticker,
     tint: stickerTint(e.species.habitat),
-    ring: e.sticker?.chrome ? (e.category === 'silver' ? 'silver' : 'holo') : null,
+    ring: e.finish ? (e.finish === 'silver' ? 'silver' : 'holo') : null,
     photoUri: photos[e.species.id] ?? null,
     art: STICKER_ART[e.species.id],
   }));

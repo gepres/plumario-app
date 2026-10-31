@@ -1,47 +1,44 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 
-import { PHOTOS_FOR_CHROME, type ChromesView } from '@plumario/core';
+import { lastUnlocked, nextFinishMilestone, type ChromesView } from '@plumario/core';
 import { radius, spacing } from '@plumario/tokens';
 import { CategoryBadge, Icon, ProgressBar, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSticker } from '@/components/species-sticker';
-import { CATEGORY_LABELS, formatDayMonth } from '@/constants/cards';
+import { CATEGORY_LABELS, finishTitle, formatDayMonth } from '@/constants/cards';
 
 type Props = {
   chromes: ChromesView;
   onOpenCategories: () => void;
   onOpenSticker: (speciesId: string) => void;
   onOpenSpecies: (speciesId: string) => void;
-  /** «Pídelo en intercambio» (IntercambioProponer). */
-  onRequestTrade: (speciesId: string) => void;
 };
 
-const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
-
-/** El metal de cada categoría para la barra del «casi listo». */
+/** El metal de cada acabado para la barra del «casi listo». */
 const CATEGORY_BAR = { holographic: '#8FA9D8', silver: '#7E8B95', gold: '#B9872A', ruby: '#A51E36', diamond: '#4F93B5' } as const;
 
-/** RecompensasStickers · Cromos: por categoría, los obtenidos y los que están por salir. */
-export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecies, onRequestTrade }: Props) {
+/** RecompensasStickers · Cromos: por acabado, los obtenidos y los que están por salir. */
+export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecies }: Props) {
   const { colors } = useTheme();
   const { closest } = chromes;
+  const next = closest && nextFinishMilestone(closest.sticker!.observations);
   return (
     <View style={styles.root}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Tus cromos por categoría"
+        accessibilityLabel="Tus acabados"
         onPress={onOpenCategories}
         style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.line }]}>
         <View style={styles.sectionHead}>
-          <ThemedText variant="section">Tus cromos por categoría</ThemedText>
+          <ThemedText variant="section">Tus acabados</ThemedText>
           <Icon name="chevronRight" color={colors.text} size={18} strokeWidth={2} />
         </View>
         <View style={styles.categories}>
-          {chromes.categories.map((c) => (
-            <View key={c.category} style={[styles.category, { opacity: c.chromed > 0 ? 1 : 0.55 }]} accessible accessibilityLabel={`${CATEGORY_LABELS[c.category]}: ${c.chromed} de ${c.total}`}>
-              <CategoryBadge category={c.category} size={32} />
-              <ThemedText variant="captionStrong" numberOfLines={1}>{capitalize(CATEGORY_LABELS[c.category])}</ThemedText>
-              <ThemedText variant="caption" color="textSecondary">{c.chromed}/{c.total}</ThemedText>
+          {chromes.ladder.map((step) => (
+            <View key={step.finish} style={[styles.category, { opacity: step.reached > 0 ? 1 : 0.55 }]} accessible accessibilityLabel={`${CATEGORY_LABELS[step.finish]}: ${step.reached} de ${step.registered}`}>
+              <CategoryBadge category={step.finish} size={32} />
+              <ThemedText variant="captionStrong" numberOfLines={1}>{finishTitle(step.finish)}</ThemedText>
+              <ThemedText variant="caption" color="textSecondary">{step.reached}/{step.registered}</ThemedText>
             </View>
           ))}
         </View>
@@ -53,14 +50,14 @@ export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecie
           <ThemedText variant="small" color="textSecondary">{chromes.chromed.length}</ThemedText>
         </View>
         {chromes.chromed.length === 0 ? (
-          <ThemedText variant="small" color="textSecondary">Aún no te sale ninguno. Al completar un sticker hay 1 posibilidad en 8.</ThemedText>
+          <ThemedText variant="small" color="textSecondary">Aún no tienes ninguno. Tu primera foto de cada especie tiene 1 posibilidad en 8.</ThemedText>
         ) : (
           <View style={styles.grid}>
             {chromes.chromed.map((entry, i) => (
               <Pressable
                 key={entry.species.id}
                 accessibilityRole="button"
-                accessibilityLabel={`${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.category]}`}
+                accessibilityLabel={`${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.finish!]}`}
                 onPress={() => onOpenSticker(entry.species.id)}
                 style={[styles.chromed, { backgroundColor: colors.surface, borderColor: colors.line }]}>
                 <SpeciesSticker entry={entry} size={64} />
@@ -72,7 +69,7 @@ export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecie
                   )}
                   <ThemedText variant="label">{entry.species.commonName}</ThemedText>
                   <ThemedText variant="caption" color="textSecondary">
-                    {capitalize(CATEGORY_LABELS[entry.category])} · {formatDayMonth(entry.sticker!.chrome!.at)}
+                    {finishTitle(entry.finish!)} · {formatDayMonth(lastUnlocked(entry.sticker!)!.at)}
                   </ThemedText>
                 </View>
               </Pressable>
@@ -81,54 +78,37 @@ export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecie
         )}
       </View>
 
-      {(closest || chromes.toTrade.length > 0) && (
+      {closest && next && (
         <View style={styles.section}>
           <View style={styles.sectionHead}>
             <ThemedText variant="section" accessibilityRole="header">Por conseguir</ThemedText>
             <ThemedText variant="small" color="textSecondary">{chromes.withoutChrome} especies sin cromo</ThemedText>
           </View>
-          {closest && (
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => onOpenSpecies(closest.species.id)}
-              style={[styles.closest, { backgroundColor: colors.surface, borderColor: colors.text }]}>
-              <SpeciesSticker entry={closest} size={50} />
-              <View style={styles.flex}>
-                <ThemedText variant="eyebrow" style={{ color: CATEGORY_BAR[closest.category] }}>
-                  {closest.sticker!.validPhotos >= PHOTOS_FOR_CHROME - 1 ? 'Casi listo' : 'El más cerca'} · {capitalize(CATEGORY_LABELS[closest.category])}
-                </ThemedText>
-                <ThemedText variant="bodyStrong">{closest.species.commonName} · por fotos</ThemedText>
-                <ProgressBar
-                  current={closest.sticker!.validPhotos}
-                  total={PHOTOS_FOR_CHROME}
-                  valueText={`${closest.sticker!.validPhotos} de ${PHOTOS_FOR_CHROME} fotos`}
-                  size="thin"
-                  color={CATEGORY_BAR[closest.category]}
-                />
-              </View>
-            </Pressable>
-          )}
-          {chromes.toTrade.slice(0, 3).map((entry) => (
-            <Pressable
-              key={entry.species.id}
-              accessibilityRole="button"
-              accessibilityLabel={`${entry.species.commonName}, pídelo en intercambio`}
-              onPress={() => onRequestTrade(entry.species.id)}
-              style={[styles.trade, { backgroundColor: colors.surfaceAlt }]}>
-              <SpeciesSticker entry={entry} size={50} />
-              <View style={styles.flex}>
-                <ThemedText variant="bodyStrong">{entry.species.commonName}</ThemedText>
-                <ThemedText variant="caption" color="textSecondary">{capitalize(CATEGORY_LABELS[entry.category])} · pídelo en intercambio</ThemedText>
-              </View>
-              <Icon name="swap" color={colors.text} size={18} strokeWidth={2} />
-            </Pressable>
-          ))}
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => onOpenSpecies(closest.species.id)}
+            style={[styles.closest, { backgroundColor: colors.surface, borderColor: colors.text }]}>
+            <SpeciesSticker entry={closest} size={50} />
+            <View style={styles.flex}>
+              <ThemedText variant="eyebrow" style={{ color: CATEGORY_BAR[next.finish] }}>
+                {next.observations - closest.sticker!.observations === 1 ? 'Casi listo' : 'El más cerca'} · {finishTitle(next.finish)}
+              </ThemedText>
+              <ThemedText variant="bodyStrong">{closest.species.commonName}</ThemedText>
+              <ProgressBar
+                current={closest.sticker!.observations}
+                total={next.observations}
+                valueText={`${closest.sticker!.observations} de ${next.observations} observaciones`}
+                size="thin"
+                color={CATEGORY_BAR[next.finish]}
+              />
+            </View>
+          </Pressable>
         </View>
       )}
 
       <ThemedText variant="caption" color="textSecondary" style={styles.footnote}>
-        <ThemedText variant="captionStrong">Cómo se consigue un cromo: </ThemedText>
-        al completar un sticker (1 de cada 8), con {PHOTOS_FOR_CHROME} fotos validadas o intercambiando por uno de igual o mayor categoría.
+        <ThemedText variant="captionStrong">Cómo se gana un cromo: </ThemedText>
+        observando la misma especie en días distintos. Con 3, 5, 10, 20 y 35 observaciones ganas cada acabado.
       </ThemedText>
     </View>
   );
@@ -197,15 +177,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: spacing[2],
     paddingLeft: 10,
-    paddingRight: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing[3],
-  },
-  trade: {
-    borderRadius: 16,
-    paddingVertical: spacing[2],
-    paddingLeft: spacing[3],
     paddingRight: 14,
     flexDirection: 'row',
     alignItems: 'center',

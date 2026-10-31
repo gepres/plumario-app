@@ -1,13 +1,13 @@
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { PHOTOS_FOR_CHROME, formatAlbumNumber, photosToChrome, type AlbumEntry, type AlbumView } from '@plumario/core';
+import { formatAlbumNumber, nextFinishMilestone, type AlbumEntry, type AlbumView } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Card, Icon, ListRow, ProgressBar, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
-import { CATEGORY_LABELS, CATEGORY_REASONS, formatShortDate } from '@/constants/cards';
+import { CATEGORY_LABELS, formatShortDate } from '@/constants/cards';
 import { HABITAT_LABELS, stickerTint } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
@@ -21,7 +21,7 @@ type Props = {
   onAddPhoto: (speciesId: string, source: PhotoSource) => void;
 };
 
-/** El color de la barra «Cromo por fotos», del metal de la categoría. */
+/** El color de la barra de avance, del metal del acabado que sigue. */
 const CATEGORY_BAR = { holographic: '#8FA9D8', silver: '#7E8B95', gold: '#B9872A', ruby: '#A51E36', diamond: '#4F93B5' } as const;
 
 /** GaleriaEspecie: la especie que ya tienes, cuánto le falta para cromo y tus fotos. */
@@ -56,12 +56,13 @@ export function SpeciesGallery({ speciesId, onBack, onOpenSticker, onAddPhoto }:
 
 function GalleryContent({ entry, album, onOpenSticker, onAddPhoto }: { entry: AlbumEntry; album: AlbumView } & Pick<Props, 'onOpenSticker' | 'onAddPhoto'>) {
   const { mode, colors } = useTheme();
-  const { species, sticker, category } = entry;
+  const { species, sticker, finish } = entry;
   // Es tu primera ave si ninguna otra se completó antes.
   const first = !!sticker && album.entries.every((e) => !e.sticker || e.sticker.completedAt >= sticker.completedAt);
-  const remaining = sticker ? photosToChrome(sticker) : PHOTOS_FOR_CHROME;
-  const label = CATEGORY_LABELS[category];
-  const reason = CATEGORY_REASONS[category];
+  const observations = sticker?.observations ?? 0;
+  const next = nextFinishMilestone(observations);
+  const remaining = next ? next.observations - observations : 0;
+  const pace = species.threatened ? 'Cuenta 1 observación por semana para no molestarla.' : 'Cuenta 1 observación por día.';
 
   return (
     <View style={styles.content}>
@@ -84,30 +85,29 @@ function GalleryContent({ entry, album, onOpenSticker, onAddPhoto }: { entry: Al
 
       {sticker && (
         <Card style={styles.chromeCard}>
-          {sticker.chrome ? (
+          {next ? (
             <>
-              <ThemedText variant="bodyStrong">Ya es cromo {label}</ThemedText>
-              <ThemedText variant="caption" color="textSecondary">Su sticker ocupa la casilla del álbum con el acabado {label}.</ThemedText>
+              <ProgressBar
+                label={`Siguiente acabado: ${CATEGORY_LABELS[next.finish]}`}
+                current={observations}
+                total={next.observations}
+                valueText={`${observations} de ${next.observations} observaciones`}
+                color={CATEGORY_BAR[next.finish]}
+              />
+              <ThemedText variant="caption" color="textSecondary">
+                {remaining === 1 ? 'Una observación más' : `${remaining} observaciones más`} y su carta sube a {CATEGORY_LABELS[next.finish]}. {pace}
+              </ThemedText>
             </>
           ) : (
             <>
-              <ProgressBar
-                label="Cromo por fotos"
-                current={sticker.validPhotos}
-                total={PHOTOS_FOR_CHROME}
-                valueText={`${sticker.validPhotos} de ${PHOTOS_FOR_CHROME} validadas`}
-                color={CATEGORY_BAR[category]}
-              />
-              <ThemedText variant="caption" color="textSecondary">
-                {remaining === 1 ? 'Una foto válida más' : `${remaining} fotos válidas más`} y su sticker pasa a cromo {label}
-                {reason ? `, ${reason}` : ''}. La IA revisa que se vea esta especie.
-              </ThemedText>
+              <ThemedText variant="bodyStrong">Ya llegó a diamante</ThemedText>
+              <ThemedText variant="caption" color="textSecondary">Es el acabado más alto. Tus fotos siguen sumando a su galería.</ThemedText>
             </>
           )}
         </Card>
       )}
 
-      {sticker && <ListRow title="Ver sticker" detail={sticker.chrome ? `Cromo ${label}` : 'Sticker normal'} onPress={() => onOpenSticker(species.id)} />}
+      {sticker && <ListRow title="Ver carta" detail={finish ? `Cromo ${CATEGORY_LABELS[finish]}` : 'Carta normal'} onPress={() => onOpenSticker(species.id)} />}
 
       <View style={styles.galleryHeader}>
         <View style={styles.galleryTitle}>

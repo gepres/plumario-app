@@ -31,8 +31,9 @@ entorno en `docs/environment.md`.
   (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
   es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
 - **Las reglas de cromos, sobres y plumas están en `docs/card-progression.md`.** El acabado se gana, ya
-  no depende de la especie. El dominio cambia en la fase 1: hasta entonces, si el código y ese documento
-  no coinciden, manda el documento.
+  no depende de la especie. La fase 1 ya está en el núcleo; sobres, plumas e intercambio llegan en las
+  fases 2A y 2B. Si el código y ese documento no coinciden, manda el documento. El intercambio está en
+  pausa (`TRADES_PAUSED`): sus rutas muestran `TradePaused` y el servidor rechaza las aceptaciones.
 - **Las ilustraciones de los stickers van dentro del paquete** (`apps/mobile/assets/stickers/`, en
   WebP), para que se vean sin señal. Los originales están en `data/stickers/raw/`, fuera de git; para
   espejar un ave o quitarle un resto de suelo, edita `tools/stickers/corrections.json` y corre

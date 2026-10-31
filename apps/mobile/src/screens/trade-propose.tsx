@@ -3,14 +3,14 @@ import { Pressable, ScrollView, Share, StyleSheet, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { offerOptions, requestOptions, TradeProposalError, type AlbumEntry } from '@plumario/core';
+import { offerOptions, requestOptions, TradeProposalError, type AlbumEntry, lastUnlocked } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, Icon, Sheet, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
 import { ListSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CATEGORY_LABELS } from '@/constants/cards';
-import { CHROME_SOURCE_SHORT, tradeLink } from '@/constants/trades';
+import { FINISH_SOURCE_NOTES, tradeLink } from '@/constants/trades';
 import { useAlbum } from '@/hooks/use-album';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
@@ -43,7 +43,7 @@ export function TradePropose({ mode, speciesId, onBack }: Props) {
 
   const album = state.status === 'ready' ? state.album : null;
   const target = album?.entries.find((e) => e.species.id === speciesId);
-  const valid = !!target?.sticker && (mode === 'request' ? !target.sticker.chrome : !!target.sticker.chrome);
+  const valid = !!target?.sticker && (mode === 'request' ? !target.sticker.best : !!target.sticker.best);
   const options = album && target && valid ? (mode === 'request' ? offerOptions(album, target) : requestOptions(album, target)) : [];
   const selected = options.find((o) => o.species.id === choice) ?? options[0];
   const offered = mode === 'request' ? selected : target;
@@ -96,11 +96,11 @@ export function TradePropose({ mode, speciesId, onBack }: Props) {
               <View style={styles.flex}>
                 <ThemedText variant="eyebrow" color="primary">{mode === 'request' ? 'Quieres' : 'Ofreces'}</ThemedText>
                 <ThemedText variant="heading">{target.species.commonName}</ThemedText>
-                <ThemedText variant="small" color="textSecondary">Cromo {CATEGORY_LABELS[target.category]}</ThemedText>
+                <ThemedText variant="small" color="textSecondary">Cromo {CATEGORY_LABELS[target.finish ?? 'holographic']}</ThemedText>
                 <View style={styles.row}>
                   <Icon name="check" color={colors.success} size={14} strokeWidth={2.6} />
                   <ThemedText variant="captionStrong" color="success">
-                    {mode === 'request' ? 'Ya tienes su sticker normal' : `Lo obtuviste ${CHROME_SOURCE_SHORT[target.sticker!.chrome!.source]}`}
+                    {mode === 'request' ? 'Ya tienes su sticker normal' : `Lo obtuviste ${FINISH_SOURCE_NOTES[lastUnlocked(target.sticker!)?.source ?? 'milestone']}`}
                   </ThemedText>
                 </View>
               </View>
@@ -115,8 +115,8 @@ export function TradePropose({ mode, speciesId, onBack }: Props) {
             {options.length === 0 ? (
               <ThemedText variant="small" color="textSecondary">
                 {mode === 'request'
-                  ? `Para pedirlo necesitas un cromo ${CATEGORY_LABELS[target.category]} o de una categoría mayor.`
-                  : `No tienes especies registradas sin cromo de categoría ${CATEGORY_LABELS[target.category]} o menor.`}
+                  ? `Para pedirlo necesitas un cromo ${CATEGORY_LABELS[target.finish ?? 'holographic']} o de una categoría mayor.`
+                  : `No tienes especies registradas sin cromo de categoría ${CATEGORY_LABELS[target.finish ?? 'holographic']} o menor.`}
               </ThemedText>
             ) : (
               <View accessibilityRole="radiogroup" accessibilityLabel={mode === 'request' ? 'Ofreces a cambio' : 'Pides a cambio'} style={styles.options}>
@@ -155,19 +155,19 @@ export function TradePropose({ mode, speciesId, onBack }: Props) {
 
 function Option({ entry, mode, selected, onPress }: { entry: AlbumEntry; mode: Props['mode']; selected: boolean; onPress: () => void }) {
   const { colors } = useTheme();
-  const how = mode === 'request' ? CHROME_SOURCE_SHORT[entry.sticker!.chrome!.source] : 'tienes el sticker normal';
+  const how = mode === 'request' ? FINISH_SOURCE_NOTES[lastUnlocked(entry.sticker!)?.source ?? 'milestone'] : 'tienes el sticker normal';
   return (
     <Pressable
       accessibilityRole="radio"
       accessibilityState={{ checked: selected }}
-      accessibilityLabel={`${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.category]}`}
+      accessibilityLabel={`${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.finish ?? 'holographic']}`}
       onPress={onPress}
       style={[styles.option, selected ? { borderWidth: 1.5, borderColor: colors.text, backgroundColor: colors.surface } : { borderWidth: 1, borderColor: colors.line }]}>
       <View style={[styles.radio, { borderColor: selected ? colors.text : colors.border }]}>{selected && <View style={[styles.radioDot, { backgroundColor: colors.text }]} />}</View>
       <SpeciesSticker entry={entry} size={52} chromed={mode === 'offer' ? true : undefined} />
       <View style={styles.flex}>
         <ThemedText variant="bodyStrong">{entry.species.commonName}</ThemedText>
-        <ThemedText variant="caption" color="textSecondary">{capitalize(CATEGORY_LABELS[entry.category])} · {how}</ThemedText>
+        <ThemedText variant="caption" color="textSecondary">{capitalize(CATEGORY_LABELS[entry.finish ?? 'holographic'])} · {how}</ThemedText>
       </View>
     </Pressable>
   );

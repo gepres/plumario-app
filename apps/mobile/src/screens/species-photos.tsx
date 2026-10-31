@@ -30,7 +30,7 @@ export function SpeciesPhotos({ speciesId }: { speciesId: string }) {
         <ThemedText variant="small" color="textSecondary" style={styles.flex}>
           {state.status === 'error'
             ? 'No se pudieron cargar tus fotos. Revisa tu conexión.'
-            : 'Aquí verás las fotos que tomes de esta especie. Cada foto validada suma para su cromo.'}
+            : 'Aquí verás las fotos que tomes de esta especie. Cada foto validada entra a esta galería.'}
         </ThemedText>
       </View>
     );

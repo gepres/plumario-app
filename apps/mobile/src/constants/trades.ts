@@ -1,13 +1,15 @@
 import * as Linking from 'expo-linking';
 
-import type { ChromeSource, TradeProblem, TradeResult } from '@plumario/core';
+import type { FinishSource, TradeProblem, TradeResult } from '@plumario/core';
 
 // Textos del intercambio de cromos (IntercambioProponer, IntercambioRecibido).
 
 /** «Holográfico · al completar»: cómo se consiguió cada cromo que se ofrece. */
-export const CHROME_SOURCE_SHORT: Record<ChromeSource, string> = {
-  luck: 'al completar',
-  photos: 'por 5 fotos',
+export const FINISH_SOURCE_NOTES: Record<FinishSource, string> = {
+  luck: 'por suerte',
+  milestone: 'por hito',
+  pack: 'en un sobre',
+  purchase: 'con plumas',
   trade: 'por intercambio',
 };
 
@@ -25,6 +27,7 @@ export function tradeProblemMessage(reason: TradeProblem | Extract<TradeResult, 
     case 'same-species': return 'Esta propuesta no es pareja: el cromo que se da tiene que ser de igual o mayor categoría.';
     case 'closed': return 'Esta propuesta ya no está disponible.';
     case 'own-trade': return 'Es tu propia propuesta.';
+    case 'paused': return 'El intercambio está en pausa por ahora.';
   }
 }
 

@@ -1,90 +1,58 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { chromesView, type AlbumEntry, type CardCategory } from '@plumario/core';
+import { chromesView, type CardCategory, type FinishProgress } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, InfoNote, ProgressBar, ThemedText, TopBar, useTheme } from '@plumario/ui';
+import { Button, CategoryBadge, InfoNote, ProgressBar, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
 import { ListSkeleton } from '@/components/screen-skeletons';
-import { SpeciesSticker } from '@/components/species-sticker';
-import { CATEGORY_LABELS } from '@/constants/cards';
+import { finishTitle } from '@/constants/cards';
 import { useAlbum } from '@/hooks/use-album';
-
-const CRITERIA: Record<CardCategory, string> = {
-  holographic: 'Especies comunes',
-  silver: 'Casi amenazadas',
-  gold: 'Endémicas del Perú',
-  ruby: 'Emblemáticas de Ica y del Perú',
-  diamond: 'Amenazadas',
-};
 
 const BAR: Record<CardCategory, string> = { holographic: '#8FA9D8', silver: '#8F9BA4', gold: '#D9A93E', ruby: '#A51E36', diamond: '#16324A' };
 
-const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
-
-/** «Lo tuyo» de cada categoría: qué cromos tienes y cuál está más cerca. */
-function yours(entries: readonly AlbumEntry[]): string {
-  const chromed = entries.filter((e) => e.sticker?.chrome);
-  const registered = entries.filter((e) => e.sticker);
-  if (chromed.length) {
-    const names = chromed.slice(0, 2).map((e) => e.species.commonName).join(' y ');
-    return `${names}${chromed.length > 2 ? ` y ${chromed.length - 2} más` : ''}. Registraste ${registered.length} de esta categoría.`;
-  }
-  if (registered.length) {
-    const best = [...registered].sort((a, b) => b.sticker!.validPhotos - a.sticker!.validPhotos)[0]!;
-    return `Tienes ${registered.length} sin cromo. La más cerca: ${best.species.commonName}, con ${best.sticker!.validPhotos} de 5 fotos.`;
-  }
-  return 'Aún no registras especies de esta categoría.';
+/** Las especies que ya llegaron a este acabado. */
+function yours({ entries }: FinishProgress): string {
+  if (!entries.length) return 'Aún no tienes.';
+  const names = entries.slice(0, 2).map((e) => e.species.commonName).join(' y ');
+  return `${names}${entries.length > 2 ? ` y ${entries.length - 2} más` : ''}.`;
 }
 
-/** CromosCategorias: qué especies son de cada categoría y cuántas tienes en cromo. */
+/** CategoriasCromos: la escalera de acabados y cuántas especies llegaron a cada uno. */
 export function ChromeCategories({ onBack }: { onBack: () => void }) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-  const album = state.status === 'ready' ? state.album : null;
-  const view = album ? chromesView(album) : null;
+  const view = state.status === 'ready' ? chromesView(state.album) : null;
+  const registered = view?.ladder[0]?.registered ?? 0;
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
-      <TopBar title="Categorías de cromos" onBack={onBack} />
+      <TopBar title="Mis acabados" onBack={onBack} />
       <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + spacing[4] }]}>
         <ThemedText variant="small" color="textSecondary" style={styles.intro}>
-          Cada especie tiene una categoría. Si su cromo sale, sale con ese acabado.
+          Toda especie puede llegar a diamante. Aquí ves cuántas de tus {registered} tienen cada acabado o uno mejor.
         </ThemedText>
         {!view && <ListSkeleton rows={5} />}
-        {view &&
-          album &&
-          view.categories.map((c) => {
-            const entries = album.entries.filter((e) => e.category === c.category);
-            // De muestra, una que ya tenga en cromo; si no, la primera de la categoría, cromada para ver el acabado.
-            const sample = entries.find((e) => e.sticker?.chrome) ?? entries[0];
-            const preview = sample && {
-              ...sample,
-              sticker: sample.sticker?.chrome ? sample.sticker : { speciesId: sample.species.id, completedAt: new Date(), validPhotos: 1, chrome: { source: 'luck' as const, at: new Date() } },
-            };
-            return (
-              <View key={c.category} style={[styles.row, { backgroundColor: colors.surface, borderColor: colors.line }]}>
-                {preview && (
-                  <View style={{ opacity: c.chromed > 0 ? 1 : 0.5 }}>
-                    <SpeciesSticker entry={preview} size={60} />
-                  </View>
-                )}
-                <View style={styles.flex}>
-                  <View style={styles.rowHead}>
-                    <ThemedText variant="section">{capitalize(CATEGORY_LABELS[c.category])}</ThemedText>
-                    <ThemedText variant="label">{c.chromed} de {c.total}</ThemedText>
-                  </View>
-                  <ThemedText variant="caption" color="textSecondary">{CRITERIA[c.category]}</ThemedText>
-                  <ProgressBar current={c.chromed} total={Math.max(c.total, 1)} showValue={false} size="thin" color={BAR[c.category]} />
-                  <ThemedText variant="caption">{yours(entries)}</ThemedText>
-                </View>
+        {view?.ladder.map((step) => (
+          <View key={step.finish} style={[styles.row, { backgroundColor: colors.surface, borderColor: colors.line }]}>
+            <View style={{ opacity: step.reached > 0 ? 1 : 0.5 }}>
+              <CategoryBadge category={step.finish} size={44} />
+            </View>
+            <View style={styles.flex}>
+              <View style={styles.rowHead}>
+                <ThemedText variant="section">{finishTitle(step.finish)}</ThemedText>
+                <ThemedText variant="label">{step.reached} de {step.registered}</ThemedText>
               </View>
-            );
-          })}
+              <ThemedText variant="caption" color="textSecondary">{step.milestone} observaciones</ThemedText>
+              <ProgressBar current={step.reached} total={Math.max(step.registered, 1)} showValue={false} size="thin" color={BAR[step.finish]} />
+              <ThemedText variant="caption">{yours(step)}</ThemedText>
+            </View>
+          </View>
+        ))}
         <InfoNote>
           <ThemedText variant="caption" color="textSecondary">
-            Todas tienen la misma probabilidad de salir en cromo: 1 de cada 8 al completar. Si una especie cumple varias categorías, se queda con la más alta.
+            Los hitos son seguros. Cuenta 1 observación por especie y día, y 1 por semana en las aves amenazadas. Tu primera foto de cada especie puede salir cromada: 1 de cada 8.
           </ThemedText>
         </InfoNote>
         <Button label="Listo" onPress={onBack} />

@@ -2,7 +2,7 @@ import { useState, type ComponentProps } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { achievementId, formatAlbumNumber, type AlbumView, type EarnedAchievement } from '@plumario/core';
+import { achievementId, formatAlbumNumber, type AlbumView, type EarnedAchievement, lastUnlocked } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, ScaledFrame, SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard, Switch, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
@@ -147,17 +147,18 @@ function cardFor(
   }
   const entry = album.entries.find((e) => e.species.id === subject.speciesId);
   if (!entry?.sticker) return null;
-  const { species, sticker, category } = entry;
+  const { species, sticker, finish } = entry;
+  const unlocked = lastUnlocked(sticker);
   // «Cromo 2»: el segundo cromo que consiguió, por fecha.
-  const chromes = album.entries.filter((e) => e.sticker?.chrome).sort((a, b) => a.sticker!.chrome!.at.getTime() - b.sticker!.chrome!.at.getTime());
+  const chromes = album.entries.filter((e) => e.finish).sort((a, b) => a.sticker!.unlocked[0]!.at.getTime() - b.sticker!.unlocked[0]!.at.getTime());
   return {
-    art: { sticker: { figure: species.figure, name: species.commonName, number: formatAlbumNumber(species.albumNumber), tint: stickerTint(species.habitat), finish: sticker.chrome ? category : 'normal', art: STICKER_ART[species.id] } },
-    badge: sticker.chrome ? '¡Me salió cromado!' : '¡Nuevo en mi álbum!',
+    art: { sticker: { figure: species.figure, name: species.commonName, number: formatAlbumNumber(species.albumNumber), tint: stickerTint(species.habitat), finish: finish ?? 'normal', art: STICKER_ART[species.id] } },
+    badge: finish ? '¡Subí de acabado!' : '¡Nuevo en mi álbum!',
     name: species.commonName,
     scientificName: species.scientificName,
     meta: [
-      formatShortDate(sticker.chrome?.at ?? sticker.completedAt),
-      sticker.chrome ? `Cromo ${chromes.findIndex((e) => e.species.id === species.id) + 1}` : `N.º ${formatAlbumNumber(species.albumNumber)}`,
+      formatShortDate(unlocked?.at ?? sticker.completedAt),
+      finish ? `Cromo ${chromes.findIndex((e) => e.species.id === species.id) + 1}` : `N.º ${formatAlbumNumber(species.albumNumber)}`,
       progress,
     ],
     photoUri,

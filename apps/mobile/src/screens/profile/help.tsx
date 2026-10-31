@@ -13,11 +13,11 @@ type Props = {
 };
 
 const FAQS: readonly { question: string; answer: string }[] = [
-  { question: '¿Por qué mi sticker no salió cromado?', answer: 'El cromo sale al azar: 1 de cada 8 al completar un sticker. También lo consigues con 5 fotos validadas de la misma especie o por intercambio.' },
-  { question: 'Tomé otra foto de la misma ave. ¿Cuenta?', answer: 'Se cuentan especies, no fotos. Las fotos extra van a la galería de esa especie y suman para su cromo por fotos.' },
+  { question: '¿Cómo sube de acabado una carta?', answer: 'Observando la misma especie en días distintos. Con 3, 5, 10, 20 y 35 observaciones ganas holográfico, plata, oro, rubí y diamante. Tu primera foto de cada especie también puede salir cromada: 1 de cada 8.' },
+  { question: 'Tomé otra foto de la misma ave. ¿Cuenta?', answer: 'Cuenta 1 observación por especie y día, y 1 por semana en las aves amenazadas, para no molestarlas. Las demás fotos igual van a su galería.' },
   { question: 'La app no reconoce mi foto', answer: 'Prueba con una foto donde el ave se vea entera y nítida. Si sabes qué especie es, puedes elegirla de la lista.' },
   { question: '¿Cuándo se habilita el póster de un hábitat?', answer: 'Al completar todas sus especies. Mientras, lo ves con las que faltan en sombra. Cada 10 especies también ganas un póster con tus aves.' },
-  { question: '¿Cómo intercambio un cromo?', answer: 'Desde el detalle de un sticker: «Pedir su cromo» u «Ofrecer en intercambio». Se manda por enlace o con un código QR, uno por uno y con un cromo de igual o mayor categoría.' },
+  { question: '¿Puedo intercambiar cromos?', answer: 'Todavía no. Estamos preparando un intercambio en el que tu álbum no pierde nada.' },
   { question: '¿Alguien ve dónde tomé mis fotos?', answer: 'No. La ubicación solo asigna la foto a su región, y en especies amenazadas se oculta siempre.' },
 ];
 

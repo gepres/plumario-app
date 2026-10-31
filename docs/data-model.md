@@ -17,9 +17,9 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
 | `users/{uid}` | Perfil: `displayName`, `handle`, `regionId`, `favoriteSpeciesId` (la foto de perfil), `privacy { saveLocation, albumVisibility: private/link/public (la app aún no lo ofrece: el álbum solo lo ve su dueño), showName, improveAi }`, `handleChangedAt`, `regionAlerts` (las regiones que espera, «Avísame cuando esté»), `notifications { achievements, trades, regions }` (los avisos que quiere; lo que falta cuenta como encendido), `createdAt` | el dueño; el `handle` cambia una vez cada 30 días, reservando el nuevo y liberando el anterior en la misma escritura | el dueño |
 | `handles/{handle}` | Reserva del @usuario, que es único: `uid`, `createdAt`. Se crea en la misma escritura que el perfil y las reglas exigen que sea de quien lo crea | el dueño; la borra solo al cambiar de @usuario, en la misma escritura en que su perfil deja de usarla | cualquiera, de a uno (para ver si está libre); no se listan |
 | `feedback/{id}` | Comentario (PerfilComentario): `userId`, `kind` (idea/error/bird/other), `text` (hasta 500), `replyTo` (el correo, solo si deja responder), `screenshotPath`, `appVersion`, `platform`, `createdAt` | quien tiene sesión, a su nombre | nadie desde la app (el equipo, en la consola) |
-| `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, cromo, logros, avance) y `validatedAt`. En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente* y no puede editarlo ni borrarlo; el servidor cambia el estado y escribe el resultado | el dueño |
+| `users/{uid}/sightings/{id}` | Registro: `speciesId`, `regionId`, `takenAt`, `status` (`pending` → `validated`/`rejected`), `photoPath`, `location?`, `placeName?` («Lugar», hasta 60), `createdAt`; al validarlo, el servidor suma `result` (qué pasó: sticker completado, si contó y por qué no, acabado ganado, logros, avance), `validatedAt` y `reviewPending` (la IA no pudo revisarla: la foto entra a la galería y la recompensa espera). En una especie amenazada, `location` y `placeName` van siempre en `null` (lo exigen las reglas) | el dueño lo crea *pendiente* y no puede editarlo ni borrarlo; el servidor cambia el estado y escribe el resultado | el dueño |
 | `users/{uid}/photoClaims/{sha256}` | Huella de una foto que ya contó: `sightingId`, `claimedAt`. El id es el SHA-256 del archivo, así el mismo archivo no cuenta dos veces aunque se suba de nuevo o varios registros apunten a él | el servidor | nadie desde la app |
-| `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos`, `chrome { source: luck/photos/trade, at }`, `category` | el servidor | el dueño |
+| `users/{uid}/stickers/{speciesId}` | Sticker: `completedAt`, `validPhotos` (solo para la galería), `observations`, `lastCountedAt`, `serverDay` y `serverCount` (el tope por día de servidor), `best`, `ownBest` (lo ganado sin intercambio), `claimedMilestone` (nunca baja), `unlocked [{ finish, source: luck/milestone/pack/purchase/trade, at }]` | el servidor | el dueño |
 | `users/{uid}/achievements/{id}` | Logro (`first-bird`, `explorer`, `milestone-10`, `habitat-coast`, `album-complete`): `kind`, `earnedAt`, `seen` | el servidor; el dueño solo marca `seen` | el dueño |
 | `users/{uid}/posters/{id}` | Póster guardado: `kind` (species/habitat), `number`, `habitat`, `speciesIds`, `seed`, `theme`, `title`, `savedAt` | el dueño | el dueño |
 | `users/{uid}/devices/{token}` | Teléfono que recibe los avisos push (el id es su token de FCM): `platform` (android/ios), `updatedAt` | el dueño lo registra al activar las notificaciones y lo borra al cerrar sesión; el servidor borra los que FCM ya no acepta | el dueño |
@@ -44,11 +44,18 @@ registros pendientes, pósteres y propuestas de intercambio, y edita su perfil.
    de gastar IA, rechaza el registro si ese archivo ya contó (`photoClaims`) o si se llegó al tope
    diario. Después vuelve a revisar la foto con Gemini (la app no es de fiar; si Gemini no responde, el
    registro se da por bueno) y, en una transacción, guarda la huella y aplica `evaluateValidatedPhoto`
-   del núcleo: completa el sticker o suma la foto, decide el cromo (1 de 8 al azar al completar, o 5
-   fotos validadas) y guarda los logros nuevos. Si el registro ya no está pendiente (un reintento de
-   la función), no otorga nada dos veces; si dos registros traen la misma foto a la vez, cuenta uno.
+   del núcleo: completa el sticker o suma la foto a la galería, decide si la observación cuenta (1 por
+   especie y día de Lima, 1 por semana en amenazadas, 3 por especie y día de servidor), sortea el cromo
+   de la primera observación (1 de 8), cobra los hitos (`docs/card-progression.md`) y guarda los logros
+   nuevos. Si el registro ya no está pendiente (un reintento de la función), no otorga nada dos veces;
+   si dos registros traen la misma foto a la vez, cuenta uno.
 4. Deja el resultado en el registro (`status` y `result`). La app lo escucha y muestra
    RegistrarCompletado, RevelarCromado o RevelarDiamante, o que la foto no se reconoció.
+5. **Si Gemini no respondió**, la foto entró sin contar: `reviewPending: true` y `blocked: review`.
+   `revalidateSightings` (`functions/src/revalidate.ts`, cada 30 min y de a 20) las busca con
+   `collectionGroup` y las vuelve a revisar: la aprobada cuenta en ese momento y la rechazada pasa a
+   `rejected` y resta 1 de `validPhotos`. Por eso `firestore.indexes.json` declara el campo
+   `reviewPending` también a nivel de grupo.
 
 **Sin señal:** si la foto no se puede subir (Storage reintenta 12 s y el adaptador lo traduce a
 `NetworkError`), el registro queda en una cola del teléfono con una copia de la foto
@@ -61,8 +68,13 @@ despliega esa carpeta, que trae su propio `package.json` solo con las dependenci
 
 ## Flujo de un intercambio
 
+**En pausa desde la fase 1** (`TRADES_PAUSED`): `tradeProblem` responde `paused`, el servidor rechaza
+toda aceptación y las rutas muestran `TradePaused`. Vuelve en la fase 2B con las reglas de
+`docs/card-progression.md`. Lo que sigue describe el flujo guardado en el código, que todavía cambia el
+cromo del álbum y por eso no puede usarse.
+
 1. Quien propone elige qué da y qué pide (IntercambioProponer): un cromo propio por el de una especie
-   que ya registró, de igual o menor categoría (`makeProposeTrade` revisa su lado). Crea
+   que ya registró, de igual o menor acabado (`makeProposeTrade` revisa su lado). Crea
    `trades/{id}` y lo comparte por enlace (`plumario://trade/{id}`) o QR.
 2. Quien abre el enlace ve la propuesta con su álbum (`receivedTrade`): si tiene el cromo pedido y el
    sticker normal del ofrecido, puede aceptar. Los stickers del otro no se leen.

@@ -6,6 +6,7 @@ import { getHealth } from './health.js';
 
 export { checkPhoto, suggestSpecies } from './ai.js';
 export { onSightingCreated } from './sightings.js';
+export { revalidateSightings } from './revalidate.js';
 export { onTradeAcceptanceCreated } from './trades.js';
 export { onRegionCreated } from './regions.js';
 export { onUserDeleted } from './accounts.js';

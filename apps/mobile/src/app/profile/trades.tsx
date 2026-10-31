@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 
-import { ProfileTrades } from '@/screens/profile/trades';
+import { TradePaused } from '@/screens/trade-paused';
 
 export default function ProfileTradesRoute() {
-  return <ProfileTrades onBack={() => router.back()} onOpenTrade={(id) => router.push({ pathname: '/trade/[id]', params: { id } })} />;
+  return <TradePaused onBack={() => router.back()} />;
 }

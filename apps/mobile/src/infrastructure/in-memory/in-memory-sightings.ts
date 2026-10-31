@@ -71,7 +71,7 @@ export class InMemorySightingRepository implements SightingRepository {
     } else {
       const stickers = await this.deps.stickers.listByUser(sighting.userId);
       const now = new Date();
-      const result = evaluateValidatedPhoto({ species, catalog, stickers, at: now, roll: Math.random() });
+      const result = evaluateValidatedPhoto({ species, catalog, stickers, takenAt: sighting.takenAt, at: now, roll: Math.random(), verified: true });
       this.deps.stickers.save(sighting.userId, result.sticker);
       this.deps.achievements.grant(sighting.userId, result.achievements, now);
       updated = { ...sighting, status: 'validated', result: sightingResultOf(result) };

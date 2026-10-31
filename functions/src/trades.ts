@@ -2,7 +2,7 @@ import { getFirestore, Timestamp, type DocumentSnapshot } from 'firebase-admin/f
 import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 
-import { applyTrade, CATEGORY_RANK, tradeProblem, type CardCategory, type TradeResult, type TradeSide } from '@plumario/core';
+import { TRADES_PAUSED, applyTrade, tradeProblem, type TradeResult, type TradeSide } from '@plumario/core';
 
 import { stickerDocument, toSticker } from './mappers.js';
 import { tradeAcceptedNotice } from './notices.js';
@@ -12,9 +12,9 @@ import { notifyUser } from './notify.js';
 // trades/{id}/acceptances/{acceptanceId} con su uid y el servidor hace el intercambio en una
 // transacción, con los stickers de los dos tal como están en ese momento. La respuesta queda en la
 // aceptación y la app la escucha. Las reglas no dejan que el cliente toque stickers ajenos ni propios.
+// Mientras TRADES_PAUSED sea true se responde que no a todo: una app antigua no puede cambiar nada.
 
-const CATEGORIES = Object.keys(CATEGORY_RANK) as CardCategory[];
-const categoryOf = (snapshot: DocumentSnapshot): CardCategory => CATEGORIES.find((c) => c === snapshot.data()?.category) ?? 'holographic';
+const finishOf = (snapshot: DocumentSnapshot) => (snapshot.exists ? toSticker(snapshot.id, snapshot.data()!).best : null) ?? 'holographic';
 
 /** Los stickers de una persona que entran en juego, por especie (los que no tiene, no están). */
 function sideOf(snapshots: DocumentSnapshot[]): TradeSide {
@@ -37,7 +37,8 @@ export const onTradeAcceptanceCreated = onDocumentCreated('trades/{tradeId}/acce
     if (current.data()?.result) return null;
     const data = trade.data();
     let answer: TradeResult;
-    if (!data || data.status !== 'open') answer = { outcome: 'rejected', reason: 'closed' };
+    if (TRADES_PAUSED) answer = { outcome: 'rejected', reason: 'paused' };
+    else if (!data || data.status !== 'open') answer = { outcome: 'rejected', reason: 'closed' };
     else if (data.fromUid === uid) answer = { outcome: 'rejected', reason: 'own-trade' };
     else {
       const offeredId = String(data.offeredSpeciesId);
@@ -51,18 +52,15 @@ export const onTradeAcceptanceCreated = onDocumentCreated('trades/{tradeId}/acce
       ]);
       const proposer = sideOf([proposerOffered, proposerRequested]);
       const receiver = sideOf([receiverOffered, receiverRequested]);
-      // La categoría de cada especie la guardó el servidor en sus stickers; el cromo que se ofrece la
-      // trae de quien propone y el que se pide, de quien recibe.
-      const offered = { speciesId: offeredId, category: categoryOf(proposerOffered) };
-      const requested = { speciesId: requestedId, category: categoryOf(receiverRequested) };
+      const offered = { speciesId: offeredId, category: finishOf(proposerOffered) };
+      const requested = { speciesId: requestedId, category: finishOf(receiverRequested) };
       const problem = tradeProblem(proposer, receiver, offered, requested);
       if (problem) answer = { outcome: 'rejected', reason: problem };
       else {
         const now = new Date();
         const changes = applyTrade(proposer, receiver, offeredId, requestedId, now);
-        const categories: Record<string, CardCategory> = { [offeredId]: offered.category, [requestedId]: requested.category };
-        for (const sticker of changes.proposer) tx.set(stickersOf(data.fromUid).doc(sticker.speciesId), stickerDocument(sticker, categories[sticker.speciesId]!));
-        for (const sticker of changes.receiver) tx.set(stickersOf(uid).doc(sticker.speciesId), stickerDocument(sticker, categories[sticker.speciesId]!));
+        for (const sticker of changes.proposer) tx.set(stickersOf(data.fromUid).doc(sticker.speciesId), stickerDocument(sticker));
+        for (const sticker of changes.receiver) tx.set(stickersOf(uid).doc(sticker.speciesId), stickerDocument(sticker));
         tx.update(tradeRef, { status: 'accepted', acceptedBy: uid, acceptedAt: Timestamp.fromDate(now) });
         answer = { outcome: 'accepted' };
         accepted = { fromUid: String(data.fromUid), requestedSpeciesId: requestedId };

@@ -30,7 +30,8 @@
     "stickers:export": "python tools/stickers/build-review.py && python tools/stickers/export-art.py",
     "test:rules": "node scripts/firebase-emulators.mjs emulators:exec --only firestore,storage \"pnpm --filter @plumario/firebase test:rules\"",
     "dev:stickers": "node tools/dev/seed-stickers.mjs",
-    "dev:trade": "node tools/dev/seed-trade.mjs"
+    "dev:trade": "node tools/dev/seed-trade.mjs",
+    "dev:reset": "node tools/dev/reset-user-data.mjs"
   },
   "devDependencies": {
     "exceljs": "4.4.0",

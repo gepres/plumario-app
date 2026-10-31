@@ -46,12 +46,17 @@ if (clear) {
 const { species, region } = JSON.parse(await readFile(join(ROOT, 'data', 'species', 'ica.json'), 'utf8'));
 const album = species.filter((s) => s.taxonClass === region.albumClass);
 
-// Las mismas reglas que categoryOf de @plumario/core.
-const categoryOf = (s) =>
-  ['VU', 'EN', 'CR'].includes(s.iucn) ? 'diamond' : s.emblematic ? 'ruby' : s.endemic ? 'gold' : s.iucn === 'NT' ? 'silver' : 'holographic';
+// Los mismos hitos que MILESTONES de @plumario/core.
+const MILESTONES = [
+  { observations: 3, finish: 'holographic' },
+  { observations: 5, finish: 'silver' },
+  { observations: 10, finish: 'gold' },
+  { observations: 20, finish: 'ruby' },
+  { observations: 35, finish: 'diamond' },
+];
 
-// Primero unas especies de cada categoría (para ver todos los acabados) y después al azar, con una
-// semilla fija para que dos corridas den lo mismo.
+// Primero unas especies conocidas y después al azar, con una semilla fija para que dos corridas den
+// lo mismo.
 const featured = ['calidris-alba', 'larus-belcheri', 'larosterna-inca', 'spheniscus-humboldti', 'pelecanus-thagus', 'cinclodes-taczanowskii', 'phoenicopterus-chilensis'];
 let seed = 20261024;
 const random = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
@@ -62,14 +67,24 @@ const now = Date.now();
 const batch = db.batch();
 chosen.forEach((s, i) => {
   const completedAt = Timestamp.fromMillis(now - (chosen.length - i) * 36e5 * 20);
-  // Los seis primeros, cromados por vías distintas (holográfico, plata, diamante, rubí, oro); el
-  // resto, normales con 1 a 4 fotos.
-  const chrome = i < 6 ? { source: ['luck', 'photos', 'trade', 'luck', 'photos', 'trade'][i], at: completedAt } : null;
+  // Los seis primeros muestran todos los acabados (el primero, por suerte); el resto, normales con
+  // 1 o 2 observaciones.
+  const observations = [1, 5, 35, 20, 10, 3][i] ?? 1 + Math.floor(random() * 2);
+  const reached = MILESTONES.filter((m) => observations >= m.observations);
+  const unlocked = reached.map((m) => ({ finish: m.finish, source: 'milestone', at: completedAt }));
+  if (i === 0) unlocked.push({ finish: 'holographic', source: 'luck', at: completedAt });
+  const best = unlocked.at(-1)?.finish ?? null;
   batch.set(stickers.doc(s.id), {
     completedAt,
-    validPhotos: chrome?.source === 'photos' ? 5 : 1 + Math.floor(random() * 4),
-    chrome,
-    category: categoryOf(s),
+    validPhotos: observations + Math.floor(random() * 3),
+    observations,
+    lastCountedAt: completedAt,
+    serverDay: null,
+    serverCount: 0,
+    best,
+    ownBest: best,
+    claimedMilestone: reached.at(-1)?.observations ?? 0,
+    unlocked,
   });
 });
 await batch.commit();

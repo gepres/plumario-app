@@ -7,8 +7,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import {
-  PHOTOS_FOR_CHROME,
   SPECIES_PER_POSTER,
+  conservationStatus,
+  newSticker,
   nextPoster,
   type AlbumEntry,
   type Sighting,
@@ -21,7 +22,7 @@ import { BirdCardCover, Button, CARD_HEIGHT, CARD_WIDTH, FlipCard, GradientView,
 import { SpeciesCard } from '@/components/species-card';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CARD_BACK } from '@/constants/card-art';
-import { CATEGORY_LABELS, CATEGORY_REASONS } from '@/constants/cards';
+import { CATEGORY_LABELS, CONSERVATION_LABELS, NOT_COUNTED_LABELS } from '@/constants/cards';
 import { invalidateAlbum } from '@/hooks/album-version';
 import { useAlbum } from '@/hooks/use-album';
 import { useSession } from '@/hooks/use-session';
@@ -34,8 +35,6 @@ type Props = {
   onOpenSpecies: (speciesId: string) => void;
   onRegisterAnother: () => void;
   onRetry: (speciesId: string) => void;
-  /** «Pídelo en intercambio» (IntercambioProponer). */
-  onRequestTrade: (speciesId: string) => void;
 };
 
 type Validated = Extract<SightingResult, { outcome: 'validated' }>;
@@ -68,7 +67,7 @@ export function SightingResultScreen(props: Props) {
   if (!result || !entry) return <Waiting />;
   if (result.outcome === 'rejected') return <Rejected entry={entry} reason={result.reason} {...props} />;
   // Mientras el álbum se vuelve a leer, la entrada puede venir sin el sticker nuevo: se arma con el resultado.
-  if (result.chromed) return <Reveal entry={entry} result={result} {...props} />;
+  if (result.unlocked) return <Reveal entry={entry} result={result} {...props} />;
   if (result.completed) return <Completed entry={entry} result={result} {...props} />;
   return <AddedToGallery entry={entry} result={result} {...props} />;
 }
@@ -88,15 +87,11 @@ function Waiting() {
 
 /** El sticker como quedó después de esta foto, aunque el álbum todavía no lo haya releído. */
 function entryAfter(entry: AlbumEntry, result: Validated): AlbumEntry {
-  const now = new Date();
+  const base = entry.sticker ?? newSticker(entry.species.id, new Date());
   return {
     ...entry,
-    sticker: {
-      speciesId: entry.species.id,
-      completedAt: entry.sticker?.completedAt ?? now,
-      validPhotos: result.validPhotos,
-      chrome: result.chromed ? { source: result.chromed, at: now } : (entry.sticker?.chrome ?? null),
-    },
+    finish: result.finish,
+    sticker: { ...base, validPhotos: result.validPhotos, observations: result.observations, best: result.finish, unlocked: result.unlocked ? [...base.unlocked, result.unlocked] : base.unlocked },
   };
 }
 
@@ -115,8 +110,6 @@ const DIAMOND_NIGHT: Gradient = {
   css: 'radial-gradient(circle at 50% 32%, #1F4A66 0%, #0B1B2A 62%)',
 };
 
-const IUCN_LABELS: Record<string, string> = { VU: 'Vulnerable', EN: 'En peligro', CR: 'En peligro crítico' };
-
 const REVEAL_CARD_WIDTH = 270;
 /** Lo que la carta se queda de espaldas antes de girar: un momento de intriga. */
 const REVEAL_DELAY = 750;
@@ -128,7 +121,9 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
   const { width } = useWindowDimensions();
   const [revealed, setRevealed] = useState(false);
   const cardSize = Math.min(width - spacing[6] * 2, REVEAL_CARD_WIDTH);
-  const diamond = result.category === 'diamond';
+  const finish = result.unlocked!.finish;
+  const diamond = finish === 'diamond';
+  const status = conservationStatus(entry.species);
 
   useEffect(() => {
     const timer = setTimeout(() => setRevealed(true), REVEAL_DELAY);
@@ -137,16 +132,11 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
 
   const accent = diamond ? '#BFE3F2' : '#F2EAB8';
   const soft = diamond ? '#C3D6E0' : colors.onRevealSecondary;
-  const label = CATEGORY_LABELS[result.category];
-  const reason = CATEGORY_REASONS[result.category];
+  const label = CATEGORY_LABELS[finish];
   const why =
-    result.chromed === 'photos'
-      ? `Con ${PHOTOS_FOR_CHROME} fotos validadas, su sticker pasó a cromo ${label}${reason ? `, ${reason}` : ''}.`
-      : result.chromed === 'trade'
-        ? `Lo conseguiste por intercambio: cromo ${label}.`
-        : diamond
-          ? 'Salió en diamante porque es una especie amenazada.'
-          : `Al completar un sticker puede salir cromado al azar. Este es ${label}${reason ? `, ${reason}` : ', la categoría base'}.`;
+    result.unlocked!.source === 'luck'
+      ? `Tu primera foto salió cromada: 1 de cada 8. Este es ${label}.`
+      : `Llegaste a ${result.observations} observaciones y ganaste el acabado ${label}.`;
 
   return (
     <GradientView gradient={diamond ? DIAMOND_NIGHT : colors.reveal} style={styles.fill}>
@@ -182,18 +172,18 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
         </View>
 
         <Animated.View entering={FadeInDown.delay(250)} style={styles.revealText} accessibilityRole="summary" accessibilityLiveRegion="polite">
-          <ThemedText variant="eyebrow" style={[styles.textCenter, { color: accent }]}>{CHROME_TITLES[result.category]}</ThemedText>
+          <ThemedText variant="eyebrow" style={[styles.textCenter, { color: accent }]}>{CHROME_TITLES[finish]}</ThemedText>
           <ThemedText variant="reveal" style={styles.whiteCenter}>{entry.species.commonName}</ThemedText>
           <ThemedText variant="scientific" style={[styles.textCenter, { color: soft }]}>{entry.species.scientificName}</ThemedText>
-          {diamond && entry.species.iucn && (
+          {entry.species.threatened && status && (
             <View style={[styles.lightChip, { backgroundColor: '#BFE3F2' }]}>
-              <ThemedText variant="captionStrong" style={{ color: '#0B1B2A' }}>Amenazada · {IUCN_LABELS[entry.species.iucn] ?? entry.species.iucn}</ThemedText>
+              <ThemedText variant="captionStrong" style={{ color: '#0B1B2A' }}>Amenazada · {CONSERVATION_LABELS[status.category] ?? status.category}</ThemedText>
             </View>
           )}
           <ThemedText style={[styles.centerText, { color: soft }]}>{why}</ThemedText>
         </Animated.View>
 
-        {diamond && (
+        {entry.species.threatened && (
           <View style={[styles.darkCard, styles.row]}>
             <Icon name="shield" color="#BFE3F2" size={22} />
             <View style={styles.flex}>
@@ -234,8 +224,8 @@ function Sparkles({ width, colors }: { width: number; colors: readonly string[] 
   );
 }
 
-/** RegistrarCompletado: especie nueva con sticker normal, y cómo conseguir su cromo. */
-function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onRequestTrade, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
+/** RegistrarCompletado: especie nueva con sticker normal, y qué hito sigue. */
+function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   return (
@@ -270,7 +260,7 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onRequestT
         <PosterProgress registered={result.registered} total={result.total} />
 
         <View style={[styles.waysCard, { borderColor: colors.border }]}>
-          <ThemedText variant="bodyStrong">Otras formas de conseguir su cromo {CATEGORY_LABELS[result.category]}</ThemedText>
+          <ThemedText variant="bodyStrong">Cómo sube su carta</ThemedText>
           <Pressable accessibilityRole="link" onPress={() => onOpenSpecies(entry.species.id)} style={styles.way}>
             <View style={styles.holoBadge}>
               <Svg width={32} height={32} viewBox="0 0 32 32">
@@ -283,17 +273,10 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onRequestT
               </View>
             </View>
             <View style={styles.flex}>
-              <ThemedText variant="bodyStrong">Sube {PHOTOS_FOR_CHROME} fotos validadas</ThemedText>
-              <ThemedText variant="caption" color="textSecondary">Llevas {result.validPhotos} de {PHOTOS_FOR_CHROME}</ThemedText>
-            </View>
-          </Pressable>
-          <Pressable accessibilityRole="link" onPress={() => onRequestTrade(entry.species.id)} style={styles.way}>
-            <View style={[styles.plainBadge, { backgroundColor: colors.surfaceAlt }]}>
-              <Icon name="swap" color={colors.text} size={16} strokeWidth={2} />
-            </View>
-            <View style={styles.flex}>
-              <ThemedText variant="bodyStrong">Pídelo en intercambio</ThemedText>
-              <ThemedText variant="caption" color="textSecondary">A alguien que ya lo tenga</ThemedText>
+              <ThemedText variant="bodyStrong">Obsérvala en otros días</ThemedText>
+              <ThemedText variant="caption" color="textSecondary">
+                {result.blocked ? NOT_COUNTED_LABELS[result.blocked] : result.next ? `Llevas ${result.observations} de ${result.next.observations} para el acabado ${CATEGORY_LABELS[result.next.finish]}` : ''}
+              </ThemedText>
             </View>
           </Pressable>
         </View>
@@ -311,11 +294,12 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onRequestT
   );
 }
 
-/** Otra foto de una especie que ya estaba en el álbum: va a su galería y suma para el cromo. */
+/** Otra foto de una especie que ya estaba en el álbum: va a su galería y, si cuenta, avanza el hito. */
 function AddedToGallery({ entry, result, onOpenSpecies, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-  const remaining = Math.max(0, PHOTOS_FOR_CHROME - result.validPhotos);
+  const { next, observations, blocked } = result;
+  const remaining = next ? next.observations - observations : 0;
   return (
     <ScrollView style={{ backgroundColor: colors.background }} contentContainerStyle={[styles.revealContent, { paddingTop: insets.top, paddingBottom: insets.bottom + spacing[6] }]}>
       <View style={styles.resultTop}>
@@ -334,16 +318,18 @@ function AddedToGallery({ entry, result, onOpenSpecies, onRegisterAnother, onClo
         <ThemedText variant="eyebrow" color="primary" style={styles.textCenter}>Foto validada</ThemedText>
         <ThemedText variant="title" style={styles.textCenter}>Se sumó a la galería de {entry.species.commonName}</ThemedText>
         <ThemedText color="textSecondary" style={styles.centerText}>
-          {result.chromed || entry.sticker?.chrome
-            ? 'Ya tiene su cromo: las fotos siguientes quedan en su galería.'
-            : remaining === 1
-              ? `Una foto válida más y su sticker pasa a cromo ${CATEGORY_LABELS[result.category]}.`
-              : `${remaining} fotos válidas más y su sticker pasa a cromo ${CATEGORY_LABELS[result.category]}.`}
+          {blocked
+            ? NOT_COUNTED_LABELS[blocked]
+            : !next
+              ? 'Ya llegó a diamante: tus fotos siguen sumando a su galería.'
+              : remaining === 1
+                ? `Una observación más y su carta sube a ${CATEGORY_LABELS[next.finish]}.`
+                : `${remaining} observaciones más y su carta sube a ${CATEGORY_LABELS[next.finish]}.`}
         </ThemedText>
       </View>
-      {!entry.sticker?.chrome && (
+      {next && (
         <View style={[styles.lightCard, { backgroundColor: colors.surface, borderColor: colors.line }]}>
-          <ProgressBar label="Cromo por fotos" current={result.validPhotos} total={PHOTOS_FOR_CHROME} valueText={`${result.validPhotos} de ${PHOTOS_FOR_CHROME} validadas`} />
+          <ProgressBar label="Observaciones" current={observations} total={next.observations} valueText={`${observations} de ${next.observations}`} />
         </View>
       )}
       <View style={styles.pairActions}>

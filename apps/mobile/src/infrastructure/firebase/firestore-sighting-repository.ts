@@ -7,6 +7,13 @@ import type { FirebaseServices } from './firebase-services';
 // Adaptador de Firestore del puerto SightingRepository: users/{uid}/sightings/{id}. La app crea el
 // registro pendiente; la Cloud Function onSightingCreated lo valida y le escribe status y result.
 
+/** El acabado ganado trae su fecha como Timestamp de Firestore. */
+function toResult(result: SightingResult | undefined): SightingResult | null {
+  if (result?.outcome !== 'validated' || !result.unlocked) return result ?? null;
+  const at = result.unlocked.at as unknown;
+  return { ...result, unlocked: { ...result.unlocked, at: at instanceof Timestamp ? at.toDate() : new Date() } };
+}
+
 const STATUSES: readonly SightingStatus[] = ['pending', 'validated', 'rejected'];
 const toDate = (value: unknown) => (value instanceof Timestamp ? value.toDate() : new Date(0));
 
@@ -23,7 +30,7 @@ function toSighting(userId: string, id: string, data: Record<string, unknown>): 
     location: location && typeof location.latitude === 'number' ? location : null,
     placeName: typeof data.placeName === 'string' ? data.placeName : null,
     createdAt: toDate(data.createdAt),
-    result: (data.result as SightingResult | undefined) ?? null,
+    result: toResult(data.result as SightingResult | undefined),
   };
 }
 

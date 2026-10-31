@@ -137,7 +137,7 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
           <ThemedText variant="section" accessibilityRole="header">Cómo funciona</ThemedText>
           {[
             { title: 'Completa stickers con tus fotos', detail: 'Toca una silueta del álbum o usa Registrar.' },
-            { title: 'Consigue cromos', detail: 'Al azar al completar, con 5 fotos o intercambiando.' },
+            { title: 'Consigue cromos', detail: 'Observa la misma ave en días distintos y sube de acabado.' },
             { title: 'Medallas y pósteres', detail: 'Medalla y póster cada 10 especies, y un póster por hábitat completo.' },
           ].map((step, i) => (
             <View key={step.title} style={styles.step} accessible>

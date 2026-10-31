@@ -1,4 +1,4 @@
-import type { CardCategory, ChromeSource, Seal } from '@plumario/core';
+import type { CardCategory, FinishSource, NotCounted, Seal } from '@plumario/core';
 
 // Textos de los cromos (CategoriasCromos, StickerDetalle, GaleriaEspecie).
 
@@ -8,15 +8,6 @@ export const CATEGORY_LABELS: Record<CardCategory, string> = {
   gold: 'oro',
   ruby: 'rubí',
   diamond: 'diamante',
-};
-
-/** Por qué una especie tiene su categoría («cromo rubí, por ser emblemática»). */
-export const CATEGORY_REASONS: Record<CardCategory, string | null> = {
-  holographic: null,
-  silver: 'por estar casi amenazada',
-  gold: 'por ser endémica',
-  ruby: 'por ser emblemática',
-  diamond: 'por estar amenazada',
 };
 
 export const SEAL_LABELS: Record<Seal, string> = {
@@ -45,18 +36,35 @@ export const CONSERVATION_LABELS: Record<string, string> = {
   NE: 'Sin evaluar',
 };
 
-export const CHROME_SOURCE_LABELS: Record<ChromeSource, string> = {
-  luck: 'Al azar, al completar su sticker.',
-  photos: 'Con 5 fotos validadas de la especie.',
+export const FINISH_SOURCE_LABELS: Record<FinishSource, string> = {
+  luck: 'Por suerte, con tu primera foto.',
+  milestone: 'Con tus observaciones.',
+  pack: 'En un sobre.',
+  purchase: 'Con plumas.',
   trade: 'Por intercambio.',
 };
 
 /** Cómo se obtuvo, en corto, para el reverso de la carta. */
-export const CHROME_SOURCE_SHORT: Record<ChromeSource, string> = {
-  luck: 'Al azar',
-  photos: '5 fotos',
+export const FINISH_SOURCE_SHORT: Record<FinishSource, string> = {
+  luck: 'Por suerte',
+  milestone: 'Por hito',
+  pack: 'En un sobre',
+  purchase: 'Con plumas',
   trade: 'Intercambio',
 };
+
+/** Por qué una foto validada no contó como observación. */
+export const NOT_COUNTED_LABELS: Record<NotCounted, string> = {
+  today: 'Hoy ya contó. Vuelve mañana.',
+  week: 'Cuenta una vez por semana para no molestarla.',
+  'server-limit': 'Hoy ya contaron varias fotos de esta ave. Vuelve mañana.',
+  review: 'La revisaremos pronto.',
+};
+
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
+/** «Plata», como título. */
+export const finishTitle = (finish: CardCategory) => capitalize(CATEGORY_LABELS[finish]);
 
 const longDate = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
 const shortDate = new Intl.DateTimeFormat('es-PE', { day: 'numeric', month: 'short', year: 'numeric' });

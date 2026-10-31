@@ -3,9 +3,11 @@
 Las reglas de cromos, sobres, repetidas y plumas, aprobadas el 30 de octubre de 2026. Sustituyen a las
 reglas anteriores, en las que el acabado dependía de la especie.
 
-**Estado del código:** el dominio sigue con las reglas anteriores hasta la fase 1
-(`packages/core/src/domain/card.ts`, `sticker.ts`, `trade.ts`). Los artboards de `design/project/` ya
-describen estas reglas. Si el código y este documento no coinciden, manda este documento.
+**Estado del código:** la fase 1 está en `packages/core/src/domain/card.ts`, `sticker.ts` y `trade.ts`:
+acabado ganado, hitos, elegibilidad, revalidación e intercambio en pausa. Sobres, repetidas y plumas
+empiezan en la fase 2A; `applyValidPhoto` ya informa `coveredMilestone` para pagar esas plumas. Los
+artboards de `design/project/` ya describen estas reglas. Si el código y este documento no coinciden,
+manda este documento.
 
 ## El ciclo
 
@@ -169,6 +171,11 @@ saldo quede negativo. Lo ya entregado solo se retira por fraude.
 
 No hay migración. Los datos de usuarios se borran al lanzar la fase 1 y el catálogo se conserva. Antes
 de borrar se pide confirmación expresa.
+
+`pnpm dev:reset` hace ese borrado: stickers, registros, huellas, logros, pósteres, uso, propuestas y
+fotos. Conserva el catálogo, las cuentas, los perfiles, el @usuario y los teléfonos de los avisos. Sin
+`--apply` solo cuenta lo que borraría, y en el proyecto real además exige `--prod` y
+`--confirm link-dynamic-74b85`.
 
 ## Fases
 

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { HABITATS, type AlbumEntry } from '@plumario/core';
+import { HABITATS, newSticker, type AlbumEntry } from '@plumario/core';
 import { cardFinishes, layout, palette, radius, spacing, typography, type CardFinish, type Gradient, type TypeVariant } from '@plumario/tokens';
 import { Button, Card, Chip, GradientView, ListRow, ProgressBar, ThemedText, useTheme, type ColorToken, type StickerFinish } from '@plumario/ui';
 
@@ -29,7 +29,7 @@ const TYPE_SAMPLES: Record<TypeVariant, string> = {
   heading: 'Elige tu región',
   section: 'Tus últimas aves',
   button: 'Guardar póster',
-  body: 'Cada especie tiene una categoría.',
+  body: 'Toda especie puede llegar a diamante.',
   bodyStrong: 'Póster 2: te faltan 8',
   label: 'Contraseña',
   small: '¿No tienes cuenta?',
@@ -52,8 +52,8 @@ const SAMPLE_CARD: AlbumEntry = {
     id: 'pelecanus-thagus', regionId: 'ica', taxonClass: 'bird', albumNumber: 230, commonName: 'Pelícano Peruano', scientificName: 'Pelecanus thagus',
     habitat: 'coast', family: 'Pelecanidae', iucn: 'NT', nationalCategory: 'EN', threatened: true, endemic: false, emblematic: true, figure: 'pelican',
   },
-  sticker: { speciesId: 'pelecanus-thagus', completedAt: new Date(2026, 9, 12), validPhotos: 5, chrome: null },
-  category: 'diamond',
+  sticker: { ...newSticker('pelecanus-thagus', new Date(2026, 9, 12)), validPhotos: 7, observations: 5 },
+  finish: null,
 };
 const SAMPLE_FINISHES: readonly StickerFinish[] = ['normal', 'holographic', 'silver', 'gold', 'ruby', 'diamond'];
 

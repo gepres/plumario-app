@@ -1,5 +1,5 @@
 import { isInAlbum } from './album';
-import { categoryOf, type CardCategory } from './card';
+import type { CardCategory } from './card';
 import { HABITATS, type Habitat } from './habitat';
 import type { Species } from './species';
 import type { Sticker } from './sticker';
@@ -11,8 +11,8 @@ export type AlbumEntry = {
   species: Species;
   /** null mientras la especie está en sombra. */
   sticker: Sticker | null;
-  /** El acabado que tendría su cromo; el sticker normal no lo muestra. */
-  category: CardCategory;
+  /** Su mejor acabado; null en la carta normal o si aún está en sombra. */
+  finish: CardCategory | null;
 };
 
 export type HabitatSection = {
@@ -39,7 +39,10 @@ export function buildAlbumView(catalog: readonly Species[], stickers: readonly S
   const stickerBySpecies = new Map(stickers.map((s) => [s.speciesId, s]));
   const entries = catalog
     .filter(isInAlbum)
-    .map((species) => ({ species, sticker: stickerBySpecies.get(species.id) ?? null, category: categoryOf(species) }))
+    .map((species) => {
+      const sticker = stickerBySpecies.get(species.id) ?? null;
+      return { species, sticker, finish: sticker?.best ?? null };
+    })
     .sort(byAlbumNumber);
   const habitats = HABITATS.map((habitat) => {
     const inHabitat = entries.filter((e) => e.species.habitat === habitat);

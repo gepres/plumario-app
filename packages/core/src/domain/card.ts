@@ -1,30 +1,36 @@
-import type { Species } from './species';
-
-// Cromos por categoría (design/project/CategoriasCromos.dc.html). Cada especie tiene una categoría
-// fija; el sticker normal no cambia, la categoría solo se ve cuando la especie sale en cromo.
+// Los acabados de una carta (docs/card-progression.md). Se ganan por especie: que un ave sea amenazada,
+// endémica o emblemática es un sello y nunca decide el acabado.
 
 export type CardCategory = 'holographic' | 'silver' | 'gold' | 'ruby' | 'diamond';
 
-/** Si cumple varias, gana la más alta: Diamante › Rubí › Oro › Plata › Holográfico. */
+/** De menor a mayor. */
 export const CATEGORY_RANK: Record<CardCategory, number> = { holographic: 0, silver: 1, gold: 2, ruby: 3, diamond: 4 };
 
-/** «Al completar sale cromo 1 de cada 8, sea cual sea la categoría. Valor configurable.» */
+/** Probabilidad de holográfico en la primera observación de una especie. */
 export const CHROME_CHANCE = 1 / 8;
 
-/** «Con 5 fotos validadas, su sticker pasa a cromado.» */
-export const PHOTOS_FOR_CHROME = 5;
+export type Milestone = { observations: number; finish: CardCategory };
 
-const THREATENED_IUCN = new Set(['VU', 'EN', 'CR']);
+/** Los hitos son seguros: llegar a esas observaciones da el acabado sin depender de la suerte. */
+export const MILESTONES: readonly Milestone[] = [
+  { observations: 3, finish: 'holographic' },
+  { observations: 5, finish: 'silver' },
+  { observations: 10, finish: 'gold' },
+  { observations: 20, finish: 'ruby' },
+  { observations: 35, finish: 'diamond' },
+];
 
-export function categoryOf(species: Pick<Species, 'iucn' | 'endemic' | 'emblematic'>): CardCategory {
-  if (species.iucn && THREATENED_IUCN.has(species.iucn)) return 'diamond';
-  if (species.emblematic) return 'ruby';
-  if (species.endemic) return 'gold';
-  if (species.iucn === 'NT') return 'silver';
-  return 'holographic';
+/** El mejor de dos acabados; null es la carta normal, sin acabado. */
+export function betterFinish(a: CardCategory | null, b: CardCategory | null): CardCategory | null {
+  if (!a) return b;
+  if (!b) return a;
+  return CATEGORY_RANK[a] >= CATEGORY_RANK[b] ? a : b;
 }
 
-/** «Intercambio parejo: uno por uno, dando un cromo de la misma categoría o superior a la que pides.» */
+/** El hito que sigue a estas observaciones; null si ya los alcanzó todos. */
+export const nextFinishMilestone = (observations: number): Milestone | null => MILESTONES.find((m) => m.observations > observations) ?? null;
+
+/** «Uno por uno, y cada parte entrega el mismo acabado» se decide en la fase 2B; hoy el intercambio está en pausa. */
 export function isFairTrade(offered: CardCategory, requested: CardCategory): boolean {
   return CATEGORY_RANK[offered] >= CATEGORY_RANK[requested];
 }

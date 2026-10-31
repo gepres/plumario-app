@@ -5,12 +5,12 @@ import { buildAlbumView, type AlbumView } from './album-view';
 import type { Sticker } from './sticker';
 import { applyTrade, offerOptions, receivedTrade, requestOptions, tradeProblem, type TradeProposal, type TradeSide } from './trade';
 
-const chrome = { source: 'luck' as const, at: at(2) };
+const chrome = { best: 'holographic' as const };
 const side = (...stickers: Sticker[]): TradeSide => ({ stickers: new Map(stickers.map((s) => [s.speciesId, s])) });
 
 // Ana ofrece su cromo de Playero (holográfico) y pide el de Gaviota (holográfico) a Beto.
-const ana = side(sticker('playero', { chrome }), sticker('gaviota'));
-const beto = side(sticker('gaviota', { chrome }), sticker('playero'));
+const ana = side(sticker('playero', chrome), sticker('gaviota'));
+const beto = side(sticker('gaviota', chrome), sticker('playero'));
 const offered = { speciesId: 'playero', category: 'holographic' as const };
 const requested = { speciesId: 'gaviota', category: 'holographic' as const };
 
@@ -25,12 +25,12 @@ describe('tradeProblem', () => {
   });
 
   it('solo se recibe el cromo de una especie ya registrada', () => {
-    expect(tradeProblem(side(sticker('playero', { chrome })), beto, offered, requested)).toBe('proposer-missing-species');
-    expect(tradeProblem(ana, side(sticker('gaviota', { chrome })), offered, requested)).toBe('receiver-missing-species');
+    expect(tradeProblem(side(sticker('playero', chrome)), beto, offered, requested)).toBe('proposer-missing-species');
+    expect(tradeProblem(ana, side(sticker('gaviota', chrome)), offered, requested)).toBe('receiver-missing-species');
   });
 
   it('no se pide un cromo que ya se tiene', () => {
-    const anaConAmbos = side(sticker('playero', { chrome }), sticker('gaviota', { chrome }));
+    const anaConAmbos = side(sticker('playero', chrome), sticker('gaviota', chrome));
     expect(tradeProblem(anaConAmbos, beto, offered, requested)).toBe('already-has-chrome');
   });
 
@@ -47,18 +47,17 @@ describe('applyTrade', () => {
   it('cada uno recibe el cromo del otro y el suyo vuelve a la versión normal', () => {
     const result = applyTrade(ana, beto, 'playero', 'gaviota', at(9));
     expect(result.proposer).toEqual([
-      expect.objectContaining({ speciesId: 'playero', chrome: null }),
-      expect.objectContaining({ speciesId: 'gaviota', chrome: { source: 'trade', at: at(9) } }),
+      expect.objectContaining({ speciesId: 'playero', best: null }),
+      expect.objectContaining({ speciesId: 'gaviota', best: 'holographic', unlocked: [{ finish: 'holographic', source: 'trade', at: at(9) }] }),
     ]);
     expect(result.receiver).toEqual([
-      expect.objectContaining({ speciesId: 'gaviota', chrome: null }),
-      expect.objectContaining({ speciesId: 'playero', chrome: { source: 'trade', at: at(9) } }),
+      expect.objectContaining({ speciesId: 'gaviota', best: null }),
+      expect.objectContaining({ speciesId: 'playero', best: 'holographic', unlocked: [{ finish: 'holographic', source: 'trade', at: at(9) }] }),
     ]);
   });
 });
 
 describe('opciones y propuesta recibida', () => {
-  // Playero y gaviota holográficos, zarcillo plata (casi amenazado), pingüino oro (endémico).
   const catalog = [
     species('playero', { albumNumber: 1 }),
     species('gaviota', { albumNumber: 2 }),
@@ -66,25 +65,23 @@ describe('opciones y propuesta recibida', () => {
     species('pinguino', { albumNumber: 4, endemic: true }),
   ];
   const entry = (album: AlbumView, id: string) => album.entries.find((e) => e.species.id === id)!;
-  const anaAlbum = buildAlbumView(catalog, [sticker('playero', { chrome }), sticker('gaviota'), sticker('zarcillo'), sticker('pinguino', { chrome })]);
-  const betoAlbum = buildAlbumView(catalog, [sticker('playero'), sticker('gaviota', { chrome })]);
+  const anaAlbum = buildAlbumView(catalog, [sticker('playero', chrome), sticker('gaviota'), sticker('zarcillo'), sticker('pinguino', chrome)]);
+  const betoAlbum = buildAlbumView(catalog, [sticker('playero'), sticker('gaviota', chrome)]);
   const trade: TradeProposal = {
     id: 't1', fromUid: 'ana', fromHandle: 'ana', offeredSpeciesId: 'playero', requestedSpeciesId: 'gaviota', status: 'open', createdAt: at(3),
   };
 
-  it('para pedir un cromo se ofrecen los propios de igual o mayor categoría', () => {
+  it('para pedir un cromo se ofrecen los propios', () => {
     expect(offerOptions(anaAlbum, entry(anaAlbum, 'gaviota')).map((e) => e.species.id)).toEqual(['playero', 'pinguino']);
-    expect(offerOptions(anaAlbum, entry(anaAlbum, 'zarcillo')).map((e) => e.species.id)).toEqual(['pinguino']);
   });
 
-  it('al ofrecer un cromo se pide uno registrado, sin cromo y de igual o menor categoría', () => {
-    expect(requestOptions(anaAlbum, entry(anaAlbum, 'playero')).map((e) => e.species.id)).toEqual(['gaviota']);
-    expect(requestOptions(anaAlbum, entry(anaAlbum, 'pinguino')).map((e) => e.species.id)).toEqual(['gaviota', 'zarcillo']);
+  it('al ofrecer un cromo se pide uno registrado y sin cromo', () => {
+    expect(requestOptions(anaAlbum, entry(anaAlbum, 'playero')).map((e) => e.species.id)).toEqual(['gaviota', 'zarcillo']);
   });
 
   it('quien recibe ve si puede aceptar, con su propio álbum', () => {
     expect(receivedTrade(trade, betoAlbum, 'beto').status).toBe('ready');
-    expect(receivedTrade(trade, buildAlbumView(catalog, [sticker('gaviota', { chrome })]), 'beto')).toMatchObject({ status: 'blocked', problem: 'receiver-missing-species' });
+    expect(receivedTrade(trade, buildAlbumView(catalog, [sticker('gaviota', chrome)]), 'beto')).toMatchObject({ status: 'blocked', problem: 'receiver-missing-species' });
     expect(receivedTrade(trade, anaAlbum, 'ana').status).toBe('own');
     expect(receivedTrade({ ...trade, status: 'accepted' }, betoAlbum, 'beto').status).toBe('accepted');
   });

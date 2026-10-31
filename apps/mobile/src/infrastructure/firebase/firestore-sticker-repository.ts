@@ -1,24 +1,37 @@
 import { Timestamp, collection, getDocs } from '@react-native-firebase/firestore';
 
-import type { ChromeSource, Sticker, StickerRepository } from '@plumario/core';
+import { CATEGORY_RANK, type CardCategory, type FinishSource, type Sticker, type StickerRepository } from '@plumario/core';
 
 import type { FirebaseServices } from './firebase-services';
 
 // Adaptador de Firestore del puerto StickerRepository: users/{uid}/stickers/{speciesId}. Los escribe
 // el servidor al validar cada foto; la app solo los lee.
 
-const CHROME_SOURCES: readonly ChromeSource[] = ['luck', 'photos', 'trade'];
+const CARD_CATEGORIES = Object.keys(CATEGORY_RANK) as CardCategory[];
+const FINISH_SOURCES: readonly FinishSource[] = ['luck', 'milestone', 'pack', 'purchase', 'trade'];
 
 const toDate = (value: unknown) => (value instanceof Timestamp ? value.toDate() : new Date(0));
+const finishOf = (value: unknown) => CARD_CATEGORIES.find((c) => c === value) ?? null;
+const count = (value: unknown) => (typeof value === 'number' ? value : 0);
 
 function toSticker(speciesId: string, data: Record<string, unknown>): Sticker {
-  const chrome = data.chrome as { source?: unknown; at?: unknown } | null | undefined;
-  const source = CHROME_SOURCES.find((s) => s === chrome?.source);
+  const unlocked = (Array.isArray(data.unlocked) ? data.unlocked : []) as { finish?: unknown; source?: unknown; at?: unknown }[];
   return {
     speciesId,
     completedAt: toDate(data.completedAt),
-    validPhotos: typeof data.validPhotos === 'number' ? data.validPhotos : 1,
-    chrome: source ? { source, at: toDate(chrome?.at) } : null,
+    validPhotos: count(data.validPhotos),
+    observations: count(data.observations),
+    lastCountedAt: data.lastCountedAt instanceof Timestamp ? data.lastCountedAt.toDate() : null,
+    serverDay: typeof data.serverDay === 'number' ? data.serverDay : null,
+    serverCount: count(data.serverCount),
+    best: finishOf(data.best),
+    ownBest: finishOf(data.ownBest),
+    claimedMilestone: count(data.claimedMilestone),
+    unlocked: unlocked.flatMap(({ finish, source, at }) => {
+      const known = finishOf(finish);
+      const origin = FINISH_SOURCES.find((s) => s === source);
+      return known && origin ? [{ finish: known, source: origin, at: toDate(at) }] : [];
+    }),
   };
 }
 

@@ -125,7 +125,7 @@ export function TradeReceived({ tradeId, onClose, onOpenSticker }: Props) {
             <View style={styles.notes}>
               {view.status === 'ready' && names && view.offered && view.requested && (
                 <Note ok>
-                  Ya registraste {names.offered} y su cromo es de {CATEGORY_RANK[view.offered.category] === CATEGORY_RANK[view.requested.category] ? 'la misma categoría que' : 'una categoría mayor que'} el tuyo.
+                  Ya registraste {names.offered} y su cromo es de {CATEGORY_RANK[view.offered.finish ?? 'holographic'] === CATEGORY_RANK[view.requested.finish ?? 'holographic'] ? 'la misma categoría que' : 'una categoría mayor que'} el tuyo.
                 </Note>
               )}
               {view.status === 'blocked' && names && <Note problem>{tradeProblemMessage(view.problem, names)}</Note>}
@@ -164,11 +164,11 @@ export function TradeReceived({ tradeId, onClose, onOpenSticker }: Props) {
 
 function Side({ label, entry, color }: { label: string; entry: AlbumEntry; color: string }) {
   return (
-    <View style={styles.side} accessible accessibilityLabel={`${label}: ${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.category]}`}>
+    <View style={styles.side} accessible accessibilityLabel={`${label}: ${entry.species.commonName}, cromo ${CATEGORY_LABELS[entry.finish ?? 'holographic']}`}>
       <ThemedText variant="eyebrow" style={{ color }}>{label}</ThemedText>
       <SpeciesSticker entry={entry} size={128} chromed />
       <ThemedText variant="label" style={styles.center}>{entry.species.commonName}</ThemedText>
-      <ThemedText variant="caption" color="textSecondary" style={styles.center}>{capitalize(CATEGORY_LABELS[entry.category])}</ThemedText>
+      <ThemedText variant="caption" color="textSecondary" style={styles.center}>{capitalize(CATEGORY_LABELS[entry.finish ?? 'holographic'])}</ThemedText>
     </View>
   );
 }

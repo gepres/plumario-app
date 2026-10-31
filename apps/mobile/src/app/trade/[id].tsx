@@ -1,10 +1,8 @@
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 
-import { TradeReceived } from '@/screens/trade-received';
+import { TradePaused } from '@/screens/trade-paused';
 
-/** Abre el enlace de una propuesta (plumario://trade/{id}), también desde el QR. */
+/** Los enlaces de propuestas antiguas (plumario://trade/{id}) llegan a la pausa. */
 export default function TradeRoute() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
-  return <TradeReceived tradeId={id} onClose={close} onOpenSticker={(speciesId) => router.replace({ pathname: '/sticker/[id]', params: { id: speciesId } })} />;
+  return <TradePaused onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))} />;
 }

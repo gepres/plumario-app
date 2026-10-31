@@ -1,4 +1,4 @@
-import type { TradeProposal, TradeRepository, TradeResult, UserId } from '@plumario/core';
+import { grantFinish, type TradeProposal, type TradeRepository, type TradeResult, type UserId } from '@plumario/core';
 
 import type { InMemoryStickerRepository } from './in-memory-sticker-repository';
 
@@ -49,11 +49,11 @@ export class InMemoryTradeRepository implements TradeRepository {
     const mine = new Map((await this.stickers.listByUser(userId)).map((s) => [s.speciesId, s]));
     const requested = mine.get(trade.requestedSpeciesId);
     const offered = mine.get(trade.offeredSpeciesId);
-    if (!requested?.chrome) return { outcome: 'rejected', reason: 'requested-not-chromed' };
+    if (!requested?.best) return { outcome: 'rejected', reason: 'requested-not-chromed' };
     if (!offered) return { outcome: 'rejected', reason: 'receiver-missing-species' };
     const now = new Date();
-    this.stickers.save(userId, { ...requested, chrome: null });
-    this.stickers.save(userId, { ...offered, chrome: { source: 'trade', at: now } });
+    this.stickers.save(userId, { ...requested, best: null });
+    this.stickers.save(userId, grantFinish(offered, requested.best, 'trade', now).sticker);
     this.trades.set(tradeId, { ...trade, status: 'accepted' });
     return { outcome: 'accepted' };
   }

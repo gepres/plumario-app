@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { formatAlbumNumber, type AlbumEntry } from '@plumario/core';
+import { formatAlbumNumber, lastUnlocked, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSkeleton } from '@/components/screen-skeletons';
 import { SpeciesCard, SpeciesCardBack } from '@/components/species-card';
-import { CATEGORY_LABELS, CHROME_SOURCE_LABELS, formatLongDate } from '@/constants/cards';
+import { CATEGORY_LABELS, FINISH_SOURCE_LABELS, formatLongDate } from '@/constants/cards';
 import { ALBUM_HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
@@ -19,17 +19,15 @@ type Props = {
   onOpenGallery: (speciesId: string) => void;
   /** CompartirTarjeta; con la foto propia puesta si se pide. */
   onShare: (speciesId: string, withPhoto: boolean) => void;
-  /** IntercambioProponer: ofrecer el cromo propio o pedir el de la especie. */
-  onTrade: (mode: 'offer' | 'request', speciesId: string) => void;
 };
 
 /** StickerDetalle: la carta de la especie, con su reverso, y cómo y cuándo se obtuvo. */
-export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTrade }: Props) {
+export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const entry = state.status === 'ready' ? state.album.entries.find((e) => e.species.id === speciesId) : undefined;
-  const chromed = !!entry?.sticker?.chrome;
+  const chromed = !!entry?.finish;
 
   return (
     <>
@@ -51,7 +49,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTra
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
         {state.status === 'ready' && entry?.sticker && (
-          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onShare={onShare} onTrade={onTrade} />
+          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onShare={onShare} />
         )}
       </ScrollView>
       <StatusBarScrim />
@@ -59,12 +57,13 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare, onTra
   );
 }
 
-function DetailContent({ entry, total, onOpenGallery, onShare, onTrade }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onShare' | 'onTrade'>) {
+function DetailContent({ entry, total, onOpenGallery, onShare }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onShare'>) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const [flipped, setFlipped] = useState(false);
-  const { species, category } = entry;
+  const { species, finish } = entry;
   const sticker = entry.sticker!;
+  const unlocked = lastUnlocked(sticker);
   const number = formatAlbumNumber(species.albumNumber);
   const cardSize = Math.min(width - layout.cardMargin * 2, CARD_MAX_WIDTH);
 
@@ -92,10 +91,10 @@ function DetailContent({ entry, total, onOpenGallery, onShare, onTrade }: { entr
         <ThemedText variant="title">{species.commonName}</ThemedText>
         <ThemedText variant="scientific" color="textSecondary">{species.scientificName}</ThemedText>
         <View style={styles.chips}>
-          {sticker.chrome && (
+          {finish && (
             <View style={[styles.chip, { backgroundColor: colors.surface, borderColor: colors.line }]}>
-              <FinishSwatch finish={category} />
-              <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[category]}</ThemedText>
+              <FinishSwatch finish={finish} />
+              <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[finish]}</ThemedText>
             </View>
           )}
           <View style={[styles.chip, { backgroundColor: colors.surface, borderColor: colors.line }]}>
@@ -107,9 +106,9 @@ function DetailContent({ entry, total, onOpenGallery, onShare, onTrade }: { entr
       </View>
 
       <View style={styles.facts}>
-        <Fact term="Cómo se obtuvo" value={sticker.chrome ? CHROME_SOURCE_LABELS[sticker.chrome.source] : 'Al completar el sticker con tu primera foto.'} />
-        <Fact term="Fecha de obtención" value={formatLongDate(sticker.chrome?.at ?? sticker.completedAt)} />
-        <Fact term="En tu álbum" value={sticker.chrome ? `Ocupa la casilla N.º ${number} en lugar del sticker normal.` : `Ocupa la casilla N.º ${number}.`} last />
+        <Fact term="Cómo se obtuvo" value={unlocked ? FINISH_SOURCE_LABELS[unlocked.source] : 'Al completar el sticker con tu primera foto.'} />
+        <Fact term="Fecha de obtención" value={formatLongDate(unlocked?.at ?? sticker.completedAt)} />
+        <Fact term="En tu álbum" value={finish ? `Ocupa la casilla N.º ${number} en lugar del sticker normal.` : `Ocupa la casilla N.º ${number}.`} last />
       </View>
 
       <View style={styles.galleryLink}>
@@ -117,13 +116,7 @@ function DetailContent({ entry, total, onOpenGallery, onShare, onTrade }: { entr
       </View>
 
       <View style={styles.actions}>
-        <Button label={sticker.chrome ? 'Compartir con mi foto' : 'Compartir'} icon="share" onPress={() => onShare(species.id, !!sticker.chrome)} />
-        <Button
-          label={sticker.chrome ? 'Ofrecer en intercambio' : 'Pedir su cromo en intercambio'}
-          icon="swap"
-          variant="secondary"
-          onPress={() => onTrade(sticker.chrome ? 'offer' : 'request', species.id)}
-        />
+        <Button label={finish ? 'Compartir con mi foto' : 'Compartir'} icon="share" onPress={() => onShare(species.id, !!finish)} />
       </View>
     </>
   );

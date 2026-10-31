@@ -15,15 +15,15 @@ import { DUPLICATE_PHOTO_REASON, photoClaimId } from './photo-claims.js';
 
 // Cuando la app guarda un registro pendiente (users/{uid}/sightings/{id}), el servidor valida la
 // foto y, si es de la especie elegida, otorga lo que corresponde en una transacción: completa el
-// sticker o suma la foto, sortea el cromo y guarda los logros. El resultado queda en el registro y
-// la app lo muestra (RegistrarCompletado, RevelarCromado). Las reglas no dejan que el cliente
-// escriba nada de esto.
+// sticker o suma la foto a la galería, cuenta la observación si es elegible y guarda los logros. El
+// resultado queda en el registro y la app lo muestra (RegistrarCompletado, RevelarCromado). Las reglas
+// no dejan que el cliente escriba nada de esto.
 
 const MISSING_PHOTO_REASON = 'No encontramos tu foto.';
 const DAILY_LIMIT_REASON = 'Llegaste al máximo de registros por hoy. Vuelve a intentarlo mañana.';
 
 /** La foto del registro, de Storage; null si no es del usuario o no está. */
-async function readPhoto(uid: string, photoPath: string): Promise<Buffer | null> {
+export async function readPhoto(uid: string, photoPath: string): Promise<Buffer | null> {
   if (!photoPath.startsWith(`users/${uid}/photos/`)) return null;
   try {
     const [photo] = await getStorage().bucket().file(photoPath).download();
@@ -34,17 +34,20 @@ async function readPhoto(uid: string, photoPath: string): Promise<Buffer | null>
   }
 }
 
-/**
- * La IA revisa la foto. Si no responde, se da por buena: la app ya la revisó antes de guardar y el
- * registro no debe quedar trabado por una falla de Gemini.
- */
-async function validatePhoto(uid: string, photoPath: string, photo: Buffer, species: Species): Promise<CheckResult> {
+/** Lo que dijo la IA de una foto; null si no respondió. */
+export async function reviewPhoto(uid: string, photoPath: string, photo: Buffer, species: Species): Promise<CheckResult | null> {
   try {
     return await checkPhotoAgainst(createGemini(GEMINI_API_KEY.value()), { mimeType: 'image/jpeg', data: photo.toString('base64') }, species);
   } catch (error) {
-    logger.error('La IA no respondió; el registro se da por bueno', { uid, photoPath, error: String(error) });
-    return { valid: true };
+    logger.error('La IA no respondió', { uid, photoPath, error: String(error) });
+    return null;
   }
+}
+
+/** El resultado como lo guarda Firestore: la fecha del acabado, como Timestamp. */
+export function resultDocument(result: SightingResult) {
+  if (result.outcome !== 'validated' || !result.unlocked) return result;
+  return { ...result, unlocked: { ...result.unlocked, at: Timestamp.fromDate(result.unlocked.at) } };
 }
 
 async function reject(ref: DocumentReference, reason: string) {
@@ -75,8 +78,12 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
   if ((await claim.get()).exists) return reject(snapshot.ref, DUPLICATE_PHOTO_REASON);
   if (!(await spendValidation(uid))) return reject(snapshot.ref, DAILY_LIMIT_REASON);
 
-  const verdict = await validatePhoto(uid, photoPath, photo, species);
-  if (!verdict.valid) return reject(snapshot.ref, verdict.reason ?? 'No se reconoce la especie en la foto.');
+  // Si la IA no responde, la foto y el sticker entran: la app ya la revisó antes de guardar y el
+  // registro no debe quedar trabado. La recompensa espera a revalidateSightings.
+  const verdict = await reviewPhoto(uid, photoPath, photo, species);
+  if (verdict && !verdict.valid) return reject(snapshot.ref, verdict.reason ?? 'No se reconoce la especie en la foto.');
+  const verified = verdict !== null;
+  const takenAt = sighting.takenAt instanceof Timestamp ? sighting.takenAt.toDate() : new Date();
 
   let earned: Achievement[] = [];
   await db.runTransaction(async (tx) => {
@@ -93,15 +100,15 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
       return;
     }
     const stickers = stickersSnapshot.docs.map((doc) => toSticker(doc.id, doc.data()));
-    const result = evaluateValidatedPhoto({ species, catalog, stickers, at: now, roll: Math.random() });
+    const result = evaluateValidatedPhoto({ species, catalog, stickers, takenAt, at: now, roll: Math.random(), verified });
     earned = [...result.achievements];
 
     tx.set(claim, { sightingId: snapshot.id, claimedAt: Timestamp.fromDate(now) });
-    tx.set(user.collection('stickers').doc(species.id), stickerDocument(result.sticker, result.category));
+    tx.set(user.collection('stickers').doc(species.id), stickerDocument(result.sticker));
     for (const achievement of result.achievements) {
       tx.set(user.collection('achievements').doc(achievementId(achievement)), { ...achievement, earnedAt: Timestamp.fromDate(now), seen: false });
     }
-    tx.update(snapshot.ref, { status: 'validated', result: sightingResultOf(result), validatedAt: Timestamp.fromDate(now) });
+    tx.update(snapshot.ref, { status: 'validated', result: resultDocument(sightingResultOf(result)), reviewPending: !verified, validatedAt: Timestamp.fromDate(now) });
   });
   logger.info('Registro validado', { uid, sightingId: event.params.sightingId, speciesId: species.id });
   // Con la app abierta la medalla ya se celebra; el aviso sirve si se validó con la app cerrada

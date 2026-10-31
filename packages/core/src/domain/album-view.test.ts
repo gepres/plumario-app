@@ -18,7 +18,7 @@ describe('vista del álbum', () => {
   it('solo aves, en orden de número, con su sticker y su categoría', () => {
     expect(view.entries.map((e) => e.species.id)).toEqual(['playero-arenero', 'gaviota-peruana', 'pinguino', 'flamenco']);
     expect(view.entries[1]?.sticker?.speciesId).toBe('gaviota-peruana');
-    expect(view.entries[2]?.category).toBe('diamond');
+    expect(view.entries[2]?.finish).toBeNull();
     expect([view.registered, view.total]).toEqual([2, 4]);
   });
 
