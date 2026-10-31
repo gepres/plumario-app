@@ -292,7 +292,7 @@ export function BirdCardBack({ eyebrow, name, rows, observations, milestones, se
               {milestones.map((milestone) => (
                 <View key={milestone.goal} style={styles.milestone}>
                   <View style={styles.milestoneBar}>
-                    {milestone.reached && <Image source={milestone.image} style={StyleSheet.absoluteFill} resizeMode="cover" />}
+                    {milestone.reached && <Image source={milestone.image} style={styles.milestoneFrame} resizeMode="cover" />}
                   </View>
                   <CardText style={{ fontFamily: FONT.bold, fontSize: 11, lineHeight: 13, color: PAPER_INK }}>{milestone.goal}</CardText>
                   <CardText lines={1} style={{ fontFamily: FONT.regular, fontSize: 7.6, lineHeight: 10, color: PAPER_SOFT }}>{milestone.label}</CardText>
@@ -518,6 +518,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#E7EEDC',
     borderWidth: 1,
     borderColor: 'rgba(30,42,27,0.16)',
+  },
+  // La franja superior del marco: es la que se ve en la carta; el centro queda tapado por las placas.
+  milestoneFrame: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    aspectRatio: CARD_WIDTH / CARD_HEIGHT,
   },
   sealRow: {
     flexDirection: 'row',
