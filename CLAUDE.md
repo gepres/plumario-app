@@ -139,7 +139,8 @@ pnpm viewer           regenera viewer/index.html desde design/
 - **Cloud Scheduler no existe en Santiago.** Una función con `onSchedule` en `southamerica-west1` falla
   al desplegar (`is not a valid location`): va con `SCHEDULER_REGION`, en `southamerica-east1`. La copia
   que queda en Santiago no se puede borrar con `firebase deploy` ni `functions:delete`, porque antes
-  buscan su horario ahí: se borra desde la consola de Firebase.
+  buscan su horario ahí, y el botón de la consola de Firebase se quedó cargando: se borra con
+  `gcloud functions delete <nombre> --region=southamerica-west1 --gen2` desde Cloud Shell.
 - **`setGlobalOptions` va en `functions/src/setup.ts`, importado primero.** Las funciones invocables
   toman la región al definirse, y los módulos que las definen se evalúan antes que el cuerpo de
   `index.ts`: ahí quedaban en `us-central1`. El emulador guarda las regiones de la primera carga:
