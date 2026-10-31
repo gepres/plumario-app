@@ -8,7 +8,7 @@ export default function SpeciesRoute() {
     <SpeciesGallery
       speciesId={id}
       onBack={() => router.back()}
-      onOpenSticker={(speciesId) => router.push({ pathname: '/sticker/[id]', params: { id: speciesId } })}
+      onOpenSticker={(speciesId) => router.push({ pathname: '/sticker/[id]', params: { id: speciesId, from: 'gallery' } })}
       onAddPhoto={(speciesId, source) => router.push({ pathname: '/new-sighting', params: { speciesId, source } })}
     />
   );
