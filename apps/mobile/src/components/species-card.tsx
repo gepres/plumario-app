@@ -4,7 +4,7 @@ import {
   formatMass,
   formatWing,
   formatWingspan,
-  lastUnlocked,
+  ownedFinishes,
   speciesSeals,
   MILESTONES,
   type AlbumEntry,
@@ -45,7 +45,7 @@ type Props = {
   /** Las aves del álbum, para el pie de la carta. */
   total: number;
   size: number;
-  /** Otro acabado que el suyo: el de la guía de diseño. */
+  /** Otro acabado que el más alto: el elegido en StickerDetalle o el de la guía de diseño. */
   finish?: StickerFinish;
   still?: boolean;
 };
@@ -91,7 +91,7 @@ export function SpeciesCard({ entry, total, size, finish = entryFinish(entry), s
 /** El reverso: lo que el dueño de la carta ha vivido con esa especie. */
 export function SpeciesCardBack({ entry, size, finish = entryFinish(entry) }: Pick<Props, 'entry' | 'size' | 'finish'>) {
   const { species, sticker } = entry;
-  const unlocked = sticker && lastUnlocked(sticker);
+  const unlocked = sticker && ownedFinishes(sticker).find((u) => u.finish === finish);
   const observations = sticker?.observations ?? 0;
   return (
     <BirdCardBack

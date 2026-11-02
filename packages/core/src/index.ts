@@ -16,7 +16,7 @@ export type { Figure } from './domain/figure';
 export type { AlbumSummary, HabitatProgress, NextPoster } from './domain/album';
 export { CATEGORY_RANK, CHROME_CHANCE, MILESTONES, betterFinish, isFairTrade, nextFinishMilestone } from './domain/card';
 export type { CardCategory, Milestone } from './domain/card';
-export { applyValidPhoto, countObservation, grantFinish, lastUnlocked, limaDay, newSticker, observationBlock, SERVER_DAILY_LIMIT, THREATENED_WAIT_DAYS } from './domain/sticker';
+export { applyValidPhoto, countObservation, grantFinish, lastUnlocked, limaDay, newSticker, observationBlock, ownedFinishes, SERVER_DAILY_LIMIT, THREATENED_WAIT_DAYS } from './domain/sticker';
 export type { FinishSource, NotCounted, PhotoOutcome, Sticker, UnlockedFinish } from './domain/sticker';
 export {
   EMPTY_ECONOMY,

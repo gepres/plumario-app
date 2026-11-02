@@ -11,7 +11,7 @@ export default function StickerRoute() {
       // Si se llegó desde la galería, se vuelve a ella en vez de apilar otra igual.
       onOpenGallery={(speciesId) => (from === 'gallery' ? router.back() : router.push({ pathname: '/species/[id]', params: { id: speciesId } }))}
       onBuy={(speciesId) => router.push({ pathname: '/buy/[id]', params: { id: speciesId } })}
-      onShare={(speciesId, withPhoto) => router.push({ pathname: '/share/sticker/[id]', params: { id: speciesId, photo: withPhoto ? '1' : '0' } })}
+      onShare={(speciesId, withPhoto, finish) => router.push({ pathname: '/share/sticker/[id]', params: { id: speciesId, photo: withPhoto ? '1' : '0', finish } })}
     />
   );
 }

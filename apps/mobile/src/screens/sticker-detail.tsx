@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { FINISH_PRICES, formatAlbumNumber, lastUnlocked, nextFinish, type AlbumEntry } from '@plumario/core';
+import { FINISH_PRICES, formatAlbumNumber, nextFinish, ownedFinishes, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, FeatherCoin, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
+import { Button, FeatherCoin, FilterChips, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme, type StickerFinish } from '@plumario/ui';
 
 import { SpeciesSkeleton } from '@/components/screen-skeletons';
-import { SpeciesCard, SpeciesCardBack } from '@/components/species-card';
-import { CATEGORY_LABELS, FINISH_SOURCE_LABELS, formatLongDate } from '@/constants/cards';
+import { SpeciesCard, SpeciesCardBack, entryFinish } from '@/components/species-card';
+import { CATEGORY_LABELS, FINISH_SOURCE_LABELS, finishTitle, formatLongDate } from '@/constants/cards';
 import { feathersLabel } from '@/constants/economy';
 import { ALBUM_HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
@@ -20,17 +20,19 @@ type Props = {
   onOpenGallery: (speciesId: string) => void;
   /** CompraAcabado. */
   onBuy: (speciesId: string) => void;
-  /** CompartirTarjeta; con la foto propia puesta si se pide. */
-  onShare: (speciesId: string, withPhoto: boolean) => void;
+  /** CompartirTarjeta, con el acabado que se está viendo; con la foto propia puesta si se pide. */
+  onShare: (speciesId: string, withPhoto: boolean, finish: StickerFinish) => void;
 };
 
-/** StickerDetalle: la carta de la especie, con su reverso, y cómo y cuándo se obtuvo. */
+/** StickerDetalle: la carta de la especie, con su reverso, sus acabados, y cómo y cuándo se obtuvo cada uno. */
 export function StickerDetail({ speciesId, onBack, onOpenGallery, onBuy, onShare }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const entry = state.status === 'ready' ? state.album.entries.find((e) => e.species.id === speciesId) : undefined;
-  const chromed = !!entry?.finish;
+  // Sin elegir, se ve el más alto: el que está en el álbum.
+  const [chosen, setChosen] = useState<StickerFinish | null>(null);
+  const shown = chosen ?? (entry ? entryFinish(entry) : 'normal');
 
   return (
     <>
@@ -39,9 +41,9 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onBuy, onShare
           <Pressable accessibilityRole="button" accessibilityLabel="Volver" onPress={onBack} style={styles.back}>
             <Icon name="back" color={colors.text} size={22} strokeWidth={2} />
           </Pressable>
-          <ThemedText variant="bodyStrong" accessibilityRole="header">{chromed ? 'Carta cromada' : 'Carta'}</ThemedText>
+          <ThemedText variant="bodyStrong" accessibilityRole="header">{shown === 'normal' ? 'Carta' : 'Carta cromada'}</ThemedText>
           {entry?.sticker ? (
-            <Pressable accessibilityRole="button" accessibilityLabel="Compartir tarjeta" onPress={() => onShare(speciesId, false)} style={styles.back}>
+            <Pressable accessibilityRole="button" accessibilityLabel="Compartir tarjeta" onPress={() => onShare(speciesId, false, shown)} style={styles.back}>
               <Icon name="share" color={colors.text} size={20} strokeWidth={1.8} />
             </Pressable>
           ) : (
@@ -52,7 +54,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onBuy, onShare
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
         {state.status === 'ready' && entry?.sticker && (
-          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onBuy={onBuy} onShare={onShare} />
+          <DetailContent entry={entry} total={state.album.total} shown={shown} onChoose={setChosen} onOpenGallery={onOpenGallery} onBuy={onBuy} onShare={onShare} />
         )}
       </ScrollView>
       <StatusBarScrim />
@@ -60,13 +62,21 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onBuy, onShare
   );
 }
 
-function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onBuy' | 'onShare'>) {
+type ContentProps = Pick<Props, 'onOpenGallery' | 'onBuy' | 'onShare'> & {
+  entry: AlbumEntry;
+  total: number;
+  shown: StickerFinish;
+  onChoose: (finish: StickerFinish) => void;
+};
+
+function DetailContent({ entry, total, shown, onChoose, onOpenGallery, onBuy, onShare }: ContentProps) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const [flipped, setFlipped] = useState(false);
   const { species, finish } = entry;
   const sticker = entry.sticker!;
-  const unlocked = lastUnlocked(sticker);
+  const owned = ownedFinishes(sticker);
+  const unlocked = owned.find((u) => u.finish === shown);
   const number = formatAlbumNumber(species.albumNumber);
   const upgrade = nextFinish(finish);
   const cardSize = Math.min(width - layout.cardMargin * 2, CARD_MAX_WIDTH);
@@ -76,14 +86,20 @@ function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry:
     setFlipped((side) => !side);
   };
 
+  const choose = (next: StickerFinish) => {
+    if (next === shown) return;
+    void Haptics.selectionAsync();
+    onChoose(next);
+  };
+
   return (
     <>
       <View style={styles.hero}>
         <FlipCard
           size={cardSize}
           flipped={flipped}
-          front={<SpeciesCard entry={entry} total={total} size={cardSize} />}
-          back={<SpeciesCardBack entry={entry} size={cardSize} />}
+          front={<SpeciesCard entry={entry} total={total} size={cardSize} finish={shown} />}
+          back={<SpeciesCardBack entry={entry} size={cardSize} finish={shown} />}
         />
         <Pressable accessibilityRole="button" onPress={flip} style={styles.flip}>
           <Icon name="swap" color={colors.text} size={18} strokeWidth={2} />
@@ -91,14 +107,25 @@ function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry:
         </Pressable>
       </View>
 
+      {owned.length > 0 && (
+        <View style={styles.finishes}>
+          <FilterChips
+            label="Acabados de esta carta"
+            options={[{ key: 'normal', label: 'Normal' }, ...owned.map((u) => ({ key: u.finish, label: finishTitle(u.finish) }))]}
+            value={shown}
+            onChange={choose}
+          />
+        </View>
+      )}
+
       <View style={styles.titles}>
         <ThemedText variant="title">{species.commonName}</ThemedText>
         <ThemedText variant="scientific" color="textSecondary">{species.scientificName}</ThemedText>
         <View style={styles.chips}>
-          {finish && (
+          {shown !== 'normal' && (
             <View style={[styles.chip, { backgroundColor: colors.surface, borderColor: colors.line }]}>
-              <FinishSwatch finish={finish} />
-              <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[finish]}</ThemedText>
+              <FinishSwatch finish={shown} />
+              <ThemedText variant="captionStrong">Cromo {CATEGORY_LABELS[shown]}</ThemedText>
             </View>
           )}
           <View style={[styles.chip, { backgroundColor: colors.surface, borderColor: colors.line }]}>
@@ -112,7 +139,7 @@ function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry:
       <View style={styles.facts}>
         <Fact term="Cómo se obtuvo" value={unlocked ? FINISH_SOURCE_LABELS[unlocked.source] : 'Al completar el sticker con tu primera foto.'} />
         <Fact term="Fecha de obtención" value={formatLongDate(unlocked?.at ?? sticker.completedAt)} />
-        <Fact term="En tu álbum" value={finish ? `Ocupa la casilla N.º ${number} en lugar del sticker normal.` : `Ocupa la casilla N.º ${number}.`} last />
+        <Fact term="En tu álbum" value={albumFact(number, finish, shown)} last />
       </View>
 
       <View style={styles.galleryLink}>
@@ -128,10 +155,17 @@ function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry:
       )}
 
       <View style={styles.actions}>
-        <Button label={finish ? 'Compartir con mi foto' : 'Compartir'} icon="share" onPress={() => onShare(species.id, !!finish)} />
+        <Button label={shown === 'normal' ? 'Compartir' : 'Compartir con mi foto'} icon="share" onPress={() => onShare(species.id, shown !== 'normal', shown)} />
       </View>
     </>
   );
+}
+
+/** La casilla siempre muestra el acabado más alto, sea cual sea el que se está viendo. */
+function albumFact(number: string, best: AlbumEntry['finish'], shown: StickerFinish) {
+  if (!best) return `Ocupa la casilla N.º ${number}.`;
+  if (shown === best) return `Ocupa la casilla N.º ${number} en lugar del sticker normal.`;
+  return `La casilla N.º ${number} muestra tu mejor acabado: ${CATEGORY_LABELS[best]}.`;
 }
 
 function Fact({ term, value, last = false }: { term: string; value: string; last?: boolean }) {
@@ -189,6 +223,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+  },
+  finishes: {
+    marginHorizontal: layout.cardMargin,
+    paddingBottom: spacing[1],
   },
   titles: {
     paddingHorizontal: layout.textMargin,

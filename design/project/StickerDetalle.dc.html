@@ -14,13 +14,13 @@ body{margin:0}
 a{color:#14302F}a:hover{color:#2C6A86}
 </style>
 </helmet>
-<div style="width: 390px; height: 1150px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+<div style="width: 390px; height: 1202px; box-sizing: border-box; overflow: hidden; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
 
 <header style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 8px; flex: none">
 <a href="RecompensasStickers.dc.html" aria-label="Volver" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
 </a>
-<span style="font-size: 15px; font-weight: 700">Carta cromada</span>
+<span style="font-size: 15px; font-weight: 700">{{titulo}}</span>
 <a href="CompartirTarjeta.dc.html" aria-label="Compartir tarjeta" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #14302F">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"></path><path d="M7.5 7.5L12 3l4.5 4.5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
 </a>
@@ -30,10 +30,10 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <div style="position: relative; width: 340px; height: 476px; perspective: 1200px">
 <div style="position: relative; width: 340px; height: 476px; transform-style: preserve-3d; transform: rotateY({{giro}}deg); transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1)">
 <div style="position: absolute; left: 0; top: 0; backface-visibility: hidden">
-<dc-import name="Carta" ave="playero" acabado="cromado" obs="3" size="340" hint-size="340px,476px"></dc-import>
+<dc-import name="Carta" ave="playero" acabado="{{acabado}}" obs="3" size="340" hint-size="340px,476px"></dc-import>
 </div>
 <div style="position: absolute; left: 0; top: 0; backface-visibility: hidden; transform: rotateY(180deg)">
-<dc-import name="CartaReverso" ave="playero" acabado="cromado" obs="3" origen="Por suerte" size="340" hint-size="340px,476px"></dc-import>
+<dc-import name="CartaReverso" ave="playero" acabado="{{acabado}}" obs="3" origen="{{origenCorto}}" size="340" hint-size="340px,476px"></dc-import>
 </div>
 </div>
 </div>
@@ -42,11 +42,17 @@ a{color:#14302F}a:hover{color:#2C6A86}
 </button>
 </div>
 
+<div role="radiogroup" aria-label="Acabados de esta carta" style="flex: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 4px">
+<sc-for list="{{opciones}}" as="o" hint-placeholder-count="2">
+<button role="radio" aria-checked="{{o.elegida}}" onClick="{{o.elegir}}" style="min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid {{o.borde}}; background: {{o.fondo}}; color: {{o.tinta}}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{o.nombre}}</button>
+</sc-for>
+</div>
+
 <div style="padding: 6px 20px 0; display: flex; flex-direction: column; gap: 6px; flex: none">
 <h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.05; letter-spacing: -0.015em">Playero Arenero</h1>
 <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 18px; color: #4E5E5C">Calidris alba</span>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px">
-<span style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #14302F; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 999px; padding: 4px 10px 4px 6px">
+<span style="display: {{chipCromo}}; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #14302F; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 999px; padding: 4px 10px 4px 6px">
 <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6); box-shadow: inset 0 0 0 1px rgba(20,48,47,0.2)"></span>Cromo holográfico
 </span>
 <span style="font-size: 12.5px; font-weight: 600; color: #3F504E; background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 999px; padding: 4px 10px">N.º 078 · Litoral y mar</span>
@@ -56,7 +62,7 @@ a{color:#14302F}a:hover{color:#2C6A86}
 <dl style="margin: 10px 20px 0; flex: none; display: flex; flex-direction: column">
 <div style="border-top: 1px solid #DCD3C3; padding: 8px 0; display: flex; flex-direction: column; gap: 2px">
 <dt style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #4E5E5C">Cómo se obtuvo</dt>
-<dd style="margin: 0; font-size: 14.5px; line-height: 1.4">Por suerte, con tu primera foto.</dd>
+<dd style="margin: 0; font-size: 14.5px; line-height: 1.4">{{origen}}</dd>
 </div>
 <div style="border-top: 1px solid #DCD3C3; padding: 8px 0; display: flex; flex-direction: column; gap: 2px">
 <dt style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #4E5E5C">Fecha de obtención</dt>
@@ -64,7 +70,7 @@ a{color:#14302F}a:hover{color:#2C6A86}
 </div>
 <div style="border-top: 1px solid #DCD3C3; border-bottom: 1px solid #DCD3C3; padding: 8px 0; display: flex; flex-direction: column; gap: 2px">
 <dt style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #4E5E5C">En tu álbum</dt>
-<dd style="margin: 0; font-size: 14.5px; line-height: 1.4">Ocupa la casilla N.º 078 en lugar del sticker normal.</dd>
+<dd style="margin: 0; font-size: 14.5px; line-height: 1.4">{{enAlbum}}</dd>
 </div>
 </dl>
 
@@ -91,16 +97,35 @@ a{color:#14302F}a:hover{color:#2C6A86}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1150}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1202}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { volteada: false };
+    this.state = { volteada: false, acabado: 'cromado' };
   }
 
   renderVals() {
-    const { volteada } = this.state;
+    const { volteada, acabado } = this.state;
+    const cromada = acabado === 'cromado';
+    const OPCIONES = [{ id: 'normal', nombre: 'Normal' }, { id: 'cromado', nombre: 'Holográfico' }];
     return {
+      acabado,
+      titulo: cromada ? 'Carta cromada' : 'Carta',
+      chipCromo: cromada ? 'flex' : 'none',
+      origen: cromada ? 'Por suerte, con tu primera foto.' : 'Al completar el sticker con tu primera foto.',
+      origenCorto: cromada ? 'Por suerte' : 'Primera foto',
+      enAlbum: cromada ? 'Ocupa la casilla N.º 078 en lugar del sticker normal.' : 'La casilla N.º 078 muestra tu mejor acabado: holográfico.',
+      opciones: OPCIONES.map((o) => {
+        const elegida = o.id === acabado;
+        return {
+          ...o,
+          elegida,
+          fondo: elegida ? '#14302F' : 'transparent',
+          tinta: elegida ? '#F3EDE2' : '#14302F',
+          borde: elegida ? '#14302F' : '#8A9A93',
+          elegir: () => this.setState({ acabado: o.id })
+        };
+      }),
       giro: volteada ? 180 : 0,
       textoVoltear: volteada ? 'Ver el anverso' : 'Dar vuelta',
       voltear: () => this.setState({ volteada: !volteada })

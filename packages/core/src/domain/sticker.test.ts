@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { at, sticker } from '../testing';
 import { MILESTONES, nextFinishMilestone } from './card';
-import { SERVER_DAILY_LIMIT, applyValidPhoto, limaDay, observationBlock, type Sticker } from './sticker';
+import { SERVER_DAILY_LIMIT, applyValidPhoto, limaDay, observationBlock, ownedFinishes, type Sticker, type UnlockedFinish } from './sticker';
 
 const common = { id: 'playero', threatened: false };
 const threatened = { id: 'zarcillo', threatened: true };
@@ -70,6 +70,34 @@ describe('hitos', () => {
     const current = sticker('playero', { observations: 2, countedDays: [limaDay(at(2))], claimedMilestone: 3, best: 'holographic' });
     const outcome = applyValidPhoto({ current, species: common, takenAt: at(3), at: at(3), roll: NO_LUCK, verified: true });
     expect(outcome).toMatchObject({ unlocked: null, coveredMilestone: null });
+  });
+});
+
+describe('acabados que conserva la carta', () => {
+  const got = (finish: UnlockedFinish['finish'], source: UnlockedFinish['source'], day = 1): UnlockedFinish => ({ finish, source, at: at(day) });
+
+  it('la carta normal no tiene ninguno', () => {
+    expect(ownedFinishes(sticker('playero', {}))).toEqual([]);
+  });
+
+  it('los lista de menor a mayor, aunque hayan llegado en otro orden', () => {
+    const owned = ownedFinishes(sticker('playero', { best: 'gold', unlocked: [got('silver', 'milestone'), got('holographic', 'purchase'), got('gold', 'pack')] }));
+    expect(owned.map((u) => u.finish)).toEqual(['holographic', 'silver', 'gold']);
+  });
+
+  it('no inventa los que saltó: un oro de sobre es solo oro', () => {
+    expect(ownedFinishes(sticker('playero', { best: 'gold', unlocked: [got('gold', 'pack')] })).map((u) => u.finish)).toEqual(['gold']);
+  });
+
+  it('si la regaló en un intercambio, ya no la conserva', () => {
+    expect(ownedFinishes(sticker('playero', { best: null, unlocked: [got('gold', 'pack')] }))).toEqual([]);
+    const lower = ownedFinishes(sticker('playero', { best: 'holographic', unlocked: [got('gold', 'pack'), got('holographic', 'trade')] }));
+    expect(lower.map((u) => u.finish)).toEqual(['holographic']);
+  });
+
+  it('si el acabado volvió a llegar, vale la última vez', () => {
+    const owned = ownedFinishes(sticker('playero', { best: 'silver', unlocked: [got('silver', 'milestone', 1), got('silver', 'trade', 9)] }));
+    expect(owned).toEqual([got('silver', 'trade', 9)]);
   });
 });
 

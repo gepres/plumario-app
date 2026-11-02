@@ -2,7 +2,7 @@ import { useState, type ComponentProps } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { achievementId, formatAlbumNumber, type AlbumView, type EarnedAchievement, lastUnlocked } from '@plumario/core';
+import { achievementId, formatAlbumNumber, ownedFinishes, type AlbumView, type EarnedAchievement } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
 import { Button, ScaledFrame, SHARE_CARD_HEIGHT, SHARE_CARD_WIDTH, ShareCard, Switch, ThemedText, TopBar, useTheme } from '@plumario/ui';
 
@@ -17,7 +17,8 @@ import { useAlbum } from '@/hooks/use-album';
 import { useSpeciesPhotos } from '@/hooks/use-species-photos';
 import { captureImage, saveImageToPhotos, shareFile } from '@/utils/export-image';
 
-export type ShareSubject = { kind: 'sticker'; speciesId: string } | { kind: 'medal'; achievementId: string };
+/** `finish`: el acabado elegido en StickerDetalle; sin él, o si no lo tiene, el más alto. */
+export type ShareSubject = { kind: 'sticker'; speciesId: string; finish?: string } | { kind: 'medal'; achievementId: string };
 
 type Props = {
   subject: ShareSubject;
@@ -147,8 +148,10 @@ function cardFor(
   }
   const entry = album.entries.find((e) => e.species.id === subject.speciesId);
   if (!entry?.sticker) return null;
-  const { species, sticker, finish } = entry;
-  const unlocked = lastUnlocked(sticker);
+  const { species, sticker } = entry;
+  const owned = ownedFinishes(sticker);
+  const unlocked = subject.finish === 'normal' ? null : (owned.find((u) => u.finish === subject.finish) ?? owned.at(-1) ?? null);
+  const finish = unlocked?.finish ?? null;
   // «Cromo 2»: el segundo cromo que consiguió, por fecha.
   const chromes = album.entries.filter((e) => e.finish).sort((a, b) => a.sticker!.unlocked[0]!.at.getTime() - b.sticker!.unlocked[0]!.at.getTime());
   return {

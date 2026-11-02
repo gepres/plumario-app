@@ -67,6 +67,17 @@ export function newSticker(speciesId: SpeciesId, at: Date): Sticker {
 /** El último acabado que ganó la carta, el que tiene hoy. */
 export const lastUnlocked = (sticker: Sticker): UnlockedFinish | null => sticker.unlocked[sticker.unlocked.length - 1] ?? null;
 
+/**
+ * Los acabados que la carta conserva, de menor a mayor, con su origen y fecha. Si uno se regaló en un
+ * intercambio ya no cuenta; si volvió a llegar, vale la última vez.
+ */
+export function ownedFinishes({ best, unlocked }: Pick<Sticker, 'best' | 'unlocked'>): readonly UnlockedFinish[] {
+  if (!best) return [];
+  const kept = unlocked.filter((u) => CATEGORY_RANK[u.finish] <= CATEGORY_RANK[best]);
+  const latest = new Map(kept.map((u) => [u.finish, u]));
+  return [...latest.values()].sort((a, b) => CATEGORY_RANK[a.finish] - CATEGORY_RANK[b.finish]);
+}
+
 /** El día de la foto; una fecha en el futuro cuenta como hoy. */
 const observationDay = (takenAt: Date, now: Date) => limaDay(takenAt > now ? now : takenAt);
 

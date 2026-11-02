@@ -166,6 +166,9 @@ Solo escribe el servidor. El detalle se cierra en la fase que lo necesite.
 | Propuesta | `trades/{id}` | especie y acabado de cada lado |
 | Eventos únicos | `result` del registro y de la aceptación, `photoClaims` | lo que ya se otorgó |
 
+La casilla del álbum muestra `best`. En la carta se elige entre la normal y cada acabado de `unlocked` que
+se conserva, con su origen y su fecha; las repetidas no entran ahí.
+
 Origen de un acabado: `luck`, `milestone`, `pack`, `purchase` o `trade`. `validPhotos` queda solo para
 la galería. Como `claimedMilestone` nunca baja, un hito no se cobra dos veces aunque una revisión reste
 observaciones.
