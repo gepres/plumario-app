@@ -47,4 +47,10 @@ describe('medidas de la carta', () => {
     expect(formatWing(102.5)).toBe('ala 10,3 cm');
     expect(formatWing(180)).toBe('ala 18 cm');
   });
+
+  it('la envergadura va en metros, con un decimal si hace falta', () => {
+    expect(formatWingspan(3)).toBe('envergadura 3 m');
+    expect(formatWingspan(2.56)).toBe('envergadura 2,6 m');
+    expect(formatWingspan(2.2)).toBe('envergadura 2,2 m');
+  });
 });

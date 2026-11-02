@@ -59,11 +59,12 @@ await writeFile(
   TARGET,
   `// GENERADO por tools/species/card-facts.mjs — no editar a mano.
 // Familias: data/species/ica-families.json. Medidas: AVONET (Tobias et al. 2022, CC BY 4.0).
+// Envergaduras: data/species/ica-special-measures.json.
 
 export type FamilyFacts = { label: string; diet: string; traits: readonly { title: string; text: string }[] };
 export type SpeciesMeasures = { massG: number; wingMm: number; wingspanM?: number };
 
-/** Mientras sea false, los textos son un borrador sin la revisión del biólogo. */
+/** Si es false, hay textos o medidas sin la aprobación del biólogo. */
 export const CARD_FACTS_REVIEWED = ${reviewed && measures.reviewed};
 
 /** Nombre, dieta y rasgos de cada familia del álbum, por nombre científico de la familia. */

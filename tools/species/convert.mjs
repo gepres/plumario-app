@@ -43,7 +43,8 @@ const THREATENED = new Set(['CR', 'EN', 'VU']);
 // Emblemáticas de Ica o del Perú (cromo Rubí): la parihuana de Paracas y las aves guaneras. Es la lista
 // editorial de design/project/CategoriasCromos.dc.html, «a validar con el cliente».
 const EMBLEMATIC = new Set(['Phoenicopterus chilensis', 'Pelecanus thagus', 'Sula variegata', 'Phalacrocorax bougainvillii', 'Vultur gryphus', 'Spheniscus humboldti']);
-// El Excel la marca como endémica; el biólogo la corrigió con la lista de Plenge de marzo de 2026.
+// El Excel y la lista de Plenge del 23 de marzo de 2026 la marcan endémica, pero el biólogo la sacó y
+// hay registros publicados en el norte de Chile. Sigue fuera hasta que él confirme (PA-37).
 const NOT_ENDEMIC = new Set(['Cinclodes taczanowskii']);
 
 const text = (value) => {

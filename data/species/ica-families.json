@@ -1,6 +1,6 @@
 {
-  "note": "Textos de la carta por familia. Borrador escrito con IA, pendiente de la revisión del biólogo (nota «Revisión del biólogo · Cartas de aves» en Foundry). Cada frase debe valer para todas las aves del álbum en esa familia.",
-  "reviewed": false,
+  "note": "Textos de la carta por familia, aprobados por el biólogo el 1 nov 2026 (nota «Revisión del biólogo · Cartas de aves» en Foundry). Cada frase debe valer para todas las aves del álbum en esa familia.",
+  "reviewed": true,
   "families": {
     "Accipitridae": {
       "label": "Águilas y gavilanes",

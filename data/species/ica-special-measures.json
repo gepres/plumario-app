@@ -1,8 +1,35 @@
 {
-  "note": "Medidas que corrigen o completan AVONET en la carta. La envergadura es un caso especial que pidió el biólogo: reemplaza al ala donde es lo representativo.",
+  "note": "Medidas que corrigen o completan AVONET en la carta. La envergadura es un caso especial que pidió el biólogo, solo para el cóndor y los albatros: reemplaza al ala para mostrar su tamaño. wingspanM va en metros.",
+  "sources": {
+    "biologist": "Revisión del biólogo, 31 oct 2026 (nota «Revisión del biólogo · Cartas de aves» en Foundry).",
+    "nz-doc": "Department of Conservation de Nueva Zelanda, «Identifying New Zealand Mollymawks» (2024): https://dxcprod.doc.govt.nz/globalassets/documents/conservation/marine-and-coastal/marine-conservation-services/resources/resources-for-fishers/csp-fishers-guide-to-identify-mollymawks.pdf",
+    "gct": "Galapagos Conservation Trust, envergadura promedio: https://galapagosconservation.org.uk/species/waved-albatross/"
+  },
   "species": {
     "vultur-gryphus": {
-      "wingspanM": 3
+      "wingspanM": 3,
+      "source": "biologist"
+    },
+    "phoebastria-irrorata": {
+      "wingspanM": 2.2,
+      "source": "gct"
+    },
+    "thalassarche-bulleri": {
+      "wingspanM": 2.13,
+      "source": "nz-doc"
+    },
+    "thalassarche-eremita": {
+      "wingspanM": 2.2,
+      "source": "nz-doc"
+    },
+    "thalassarche-melanophris": {
+      "wingspanM": 2.3,
+      "source": "nz-doc",
+      "note": "Punto medio del rango publicado, de 210 a 250 cm."
+    },
+    "thalassarche-salvini": {
+      "wingspanM": 2.56,
+      "source": "nz-doc"
     }
   }
 }

@@ -39,7 +39,7 @@ const decimal = (value: number) => value.toFixed(1).replace(/\.0$/, '').replace(
 /** «151 g» o «3,4 kg». */
 export const formatMass = (grams: number) => (grams < 1000 ? `${Math.round(grams)} g` : `${decimal(grams / 1000)} kg`);
 
-/** «envergadura 3 m»: solo en las aves donde es lo representativo, como el cóndor. */
+/** «envergadura 3 m» o «envergadura 2,6 m»: solo en el cóndor y los albatros, para mostrar su tamaño. */
 export const formatWingspan = (meters: number) => `envergadura ${decimal(meters)} m`;
 
 /** «ala 62 cm» o, en aves pequeñas, «ala 10,3 cm». */

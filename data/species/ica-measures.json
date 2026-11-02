@@ -9,12 +9,8 @@
       "beakMm": "milímetros, culmen"
     }
   },
-  "reviewed": false,
-  "missing": [
-    "Troglodytes musculus",
-    "Tyto furcata",
-    "Sula brewsteri"
-  ],
+  "reviewed": true,
+  "missing": [],
   "species": {
     "circus-cinereus": {
       "massG": 399.7,
@@ -990,6 +986,12 @@
       "wingMm": 69.8,
       "beakMm": 15.2
     },
+    "troglodytes-musculus": {
+      "massG": 10.9,
+      "wingMm": 51.4,
+      "beakMm": 15.9,
+      "splitFrom": "Troglodytes aedon"
+    },
     "turdus-chiguanco": {
       "massG": 93.3,
       "wingMm": 136.4,
@@ -1421,6 +1423,12 @@
       "wingMm": 94.2,
       "beakMm": 15.3
     },
+    "tyto-furcata": {
+      "massG": 403.3,
+      "wingMm": 285.6,
+      "beakMm": 32.1,
+      "splitFrom": "Tyto alba"
+    },
     "fregata-magnificens": {
       "massG": 1490.5,
       "wingMm": 642,
@@ -1440,6 +1448,12 @@
       "massG": 1358.34,
       "wingMm": 246.5,
       "beakMm": 65.5
+    },
+    "sula-brewsteri": {
+      "massG": 1288.8,
+      "wingMm": 388.6,
+      "beakMm": 100.9,
+      "splitFrom": "Sula leucogaster"
     },
     "sula-dactylatra": {
       "massG": 1732.1,

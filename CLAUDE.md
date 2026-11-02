@@ -40,8 +40,8 @@ entorno en `docs/environment.md`.
   `pnpm stickers:export`. La sombra sigue siendo la figura del grupo.
 - **El arte y los datos de las cartas también van dentro del paquete.** El arte está en
   `apps/mobile/assets/cards/`, con sus originales en `data/cards/raw/`, fuera de git, y se recorta con
-  `tools/cards/`. Peso, ala y textos salen de `pnpm species:cards`. Los textos son un borrador hasta que
-  los apruebe el biólogo.
+  `tools/cards/`. Peso, ala y textos salen de `pnpm species:cards`. El biólogo aprobó los textos y las
+  medidas; lo que le queda por confirmar está en su nota de Foundry.
 - **Las claves del diseño se traducen** con `designKeyMap` (en `colors.ts`): `{{t.sup}}` en un
   artboard es `colors.surface` en la app; `pri` → `primary`, `ink` → `text`, `txt2` →
   `textSecondary`, `hab` → `habitats`…

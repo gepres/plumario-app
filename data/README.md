@@ -9,9 +9,9 @@
 | `species/ica-habitats.xlsx` | El hábitat del álbum de cada especie, para revisar a mano en Excel: trae filtros y listas desplegables. |
 | `species/proposals/` | Las dos propuestas independientes de hábitat (Claude y Codex) de las que sale la tabla. |
 | `sources/avonet-dataset-1.xlsx` | AVONET (Tobias et al. 2022, Ecology Letters, CC BY 4.0), [de Figshare](https://doi.org/10.6084/m9.figshare.16586228.v7). **No se versiona**: pesa 21 MB. |
-| `species/ica-measures.json` | Peso, ala y pico de las aves del álbum, sacados de AVONET. Cubre 291 de 294. |
-| `species/ica-special-measures.json` | Lo que corrige o completa AVONET en la carta, como la envergadura del cóndor. |
-| `species/ica-families.json` | Nombre, dieta y rasgos de la carta para cada una de las 55 familias. **Borrador con las respuestas del biólogo aplicadas; faltan sus preguntas abiertas.** |
+| `species/ica-measures.json` | Peso, ala y pico de las aves del álbum, sacados de AVONET. Las 294 tienen datos: 3 aves separadas hace poco (`splitFrom`) copian los de la especie de origen, como pidió el biólogo. |
+| `species/ica-special-measures.json` | Lo que corrige o completa AVONET en la carta: la envergadura del cóndor y de los albatros, con su fuente. |
+| `species/ica-families.json` | Nombre, dieta y rasgos de la carta para cada una de las 55 familias. Aprobados por el biólogo. |
 
 ### Pasos
 
@@ -25,8 +25,8 @@ pnpm species:cards       # familias + medidas → apps/mobile/src/constants/card
 
 Los datos de la carta van dentro del paquete de la app, no en Firestore: cambiarlos no toca producción.
 Los sellos, en cambio, salen del catálogo: si cambian, hay que correr `pnpm species:seed --prod`.
-Cuando el biólogo los apruebe, pon `reviewed: true` en `ica-families.json` y en `ica-measures.json`.
-Si AVONET vuelve a generarse, `species:measures` reinicia esa marca.
+El biólogo aprobó los textos y las medidas: por eso `ica-families.json` y `ica-measures.json` llevan
+`reviewed: true`. Si AVONET vuelve a generarse, `species:measures` reinicia esa marca.
 
 ### Revisar los hábitats
 
@@ -55,5 +55,11 @@ agrégala como fila nueva.
 - El álbum es de **aves**: solo ellas llevan número de álbum y cuentan para pósteres y medallas.
 - **Amenazada** = categoría CR, EN o VU en la lista nacional o en la IUCN (51 especies). Su ubicación
   se oculta siempre (PerfilPrivacidad).
+- **La lista nacional es el Decreto Supremo 004-2014-MINAGRI**, y el Libro Rojo de la fauna del Perú
+  trae las mismas especies. Las 35 aves del álbum con categoría nacional se contrastaron con el Anexo
+  del decreto el 1 nov 2026: coinciden todas, y ninguna otra ave del álbum aparece en él.
+- **Las endémicas se validan con la lista de Plenge y Angulo** (UNOP). Contra la versión del 23 de
+  marzo de 2026, los 294 nombres científicos coinciden y las 7 endémicas salen `E`. El Churrete
+  Marisquero también sale `E`, pero el biólogo lo sacó: está por confirmar con él (PA-37).
 - Las fotos del Excel no van en la app; cada especie usa la silueta del diseño hasta que el usuario la
   fotografía.

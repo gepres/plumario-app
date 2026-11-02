@@ -3,7 +3,7 @@
 // versiona: https://doi.org/10.6084/m9.figshare.16586228.v7 («AVONET Supplementary dataset 1.xlsx»).
 //
 // Las especies se buscan por nombre científico en las tres taxonomías de AVONET. Cuando el nombre
-// cambió de género, RENAMED dice cómo se llama allí; esos cruces esperan la revisión de un biólogo.
+// cambió de género, RENAMED dice cómo se llama allí; el biólogo confirmó esos 10 cruces.
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,6 +28,14 @@ const RENAMED = {
   'Anarhynchus wilsonia': 'Charadrius wilsonia',
   'Zonibyx modestus': 'Charadrius modestus',
   'Ardea ibis': 'Bubulcus ibis',
+};
+
+// Separadas hace poco: son otras especies, pero AVONET aún no las trae. El biólogo pidió copiar los
+// datos de la especie de la que se separaron.
+const SPLIT_FROM = {
+  'Troglodytes musculus': 'Troglodytes aedon',
+  'Tyto furcata': 'Tyto alba',
+  'Sula brewsteri': 'Sula leucogaster',
 };
 
 const number = (value) => {
@@ -67,13 +75,15 @@ const avonet = await readAvonet();
 const species = {};
 const missing = [];
 for (const { id, scientificName } of album) {
-  const avonetName = RENAMED[scientificName] ?? scientificName;
+  const splitFrom = SPLIT_FROM[scientificName];
+  const avonetName = splitFrom ?? RENAMED[scientificName] ?? scientificName;
   const row = avonet.get(avonetName);
   if (!row) {
     missing.push(scientificName);
     continue;
   }
-  species[id] = { ...row, ...(avonetName === scientificName ? {} : { avonetName }) };
+  const origin = splitFrom ? { splitFrom } : avonetName === scientificName ? {} : { avonetName };
+  species[id] = { ...row, ...origin };
 }
 
 await writeFile(

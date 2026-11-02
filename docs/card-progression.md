@@ -56,8 +56,9 @@ Son datos de la especie: van en todos los acabados, hasta 2 por carta, y nunca d
 Una emblemática es la especie elegida para representar la identidad, la cultura, la historia, la fauna
 y los valores de un país, una región o una comunidad específica.
 
-El estado impreso en la carta sale de la lista del Perú. Las 14 aves amenazadas sin categoría peruana
-usan la de la UICN, y conservan el sello, la regla semanal y la ubicación oculta. El reverso muestra
+El estado impreso en la carta sale de la lista del Perú, el Decreto Supremo 004-2014-MINAGRI, que trae
+las mismas especies que el Libro Rojo. Las 14 aves amenazadas sin categoría peruana usan la de la UICN,
+y conservan el sello, la regla semanal y la ubicación oculta: el biólogo lo aprobó. El reverso muestra
 aparte la categoría del Perú, la de la UICN y el apéndice de CITES.
 
 ## La carta
@@ -66,12 +67,12 @@ La ficha de un ave y el revelado muestran la carta completa, con su reverso. El 
 sticker como miniatura, con sus sellos y el destello del acabado.
 
 - **Estructura:** hábitat como tipo, observaciones propias, familia, peso y ala, 2 rasgos, dieta, hábitat
-  y estado. Si la envergadura es lo representativo, como en el cóndor, reemplaza al ala. Rubí y diamante llevan el paisaje a toda la carta.
+  y estado. En el cóndor y los albatros, la envergadura reemplaza al ala para mostrar su tamaño. Rubí y diamante llevan el paisaje a toda la carta.
 - **Brillo:** de holográfico a diamante, un destello pasa solo cada 7 a 4,5 s y otro responde al dedo.
   La carta normal no brilla.
 - **Datos:** dentro del paquete, sin tocar Firestore. Peso y ala salen de AVONET, la envergadura, de
   `data/species/ica-special-measures.json`, y los textos, de `data/species/ica-families.json`. El biólogo
-  ya respondió la revisión, pero **siguen siendo borrador** hasta cerrar sus preguntas abiertas.
+  aprobó los textos y las medidas de AVONET, incluido el peso de 3,4 kg del Pelícano Peruano.
 - **Sobres:** los 3 diseños salen al azar en cada sobre y son solo apariencia. Llegan en la fase 2A.
 - **Maqueta:** [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk), página V2.
 

@@ -1,11 +1,12 @@
 // GENERADO por tools/species/card-facts.mjs — no editar a mano.
 // Familias: data/species/ica-families.json. Medidas: AVONET (Tobias et al. 2022, CC BY 4.0).
+// Envergaduras: data/species/ica-special-measures.json.
 
 export type FamilyFacts = { label: string; diet: string; traits: readonly { title: string; text: string }[] };
 export type SpeciesMeasures = { massG: number; wingMm: number; wingspanM?: number };
 
-/** Mientras sea false, los textos son un borrador sin la revisión del biólogo. */
-export const CARD_FACTS_REVIEWED = false;
+/** Si es false, hay textos o medidas sin la aprobación del biólogo. */
+export const CARD_FACTS_REVIEWED = true;
 
 /** Nombre, dieta y rasgos de cada familia del álbum, por nombre científico de la familia. */
 export const FAMILY_FACTS: Readonly<Record<string, FamilyFacts>> = {
@@ -254,7 +255,7 @@ export const SPECIES_MEASURES: Readonly<Record<string, SpeciesMeasures>> = {
   "phalcoboenus-megalopterus": { massG: 788, wingMm: 371.8 },
   "pheucticus-chrysogaster": { massG: 55.8, wingMm: 106.5 },
   "phleocryptes-melanops": { massG: 14.6, wingMm: 57 },
-  "phoebastria-irrorata": { massG: 3376.4, wingMm: 534.5 },
+  "phoebastria-irrorata": { massG: 3376.4, wingMm: 534.5, wingspanM: 2.2 },
   "phoenicoparrus-andinus": { massG: 4900, wingMm: 425 },
   "phoenicoparrus-jamesi": { massG: 2000, wingMm: 411.7 },
   "phoenicopterus-chilensis": { massG: 2277, wingMm: 401.8 },
@@ -323,6 +324,7 @@ export const SPECIES_MEASURES: Readonly<Record<string, SpeciesMeasures>> = {
   "sternula-antillarum": { massG: 45.9, wingMm: 165.1 },
   "sternula-lorata": { massG: 53.8, wingMm: 173.5 },
   "streptoprocne-zonaris": { massG: 86.8, wingMm: 212.5 },
+  "sula-brewsteri": { massG: 1288.8, wingMm: 388.6 },
   "sula-dactylatra": { massG: 1732.1, wingMm: 412.2 },
   "sula-granti": { massG: 1732.1, wingMm: 416.8 },
   "sula-nebouxii": { massG: 1520.1, wingMm: 410.4 },
@@ -330,10 +332,10 @@ export const SPECIES_MEASURES: Readonly<Record<string, SpeciesMeasures>> = {
   "sula-variegata": { massG: 1432.5, wingMm: 370.4 },
   "systellura-longirostris": { massG: 45.6, wingMm: 158.3 },
   "tachuris-rubrigastra": { massG: 7.8, wingMm: 50.5 },
-  "thalassarche-bulleri": { massG: 2781.5, wingMm: 501.2 },
-  "thalassarche-eremita": { massG: 3897.7, wingMm: 542 },
-  "thalassarche-melanophris": { massG: 3202.9, wingMm: 506.9 },
-  "thalassarche-salvini": { massG: 3897.7, wingMm: 558 },
+  "thalassarche-bulleri": { massG: 2781.5, wingMm: 501.2, wingspanM: 2.13 },
+  "thalassarche-eremita": { massG: 3897.7, wingMm: 542, wingspanM: 2.2 },
+  "thalassarche-melanophris": { massG: 3202.9, wingMm: 506.9, wingspanM: 2.3 },
+  "thalassarche-salvini": { massG: 3897.7, wingMm: 558, wingspanM: 2.56 },
   "thalasseus-elegans": { massG: 260, wingMm: 296.6 },
   "thalasseus-maximus": { massG: 415.3, wingMm: 364.3 },
   "thalasseus-sandvicensis": { massG: 199.8, wingMm: 288.5 },
@@ -346,10 +348,12 @@ export const SPECIES_MEASURES: Readonly<Record<string, SpeciesMeasures>> = {
   "tringa-melanoleuca": { massG: 161.7, wingMm: 194.5 },
   "tringa-semipalmata": { massG: 245.7, wingMm: 203.5 },
   "tringa-solitaria": { massG: 48.4, wingMm: 126.6 },
+  "troglodytes-musculus": { massG: 10.9, wingMm: 51.4 },
   "turdus-chiguanco": { massG: 93.3, wingMm: 136.4 },
   "tyrannus-melancholicus": { massG: 37.4, wingMm: 108.8 },
   "tyrannus-savana": { massG: 31.9, wingMm: 105.6 },
   "tyrannus-tyrannus": { massG: 39.9, wingMm: 116.7 },
+  "tyto-furcata": { massG: 403.3, wingMm: 285.6 },
   "vanellus-resplendens": { massG: 214, wingMm: 217.6 },
   "volatinia-jacarina": { massG: 9.9, wingMm: 47.8 },
   "vultur-gryphus": { massG: 11236.1, wingMm: 789.9, wingspanM: 3 },
