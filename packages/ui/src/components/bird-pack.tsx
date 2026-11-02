@@ -38,10 +38,10 @@ type Props = Texts & {
   accessibilityLabel: string;
 };
 
-/** La tira se dobla primero por la esquina derecha, como al rasgarla con la mano, y después se va. */
+/** La tira se levanta por la izquierda, sujeta aún de la esquina derecha, y después se va. */
 const TEAR_OFF = {
   '0%': { transform: [{ translateX: 0 }, { translateY: 0 }, { rotate: '0deg' }], opacity: 1 },
-  '45%': { transform: [{ translateX: 0 }, { translateY: -6 }, { rotate: '-12deg' }], opacity: 1 },
+  '45%': { transform: [{ translateX: 0 }, { translateY: -4 }, { rotate: '14deg' }], opacity: 1 },
   '100%': { transform: [{ translateX: 170 }, { translateY: -190 }, { rotate: '28deg' }], opacity: 0 },
 };
 

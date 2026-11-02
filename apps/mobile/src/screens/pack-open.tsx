@@ -39,12 +39,12 @@ const CARD_MAX_WIDTH = 270;
 /** La carta va dentro del sobre: más angosta que él, para que no asome por los lados. */
 const CARD_IN_PACK = 0.8;
 /** Cuánto del alto de la carta sale por el corte antes de que caiga el sobre. */
-const RISE_SHARE = 0.62;
+const RISE_SHARE = 0.5;
 const EASE_OUT = cubicBezier(0.23, 1, 0.32, 1);
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/** SobreAbrir y SobreResultado: se rasga el sobre, la carta espera de espaldas y se revela al tocarla. */
+/** SobreAbrir y SobreResultado: se corta el sobre por arriba, la carta sale de espaldas y se revela al tocarla. */
 export function PackOpen({ packId, onClose, onOpenSpecies }: Props) {
   const economyState = useEconomy();
   const albumState = useAlbum();
@@ -98,7 +98,7 @@ function PackSession({ packId, economy, album, onClose, onOpenSpecies }: Props &
   );
 }
 
-type Step = 'ready' | 'tearing' | 'rising' | 'settling' | 'waiting' | 'revealed';
+type Step = 'ready' | 'tearing' | 'rising' | 'settling' | 'opening' | 'waiting' | 'revealed';
 
 function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies }: Pick<Props, 'onClose' | 'onOpenSpecies'> & {
   pack: Pack;
@@ -161,8 +161,11 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
     await delay(reduced ? 100 : RISE_TIME);
     if (!mounted.current) return;
     setStep('settling');
+    await delay(reduced ? 200 : SETTLE_TIME);
+    if (!mounted.current) return;
+    setStep('opening');
     try {
-      const [result] = await Promise.all([request, delay(reduced ? 200 : SETTLE_TIME)]);
+      const result = await request;
       if (!mounted.current) return;
       setOpening(result);
       setStep('waiting');
@@ -170,7 +173,8 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
       invalidateEconomy();
     } catch (failure) {
       if (!mounted.current) return;
-      // Abrirlo otra vez no da otra pieza: el servidor devuelve lo que ya trajo.
+      // Vuelve entero: abrirlo otra vez no da otra pieza, el servidor devuelve lo que ya trajo.
+      setStep('ready');
       setError(ECONOMY_ERRORS[failure instanceof EconomyError ? failure.code : 'unavailable']);
     }
   }
@@ -237,7 +241,7 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
                 opacity: step === 'ready' ? 0 : 1,
                 transform: [{ translateY: cardY }, { scale: cardScale }],
                 transitionProperty: 'transform',
-                transitionDuration: step === 'rising' ? RISE_TIME : SETTLE_TIME,
+                transitionDuration: reduced ? 0 : step === 'rising' ? RISE_TIME : SETTLE_TIME,
                 transitionTimingFunction: EASE_OUT,
               },
             ]}>
@@ -252,7 +256,7 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
               <BirdCardCover image={CARD_BACK} size={cardSize} />
             )}
           </Animated.View>
-          {step !== 'waiting' && step !== 'revealed' && (
+          {step !== 'opening' && step !== 'waiting' && step !== 'revealed' && (
             <View style={[styles.pack, { left: (width - packSize) / 2, top: (stageHeight - packHeight) / 2 }]} pointerEvents="none">
               <BirdPack
                 image={PACK_ART[pack.design]}
@@ -279,7 +283,7 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
 
         {error && <ThemedText variant="small" style={styles.error} accessibilityLiveRegion="polite">{error}</ThemedText>}
 
-        {step === 'settling' && !error && (
+        {step === 'opening' && (
           <View style={styles.opening} accessibilityLiveRegion="polite">
             <ActivityIndicator color="#F7DE8E" />
             <ThemedText variant="small" style={styles.cream}>Abriendo tu sobre…</ThemedText>
@@ -303,12 +307,6 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
               <Button label="Abrir sobre" variant="light" onPress={() => void open()} />
             </View>
           </>
-        )}
-
-        {step === 'settling' && error && (
-          <View style={styles.actions}>
-            <Button label="Reintentar" variant="light" onPress={() => void open()} />
-          </View>
         )}
 
         {step === 'waiting' && <ThemedText variant="bodyStrong" style={[styles.textCenter, { color: '#F7DE8E' }]}>Toca la carta para revelarla</ThemedText>}
