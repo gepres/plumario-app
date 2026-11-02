@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Los 4 sellos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1320px; height: 610px; box-sizing: border-box; overflow: hidden; background: radial-gradient(circle at 50% 40%, #24403A 0%, #0D1B18 72%); color: #FFFFFF; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; padding: 40px 48px 32px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<sc-for list="{{sellos}}" as="s" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 18px">
+<div style="height: 76px; display: flex; align-items: center; gap: 10px">
+<img src="{{s.img}}" alt="" style="flex: none; width: 76px; height: 76px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5))">
+<div style="display: flex; flex-direction: column; gap: 1px">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700; line-height: 1.1">{{s.nombre}}</span>
+<span style="font-size: 14px; color: #DCEBD3">{{s.cuantas}} aves</span>
+</div>
+</div>
+<dc-import name="Carta" ave="{{s.ave}}" acabado="{{s.acabado}}" size="256" hint-size="256px,358px"></dc-import>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; text-align: center; font-size: 15px; line-height: 1.4; color: #DCEBD3">Van en todos los acabados, hasta 2 por carta: primero su conservación, después endémica y emblemática. Nunca deciden el acabado.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1320,"height":610}}'>
+const B = '/_blob/';
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      sellos: [
+        { nombre: 'Amenazada', cuantas: 38, img: B + '7238de4ff68cb4b92f56e198ef3a6ffe', ave: 'condor', acabado: 'rubi' },
+        { nombre: 'Casi amenazada', cuantas: 25, img: B + 'd147eb0893588cce3ea963c905e96bd6', ave: 'chorlo', acabado: 'plata' },
+        { nombre: 'Endémica', cuantas: 7, img: B + '8d0865a438029f7d1ce88ffc538b05ed', ave: 'minero', acabado: 'normal' },
+        { nombre: 'Emblemática', cuantas: 6, img: B + '996fa46e234242d6e3e8eb51d3269960', ave: 'pelicano', acabado: 'oro' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

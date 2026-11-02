@@ -15,11 +15,13 @@ const canvas = JSON.parse(await readFile(join(DESIGN, 'project', 'canvas.json'),
 const runtime = await readFile(join(DESIGN, 'runtime', 'dc-runtime.js'), 'utf8');
 
 // En el canvas las imágenes se piden como /_blob/<id>; aquí van incrustadas como data URI.
+const MEDIA_TYPES = { svg: 'image/svg+xml', webp: 'image/webp' };
 const assets = new Map();
 for (const f of await readdir(join(DESIGN, 'assets'))) {
-  if (!f.endsWith('.svg')) continue;
+  const [id, extension] = f.split('.');
+  if (!MEDIA_TYPES[extension]) continue;
   const base64 = (await readFile(join(DESIGN, 'assets', f))).toString('base64');
-  assets.set(f.slice(0, -'.svg'.length), `data:image/svg+xml;base64,${base64}`);
+  assets.set(id, `data:${MEDIA_TYPES[extension]};base64,${base64}`);
 }
 
 // Algunos artboards arman la URL en su script (`'/_blob/' + id`): el prefijo entre comillas pasa a

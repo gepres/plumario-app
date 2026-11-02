@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Los 3 sobres</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1180px; height: 760px; box-sizing: border-box; overflow: hidden; background: radial-gradient(circle at 50% 42%, #24403A 0%, #0D1B18 70%); color: #FFFFFF; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; padding: 40px 68px 28px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px">
+<sc-for list="{{sobres}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 16px">
+<dc-import name="Sobre" arte="{{s.id}}" size="320" hint-size="320px,549px"></dc-import>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 22px; font-weight: 700">{{s.nombre}}</span>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; text-align: center; font-size: 15px; line-height: 1.4; color: #DCEBD3">Cada sobre sale con uno de los 3 diseños, al azar. Es solo apariencia: no cambia lo que trae.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1180,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      sobres: [
+        { id: 'nasca', nombre: 'Noche en Nasca' },
+        { id: 'pelicanos', nombre: 'Atardecer en Paracas' },
+        { id: 'paracas', nombre: 'Manto de Paracas' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

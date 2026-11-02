@@ -55,8 +55,8 @@ body{margin:0}
 <div style="display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 20px; flex: 1; min-height: 0">
 
 <section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Un solo sello en el sticker</h2>
-<p style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.01em">Amenazada › Emblemática › Endémica › Casi amenazada</p>
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 700">Hasta 2 sellos por carta</h2>
+<p style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.01em">Conservación › Endémica › Emblemática</p>
 <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
 <sc-for list="{{casos}}" as="c" hint-placeholder-count="3">
 <li style="display: flex; flex-direction: column; gap: 3px; padding-bottom: 10px; border-bottom: 1px solid #E3DACA">
@@ -65,7 +65,7 @@ body{margin:0}
 </li>
 </sc-for>
 </ul>
-<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #4E5E5C">Los demás van en la ficha. El sello dice qué es el ave; el acabado, cómo lo conseguiste.</p>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #4E5E5C">Van en la carta y en el sticker, en todos los acabados. El sello dice qué es el ave; el acabado, cómo lo conseguiste.</p>
 </section>
 
 <section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
@@ -91,7 +91,7 @@ body{margin:0}
 
 </div>
 
-<p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4E5E5C">Fuentes de los sellos: categoría UICN global según Avibase, checklist de Ica (octubre 2026) · Endémicas: Plenge, Lista de las aves del Perú · Emblemáticas: lista editorial, a validar con el cliente.</p>
+<p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4E5E5C">Fuentes de los sellos: lista del Perú, DS 004-2014-MINAGRI; sin categoría peruana, UICN · Endémicas: Plenge y Angulo, Lista de las aves del Perú · Emblemáticas: revisadas por el biólogo.</p>
 
 </div>
 </x-dc>
@@ -129,9 +129,9 @@ class Component extends DCLogic {
         { t: 'Intercambiar', d: 'Uno por uno y del mismo acabado. Quien entrega no pierde nada de su álbum.' }
       ],
       casos: [
-        { ave: 'Churrete de Vientre Blanco', cumple: 'Endémica + En Peligro Crítico', queda: 'Sello Amenazada' },
-        { ave: 'Pelícano Peruano', cumple: 'Emblemática + En Peligro en el Perú', queda: 'Sello Amenazada' },
-        { ave: 'Flamenco Chileno', cumple: 'Emblemática + Casi amenazada', queda: 'Sello Emblemática' }
+        { ave: 'Pelícano Peruano', cumple: 'En peligro en el Perú y emblemática', queda: 'Amenazada · Emblemática' },
+        { ave: 'Flamenco Chileno', cumple: 'Casi amenazada y emblemática', queda: 'Casi amenazada · Emblemática' },
+        { ave: 'Minero Peruano', cumple: 'Solo vive en Perú', queda: 'Endémica' }
       ],
       reglas: [
         { t: 'Nunca retrocede', d: 'Si una pieza no supera tu acabado, es una repetida: la cambias o la reciclas.' },

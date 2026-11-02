@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sobre</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div onPointerMove="{{mover}}" onPointerLeave="{{salir}}" style="position: relative; flex: none; width: {{w}}px; height: {{h}}px; perspective: 1100px; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; color: #FFFFFF">
+<div style="position: absolute; left: 0; top: 0; width: 300px; height: 515px; transform-origin: 0 0; transform: scale({{scale}}) rotateX({{rx}}deg) rotateY({{ry}}deg); transition: transform 0.12s linear; filter: drop-shadow(0 16px 26px rgba(0,0,0,0.5))">
+
+<img src="{{img}}" alt="{{alt}}" style="position: absolute; left: 0; top: 0; width: 300px; height: 515px">
+
+<div style="position: absolute; left: 0; top: 54px; width: 300px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: {{logo}}; text-shadow: 0 1px 0 rgba(120,82,18,0.8), 0 2px 10px rgba(0,0,0,0.6)">Plumario</span>
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #FFFFFF; text-shadow: 0 1px 6px rgba(0,0,0,0.8)">Colección Ica</span>
+</div>
+
+<div style="position: absolute; left: 50%; bottom: 58px; transform: translateX(-50%); white-space: nowrap; border-radius: 999px; padding: 4px 12px; background: rgba(10,14,20,0.72); border: 1px solid rgba(247,222,142,0.6); font-size: 11.5px; font-weight: 700; color: #F7DE8E">1 carta de tus últimas 3 aves</div>
+
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 300px; height: 515px; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 62%); background-size: 260% 260%; background-position: {{bx}}% {{by}}%; mix-blend-mode: overlay"></div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"arte":{"editor":"enum","options":["nasca","pelicanos","paracas"],"default":"nasca"},"size":{"editor":"int","default":300,"min":80,"max":520},"fijo":{"editor":"boolean","default":false},"$preview":{"width":300,"height":515}}'>
+// Los 3 diseños salen al azar en cada sobre. Es solo apariencia: no cambia lo que trae.
+const ARTES = {
+  nasca: { img: '/_blob/dd10a93962db7a72018bee8fda66a273', alt: 'Sobre con el colibrí de las líneas de Nasca en oro sobre el desierto de noche', logo: '#F7DE8E' },
+  pelicanos: { img: '/_blob/22dfa6706cdf67fe3d65fadb903aeb4c', alt: 'Sobre con pelícanos cruzando el sol sobre los acantilados de Paracas', logo: '#FFE9B8' },
+  paracas: { img: '/_blob/e65b8c5f4769e5dcc73c020d698856b2', alt: 'Sobre con un ave de alas abiertas al estilo de los mantos bordados de Paracas', logo: '#F7DE8E' }
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { x: 0.5, y: 0.5 };
+  }
+
+  renderVals() {
+    const size = Number(this.props.size ?? 300) || 300;
+    const fijo = this.props.fijo === true || this.props.fijo === 'true';
+    const arte = ARTES[this.props.arte] ?? ARTES.nasca;
+    const { x, y } = this.state;
+    return {
+      w: size,
+      h: Math.round(size * 515 / 300),
+      scale: size / 300,
+      img: arte.img,
+      alt: arte.alt,
+      logo: arte.logo,
+      rx: fijo ? 0 : Math.round((0.5 - y) * 14),
+      ry: fijo ? 0 : Math.round((x - 0.5) * 18),
+      bx: Math.round(x * 100),
+      by: Math.round(y * 100),
+      mover: (e) => {
+        if (fijo) return;
+        const caja = e.currentTarget.getBoundingClientRect();
+        this.setState({ x: (e.clientX - caja.left) / caja.width, y: (e.clientY - caja.top) / caja.height });
+      },
+      salir: () => this.setState({ x: 0.5, y: 0.5 })
+    };
+  }
+}
+</script>
+</body>
+</html>

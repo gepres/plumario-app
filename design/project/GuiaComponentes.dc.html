@@ -13,7 +13,7 @@
 body{margin:0}
 </style>
 </helmet>
-<div style="width: 1280px; height: 2240px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+<div style="width: 1280px; height: 2660px; box-sizing: border-box; overflow: hidden; padding: 52px 64px; background: #F3EDE2; color: #14302F; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
 
 <header style="display: flex; flex-direction: column; gap: 8px">
 <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2C6A86">Guía UI · 2 de 2</span>
@@ -70,7 +70,24 @@ body{margin:0}
 </div>
 <div style="display: flex; justify-content: space-between; gap: 20px">
 <p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #3F504E; max-width: 760px">La misma pieza en todo el producto: álbum, listas, pósteres y tarjetas para compartir. Debajo de 72 px el nombre deja de leerse, así que se acompaña con texto al lado.</p>
-<p style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 1.6; color: #4E5E5C">img · nombre · num · tint · acabado · sombra · size</p>
+<p style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 1.6; color: #4E5E5C">img · nombre · num · tint · acabado · sellos · sombra · size</p>
+</div>
+</section>
+
+<section style="background: #FBF8F2; border: 1px solid #E3DACA; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 800">Carta de especie</h2><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #14302F; background: #E3E6F0; border-radius: 6px; padding: 3px 7px">Carta · CartaReverso · CartaDorso · Sobre</span></div>
+<div style="background: #14302F; color: #F3EDE2; border-radius: 14px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: flex-end">
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Carta" ave="lechuza" acabado="normal" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Normal</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Carta" ave="playero" acabado="cromado" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Holográfico</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Carta" ave="pelicano" acabado="oro" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Oro</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Carta" ave="condor" acabado="diamante" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Diamante</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="CartaReverso" ave="pelicano" acabado="oro" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Reverso</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="CartaDorso" size="142" hint-size="142px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Dorso</span></span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Sobre" arte="nasca" size="116" fijo="true" hint-size="116px,199px"></dc-import><span style="font-size: 13px; font-weight: 700">Sobre</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 20px">
+<p style="margin: 0; font-size: 13.5px; line-height: 1.45; color: #3F504E; max-width: 760px">La carta completa sale en la ficha y al revelar. En el álbum queda el sticker como miniatura, con los mismos sellos. Se dibuja a 300 × 420 y se escala. El destello nunca pasa sobre los textos.</p>
+<p style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 1.6; color: #4E5E5C">ave · acabado · size · obs · quieta · destello</p>
 </div>
 </section>
 
@@ -213,7 +230,7 @@ body{margin:0}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2240}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2660}}'>
 class Component extends DCLogic {
   renderVals() {
     const B = id => '/_blob/' + id;

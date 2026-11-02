@@ -74,7 +74,8 @@ sticker como miniatura, con sus sellos y el destello del acabado.
   `data/species/ica-special-measures.json`, y los textos, de `data/species/ica-families.json`. El biólogo
   aprobó los textos y las medidas de AVONET, incluido el peso de 3,4 kg del Pelícano Peruano.
 - **Sobres:** los 3 diseños salen al azar en cada sobre y son solo apariencia. Llegan en la fase 2A.
-- **Maqueta:** [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk), página V2.
+- **Artboards:** `Carta`, `CartaReverso`, `CartaDorso`, `Sobre` y `SobresDisenos` en `design/project/`. Vienen de la
+  maqueta [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk), página V2.
 
 ## Observaciones válidas
 

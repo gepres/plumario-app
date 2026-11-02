@@ -5,14 +5,17 @@ Copia local del canvas de Claude Design
 (versión `1792827069-ebff`, bajada el 24 oct 2026).
 
 **`design/` va por delante del canvas.** El 30 oct 2026 los artboards pasaron a las reglas de
-`docs/card-progression.md` y se sumaron los de sobres, repetidas, compra, trivia y plumas. Esos cambios
-solo están aquí: antes de volver a bajar el canvas hay que publicarlos en él, o se pierden.
+`docs/card-progression.md` y se sumaron los de sobres, repetidas, compra, trivia y plumas. El 1 nov 2026
+entró la carta V2, que venía de la maqueta [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk)
+y de lo que la app ya imprime: `Carta*`, `Sobre*`, y la ficha y los revelados con la carta real. Esos
+cambios solo están aquí: antes de volver a bajar el canvas hay que publicarlos en él, o se pierden.
 
 | Carpeta | Qué hay |
 |---|---|
 | `project/canvas.json` | Índice del canvas: posición y título de cada artboard, secciones (`notes`) y páginas (`v2` «Sistema v2», `v1` «Versión 1»). |
-| `project/*.dc.html` | Los 90 artboards. Cada uno es una pantalla o componente en formato Design Component. |
+| `project/*.dc.html` | Los 99 artboards. Cada uno es una pantalla o componente en formato Design Component. |
 | `assets/<id>.svg` | Las imágenes subidas al canvas (aves, siluetas, mapa). En los artboards aparecen como `/_blob/<id>`. |
+| `assets/<id>.webp` | El arte de las cartas, en tamaño liviano. Sale de `apps/mobile/assets/` con `python tools/cards/export-design-art.py`; `assets/cards.json` dice qué id tiene cada pieza. |
 | `runtime/dc-runtime.js` | El intérprete del formato `.dc.html` (trae React empaquetado). En el canvas se sirve como `support.js`. |
 | `reference/dc-format.md` | La sintaxis del formato: huecos `{{…}}`, `<sc-for>`, `<sc-if>`, `<dc-import>`, eventos y estado. |
 | `palettes/palettes.json` | Los 12 temas de la página «Paletas» (A Pacífico, B Índigo colibrí, C Huacachina, D Totoral, E Vendimia, F Ribera; cada uno claro y oscuro), con los colores del logo. C, D y E los propuso Codex; F es la variante de D con fondo blanco en claro y carbón en oscuro. |
@@ -24,8 +27,12 @@ Los artboards `Paleta*.dc.html` se generan desde `palettes.json` con
 (`<carpeta>/project/`). También pone los 12 temas en las pantallas `Tema*` y añade lo nuevo a
 `canvas.json`. El logo con los colores de cada tema es `TemaLogo.dc.html`.
 
-Componentes que importan otras pantallas con `<dc-import>`: `BarraNav`, `Boton`, `Campo`,
-`Medalla`, `MonedaPluma`, `Sticker`, `StickerAve`, `Poster10`, `PosterHabitat`, `PosterLitoral`, `TarjetaLogro`.
+Componentes que importan otras pantallas con `<dc-import>`: `BarraNav`, `Boton`, `Campo`, `Carta`,
+`CartaDorso`, `CartaReverso`, `Medalla`, `MonedaPluma`, `Sobre`, `Sticker`, `StickerAve`, `Poster10`,
+`PosterHabitat`, `PosterLitoral`, `TarjetaLogro`.
+
+Las aves de muestra de `Carta` y `CartaReverso` traen los datos reales del catálogo y de `data/species/`.
+Los stickers de los artboards, en cambio, siguen con las figuras planas: las ilustraciones solo están en la app.
 
 La guía visual (color, letra, espacio, íconos y componentes) está en `GuiaFundamentos.dc.html`
 y `GuiaComponentes.dc.html`.

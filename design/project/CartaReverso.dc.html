@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Carta · reverso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; flex: none; width: {{w}}px; height: {{h}}px; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; color: #1E2A1B">
+<div style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; transform: scale({{scale}}); transform-origin: 0 0; border-radius: 16px; overflow: hidden; background: #1E2A1B; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.26)">
+<img src="{{marco}}" alt="" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px">
+<div style="position: absolute; left: 12px; top: 12px; width: 276px; height: 396px; box-sizing: border-box; border-radius: 9px; background: #FBF6E9; box-shadow: 0 0 0 1px rgba(0,0,0,0.28), 0 2px 5px rgba(0,0,0,0.28); padding: 13px 14px 11px; display: flex; flex-direction: column; gap: 9px">
+
+<div style="display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #4F5B43">Tu registro · N.º {{num}}</span>
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 20px; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em">{{nombre}}</h2>
+</div>
+
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 0">
+<sc-for list="{{filas}}" as="f" hint-placeholder-count="8">
+<div style="display: flex; flex-direction: column">
+<dt style="font-size: 9.5px; font-weight: 700; line-height: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #4F5B43">{{f.k}}</dt>
+<dd style="margin: 0; font-size: 12.5px; font-weight: 700; line-height: 14.5px">{{f.v}}</dd>
+</div>
+</sc-for>
+</dl>
+
+<div style="border-top: 1px solid rgba(30,42,27,0.2); padding-top: 7px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-size: 9.5px; font-weight: 700; line-height: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #4F5B43">Hitos · {{obs}} observaciones</span>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px">
+<sc-for list="{{hitos}}" as="h" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+<span style="position: relative; width: 100%; height: 9px; box-sizing: border-box; border-radius: 3px; overflow: hidden; background: #E7EEDC; border: 1px solid rgba(30,42,27,0.16)">
+<sc-if value="{{h.logrado}}" hint-placeholder-val="{{ false }}">
+<img src="{{h.img}}" alt="" style="position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 300 / 420">
+</sc-if>
+</span>
+<span style="font-size: 11px; font-weight: 700; line-height: 13px">{{h.n}}</span>
+<span style="font-size: 7.6px; line-height: 10px; color: #4F5B43">{{h.t}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{conSellos}}" hint-placeholder-val="{{ true }}">
+<div style="border-top: 1px solid rgba(30,42,27,0.2); padding-top: 7px; display: flex; flex-direction: column; gap: 3px">
+<sc-for list="{{sellos}}" as="s" hint-placeholder-count="1">
+<div style="display: flex; align-items: center; gap: 7px">
+<img src="{{s.img}}" alt="" style="flex: none; width: 26px; height: 26px">
+<span style="font-size: 11px; line-height: 13.5px"><strong>{{s.nombre}}.</strong> {{s.texto}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="margin-top: auto; border-radius: 8px; background: #F0E8D3; padding: 6px 9px; font-size: 11px; font-weight: 700; line-height: 13.5px">{{lugar}}</div>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ave":{"editor":"enum","options":["pelicano","flamenco","lechuza","condor","albatros","churrete","chorlo","gaviota","playero","minero"],"default":"pelicano"},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"oro"},"size":{"editor":"int","default":300,"min":80,"max":640},"obs":{"editor":null},"origen":{"editor":null},"$preview":{"width":300,"height":420}}'>
+// El reverso es el registro de quien tiene la carta. Muestra aparte la categoría del Perú, la de la UICN
+// y el apéndice de CITES. El dato de campo llegará con PA-41; el año de esta muestra es de ejemplo.
+const B = '/_blob/';
+const MARCO = {
+  cromado: B + 'a9e0be9c81dbc69b5a51c3c4dcb07b34',
+  plata: B + 'cd8c6fdfb518d5abe33a5133c8bed4e6',
+  oro: B + '61d7fc213edd12171075583eb6f614de',
+  rubi: B + '88fce0ce3adaae3b99bb1d70f044403c',
+  diamante: B + 'f1c6efd6afca6996cd92742a79b70999'
+};
+const MARCO_HABITAT = { coast: B + '2aec9569a48a4a61c8ae39ba5408b656', wetlands: B + '76c3b6401c3082d6d5748b9f42468198', desert: B + '86fdade33df2666d01a045778d1fcb38', highlands: B + '6e1fccd6b93a5c673aea43158fabfe11', openSea: B + 'fe9b0ff2688c6ac0c1d532eb2c603e8e' };
+
+const AVES = {
+  pelicano: { nombre: 'Pelícano Peruano', num: '230', hab: 'coast', habitat: 'Litoral', familia: 'Pelícanos', peru: 'En peligro', uicn: 'Casi amenazada', cites: 'No listada', sellos: ['amenazada', 'emblematica'], amenazada: true },
+  flamenco: { nombre: 'Flamenco Chileno', num: '237', hab: 'wetlands', habitat: 'Humedales', familia: 'Flamencos', peru: 'Casi amenazada', uicn: 'Casi amenazada', cites: 'Apéndice II', sellos: ['casi', 'emblematica'], amenazada: false },
+  lechuza: { nombre: 'Lechuza Terrestre', num: '279', hab: 'desert', habitat: 'Desierto', familia: 'Búhos y lechuzas', peru: 'Sin categoría', uicn: 'Preocupación menor', cites: 'Apéndice II', sellos: [], amenazada: false },
+  condor: { nombre: 'Cóndor Andino', num: '033', hab: 'highlands', habitat: 'Sierra', familia: 'Cóndores y gallinazos', peru: 'En peligro', uicn: 'Vulnerable', cites: 'Apéndice I', sellos: ['amenazada', 'emblematica'], amenazada: true },
+  albatros: { nombre: 'Albatros de Ceja Negra', num: '247', hab: 'openSea', habitat: 'Mar abierto', familia: 'Albatros', peru: 'En peligro', uicn: 'Sin evaluar', cites: 'No listada', sellos: ['amenazada'], amenazada: true },
+  churrete: { nombre: 'Churrete Marisquero', num: '139', hab: 'coast', habitat: 'Litoral', familia: 'Horneros y afines', peru: 'Sin categoría', uicn: 'Preocupación menor', cites: 'No listada', sellos: [], amenazada: false },
+  chorlo: { nombre: 'Chorlo Nevado', num: '039', hab: 'coast', habitat: 'Litoral', familia: 'Chorlos', peru: 'Sin categoría', uicn: 'Casi amenazada', cites: 'No listada', sellos: ['casi'], amenazada: false },
+  gaviota: { nombre: 'Gaviota Peruana', num: '057', hab: 'coast', habitat: 'Litoral', familia: 'Gaviotas y gaviotines', peru: 'Sin categoría', uicn: 'Preocupación menor', cites: 'No listada', sellos: [], amenazada: false },
+  playero: { nombre: 'Playero Arenero', num: '078', hab: 'coast', habitat: 'Litoral', familia: 'Playeros', peru: 'Sin categoría', uicn: 'Preocupación menor', cites: 'No listada', sellos: [], amenazada: false },
+  minero: { nombre: 'Minero Peruano', num: '143', hab: 'desert', habitat: 'Desierto', familia: 'Horneros y afines', peru: 'Sin categoría', uicn: 'Preocupación menor', cites: 'No listada', sellos: ['endemica'], amenazada: false }
+};
+
+const SELLOS = {
+  amenazada: { nombre: 'Amenazada', texto: 'Su población está en riesgo.', img: B + '7238de4ff68cb4b92f56e198ef3a6ffe' },
+  casi: { nombre: 'Casi amenazada', texto: 'Podría estar en riesgo pronto.', img: B + 'd147eb0893588cce3ea963c905e96bd6' },
+  endemica: { nombre: 'Endémica', texto: 'Solo vive en Perú.', img: B + '8d0865a438029f7d1ce88ffc538b05ed' },
+  emblematica: { nombre: 'Emblemática', texto: 'Elegida como símbolo de su región.', img: B + '996fa46e234242d6e3e8eb51d3269960' }
+};
+const OBS = { normal: 1, cromado: 3, plata: 5, oro: 10, rubi: 20, diamante: 35 };
+const ORIGEN = { normal: 'Primera foto', cromado: 'Por hito', plata: 'Por hito', oro: 'Por hito', rubi: 'Por hito', diamante: 'Por hito' };
+const HITOS = [[3, 'Holográfico', MARCO.cromado], [5, 'Plata', MARCO.plata], [10, 'Oro', MARCO.oro], [20, 'Rubí', MARCO.rubi], [35, 'Diamante', MARCO.diamante]];
+
+class Component extends DCLogic {
+  renderVals() {
+    const size = Number(this.props.size ?? 300) || 300;
+    const ave = AVES[this.props.ave] ?? AVES.pelicano;
+    const id = this.props.acabado ?? 'oro';
+    const obs = Number(this.props.obs ?? OBS[id] ?? 1);
+    return {
+      w: size,
+      h: Math.round(size * 420 / 300),
+      scale: size / 300,
+      nombre: ave.nombre,
+      num: ave.num,
+      obs,
+      marco: MARCO[id] ?? MARCO_HABITAT[ave.hab],
+      filas: [
+        { k: 'Primera vez', v: '12 oct 2026' },
+        { k: 'Fotos', v: String(obs + 2) },
+        { k: 'Esta carta', v: this.props.origen ?? ORIGEN[id] ?? 'Primera foto' },
+        { k: 'Hábitat', v: ave.habitat },
+        { k: 'Familia', v: ave.familia },
+        { k: 'Perú', v: ave.peru },
+        { k: 'UICN', v: ave.uicn },
+        { k: 'CITES', v: ave.cites }
+      ],
+      hitos: HITOS.map(([n, t, img]) => ({ n, t, img, logrado: obs >= n })),
+      conSellos: ave.sellos.length > 0,
+      sellos: ave.sellos.map((sello) => SELLOS[sello]),
+      lugar: ave.amenazada ? 'Lugar oculto para proteger a esta ave.' : 'Tus lugares están en tu galería.'
+    };
+  }
+}
+</script>
+</body>
+</html>

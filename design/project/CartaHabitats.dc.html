@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Los 5 hábitats como tipos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1510px; height: 500px; box-sizing: border-box; overflow: hidden; background: radial-gradient(circle at 50% 40%, #24403A 0%, #0D1B18 72%); color: #FFFFFF; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; padding: 44px 48px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px">
+<sc-for list="{{aves}}" as="a" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<dc-import name="Carta" ave="{{a.id}}" acabado="normal" size="256" hint-size="256px,358px"></dc-import>
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 18px; font-weight: 700">{{a.habitat}}</span>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1510,"height":500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      aves: [
+        { id: 'pelicano', habitat: 'Litoral' },
+        { id: 'flamenco', habitat: 'Humedales' },
+        { id: 'lechuza', habitat: 'Desierto' },
+        { id: 'condor', habitat: 'Sierra' },
+        { id: 'albatros', habitat: 'Mar abierto' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

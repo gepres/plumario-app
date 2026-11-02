@@ -28,33 +28,33 @@ body{margin:0}
 <sc-for list="{{stars}}" as="s" hint-placeholder-count="3">
 <div aria-hidden="true" style="position: absolute; left: {{s.l}}px; top: {{s.t}}px; width: {{s.s}}px; height: {{s.s}}px; background: {{s.c}}; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%)"></div>
 </sc-for>
-<sc-if value="{{conSello}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{conInsignia}}" hint-placeholder-val="{{ false }}">
 <div style="position: absolute; left: 124px; top: -6px; width: 42px; height: 42px; box-sizing: border-box; border-radius: 50%; border: {{badgeBorder}}; background: {{badgeBg}}; box-shadow: {{badgeShadow}}; display: flex; align-items: center; justify-content: center">
-<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}" fill="{{iconFill}}" fill-rule="evenodd"></path></svg>
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.7 6.1 6.6.6-5 4.4 1.5 6.5L12 16.8 6.2 20.1l1.5-6.5-5-4.4 6.6-.6z" fill="{{iconFill}}"></path></svg>
 </div>
 </sc-if>
 </sc-if>
+<div style="position: absolute; right: 4px; top: 4px; display: flex">
+<sc-for list="{{sellosAve}}" as="s" hint-placeholder-count="0">
+<img src="{{s.img}}" alt="Sello: {{s.nombre}}" style="width: 44px; height: 44px">
+</sc-for>
+</div>
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"img":{"editor":null,"default":"/_blob/700e5a92d8dae9ed43cb6af87296da4a"},"nombre":{"editor":"text","default":"Playero Arenero"},"num":{"editor":"text","default":"011"},"tint":{"editor":"color","default":"#D2E4EC","options":["#D2E4EC","#D9EADB","#EADFCB","#E0DDEA","#CFDCE8"]},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"cromado"},"sello":{"editor":"enum","options":["ninguno","amenazada","emblematica","endemica","casi"],"default":"ninguno"},"sombra":{"editor":"boolean","default":false},"size":{"editor":"int","default":160,"min":32,"max":640},"$preview":{"width":160,"height":205}}'>
+<script type="text/x-dc" data-dc-script data-props='{"img":{"editor":null,"default":"/_blob/700e5a92d8dae9ed43cb6af87296da4a"},"nombre":{"editor":"text","default":"Playero Arenero"},"num":{"editor":"text","default":"011"},"tint":{"editor":"color","default":"#D2E4EC","options":["#D2E4EC","#D9EADB","#EADFCB","#E0DDEA","#CFDCE8"]},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"cromado"},"sellos":{"editor":"text","default":""},"sombra":{"editor":"boolean","default":false},"size":{"editor":"int","default":160,"min":32,"max":640},"$preview":{"width":168,"height":205}}'>
 // acabado: "cromado" es el cromo holográfico, el primero de la escalera. Le siguen plata, oro, rubi y diamante.
-// La esquina lleva el sello de la especie, no el acabado: uno solo, y los demás van en la ficha.
-// Prioridad: amenazada, emblemática, endémica y casi amenazada.
-const ICON = {
-  shield: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z',
-  pin: 'M12 2.2a7 7 0 0 0-7 7c0 5.2 7 12.6 7 12.6s7-7.4 7-12.6a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z',
-  flag: 'M5 2.5h2.2v19H5z M8.2 3.5H19l-3.2 4.6L19 12.7H8.2z'
-};
+// La esquina lleva los sellos de la especie, en todos los acabados y hasta 2: primero su conservación,
+// después endémica y emblemática. Nunca deciden el acabado. Sin sellos, el cromo lleva su insignia.
 const SELLOS = {
-  amenazada: ICON.shield,
-  emblematica: ICON.flag,
-  endemica: ICON.pin,
-  casi: 'M12 2.5l7.5 3v6c0 4.6-3.2 8.4-7.5 10-4.3-1.6-7.5-5.4-7.5-10v-6z M12 6.2L7.4 8v3.5c0 2.8 1.9 5.2 4.6 6.3 2.7-1.1 4.6-3.5 4.6-6.3V8z'
+  amenazada: { nombre: 'Amenazada', img: '/_blob/7238de4ff68cb4b92f56e198ef3a6ffe' },
+  casi: { nombre: 'Casi amenazada', img: '/_blob/d147eb0893588cce3ea963c905e96bd6' },
+  endemica: { nombre: 'Endémica', img: '/_blob/8d0865a438029f7d1ce88ffc538b05ed' },
+  emblematica: { nombre: 'Emblemática', img: '/_blob/996fa46e234242d6e3e8eb51d3269960' }
 };
-// Sello de las aves de muestra, para no repetirlo en cada artboard.
-const SELLO_MUESTRA = { '025': 'amenazada', '032': 'amenazada', '038': 'amenazada', '184': 'amenazada', '042': 'endemica', '050': 'emblematica' };
-const HOLO = 'conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)';
+// Sellos de las aves de muestra, para no repetirlos en cada artboard.
+const SELLOS_MUESTRA = { '025': 'amenazada', '032': 'amenazada,emblematica', '038': 'amenazada,emblematica', '184': 'amenazada,emblematica', '050': 'casi,emblematica' };
+const HOLO ='conic-gradient(from 210deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6)';
 const star = (cx, cy, s, c) => ({ l: cx - s / 2, t: cy - s / 2, s, c });
 const STARS3 = c => [star(110, 40, 18, c), star(27, 122, 14, c), star(139, 104, 10, c)];
 
@@ -118,7 +118,7 @@ class Component extends DCLogic {
     const acabado = this.props.acabado ?? 'cromado';
     const tier = sombra ? null : TIER[acabado];
     const num = this.props.num ?? '011';
-    const sello = this.props.sello ?? SELLO_MUESTRA[num];
+    const sellos = sombra ? [] : String(this.props.sellos ?? SELLOS_MUESTRA[num] ?? '').split(',').filter((id) => SELLOS[id]);
     const tint = this.props.tint ?? '#D2E4EC';
     const base = {
       w: size,
@@ -128,8 +128,8 @@ class Component extends DCLogic {
       nombre: this.props.nombre ?? 'Playero Arenero',
       num,
       isCromo: !!tier,
-      conSello: !!tier && !!SELLOS[sello],
-      icon: SELLOS[sello] ?? '',
+      conInsignia: !!tier && sellos.length === 0,
+      sellosAve: sellos.map((id) => SELLOS[id]),
       frameBorder: '0',
       frameShadow: 'none',
       nameShadow: 'none',

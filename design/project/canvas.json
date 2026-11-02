@@ -115,7 +115,7 @@
       "y": 0
     },
     "GuiaComponentes.dc.html": {
-      "h": 2240,
+      "h": 2660,
       "title": "Guía UI · componentes",
       "w": 1280,
       "x": 1360,
@@ -434,7 +434,7 @@
       "y": 2880
     },
     "RevelarDiamante.dc.html": {
-      "h": 844,
+      "h": 960,
       "is_interactive": true,
       "title": "Revelado · cromo diamante (variante)",
       "w": 390,
@@ -473,14 +473,14 @@
     "StickerAve.dc.html": {
       "h": 205,
       "title": "Componente · Sticker de especie",
-      "w": 160,
+      "w": 168,
       "x": 5920,
       "y": 11256
     },
     "StickerDetalle.dc.html": {
-      "h": 844,
+      "h": 1150,
       "is_interactive": true,
-      "title": "Detalle del sticker cromado",
+      "title": "Detalle de la carta, con su reverso",
       "w": 390,
       "x": 0,
       "y": 4290
@@ -698,6 +698,72 @@
       "w": 48,
       "x": 4780,
       "y": 6040
+    },
+    "Carta.dc.html": {
+      "h": 420,
+      "title": "Carta · anverso",
+      "w": 300,
+      "x": 5340,
+      "y": 4290
+    },
+    "CartaReverso.dc.html": {
+      "h": 420,
+      "title": "Carta · reverso",
+      "w": 300,
+      "x": 5720,
+      "y": 4290
+    },
+    "CartaDorso.dc.html": {
+      "h": 420,
+      "title": "Carta · dorso",
+      "w": 300,
+      "x": 6100,
+      "y": 4290
+    },
+    "CartaProbar.dc.html": {
+      "h": 680,
+      "is_interactive": true,
+      "title": "Prueba la carta: acabados, sellos y destello",
+      "w": 980,
+      "x": 6480,
+      "y": 4290
+    },
+    "CartaSellos.dc.html": {
+      "h": 610,
+      "title": "Los 4 sellos",
+      "w": 1320,
+      "x": 7540,
+      "y": 4290
+    },
+    "CartaAcabados.dc.html": {
+      "h": 470,
+      "title": "La misma ave en los 6 acabados",
+      "w": 1600,
+      "x": 5340,
+      "y": 5050
+    },
+    "CartaHabitats.dc.html": {
+      "h": 500,
+      "title": "Los 5 hábitats como tipos",
+      "w": 1510,
+      "x": 7020,
+      "y": 5050
+    },
+    "Sobre.dc.html": {
+      "h": 515,
+      "is_interactive": true,
+      "title": "Componente · Sobre",
+      "w": 300,
+      "x": 4910,
+      "y": 6040
+    },
+    "SobresDisenos.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "title": "Los 3 sobres, al azar",
+      "w": 1180,
+      "x": 5290,
+      "y": 6040
     }
   },
   "createdOnFiles": {
@@ -864,11 +930,19 @@
     },
     "t-sobres": {
       "kind": "title1",
-      "maxW": 2870,
+      "maxW": 4600,
       "text": "Sobres, repetidas y plumas",
       "w": 240,
       "x": 1960,
       "y": 5740
+    },
+    "t-cartas": {
+      "kind": "title1",
+      "maxW": 3600,
+      "text": "Carta: anverso, reverso, sellos y destello",
+      "w": 240,
+      "x": 5340,
+      "y": 3990
     }
   },
   "order": [
@@ -961,7 +1035,16 @@
     "PaletaEOscuro.dc.html",
     "TemaLogo.dc.html",
     "PaletaFClaro.dc.html",
-    "PaletaFOscuro.dc.html"
+    "PaletaFOscuro.dc.html",
+    "Carta.dc.html",
+    "CartaReverso.dc.html",
+    "CartaDorso.dc.html",
+    "CartaProbar.dc.html",
+    "CartaSellos.dc.html",
+    "CartaAcabados.dc.html",
+    "CartaHabitats.dc.html",
+    "Sobre.dc.html",
+    "SobresDisenos.dc.html"
   ],
   "pages": [
     {

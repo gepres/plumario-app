@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>La misma ave en los 6 acabados</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1600px; height: 470px; box-sizing: border-box; overflow: hidden; background: radial-gradient(circle at 50% 40%, #24403A 0%, #0D1B18 72%); color: #FFFFFF; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; padding: 36px 48px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{cartas}}" as="c" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<dc-import name="Carta" ave="pelicano" acabado="{{c.id}}" size="228" hint-size="228px,319px"></dc-import>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 1px">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 18px; font-weight: 700">{{c.nombre}}</span>
+<span style="font-size: 13.5px; color: #DCEBD3">{{c.via}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":470}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cartas: [
+        { id: 'normal', nombre: 'Normal', via: 'Primera foto' },
+        { id: 'cromado', nombre: 'Holográfico', via: '3 observaciones' },
+        { id: 'plata', nombre: 'Plata', via: '5 observaciones' },
+        { id: 'oro', nombre: 'Oro', via: '10 observaciones' },
+        { id: 'rubi', nombre: 'Rubí', via: '20 observaciones' },
+        { id: 'diamante', nombre: 'Diamante', via: '35 observaciones' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

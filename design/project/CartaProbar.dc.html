@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Prueba la carta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 980px; height: 680px; box-sizing: border-box; overflow: hidden; background: radial-gradient(circle at 32% 44%, #24403A 0%, #0D1B18 68%); color: #FFFFFF; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; display: flex; align-items: center; gap: 56px; padding: 0 64px 0 72px">
+
+<div onPointerMove="{{mover}}" onPointerLeave="{{salir}}" style="flex: none; width: 400px; height: 560px; perspective: 1200px">
+<div style="position: relative; width: 400px; height: 560px; transform-style: preserve-3d; transform: rotateY({{giro}}deg); transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1)">
+<div style="position: absolute; left: 0; top: 0; width: 400px; height: 560px; transform-style: preserve-3d; transform: rotateX({{rx}}deg) rotateY({{ry}}deg); transition: transform 0.12s linear">
+<div style="position: absolute; left: 0; top: 0; backface-visibility: hidden">
+<dc-import name="Carta" ave="{{ave}}" acabado="{{acabado}}" size="400" quieta="true" hint-size="400px,560px"></dc-import>
+</div>
+<div style="position: absolute; left: 0; top: 0; backface-visibility: hidden; transform: rotateY(180deg)">
+<dc-import name="CartaReverso" ave="{{ave}}" acabado="{{acabado}}" size="400" hint-size="400px,560px"></dc-import>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 34px; font-weight: 800; line-height: 1.05; letter-spacing: -0.015em">Carta Plumario</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.45; color: #DCEBD3; text-wrap: pretty">De holográfico a diamante pasa un destello solo, cada 7 a 4,5 s. Pasa el puntero o toca la carta para hacerla brillar.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #DCEBD3">Acabado</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{acabados}}" as="a" hint-placeholder-count="6">
+<button onClick="{{a.elegir}}" aria-pressed="{{a.activo}}" style="min-height: 44px; border-radius: 12px; border: 1.5px solid {{a.borde}}; background: {{a.fondo}}; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{a.nombre}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #DCEBD3">Ave y sellos</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{aves}}" as="a" hint-placeholder-count="6">
+<button onClick="{{a.elegir}}" aria-pressed="{{a.activo}}" style="min-height: 44px; border-radius: 12px; border: 1.5px solid {{a.borde}}; background: {{a.fondo}}; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; line-height: 1.15; cursor: pointer; padding: 4px 8px">{{a.nombre}}</button>
+</sc-for>
+</div>
+</div>
+
+<button onClick="{{voltear}}" style="min-height: 52px; border-radius: 14px; border: 0; background: #E3C45E; color: #2D2E16; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer">{{textoVoltear}}</button>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":980,"height":680}}'>
+const ACABADOS = [['normal', 'Normal'], ['cromado', 'Holográfico'], ['plata', 'Plata'], ['oro', 'Oro'], ['rubi', 'Rubí'], ['diamante', 'Diamante']];
+const AVES = [['pelicano', 'Pelícano Peruano'], ['condor', 'Cóndor Andino'], ['flamenco', 'Flamenco Chileno'], ['albatros', 'Albatros de Ceja Negra'], ['minero', 'Minero Peruano'], ['lechuza', 'Lechuza Terrestre (sin sello)']];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ave: 'pelicano', acabado: 'diamante', volteada: false, x: 0.5, y: 0.5 };
+  }
+
+  renderVals() {
+    const { ave, acabado, volteada, x, y } = this.state;
+    const estilo = (activo) => ({
+      activo,
+      borde: activo ? '#E3C45E' : 'rgba(255,255,255,0.28)',
+      fondo: activo ? 'rgba(227,196,94,0.18)' : 'transparent'
+    });
+    return {
+      ave,
+      acabado,
+      giro: volteada ? 180 : 0,
+      rx: Math.round((0.5 - y) * 16),
+      ry: Math.round((x - 0.5) * 20),
+      textoVoltear: volteada ? 'Ver el anverso' : 'Dar vuelta',
+      voltear: () => this.setState({ volteada: !volteada }),
+      mover: (e) => {
+        const caja = e.currentTarget.getBoundingClientRect();
+        this.setState({ x: (e.clientX - caja.left) / caja.width, y: (e.clientY - caja.top) / caja.height });
+      },
+      salir: () => this.setState({ x: 0.5, y: 0.5 }),
+      acabados: ACABADOS.map(([id, nombre]) => Object.assign({ nombre, elegir: () => this.setState({ acabado: id }) }, estilo(id === acabado))),
+      aves: AVES.map(([id, nombre]) => Object.assign({ nombre, elegir: () => this.setState({ ave: id }) }, estilo(id === ave)))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Carta · anverso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Instrument+Sans:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div onPointerEnter="{{mover}}" onPointerMove="{{mover}}" onPointerDown="{{mover}}" onPointerUp="{{soltar}}" onPointerLeave="{{soltar}}" style="position: relative; flex: none; width: {{w}}px; height: {{h}}px; touch-action: pan-y; font-family: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif; color: {{tx}}">
+<div style="position: absolute; left: 0; top: 0; width: {{w}}px; height: {{h}}px; transform: perspective(900px) rotateX({{rx}}deg) rotateY({{ry}}deg); transition: transform 0.14s ease-out">
+<div style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; transform: scale({{scale}}); transform-origin: 0 0; border-radius: 16px; overflow: hidden; background: {{habOscuro}}; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.26)">
+
+<img src="{{marcoImg}}" alt="" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px">
+
+<sc-if value="{{aSangre}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 7px; top: 7px; width: 286px; height: 406px; border-radius: 10px; overflow: hidden">
+<img src="{{escena}}" alt="" style="position: absolute; left: 0; top: 0; width: 286px; height: 406px; object-fit: cover">
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 286px; height: 406px; background: {{tinte}}"></div>
+</div>
+</sc-if>
+
+<sc-if value="{{conVentana}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 12px; top: 62px; width: 276px; height: 190px; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1.5px {{filete}}">
+<img src="{{escena}}" alt="" style="position: absolute; left: 0; top: 0; width: 276px; height: 190px; object-fit: cover; object-position: 50% {{escenaPos}}%">
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 276px; height: 190px; background: {{tinte}}"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 276px; height: 190px; background: {{ventanaFoil}}; background-size: 300% 300%; background-position: {{fx}}% {{fy}}%; mix-blend-mode: overlay; opacity: {{ventanaFoilOp}}; transition: {{movimiento}}"></div>
+</div>
+</sc-if>
+
+<sc-for list="{{chispas}}" as="s" hint-placeholder-count="0">
+<div aria-hidden="true" style="position: absolute; left: {{s.l}}px; top: {{s.t}}px; width: {{s.s}}px; height: {{s.s}}px; background: {{chispaColor}}; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); opacity: {{chispaOp}}; transform: scale({{chispaEsc}}); transition: opacity 0.6s ease, transform 0.6s ease"></div>
+</sc-for>
+
+<img src="{{img}}" alt="{{nombre}}" style="position: absolute; left: {{aveX}}px; top: {{aveY}}px; width: {{aveS}}px; height: {{aveS}}px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3))">
+
+<div style="position: absolute; right: 17px; top: 67px; display: flex; gap: 2px">
+<sc-for list="{{sellosCarta}}" as="s" hint-placeholder-count="1">
+<img src="{{s.img}}" alt="Sello: {{s.nombre}}" style="width: 52px; height: 52px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.55))">
+</sc-for>
+</div>
+
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; isolation: isolate; mix-blend-mode: screen; background: #000000; opacity: {{relieveOp}}; pointer-events: none">
+<img src="/_blob/03e5aa72a39b3ab970f2425afd86e25e" alt="" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px">
+<div style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; background: {{banda}}; background-color: #000000; background-repeat: no-repeat; background-size: 250% 250%; background-position: {{bx}}% {{by}}%; mix-blend-mode: multiply; transition: {{movimiento}}"></div>
+</div>
+
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; pointer-events: none; background: {{luz}}; background-repeat: no-repeat; background-size: 250% 250%; background-position: {{bx}}% {{by}}%; mix-blend-mode: overlay; opacity: {{luzOp}}; transition: {{movimiento}}"></div>
+
+<div style="position: absolute; left: 12px; top: 12px; width: 276px; height: 46px; box-sizing: border-box; padding: 0 6px; border-radius: 8px; background: {{placa}}; box-shadow: {{placaSombra}}; display: flex; align-items: center; gap: 7px">
+<span aria-label="{{habitat}}" role="img" style="flex: none; width: 32px; height: 32px; border-radius: 50%; background: {{habOscuro}}; box-shadow: 0 0 0 1.5px {{filete}}; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{icono}}"></path></svg>
+</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 15.5px; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance">{{nombre}}</h2>
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 12px; line-height: 1.05; color: {{tx2}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{cientifico}}</span>
+</div>
+<div style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: {{habOscuro}}; box-shadow: 0 0 0 1.5px {{filete}}; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span style="font-family: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif; font-size: 15px; font-weight: 800; line-height: 1">{{obs}}</span>
+<span style="font-size: 7.5px; font-weight: 700; line-height: 1">obs.</span>
+</div>
+</div>
+
+<div style="position: absolute; left: 24px; top: 245px; width: 252px; height: 20px; border-radius: 4px; background: {{habOscuro}}; box-shadow: 0 0 0 1px {{filete}}, 0 2px 5px rgba(0,0,0,0.3); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 600; white-space: nowrap">{{cinta}}</div>
+
+<div style="position: absolute; left: 12px; top: 270px; width: 276px; height: 139px; box-sizing: border-box; padding: 4px 8px 3px; border-radius: 8px; background: {{placa}}; box-shadow: {{placaSombra}}; display: flex; flex-direction: column">
+<sc-for list="{{rasgos}}" as="r" hint-placeholder-count="2">
+<div style="flex: none; height: 40px; display: flex; flex-direction: column">
+<span style="font-size: 12px; font-weight: 700; line-height: 14px">{{r.t}}</span>
+<span style="font-size: 10.2px; line-height: 12.6px; color: {{tx2}}">{{r.d}}</span>
+</div>
+</sc-for>
+<svg width="260" height="6" viewBox="0 0 260 6" fill="none" aria-hidden="true" style="flex: none"><path d="{{escalon}}" stroke="{{linea}}" stroke-width="1"></path></svg>
+<div style="flex: none; margin-top: 1px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{datos}}" as="d" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column">
+<span style="font-size: 8.5px; font-weight: 700; line-height: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: {{tx2}}">{{d.k}}</span>
+<span style="font-size: 10.2px; font-weight: 700; line-height: 11.5px">{{d.v}}</span>
+</div>
+</sc-for>
+</div>
+<div style="margin-top: auto; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 9.2px; font-weight: 700; line-height: 12px; color: {{tx2}}">
+<span>Ica {{num}}/294</span>
+<span>{{sello}}</span>
+<span>{{marca}}</span>
+</div>
+</div>
+
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 300px; height: 420px; pointer-events: none; background: radial-gradient(circle at {{px}}% {{py}}%, rgba(255,255,255,0.6), rgba(255,255,255,0) 46%); mix-blend-mode: soft-light; opacity: {{resplandor}}; transition: opacity 0.25s ease"></div>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ave":{"editor":"enum","options":["pelicano","flamenco","lechuza","condor","albatros","churrete","chorlo","gaviota","playero","minero"],"default":"pelicano"},"acabado":{"editor":"enum","options":["normal","cromado","plata","oro","rubi","diamante"],"default":"oro"},"size":{"editor":"int","default":300,"min":80,"max":640},"obs":{"editor":null},"quieta":{"editor":null,"default":false},"destello":{"editor":null,"default":0},"$preview":{"width":300,"height":420}}'>
+// La carta de una especie: se dibuja a 300 × 420 y se escala. Los datos de las aves de muestra salen del
+// catálogo y de data/species/. «cromado» es el acabado holográfico, como en StickerAve.
+const B = '/_blob/';
+// El hábitat hace de tipo: da el relieve del marco, el ícono y el paisaje de la carta.
+const HABITAT = {
+  coast: { nombre: 'Litoral', oscuro: '#123F4B', marco: B + '2aec9569a48a4a61c8ae39ba5408b656', escena: B + '0811cd01ff027c278ac21954a68e2d89', pos: 58,
+    icono: 'M2 15c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M2 9c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0' },
+  wetlands: { nombre: 'Humedales', oscuro: '#2B4A1E', marco: B + '76c3b6401c3082d6d5748b9f42468198', escena: B + '4337755150ddc62638b67e169dfac526', pos: 60,
+    icono: 'M12 21V8M12 8c0-2 1-4 3-5M6 21c0-4-1-7-3-9M18 21c0-4 1-7 3-9' },
+  desert: { nombre: 'Desierto', oscuro: '#5E4216', marco: B + '86fdade33df2666d01a045778d1fcb38', escena: B + '223f9cc786b42723373bbdadff3b5db3', pos: 86,
+    icono: 'M3 19c4-5 8-6 11-4s5 2 7 1M12 4v2M6 7l1.4 1.4M18 7l-1.4 1.4M8.5 13a3.5 3.5 0 1 1 7 0' },
+  highlands: { nombre: 'Sierra', oscuro: '#3C3358', marco: B + '6e1fccd6b93a5c673aea43158fabfe11', escena: B + 'c078605f4e5dea8b10df283d98f87ff4', pos: 45,
+    icono: 'M3 20l6-11 4 7 3-4 5 8z' },
+  openSea: { nombre: 'Mar abierto', oscuro: '#16324A', marco: B + 'fe9b0ff2688c6ac0c1d532eb2c603e8e', escena: B + '55a724e84672adaea470bfe3ec191431', pos: 62,
+    icono: 'M12 3v15M12 3l6 11h-6M5 18c2 2 4 2 7 2s5 0 7-2' }
+};
+
+const AVES = {
+  pelicano: {
+    nombre: 'Pelícano Peruano', cientifico: 'Pelecanus thagus', num: '230', hab: 'coast', img: B + 'f5afd320701f9600c762979364a0f2e5',
+    cinta: 'Pelícanos · 3,4 kg · ala 62 cm',
+    rasgos: [
+      { t: 'Bolsa en el pico', d: 'La usa como red para atrapar peces.' },
+      { t: 'Vuelo en fila', d: 'Suele volar en grupo, muy cerca del agua.' }
+    ],
+    dieta: 'Peces', estado: 'En peligro (Perú)', sellos: ['amenazada', 'emblematica']
+  },
+  flamenco: {
+    nombre: 'Flamenco Chileno', cientifico: 'Phoenicopterus chilensis', num: '237', hab: 'wetlands', img: B + 'b2d1e7250ec0cdf6d421b7927dcd7e0b',
+    cinta: 'Flamencos · 2,3 kg · ala 40 cm',
+    rasgos: [
+      { t: 'Pico filtrador', d: 'Come con la cabeza invertida y cuela su alimento.' },
+      { t: 'Rosado por su dieta', d: 'El color le viene de los carotenoides de lo que come.' }
+    ],
+    dieta: 'Algas y animales', estado: 'Casi amenazada (Perú)', sellos: ['casi', 'emblematica']
+  },
+  lechuza: {
+    nombre: 'Lechuza Terrestre', cientifico: 'Athene cunicularia', num: '279', hab: 'desert', img: B + '2fcc6b3d7bc42165cdda070c708da31c',
+    cinta: 'Búhos y lechuzas · 151 g · ala 18 cm',
+    rasgos: [
+      { t: 'Vuelo silencioso', d: 'Sus plumas amortiguan el sonido al volar.' },
+      { t: 'Cabeza giratoria', d: 'Gira mucho la cabeza porque sus ojos casi no se mueven.' }
+    ],
+    dieta: 'Animales pequeños', estado: 'Preocupación menor', sellos: []
+  },
+  condor: {
+    nombre: 'Cóndor Andino', cientifico: 'Vultur gryphus', num: '033', hab: 'highlands', img: B + '368659fdb3a78c6819fea5a5ec43cbde',
+    cinta: 'Cóndores y gallinazos · 11,2 kg · envergadura 3 m',
+    rasgos: [
+      { t: 'Limpiador natural', d: 'Come animales muertos y ayuda a reciclar la materia orgánica.' },
+      { t: 'Cabeza sin plumas', d: 'Su piel desnuda se mantiene más limpia al comer carroña.' }
+    ],
+    dieta: 'Carroña', estado: 'En peligro (Perú)', sellos: ['amenazada', 'emblematica']
+  },
+  albatros: {
+    nombre: 'Albatros de Ceja Negra', cientifico: 'Thalassarche melanophris', num: '247', hab: 'openSea', img: B + '266a3a6d534575c93d87aec4656a690f',
+    cinta: 'Albatros · 3,2 kg · envergadura 2,3 m',
+    rasgos: [
+      { t: 'Planeador del océano', d: 'Usa el viento sobre las olas para viajar lejos.' },
+      { t: 'Vida en alta mar', d: 'Pasa años en el mar antes de volver a criar.' }
+    ],
+    dieta: 'Calamares y peces', estado: 'En peligro (Perú)', sellos: ['amenazada']
+  },
+  churrete: {
+    nombre: 'Churrete Marisquero', cientifico: 'Cinclodes taczanowskii', num: '139', hab: 'coast', img: B + '89ed7ddd864a4dfd9365f48848612845',
+    cinta: 'Horneros y afines · 65 g · ala 11,4 cm',
+    rasgos: [
+      { t: 'Constructor de nidos', d: 'Muchas especies hacen nidos muy elaborados.' },
+      { t: 'Buscador incansable', d: 'Explora suelo, rocas y grietas en busca de presas.' }
+    ],
+    dieta: 'Animales y semillas', estado: 'Preocupación menor', sellos: []
+  },
+  chorlo: {
+    nombre: 'Chorlo Nevado', cientifico: 'Anarhynchus nivosus', num: '039', hab: 'coast', img: B + 'd9608805353aa3406354d3aa0a37e8ee',
+    cinta: 'Chorlos · 42 g · ala 10,3 cm',
+    rasgos: [
+      { t: 'Corre y se detiene', d: 'Da unos pasos, se para y picotea cuando ve alimento.' },
+      { t: 'Nido en el suelo', d: 'Pone sus huevos en una leve depresión del terreno.' }
+    ],
+    dieta: 'Animales pequeños', estado: 'Casi amenazada', sellos: ['casi']
+  },
+  gaviota: {
+    nombre: 'Gaviota Peruana', cientifico: 'Larus belcheri', num: '057', hab: 'coast', img: B + 'b5eec4674d6792d4548b6095f45d701f',
+    cinta: 'Gaviotas y gaviotines · 639 g · ala 37 cm',
+    rasgos: [
+      { t: 'Alas largas', d: 'Planea con facilidad sobre la costa y el mar.' },
+      { t: 'Vida en colonias', d: 'Suele anidar en grupos, a veces muy numerosos.' }
+    ],
+    dieta: 'Peces y otros animales', estado: 'Preocupación menor', sellos: []
+  },
+  playero: {
+    nombre: 'Playero Arenero', cientifico: 'Calidris alba', num: '078', hab: 'coast', img: B + '0808d5e3edd419ad25658e34a6800a03',
+    cinta: 'Playeros · 52 g · ala 12 cm',
+    rasgos: [
+      { t: 'Pico sensible', d: 'Detecta presas enterradas en arena o fango.' },
+      { t: 'Grandes viajeros', d: 'Muchas especies migran miles de kilómetros cada año.' }
+    ],
+    dieta: 'Invertebrados', estado: 'Preocupación menor', sellos: []
+  },
+  minero: {
+    nombre: 'Minero Peruano', cientifico: 'Geositta peruviana', num: '143', hab: 'desert', img: B + '8b06e6686bba430c3b0c3fa1c65890d0',
+    cinta: 'Horneros y afines · 21 g · ala 7,8 cm',
+    rasgos: [
+      { t: 'Constructor de nidos', d: 'Muchas especies hacen nidos muy elaborados.' },
+      { t: 'Buscador incansable', d: 'Explora suelo, rocas y grietas en busca de presas.' }
+    ],
+    dieta: 'Animales y semillas', estado: 'Preocupación menor', sellos: ['endemica']
+  }
+};
+
+// Cada sello tiene su silueta y su color: un dato de la especie que nunca decide el acabado.
+const SELLOS = {
+  amenazada: { nombre: 'Amenazada', img: B + '7238de4ff68cb4b92f56e198ef3a6ffe' },
+  casi: { nombre: 'Casi amenazada', img: B + 'd147eb0893588cce3ea963c905e96bd6' },
+  endemica: { nombre: 'Endémica', img: B + '8d0865a438029f7d1ce88ffc538b05ed' },
+  emblematica: { nombre: 'Emblemática', img: B + '996fa46e234242d6e3e8eb51d3269960' }
+};
+
+const OBS = { normal: 1, cromado: 3, plata: 5, oro: 10, rubi: 20, diamante: 35 };
+const MARCA = { normal: '', cromado: 'Holográfico', plata: 'Plata', oro: 'Oro', rubi: 'Rubí', diamante: 'Diamante' };
+const ARCOIRIS = 'linear-gradient(115deg, #F4C6D6, #C5D9F5, #C3EEDC, #F2EAB8, #DEC8F2, #F4C6D6, #C5D9F5)';
+const banda = (color) => `linear-gradient(115deg, #000000 34%, ${color} 50%, #000000 66%)`;
+const BANDA_ARCOIRIS = 'linear-gradient(115deg, #000000 16%, #F4C6D6 32%, #C5D9F5 44%, #C3EEDC 56%, #F2EAB8 68%, #000000 84%)';
+const LUZ = 'linear-gradient(115deg, rgba(255,255,255,0) 36%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 64%)';
+const chispa = (l, t, s) => ({ l, t, s });
+const POCAS_CHISPAS = [chispa(30, 76, 12), chispa(258, 150, 14)];
+// Cada cuánto pasa el destello solo, en milisegundos: cuanto más alto el acabado, más vivo. La normal no brilla.
+const ESPERA = { cromado: 7000, plata: 6500, oro: 6000, rubi: 5500, diamante: 4500 };
+const BARRIDO = 1600;
+const SOMBRA_PLACA = '0 0 0 1px rgba(0,0,0,0.28), 0 2px 5px rgba(0,0,0,0.28)';
+
+// Cada acabado cambia el material y la estructura; los dos últimos llevan el paisaje a toda la carta.
+const acabadoDe = (id, hab) => {
+  const base = {
+    aSangre: false, conVentana: true,
+    marcoImg: hab.marco, placa: '#FBF6E9', placaSombra: SOMBRA_PLACA, filete: hab.oscuro,
+    tx: '#1E2A1B', tx2: '#4F5B43', linea: 'rgba(30,42,27,0.3)',
+    tinte: 'none', ventanaFoil: 'none', ventanaFoilOp: 0, relieveOp: 0, banda: 'none', luz: 'none', luzOp: 0,
+    fuera: 115, chispas: [], chispaColor: '#FFFFFF', aveX: 60, aveY: 66, aveS: 178
+  };
+  if (id === 'cromado') {
+    return Object.assign(base, {
+      marcoImg: B + 'a9e0be9c81dbc69b5a51c3c4dcb07b34', filete: '#FFFFFF',
+      ventanaFoil: ARCOIRIS, ventanaFoilOp: 0.6, relieveOp: 0.75, banda: BANDA_ARCOIRIS, luz: LUZ, luzOp: 0.4, fuera: 140, chispas: POCAS_CHISPAS
+    });
+  }
+  if (id === 'plata') {
+    return Object.assign(base, {
+      marcoImg: B + 'cd8c6fdfb518d5abe33a5133c8bed4e6', placa: '#F2F5F7', filete: '#F2F5F7', tx: '#1E2A31', tx2: '#3E4B54', linea: 'rgba(30,40,48,0.3)',
+      tinte: 'rgba(210,225,235,0.12)', relieveOp: 0.9, banda: banda('#FFFFFF'), luz: LUZ, luzOp: 0.5, chispas: POCAS_CHISPAS
+    });
+  }
+  if (id === 'oro') {
+    return Object.assign(base, {
+      marcoImg: B + '61d7fc213edd12171075583eb6f614de', placa: '#FFF6DC', filete: '#FFF1BC', tx: '#3B2A0C', tx2: '#5E4516', linea: 'rgba(74,52,16,0.34)',
+      tinte: 'rgba(255,214,120,0.15)', relieveOp: 1, banda: banda('#FFE9A8'), luz: LUZ, luzOp: 0.55, chispas: POCAS_CHISPAS, chispaColor: '#FFF6D5'
+    });
+  }
+  if (id === 'rubi') {
+    return Object.assign(base, {
+      aSangre: true, conVentana: false,
+      marcoImg: B + '88fce0ce3adaae3b99bb1d70f044403c', placa: 'rgba(46,6,16,0.84)', placaSombra: '0 0 0 1px rgba(255,201,209,0.35)', filete: '#FFC9D1',
+      tx: '#FFFFFF', tx2: '#F8E1E5', linea: 'rgba(255,255,255,0.34)',
+      tinte: 'rgba(122,18,38,0.18)', relieveOp: 1, banda: banda('#FFC2CD'), luz: LUZ, luzOp: 0.5,
+      chispas: [chispa(26, 84, 14), chispa(258, 146, 18), chispa(36, 212, 10)], chispaColor: '#FFE7A8',
+      aveX: 50, aveY: 54, aveS: 200
+    });
+  }
+  if (id === 'diamante') {
+    return Object.assign(base, {
+      aSangre: true, conVentana: false,
+      marcoImg: B + 'f1c6efd6afca6996cd92742a79b70999', placa: 'rgba(12,34,52,0.84)', placaSombra: '0 0 0 1px rgba(214,238,250,0.45)', filete: '#E4F2F9',
+      tx: '#FFFFFF', tx2: '#E4F2F9', linea: 'rgba(255,255,255,0.36)',
+      tinte: 'rgba(181,210,226,0.16)', relieveOp: 1, banda: BANDA_ARCOIRIS, luz: LUZ, luzOp: 0.6, fuera: 140,
+      chispas: [chispa(24, 76, 20), chispa(262, 128, 12), chispa(260, 170, 22), chispa(30, 190, 14), chispa(150, 66, 9), chispa(228, 222, 9)],
+      aveX: 50, aveY: 54, aveS: 200
+    });
+  }
+  return base;
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { modo: 'reposo', dur: 0, x: 0.5, y: 0.5 };
+  }
+
+  componentDidMount() {
+    this.calma = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Empieza en un momento distinto en cada carta para que una fila no destelle a la vez.
+    this.programar(600 + Math.random() * 2400);
+  }
+
+  componentDidUpdate(antes) {
+    if (this.props.destello && antes.destello !== this.props.destello) this.barrer(BARRIDO, 650);
+  }
+
+  componentWillUnmount() {
+    [this.reloj, this.inicio, this.fin].forEach(clearTimeout);
+  }
+
+  programar(ms) {
+    clearTimeout(this.reloj);
+    this.reloj = setTimeout(() => {
+      const espera = ESPERA[this.props.acabado ?? 'oro'];
+      if (espera && !this.calma && this.state.modo === 'reposo') this.barrer(BARRIDO, 0);
+      this.programar(espera ?? 6000);
+    }, ms);
+  }
+
+  barrer(dur, demora = 0) {
+    clearTimeout(this.inicio);
+    clearTimeout(this.fin);
+    this.inicio = setTimeout(() => {
+      this.setState({ modo: 'barrido', dur });
+      this.fin = setTimeout(() => this.setState({ modo: 'reposo', dur: 0 }), dur + 40);
+    }, demora);
+  }
+
+  renderVals() {
+    const size = Number(this.props.size ?? 300) || 300;
+    const ave = AVES[this.props.ave] ?? AVES.pelicano;
+    const id = this.props.acabado ?? 'oro';
+    const hab = HABITAT[ave.hab];
+    const estilo = acabadoDe(id, hab);
+    const { modo, dur, x, y } = this.state;
+    const brilla = ESPERA[id] !== undefined;
+    const puntero = brilla && modo === 'puntero';
+    const activa = puntero || (brilla && modo === 'barrido');
+    const inclina = puntero && this.props.quieta !== true && this.props.quieta !== 'true';
+    // El centro de la franja de luz cae en 125 − 1,5 × posición (en % de la carta).
+    const lejos = modo === 'barrido' ? 100 - estilo.fuera : estilo.fuera;
+    return Object.assign({}, ave, estilo, {
+      w: size,
+      h: Math.round(size * 420 / 300),
+      scale: size / 300,
+      bx: puntero ? (125 - x * 100) / 1.5 : lejos,
+      by: puntero ? (125 - y * 100) / 1.5 : lejos,
+      // El arcoíris recorre un ciclo entero (150 % en una imagen de 300 %), así vuelve al inicio sin salto.
+      fx: puntero ? (125 - x * 100) / 1.5 : modo === 'barrido' ? -25 : 125,
+      fy: puntero ? (125 - y * 100) / 1.5 : modo === 'barrido' ? -25 : 125,
+      px: Math.round(x * 100),
+      py: Math.round(y * 100),
+      movimiento: `background-position ${dur}ms cubic-bezier(0.45, 0.05, 0.55, 0.95)`,
+      resplandor: puntero ? 1 : 0,
+      chispaOp: activa ? 1 : 0.5,
+      chispaEsc: activa ? 1.25 : 0.6,
+      rx: inclina ? Math.round((0.5 - y) * 12) : 0,
+      ry: inclina ? Math.round((x - 0.5) * 14) : 0,
+      mover: (e) => {
+        if (!brilla) return;
+        clearTimeout(this.inicio);
+        clearTimeout(this.fin);
+        const caja = e.currentTarget.getBoundingClientRect();
+        this.setState({ modo: 'puntero', dur: 110, x: (e.clientX - caja.left) / caja.width, y: (e.clientY - caja.top) / caja.height });
+      },
+      soltar: () => {
+        if (this.state.modo === 'puntero') this.barrer(550);
+      },
+      sellosCarta: ave.sellos.map((sello) => SELLOS[sello]),
+      sello: ave.sellos.map((sello) => SELLOS[sello].nombre).join(' · '),
+      habitat: hab.nombre,
+      habOscuro: hab.oscuro,
+      icono: hab.icono,
+      escena: hab.escena,
+      escenaPos: hab.pos,
+      escalon: 'M0 5' + 'h6v-3h6v3'.repeat(22),
+      obs: Number(this.props.obs ?? OBS[id] ?? 1),
+      marca: MARCA[id] ?? '',
+      datos: [{ k: 'Dieta', v: ave.dieta }, { k: 'Hábitat', v: hab.nombre }, { k: 'Estado', v: ave.estado }]
+    });
+  }
+}
+</script>
+</body>
+</html>

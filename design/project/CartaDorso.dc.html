@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Carta · dorso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="flex: none; width: {{w}}px; height: {{h}}px; box-sizing: border-box; border-radius: 16px; overflow: hidden; border: 3px solid #E0B348; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.26)">
+<img src="/_blob/13a77af732ba2a306201f1bfed3ffa23" alt="Dorso de la carta" style="display: block; width: 100%; height: 100%; object-fit: cover">
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"size":{"editor":"int","default":300,"min":80,"max":640},"$preview":{"width":300,"height":420}}'>
+// El dorso bordado: lo que se ve antes de revelar una carta, en el revelado y al abrir un sobre.
+class Component extends DCLogic {
+  renderVals() {
+    const size = Number(this.props.size ?? 300) || 300;
+    return { w: size, h: Math.round(size * 420 / 300) };
+  }
+}
+</script>
+</body>
+</html>
