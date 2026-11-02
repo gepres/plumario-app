@@ -7,7 +7,7 @@ import type { FigureName } from '../figures/figure-svgs';
 import { textStyles } from '../theme/fonts';
 import { BirdFigure, type BirdArt } from './bird-figure';
 import type { StickerFinish } from './bird-sticker';
-import { CARD_FACES, HABITAT_ICONS, HABITAT_INKS, SCENE_FOCUS, type CardFace, type CardHabitat } from './card-faces';
+import { CARD_FACES, CARD_SHADOW, HABITAT_ICONS, HABITAT_INKS, SCENE_FOCUS, type CardFace, type CardHabitat } from './card-faces';
 import { CardShine, CardSparkle } from './card-shine';
 
 // La carta de una especie (Cartas Plumario, V2Carta y V2Reverso). Se dibuja a 300 × 420 y se escala al
@@ -54,7 +54,6 @@ const FONT = {
   serif: textStyles.scientific.fontFamily,
 };
 const PLATE_SHADOW = '0 2px 5px rgba(0,0,0,0.28)';
-const CARD_SHADOW = '0 1px 2px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.26)';
 const PRISM = ['#F4C6D6', '#C5D9F5', '#C3EEDC', '#F2EAB8', '#DEC8F2'];
 
 function CardText({ style, lines, children }: { style: TextStyle; lines?: number; children: ReactNode }) {
@@ -74,7 +73,18 @@ function Scene({ face, scene, habitat }: { face: CardFace; scene: ImageSourcePro
   return (
     <View style={[styles.layer, box, { overflow: 'hidden', borderWidth: face.fullArt ? 0 : 1.5, borderColor: face.trim ?? HABITAT_INKS[habitat] }]}>
       <Image source={scene} style={{ position: 'absolute', left: 0, top: face.fullArt ? 0 : -offset, width: box.width, height: face.fullArt ? box.height : imageHeight }} resizeMode="cover" />
-      {face.veil && <View style={[StyleSheet.absoluteFill, { backgroundColor: face.veil }]} />}
+      {face.veil && (
+        <Svg style={StyleSheet.absoluteFill} width={box.width} height={box.height}>
+          <Defs>
+            <LinearGradient id={`${uid}v`} x1="0" y1="0" x2="0" y2="1">
+              {face.veil.map((stop) => (
+                <Stop key={stop.offset} offset={stop.offset} stopColor={stop.color} stopOpacity={stop.opacity} />
+              ))}
+            </LinearGradient>
+          </Defs>
+          <Rect x={0} y={0} width={box.width} height={box.height} fill={`url(#${uid}v)`} />
+        </Svg>
+      )}
       {face.shine && face.shine.length > 1 && !face.fullArt && (
         <Svg style={StyleSheet.absoluteFill} width={box.width} height={box.height}>
           <Defs>
@@ -116,6 +126,7 @@ export function BirdCard(props: FrontProps) {
   const face = CARD_FACES[finish];
   const k = size / CARD_WIDTH;
   const ink = HABITAT_INKS[habitat];
+  const birdSize = face.fullArt ? 200 : 178;
   const shines = !!face.shine;
   const reduced = useReducedMotion();
   const tilts = shines && !still && !reduced;
@@ -160,18 +171,24 @@ export function BirdCard(props: FrontProps) {
       accessibilityLabel={accessibilityLabel ?? `${name}, ${scientificName}`}
       style={{ width: size, height: size * (CARD_HEIGHT / CARD_WIDTH) }}>
       <Animated.View style={[StyleSheet.absoluteFill, tiltStyle]}>
-        <View style={[styles.card, { transform: [{ scale: k }], boxShadow: CARD_SHADOW, backgroundColor: ink }]}>
+        <View style={[styles.card, { transform: [{ scale: k }], boxShadow: face.shadow, backgroundColor: ink }]}>
           <Image source={frame} style={styles.fill} resizeMode="cover" />
           <Scene face={face} scene={scene} habitat={habitat} />
           {face.sparkles.map((s, i) => (
             <CardSparkle key={i} x={s.x} y={s.y} size={s.size} color={face.sparkleColor} period={face.period} />
           ))}
-          <BirdFigure
-            figure={figure}
-            art={art}
-            size={face.fullArt ? 200 : 178}
-            style={{ position: 'absolute', left: face.fullArt ? 50 : 60, top: face.fullArt ? 54 : 66 }}
-          />
+          <View style={{ position: 'absolute', left: face.fullArt ? 50 : 60, top: face.fullArt ? 54 : 66, width: birdSize, height: birdSize }}>
+            {art && face.birdShadows.map((shadow) => (
+              <Image
+                key={shadow.color}
+                source={art.image}
+                blurRadius={shadow.radius}
+                resizeMode="contain"
+                style={{ position: 'absolute', left: 0, top: shadow.y, width: birdSize, height: birdSize, tintColor: shadow.color, opacity: shadow.opacity }}
+              />
+            ))}
+            <BirdFigure figure={figure} art={art} size={birdSize} />
+          </View>
           <View style={styles.seals}>
             {seals.map((seal) => (
               <Image key={seal.label} source={seal.image} style={styles.seal} accessibilityLabel={`Sello: ${seal.label}`} />
