@@ -54,8 +54,8 @@ describe('hitos', () => {
   it('entre hitos no pasa nada y dice cuál sigue', () => {
     const { outcomes } = observed(4);
     expect(outcomes[3]).toMatchObject({ counted: true, unlocked: null, coveredMilestone: null });
-    expect(nextFinishMilestone(4)).toMatchObject({ observations: 5, finish: 'silver' });
-    expect(nextFinishMilestone(35)).toBeNull();
+    expect(nextFinishMilestone(4, 'holographic')).toMatchObject({ observations: 5, finish: 'silver' });
+    expect(nextFinishMilestone(35, 'diamond')).toBeNull();
   });
 
   it('un acabado alto no retrocede cuando llega un hito menor', () => {

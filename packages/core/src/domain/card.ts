@@ -27,8 +27,12 @@ export function betterFinish(a: CardCategory | null, b: CardCategory | null): Ca
   return CATEGORY_RANK[a] >= CATEGORY_RANK[b] ? a : b;
 }
 
-/** El hito que sigue a estas observaciones; null si ya los alcanzó todos. */
-export const nextFinishMilestone = (observations: number): Milestone | null => MILESTONES.find((m) => m.observations > observations) ?? null;
+/**
+ * El próximo hito que de verdad sube la carta; null si ya es diamante. Los que ya cubrió un sobre o una
+ * compra no cuentan: esos solo pagan plumas.
+ */
+export const nextFinishMilestone = (observations: number, best: CardCategory | null): Milestone | null =>
+  MILESTONES.find((m) => m.observations > observations && (!best || CATEGORY_RANK[m.finish] > CATEGORY_RANK[best])) ?? null;
 
 /** «Uno por uno, y cada parte entrega el mismo acabado» se decide en la fase 2B; hoy el intercambio está en pausa. */
 export function isFairTrade(offered: CardCategory, requested: CardCategory): boolean {

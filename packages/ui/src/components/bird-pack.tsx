@@ -31,9 +31,18 @@ type Texts = {
 type Props = Texts & {
   image: ImageSourcePropType;
   size?: number;
-  /** Se rasga: la tira sale volando y el cuerpo cae. */
-  opened?: boolean;
+  /** Se corta arriba: la tira se dobla por su esquina y sale volando. */
+  torn?: boolean;
+  /** El cuerpo cae: la carta ya salió. */
+  gone?: boolean;
   accessibilityLabel: string;
+};
+
+/** La tira se dobla primero por la esquina derecha, como al rasgarla con la mano, y después se va. */
+const TEAR_OFF = {
+  '0%': { transform: [{ translateX: 0 }, { translateY: 0 }, { rotate: '0deg' }], opacity: 1 },
+  '45%': { transform: [{ translateX: 0 }, { translateY: -6 }, { rotate: '-12deg' }], opacity: 1 },
+  '100%': { transform: [{ translateX: 170 }, { translateY: -190 }, { rotate: '28deg' }], opacity: 0 },
 };
 
 function Art({ image, points }: { image: ImageSourcePropType; points: string }) {
@@ -50,24 +59,21 @@ function Art({ image, points }: { image: ImageSourcePropType; points: string }) 
   );
 }
 
-export function BirdPack({ image, title, subtitle, caption, titleColor, size = PACK_WIDTH, opened = false, accessibilityLabel }: Props) {
+export function BirdPack({ image, title, subtitle, caption, titleColor, size = PACK_WIDTH, torn = false, gone = false, accessibilityLabel }: Props) {
   const reduced = useReducedMotion();
   const k = size / PACK_WIDTH;
   // Con movimiento reducido el sobre se desvanece sin viajar.
-  const strip = {
-    opacity: opened ? 0 : 1,
-    transform: reduced || !opened ? [] : [{ translateX: 150 }, { translateY: -170 }, { rotate: '26deg' }],
-    transformOrigin: '100% 8%',
-    transitionProperty: ['transform', 'opacity'] as ('transform' | 'opacity')[],
-    transitionDuration: 450,
-    transitionTimingFunction: EASE_OUT,
-  };
+  const strip = reduced
+    ? { opacity: torn ? 0 : 1, transitionProperty: 'opacity' as const, transitionDuration: 200 }
+    : {
+        transformOrigin: '100% 8%',
+        ...(torn ? { animationName: TEAR_OFF, animationDuration: 650, animationTimingFunction: EASE_OUT, animationFillMode: 'forwards' as const } : {}),
+      };
   const body = {
-    opacity: opened ? 0 : 1,
-    transform: reduced || !opened ? [] : [{ translateY: 620 }],
+    opacity: gone ? 0 : 1,
+    transform: reduced || !gone ? [] : [{ translateY: 620 }],
     transitionProperty: ['transform', 'opacity'] as ('transform' | 'opacity')[],
-    transitionDuration: 600,
-    transitionDelay: 300,
+    transitionDuration: 500,
     transitionTimingFunction: EASE_IN_OUT,
   };
   return (

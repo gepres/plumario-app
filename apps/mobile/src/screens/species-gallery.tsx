@@ -60,7 +60,7 @@ function GalleryContent({ entry, album, onOpenSticker, onAddPhoto }: { entry: Al
   // Es tu primera ave si ninguna otra se completó antes.
   const first = !!sticker && album.entries.every((e) => !e.sticker || e.sticker.completedAt >= sticker.completedAt);
   const observations = sticker?.observations ?? 0;
-  const next = nextFinishMilestone(observations);
+  const next = nextFinishMilestone(observations, entry.finish);
   const remaining = next ? next.observations - observations : 0;
   const pace = species.threatened ? 'Cuenta 1 observación por semana para no molestarla.' : 'Cuenta 1 observación por día.';
 

@@ -15,8 +15,11 @@ describe('escalera de acabados', () => {
   });
 
   it('dice qué hito sigue', () => {
-    expect(nextFinishMilestone(0)).toMatchObject({ observations: 3 });
-    expect(nextFinishMilestone(3)).toMatchObject({ observations: 5 });
+    expect(nextFinishMilestone(0, null)).toMatchObject({ observations: 3 });
+    expect(nextFinishMilestone(3, 'holographic')).toMatchObject({ observations: 5 });
+    // Los que ya cubrió un sobre o una compra no cuentan: esos solo pagan plumas.
+    expect(nextFinishMilestone(2, 'gold')).toMatchObject({ observations: 20, finish: 'ruby' });
+    expect(nextFinishMilestone(2, 'diamond')).toBeNull();
   });
 });
 

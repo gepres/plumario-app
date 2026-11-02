@@ -61,7 +61,7 @@ async function revalidate(snapshot: QueryDocumentSnapshot) {
         unlocked: outcome.unlocked,
         finish: outcome.sticker.best,
         observations: outcome.sticker.observations,
-        next: nextFinishMilestone(outcome.sticker.observations),
+        next: nextFinishMilestone(outcome.sticker.observations, outcome.sticker.best),
         feathers: reward.feathers,
         covered: reward.covered,
         packProgress: reward.wallet.packSpecies.length,

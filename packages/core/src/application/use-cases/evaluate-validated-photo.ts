@@ -55,7 +55,7 @@ export function sightingResultOf(result: ValidatedPhotoResult): SightingResult {
     unlocked: result.unlocked,
     finish: result.sticker.best,
     observations: result.sticker.observations,
-    next: nextFinishMilestone(result.sticker.observations),
+    next: nextFinishMilestone(result.sticker.observations, result.sticker.best),
     validPhotos: result.sticker.validPhotos,
     achievements: result.achievements,
     registered: result.registered,

@@ -29,9 +29,17 @@ type Props = {
   onOpenSpecies: (speciesId: string) => void;
 };
 
-/** Lo que tarda en irse el sobre: la carta no se puede tocar antes. */
-const TEAR_TIME = 1000;
+/** Lo que tarda el corte antes de que la carta empiece a salir. */
+const TEAR_TIME = 450;
+/** Lo que tarda la carta en salir del sobre. */
+const RISE_TIME = 700;
+/** Lo que tarda en irse el sobre y quedar la carta al centro. */
+const SETTLE_TIME = 550;
 const CARD_MAX_WIDTH = 270;
+/** La carta va dentro del sobre: más angosta que él, para que no asome por los lados. */
+const CARD_IN_PACK = 0.8;
+/** Cuánto del alto de la carta sale por el corte antes de que caiga el sobre. */
+const RISE_SHARE = 0.62;
 const EASE_OUT = cubicBezier(0.23, 1, 0.32, 1);
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -90,7 +98,7 @@ function PackSession({ packId, economy, album, onClose, onOpenSpecies }: Props &
   );
 }
 
-type Step = 'ready' | 'opening' | 'waiting' | 'revealed';
+type Step = 'ready' | 'tearing' | 'rising' | 'settling' | 'waiting' | 'revealed';
 
 function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies }: Pick<Props, 'onClose' | 'onOpenSpecies'> & {
   pack: Pack;
@@ -131,16 +139,30 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
   const packSize = Math.max(150, Math.min(250, width - 120, ((height - insets.top - insets.bottom - 380) * PACK_WIDTH) / PACK_HEIGHT));
   const packHeight = (packSize * PACK_HEIGHT) / PACK_WIDTH;
   const stageHeight = Math.max(packHeight, cardHeight) + spacing[3];
-  const cardScale = step === 'ready' || step === 'opening' ? packSize / cardSize : 1;
+
+  // La carta empieza dentro del sobre, bajo el corte, y sale por arriba.
+  const inPack = step === 'ready' || step === 'tearing' || step === 'rising';
+  const packTop = (stageHeight - packHeight) / 2;
+  const cardScale = inPack ? (packSize * CARD_IN_PACK) / cardSize : 1;
+  const insideY = packTop + packHeight * 0.14 + (cardHeight * cardScale) / 2 - stageHeight / 2;
+  const cardY = !inPack || reduced ? 0 : step === 'rising' ? insideY - cardHeight * cardScale * RISE_SHARE : insideY;
 
   async function open() {
     if (!userId) return;
     setError(null);
-    setStep('opening');
+    setStep('tearing');
     void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    // El servidor decide en paralelo: una señal lenta no deja la animación a medias.
+    const request = useCases.openPack(userId, pack.id);
+    request.catch(() => undefined);
+    await delay(reduced ? 100 : TEAR_TIME);
+    if (!mounted.current) return;
+    setStep('rising');
+    await delay(reduced ? 100 : RISE_TIME);
+    if (!mounted.current) return;
+    setStep('settling');
     try {
-      // El servidor decide en paralelo: una señal lenta no deja la animación a medias.
-      const [result] = await Promise.all([useCases.openPack(userId, pack.id), delay(reduced ? 300 : TEAR_TIME)]);
+      const [result] = await Promise.all([request, delay(reduced ? 200 : SETTLE_TIME)]);
       if (!mounted.current) return;
       setOpening(result);
       setStep('waiting');
@@ -194,7 +216,7 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
           </Pressable>
           {(step === 'ready' || packs > 1) && (
             <View style={styles.pill}>
-              <ThemedText variant="captionStrong" style={styles.cream}>{pillLabel}</ThemedText>
+              <ThemedText variant="captionStrong" style={[styles.cream, styles.textCenter]}>{pillLabel}</ThemedText>
             </View>
           )}
           <View style={styles.close} />
@@ -210,7 +232,14 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
             style={[
               styles.card,
               { width: cardSize, height: cardHeight, left: (width - cardSize) / 2, top: (stageHeight - cardHeight) / 2 },
-              { transform: [{ scale: cardScale }], transitionProperty: 'transform', transitionDuration: 500, transitionTimingFunction: EASE_OUT },
+              // Antes de cortar no hay carta que ver: los bordes del sobre son transparentes.
+              {
+                opacity: step === 'ready' ? 0 : 1,
+                transform: [{ translateY: cardY }, { scale: cardScale }],
+                transitionProperty: 'transform',
+                transitionDuration: step === 'rising' ? RISE_TIME : SETTLE_TIME,
+                transitionTimingFunction: EASE_OUT,
+              },
             ]}>
             {step === 'revealed' || opening ? (
               <FlipCard
@@ -232,7 +261,8 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
                 caption="1 carta de tus últimas 3 aves"
                 titleColor={title.color}
                 size={packSize}
-                opened={step === 'opening'}
+                torn={step !== 'ready'}
+                gone={step === 'settling'}
                 accessibilityLabel={title.alt}
               />
             </View>
@@ -248,6 +278,13 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
         </View>
 
         {error && <ThemedText variant="small" style={styles.error} accessibilityLiveRegion="polite">{error}</ThemedText>}
+
+        {step === 'settling' && !error && (
+          <View style={styles.opening} accessibilityLiveRegion="polite">
+            <ActivityIndicator color="#F7DE8E" />
+            <ThemedText variant="small" style={styles.cream}>Abriendo tu sobre…</ThemedText>
+          </View>
+        )}
 
         {step === 'ready' && (
           <>
@@ -268,7 +305,7 @@ function PackFlow({ pack, album, packs, observed, onNext, onClose, onOpenSpecies
           </>
         )}
 
-        {step === 'opening' && error && (
+        {step === 'settling' && error && (
           <View style={styles.actions}>
             <Button label="Reintentar" variant="light" onPress={() => void open()} />
           </View>
@@ -382,7 +419,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Con ancho propio: al cambiar el texto, Android cortaba la última palabra.
   pill: {
+    minWidth: 160,
     borderRadius: 999,
     paddingHorizontal: spacing[3],
     paddingVertical: 6,
@@ -452,6 +491,12 @@ const styles = StyleSheet.create({
   result: {
     paddingHorizontal: spacing[6],
     gap: 4,
+  },
+  opening: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing[2],
   },
   error: {
     textAlign: 'center',

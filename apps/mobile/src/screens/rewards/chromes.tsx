@@ -22,7 +22,7 @@ const CATEGORY_BAR = { holographic: '#8FA9D8', silver: '#7E8B95', gold: '#B9872A
 export function Chromes({ chromes, onOpenCategories, onOpenDuplicates, onOpenSticker, onOpenSpecies }: Props) {
   const { colors } = useTheme();
   const { closest } = chromes;
-  const next = closest && nextFinishMilestone(closest.sticker!.observations);
+  const next = closest && nextFinishMilestone(closest.sticker!.observations, closest.finish);
   return (
     <View style={styles.root}>
       <Pressable

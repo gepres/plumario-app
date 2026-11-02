@@ -101,7 +101,7 @@ const lastUnlock = (entry: AlbumEntry) => Math.max(0, ...entry.sticker!.unlocked
 
 /** Observaciones que le faltan a una especie para su siguiente hito; Infinity si ya los alcanzó todos. */
 function missing(entry: AlbumEntry) {
-  const next = nextFinishMilestone(entry.sticker!.observations);
+  const next = nextFinishMilestone(entry.sticker!.observations, entry.finish);
   return next ? next.observations - entry.sticker!.observations : Number.POSITIVE_INFINITY;
 }
 

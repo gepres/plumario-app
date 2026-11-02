@@ -55,7 +55,7 @@ export function Button({ label, onPress, variant = 'primary', icon, disabled = f
         ) : (
           icon && <Icon name={icon} color={colors[ink]} size={20} strokeWidth={2} />
         )}
-        <ThemedText variant="button" color={ink}>{label}</ThemedText>
+        <ThemedText variant="button" color={ink} style={!icon && !busy ? styles.fullLabel : undefined}>{label}</ThemedText>
       </View>
     </Pressable>
   );
@@ -70,9 +70,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
+    alignSelf: 'stretch',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing[2],
+  },
+  // El texto va a todo el ancho y centrado: por su ancho intrínseco, Android a veces corta la última
+  // palabra («Subir a holográfico · 6 plumas» perdía «plumas»).
+  fullLabel: {
+    flexGrow: 1,
+    flexShrink: 1,
+    textAlign: 'center',
   },
   pressed: {
     opacity: 0.85,
