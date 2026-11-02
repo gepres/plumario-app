@@ -7,6 +7,7 @@ import { layout, spacing } from '@plumario/tokens';
 import { Button, GradientView, Icon, PosterFrame, ProgressBar, SpeciesPoster, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { DEFAULT_POSTER_TITLE, speciesPosterProps } from '@/components/poster-content';
+import { PackSpot } from '@/components/pack-spot';
 import { HomeSkeleton } from '@/components/screen-skeletons';
 import { SpeciesSticker, stickerLabel } from '@/components/species-sticker';
 import { HABITAT_LABELS } from '@/constants/habitats';
@@ -24,6 +25,7 @@ type Props = {
   onOpenSticker: (speciesId: string) => void;
   onOpenHabitat: (habitat: Habitat) => void;
   onRegister: () => void;
+  onOpenPack: (packId: string) => void;
   onAddPhoto: (speciesId: string, source: PhotoSource) => void;
 };
 
@@ -137,7 +139,7 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
           <ThemedText variant="section" accessibilityRole="header">Cómo funciona</ThemedText>
           {[
             { title: 'Completa stickers con tus fotos', detail: 'Toca una silueta del álbum o usa Registrar.' },
-            { title: 'Consigue cromos', detail: 'Observa la misma ave en días distintos y sube de acabado.' },
+            { title: 'Consigue cromos', detail: 'Observa la misma ave en días distintos y abre sobres.' },
             { title: 'Medallas y pósteres', detail: 'Medalla y póster cada 10 especies, y un póster por hábitat completo.' },
           ].map((step, i) => (
             <View key={step.title} style={styles.step} accessible>
@@ -168,6 +170,7 @@ function HomeContent({ album, regionName, onShowShadow, ...props }: Props & { al
     <>
       {hero}
       {waitingNote}
+      <PackSpot onOpenPack={props.onOpenPack} />
 
       {posterGoal <= album.total && (
         <Pressable

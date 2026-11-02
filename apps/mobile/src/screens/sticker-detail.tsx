@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { formatAlbumNumber, lastUnlocked, type AlbumEntry } from '@plumario/core';
+import { FINISH_PRICES, formatAlbumNumber, lastUnlocked, nextFinish, type AlbumEntry } from '@plumario/core';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { Button, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
+import { Button, FeatherCoin, FinishSwatch, FlipCard, Icon, ListRow, StatusBarScrim, ThemedText, useTheme } from '@plumario/ui';
 
 import { SpeciesSkeleton } from '@/components/screen-skeletons';
 import { SpeciesCard, SpeciesCardBack } from '@/components/species-card';
 import { CATEGORY_LABELS, FINISH_SOURCE_LABELS, formatLongDate } from '@/constants/cards';
+import { feathersLabel } from '@/constants/economy';
 import { ALBUM_HABITAT_LABELS } from '@/constants/habitats';
 import { useAlbum } from '@/hooks/use-album';
 
@@ -17,12 +18,14 @@ type Props = {
   speciesId: string;
   onBack: () => void;
   onOpenGallery: (speciesId: string) => void;
+  /** CompraAcabado. */
+  onBuy: (speciesId: string) => void;
   /** CompartirTarjeta; con la foto propia puesta si se pide. */
   onShare: (speciesId: string, withPhoto: boolean) => void;
 };
 
 /** StickerDetalle: la carta de la especie, con su reverso, y cómo y cuándo se obtuvo. */
-export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare }: Props) {
+export function StickerDetail({ speciesId, onBack, onOpenGallery, onBuy, onShare }: Props) {
   const state = useAlbum();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -49,7 +52,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare }: Pro
         {state.status === 'error' && <ThemedText color="error" style={styles.message}>No se pudo cargar el álbum. Revisa tu conexión.</ThemedText>}
         {state.status === 'ready' && !entry?.sticker && <ThemedText color="textSecondary" style={styles.message}>Todavía no tienes este sticker.</ThemedText>}
         {state.status === 'ready' && entry?.sticker && (
-          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onShare={onShare} />
+          <DetailContent entry={entry} total={state.album.total} onOpenGallery={onOpenGallery} onBuy={onBuy} onShare={onShare} />
         )}
       </ScrollView>
       <StatusBarScrim />
@@ -57,7 +60,7 @@ export function StickerDetail({ speciesId, onBack, onOpenGallery, onShare }: Pro
   );
 }
 
-function DetailContent({ entry, total, onOpenGallery, onShare }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onShare'>) {
+function DetailContent({ entry, total, onOpenGallery, onBuy, onShare }: { entry: AlbumEntry; total: number } & Pick<Props, 'onOpenGallery' | 'onBuy' | 'onShare'>) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const [flipped, setFlipped] = useState(false);
@@ -65,6 +68,7 @@ function DetailContent({ entry, total, onOpenGallery, onShare }: { entry: AlbumE
   const sticker = entry.sticker!;
   const unlocked = lastUnlocked(sticker);
   const number = formatAlbumNumber(species.albumNumber);
+  const upgrade = nextFinish(finish);
   const cardSize = Math.min(width - layout.cardMargin * 2, CARD_MAX_WIDTH);
 
   const flip = () => {
@@ -115,6 +119,14 @@ function DetailContent({ entry, total, onOpenGallery, onShare }: { entry: AlbumE
         <ListRow title={`Tu galería · ${sticker.validPhotos} ${sticker.validPhotos === 1 ? 'foto' : 'fotos'}`} onPress={() => onOpenGallery(species.id)} />
       </View>
 
+      {upgrade && (
+        <Pressable accessibilityRole="button" onPress={() => onBuy(species.id)} style={[styles.buy, { backgroundColor: colors.surface, borderColor: colors.line }]}>
+          <FeatherCoin size={20} />
+          <ThemedText variant="bodyStrong" style={styles.flex}>Subir a {CATEGORY_LABELS[upgrade]} · {feathersLabel(FINISH_PRICES[upgrade])}</ThemedText>
+          <Icon name="chevronRight" color={colors.textSecondary} size={18} strokeWidth={2} />
+        </Pressable>
+      )}
+
       <View style={styles.actions}>
         <Button label={finish ? 'Compartir con mi foto' : 'Compartir'} icon="share" onPress={() => onShare(species.id, !!finish)} />
       </View>
@@ -135,6 +147,20 @@ function Fact({ term, value, last = false }: { term: string; value: string; last
 const CARD_MAX_WIDTH = 340;
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  buy: {
+    minHeight: 52,
+    marginHorizontal: layout.cardMargin,
+    marginTop: spacing[2],
+    paddingHorizontal: spacing[3],
+    borderWidth: 1,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
   topBar: {
     height: layout.header,
     flexDirection: 'row',

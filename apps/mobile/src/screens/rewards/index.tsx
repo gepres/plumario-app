@@ -5,9 +5,11 @@ import { chromesView, postersView, rewardsView, type Habitat } from '@plumario/c
 import { layout, spacing } from '@plumario/tokens';
 import { Button, SegmentedTabs, StatusBarScrim, ThemedText } from '@plumario/ui';
 
+import { FeatherBalance } from '@/components/feather-balance';
 import { ListSkeleton, MedalsSkeleton } from '@/components/screen-skeletons';
 import { useAchievements } from '@/hooks/use-achievements';
 import { useAlbum } from '@/hooks/use-album';
+import { useEconomy } from '@/hooks/use-economy';
 import { usePosters } from '@/hooks/use-posters';
 import { useCollectorName } from '@/hooks/use-profile';
 
@@ -22,6 +24,7 @@ type Props = {
   onChangeTab: (tab: RewardsTab) => void;
   onOpenAlbum: () => void;
   onOpenCategories: () => void;
+  onOpenDuplicates: () => void;
   onOpenSticker: (speciesId: string) => void;
   onOpenSpecies: (speciesId: string) => void;
   onOpenPoster: (posterId: string) => void;
@@ -34,6 +37,7 @@ type Props = {
 export function Rewards(props: Props) {
   const state = useAlbum();
   const records = useAchievements();
+  const economy = useEconomy();
   const posters = usePosters();
   const collector = useCollectorName();
   const insets = useSafeAreaInsets();
@@ -44,7 +48,10 @@ export function Rewards(props: Props) {
     <>
       <ScrollView contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing[4], paddingBottom: layout.tabBar + insets.bottom + spacing[4] }]}>
         <View style={styles.header}>
-          <ThemedText variant="title" accessibilityRole="header">Mis recompensas</ThemedText>
+          <View style={styles.titleRow}>
+            <ThemedText variant="title" accessibilityRole="header">Mis recompensas</ThemedText>
+            {economy.status === 'ready' && <FeatherBalance feathers={economy.economy.wallet.feathers} onPress={props.onOpenDuplicates} />}
+          </View>
           {rewards && (
             <ThemedText variant="caption" color="textSecondary">
               {rewards.registered} de {rewards.total} especies · {rewards.earned.length} {rewards.earned.length === 1 ? 'medalla' : 'medallas'} · {rewards.chromes} {rewards.chromes === 1 ? 'cromo' : 'cromos'}
@@ -70,7 +77,7 @@ export function Rewards(props: Props) {
         )}
         {state.status === 'ready' && rewards && tab === 'medals' && <Medals rewards={rewards} onOpenAlbum={props.onOpenAlbum} onShareMedal={props.onShareMedal} />}
         {state.status === 'ready' && tab === 'chromes' && (
-          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} />
+          <Chromes chromes={chromesView(state.album)} onOpenCategories={props.onOpenCategories} onOpenDuplicates={props.onOpenDuplicates} onOpenSticker={props.onOpenSticker} onOpenSpecies={props.onOpenSpecies} />
         )}
         {state.status === 'ready' && tab === 'posters' && !posters && <ListSkeleton rows={3} label="Cargando tus pósteres…" />}
         {state.status === 'ready' && tab === 'posters' && posters && (
@@ -97,6 +104,12 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 4,
     gap: 2,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing[2],
   },
   error: {
     gap: spacing[3],

@@ -110,6 +110,20 @@ service cloud.firestore {
         allow write: if false;
       }
 
+      // Saldo, sobres y repetidas: lo que vale algo lo decide el servidor (functions/src/economy.ts).
+      match /economy/{document} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+      match /packs/{packId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+      match /pieces/{speciesId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
       // Logros: los otorga el servidor; el cliente solo marca que ya vio la celebración.
       match /achievements/{achievementId} {
         allow read: if isOwner(uid);

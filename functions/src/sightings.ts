@@ -3,21 +3,22 @@ import { getStorage } from 'firebase-admin/storage';
 import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 
-import { achievementId, evaluateValidatedPhoto, sightingResultOf, type Achievement, type SightingResult, type Species } from '@plumario/core';
+import { achievementId, evaluateValidatedPhoto, packDesign, sightingResultOf, type Achievement, type SightingResult, type Species } from '@plumario/core';
 
 import { GEMINI_API_KEY, spendValidation } from './ai.js';
+import { walletRef } from './economy.js';
 import { createGemini } from './gemini.js';
 import { checkPhotoAgainst, type CheckResult } from './identify.js';
-import { stickerDocument, toSpecies, toSticker } from './mappers.js';
+import { packDocument, stickerDocument, toSpecies, toSticker, toWallet, walletDocument } from './mappers.js';
 import { achievementsNotice } from './notices.js';
 import { notifyUser } from './notify.js';
 import { DUPLICATE_PHOTO_REASON, photoClaimId } from './photo-claims.js';
 
 // Cuando la app guarda un registro pendiente (users/{uid}/sightings/{id}), el servidor valida la
 // foto y, si es de la especie elegida, otorga lo que corresponde en una transacción: completa el
-// sticker o suma la foto a la galería, cuenta la observación si es elegible y guarda los logros. El
-// resultado queda en el registro y la app lo muestra (RegistrarCompletado, RevelarCromado). Las reglas
-// no dejan que el cliente escriba nada de esto.
+// sticker o suma la foto a la galería, cuenta la observación si es elegible y guarda los logros, las
+// plumas y el sobre si esta foto lo llena. El resultado queda en el registro y la app lo muestra
+// (RegistrarCompletado, RevelarCromado). Las reglas no dejan que el cliente escriba nada de esto.
 
 const MISSING_PHOTO_REASON = 'No encontramos tu foto.';
 const DAILY_LIMIT_REASON = 'Llegaste al máximo de registros por hoy. Vuelve a intentarlo mañana.';
@@ -43,6 +44,16 @@ export async function reviewPhoto(uid: string, photoPath: string, photo: Buffer,
     return null;
   }
 }
+
+/**
+ * El sobre que llenó un registro. Usa el id del registro: aunque la transacción se repita, sale uno solo.
+ * El diseño es apariencia: se sortea aquí para que no cambie entre una vez y otra.
+ */
+export function packRef(uid: string, sightingId: string) {
+  return getFirestore().collection('users').doc(uid).collection('packs').doc(sightingId);
+}
+
+export const newPack = (speciesIds: readonly string[], at: Date) => packDocument(speciesIds, packDesign(Math.random()), at);
 
 /** El resultado como lo guarda Firestore: la fecha del acabado, como Timestamp. */
 export function resultDocument(result: SightingResult) {
@@ -90,7 +101,7 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
     earned = [];
     // Primero todas las lecturas (lo pide la transacción); si el registro ya no está pendiente es
     // un reintento de la función y no se otorga dos veces.
-    const [current, claimed, stickersSnapshot] = await Promise.all([tx.get(snapshot.ref), tx.get(claim), tx.get(user.collection('stickers'))]);
+    const [current, claimed, stickersSnapshot, walletDoc] = await Promise.all([tx.get(snapshot.ref), tx.get(claim), tx.get(user.collection('stickers')), tx.get(walletRef(uid))]);
     if (current.data()?.status !== 'pending') return;
     const now = new Date();
     // Dos registros con la misma foto a la vez: gana el primero que llega aquí.
@@ -100,11 +111,13 @@ export const onSightingCreated = onDocumentCreated({ document: 'users/{uid}/sigh
       return;
     }
     const stickers = stickersSnapshot.docs.map((doc) => toSticker(doc.id, doc.data()));
-    const result = evaluateValidatedPhoto({ species, catalog, stickers, takenAt, at: now, roll: Math.random(), verified });
+    const result = evaluateValidatedPhoto({ species, catalog, stickers, wallet: toWallet(walletDoc.data()), takenAt, at: now, roll: Math.random(), verified });
     earned = [...result.achievements];
 
     tx.set(claim, { sightingId: snapshot.id, claimedAt: Timestamp.fromDate(now) });
     tx.set(user.collection('stickers').doc(species.id), stickerDocument(result.sticker));
+    if (result.reward.feathers > 0) tx.set(walletRef(uid), walletDocument(result.reward.wallet));
+    if (result.reward.pack) tx.set(packRef(uid, snapshot.id), newPack(result.reward.pack, now));
     for (const achievement of result.achievements) {
       tx.set(user.collection('achievements').doc(achievementId(achievement)), { ...achievement, earnedAt: Timestamp.fromDate(now), seen: false });
     }

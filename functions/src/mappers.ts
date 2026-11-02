@@ -1,6 +1,6 @@
 import { Timestamp } from 'firebase-admin/firestore';
 
-import { CATEGORY_RANK, HABITATS, figureOf, type CardCategory, type FinishSource, type Species, type Sticker, type TaxonClass } from '@plumario/core';
+import { CATEGORY_RANK, HABITATS, PIECE_FINISHES, figureOf, type CardCategory, type FinishSource, type PackDesign, type PackOpening, type PieceCounts, type Species, type Sticker, type TaxonClass, type Wallet } from '@plumario/core';
 
 // Documentos de Firestore → tipos del núcleo, del lado del servidor (Admin SDK). Los mismos campos
 // que lee la app (apps/mobile/src/infrastructure/firebase).
@@ -56,6 +56,37 @@ export function toSticker(speciesId: string, data: Record<string, unknown>): Sti
     }),
   };
 }
+
+/** El saldo de users/{uid}/economy/wallet; sin documento, todo en cero. */
+export function toWallet(data: Record<string, unknown> | undefined): Wallet {
+  return {
+    feathers: count(data?.feathers),
+    packSpecies: Array.isArray(data?.packSpecies) ? data.packSpecies.map(String) : [],
+    premiumMonth: typeof data?.premiumMonth === 'number' ? data.premiumMonth : null,
+  };
+}
+
+export const walletDocument = ({ feathers, packSpecies, premiumMonth }: Wallet) => ({ feathers, packSpecies, premiumMonth });
+
+export const toPieceCounts = (data: Record<string, unknown>): PieceCounts => ({
+  silver: count(data.silver),
+  gold: count(data.gold),
+  ruby: count(data.ruby),
+  diamond: count(data.diamond),
+});
+
+export const piecesDocument = (counts: PieceCounts) => Object.fromEntries(PIECE_FINISHES.map((finish) => [finish, counts[finish]]));
+
+/** Un sobre sin abrir: lo que trae se decide al abrirlo. */
+export const packDocument = (speciesIds: readonly string[], design: PackDesign, at: Date) => ({
+  speciesIds,
+  design,
+  createdAt: Timestamp.fromDate(at),
+  opened: false,
+  opening: null,
+});
+
+export const openingDocument = ({ speciesId, finish, upgraded, at }: PackOpening) => ({ speciesId, finish, upgraded, at: Timestamp.fromDate(at) });
 
 /** Un sticker como documento de users/{uid}/stickers/{speciesId}. */
 export function stickerDocument(sticker: Sticker) {

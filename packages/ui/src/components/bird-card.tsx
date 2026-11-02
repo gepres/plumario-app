@@ -331,28 +331,33 @@ export function BirdCardBack({ eyebrow, name, rows, observations, milestones, se
 export function BirdCardCover({ image, size = CARD_WIDTH }: { image: ImageSourcePropType; size?: number }) {
   return (
     <View style={[styles.cover, { width: size, height: size * (CARD_HEIGHT / CARD_WIDTH), boxShadow: CARD_SHADOW }]}>
-      <Image source={image} style={StyleSheet.absoluteFill} resizeMode="cover" />
+      <Image source={image} style={styles.coverImage} resizeMode="cover" />
     </View>
   );
 }
 
 const FLIP_EASING = cubicBezier(0.77, 0, 0.175, 1);
+const FLIP_TIME = 550;
 
 /** Las dos caras de la carta. Sin animaciones, cambia de cara sin girar. */
 export function FlipCard({ front, back, flipped, size = CARD_WIDTH }: { front: ReactNode; back: ReactNode; flipped: boolean; size?: number }) {
   const reduced = useReducedMotion();
   const box = { width: size, height: size * (CARD_HEIGHT / CARD_WIDTH) };
   if (reduced) return <View style={box}>{flipped ? back : front}</View>;
-  const face = (angle: number) => ({
+  // `backfaceVisibility` no alcanza a las capas animadas del brillo: la cara de espaldas además se apaga,
+  // justo a mitad del giro, cuando está de canto y no se nota. Sin esto, la carta se vería antes de revelarla.
+  const face = (angle: number, visible: boolean) => ({
+    opacity: visible ? 1 : 0,
     transform: [{ perspective: 1200 }, { rotateY: `${angle}deg` }],
-    transitionProperty: 'transform' as const,
-    transitionDuration: 550,
+    transitionProperty: ['transform', 'opacity'] as ('transform' | 'opacity')[],
+    transitionDuration: [FLIP_TIME, 0],
+    transitionDelay: [0, FLIP_TIME / 2],
     transitionTimingFunction: FLIP_EASING,
   });
   return (
     <View style={box}>
-      <Animated.View style={[styles.face, face(flipped ? 180 : 0)]} pointerEvents={flipped ? 'none' : 'auto'}>{front}</Animated.View>
-      <Animated.View style={[styles.face, face(flipped ? 360 : 180)]} pointerEvents={flipped ? 'auto' : 'none'}>{back}</Animated.View>
+      <Animated.View style={[styles.face, face(flipped ? 180 : 0, !flipped)]} pointerEvents={flipped ? 'none' : 'auto'}>{front}</Animated.View>
+      <Animated.View style={[styles.face, face(flipped ? 360 : 180, flipped)]} pointerEvents={flipped ? 'auto' : 'none'}>{back}</Animated.View>
     </View>
   );
 }
@@ -471,6 +476,10 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: '#E0B348',
     overflow: 'hidden',
+  },
+  coverImage: {
+    width: '100%',
+    height: '100%',
   },
   sheet: {
     position: 'absolute',

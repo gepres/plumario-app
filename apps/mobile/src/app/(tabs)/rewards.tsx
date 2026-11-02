@@ -13,6 +13,7 @@ export default function RewardsRoute() {
       onChangeTab={(next) => router.setParams({ tab: next })}
       onOpenAlbum={() => router.navigate('/album')}
       onOpenCategories={() => router.push('/chrome-categories')}
+      onOpenDuplicates={() => router.push('/duplicates')}
       onOpenSticker={(id) => router.push({ pathname: '/sticker/[id]', params: { id } })}
       onOpenSpecies={(id) => router.push({ pathname: '/species/[id]', params: { id } })}
       onOpenPoster={(id) => router.push({ pathname: '/poster/[id]', params: { id } })}

@@ -13,6 +13,7 @@ export default function HomeRoute() {
       onOpenSticker={(id) => router.push({ pathname: '/sticker/[id]', params: { id } })}
       onOpenHabitat={(habitat) => router.push({ pathname: '/habitat/[habitat]', params: { habitat } })}
       onRegister={() => router.push('/new-sighting')}
+      onOpenPack={(id) => router.push({ pathname: '/pack/[id]', params: { id } })}
       onAddPhoto={(speciesId, source) => router.push({ pathname: '/new-sighting', params: { speciesId, source } })}
     />
   );

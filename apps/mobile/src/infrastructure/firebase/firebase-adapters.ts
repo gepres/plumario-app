@@ -1,6 +1,7 @@
 import { createFileSightingQueue } from '../device/file-sighting-queue';
 import { createFirebaseAuthService } from './firebase-auth-service';
 import { createFirestoreAchievementRepository } from './firestore-achievement-repository';
+import { createFirestoreEconomyRepository } from './firestore-economy-repository';
 import { createFirestoreFeedbackRepository } from './firestore-feedback-repository';
 import { createFirebasePhotoStorage } from './firebase-photo-storage';
 import { createFirebasePushNotifications } from './firebase-push-notifications';
@@ -21,6 +22,7 @@ export async function createFirebaseAdapters({ emulatorHost }: { emulatorHost?: 
     achievements: createFirestoreAchievementRepository(services),
     catalog: createFirestoreSpeciesCatalog(services),
     stickers: createFirestoreStickerRepository(services),
+    economy: createFirestoreEconomyRepository(services),
     profiles: createFirestoreUserProfileRepository(services),
     photos: createFirebasePhotoStorage(services),
     posters: createFirestorePosterRepository(services),

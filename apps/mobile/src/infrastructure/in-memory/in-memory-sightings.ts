@@ -9,6 +9,7 @@ import {
 } from '@plumario/core';
 
 import type { InMemoryAchievementRepository } from './in-memory-achievement-repository';
+import type { InMemoryEconomyRepository } from './in-memory-economy-repository';
 import type { InMemoryStickerRepository } from './in-memory-sticker-repository';
 
 /** Adaptador en memoria del puerto PhotoStorage: la foto queda donde está y la ruta es su URI. */
@@ -31,7 +32,7 @@ export class InMemorySightingRepository implements SightingRepository {
   private nextId = 1;
 
   constructor(
-    private readonly deps: { catalog: SpeciesCatalog; stickers: InMemoryStickerRepository; achievements: InMemoryAchievementRepository; identifier: SpeciesIdentifier },
+    private readonly deps: { catalog: SpeciesCatalog; stickers: InMemoryStickerRepository; achievements: InMemoryAchievementRepository; economy: InMemoryEconomyRepository; identifier: SpeciesIdentifier },
   ) {}
 
   newId = () => `sighting-${this.nextId++}`;
@@ -71,9 +72,10 @@ export class InMemorySightingRepository implements SightingRepository {
     } else {
       const stickers = await this.deps.stickers.listByUser(sighting.userId);
       const now = new Date();
-      const result = evaluateValidatedPhoto({ species, catalog, stickers, takenAt: sighting.takenAt, at: now, roll: Math.random(), verified: true });
+      const result = evaluateValidatedPhoto({ species, catalog, stickers, wallet: this.deps.economy.walletOf(sighting.userId), takenAt: sighting.takenAt, at: now, roll: Math.random(), verified: true });
       this.deps.stickers.save(sighting.userId, result.sticker);
       this.deps.achievements.grant(sighting.userId, result.achievements, now);
+      this.deps.economy.credit(sighting.userId, result.reward, sighting.id, now);
       updated = { ...sighting, status: 'validated', result: sightingResultOf(result) };
     }
     this.sightings.set(sighting.id, updated);

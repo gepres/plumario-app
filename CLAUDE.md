@@ -31,8 +31,8 @@ entorno en `docs/environment.md`.
   (`f-claro`, `f-oscuro`). Llega a la app por `@plumario/tokens`: `packages/tokens/src/colors.ts`
   es generado; para cambiar un color, cámbialo en el JSON y corre `pnpm tokens`.
 - **Las reglas de cromos, sobres y plumas están en `docs/card-progression.md`.** El acabado se gana, ya
-  no depende de la especie. La fase 1 ya está en el núcleo; sobres, plumas e intercambio llegan en las
-  fases 2A y 2B. Si el código y ese documento no coinciden, manda el documento. El intercambio está en
+  no depende de la especie. Las fases 1 y 2A ya están en el núcleo (sobres, repetidas, plumas y compra, en
+  `domain/economy.ts`); el intercambio llega en la 2B. Si el código y ese documento no coinciden, manda el documento. El intercambio está en
   pausa (`TRADES_PAUSED`): sus rutas muestran `TradePaused` y el servidor rechaza las aceptaciones.
 - **Las ilustraciones de los stickers van dentro del paquete** (`apps/mobile/assets/stickers/`, en
   WebP), para que se vean sin señal. Los originales están en `data/stickers/raw/`, fuera de git; para
@@ -87,6 +87,7 @@ pnpm stickers:export  recorta las ilustraciones y las lleva a la app (WebP y su 
 pnpm species:measures saca de AVONET el peso y las medidas de las aves del álbum
 pnpm species:cards    genera card-facts.ts con los textos por familia y las medidas
 pnpm viewer           regenera viewer/index.html desde design/
+pnpm dev:economy      da plumas, sobres y repetidas a una cuenta del emulador
 ```
 
 ## Reglas

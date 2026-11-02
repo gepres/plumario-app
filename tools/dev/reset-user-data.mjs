@@ -15,7 +15,7 @@ import { getStorage } from 'firebase-admin/storage';
 const PRODUCTION = 'link-dynamic-74b85';
 const DEMO = 'demo-plumario';
 /** Lo que se borra de cada cuenta. Quedan el perfil, sus avisos y su @usuario. */
-const USER_COLLECTIONS = ['stickers', 'sightings', 'photoClaims', 'achievements', 'posters', 'usage'];
+const USER_COLLECTIONS = ['stickers', 'sightings', 'photoClaims', 'achievements', 'posters', 'usage', 'economy', 'packs', 'pieces'];
 
 const args = process.argv.slice(2);
 const prod = args.includes('--prod');

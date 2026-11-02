@@ -181,6 +181,27 @@ describe('registros', () => {
   });
 });
 
+describe('saldo, sobres y repetidas', () => {
+  const paths = ['economy/wallet', 'packs/registro-1', 'pieces/gaviota'];
+
+  it('los lee su dueño y nadie los escribe desde la app', async () => {
+    for (const path of paths) {
+      await seed(`users/ana/${path}`, { feathers: 3 });
+      await assertSucceeds(getDoc(doc(as('ana'), `users/ana/${path}`)));
+      await assertFails(setDoc(doc(as('ana'), `users/ana/${path}`), { feathers: 9999 }));
+      await assertFails(updateDoc(doc(as('ana'), `users/ana/${path}`), { feathers: 9999 }));
+      await assertFails(deleteDoc(doc(as('ana'), `users/ana/${path}`)));
+    }
+  });
+
+  it('nadie ve los de otra persona', async () => {
+    for (const path of paths) {
+      await seed(`users/ana/${path}`, { feathers: 3 });
+      await assertFails(getDoc(doc(as('beto'), `users/ana/${path}`)));
+    }
+  });
+});
+
 describe('stickers y logros', () => {
   it('los stickers los lee su dueño y no los escribe nadie desde la app', async () => {
     await seed('users/ana/stickers/calidris-alba', { validPhotos: 1, chrome: null });

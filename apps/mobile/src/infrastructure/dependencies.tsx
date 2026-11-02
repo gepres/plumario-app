@@ -31,7 +31,10 @@ import {
   makeSignOut,
   makeSignUp,
   makeSuggestSpecies,
+  EMPTY_WALLET,
+  NO_PIECES,
   type AuthService,
+  type EconomyRepository,
   type GetAlbum,
   type PhotoStorage,
   type PosterRepository,
@@ -48,6 +51,7 @@ import { createDeviceAppearanceSettings } from './device/device-appearance-setti
 import { dataSource, emulatorHost, isFirebaseConfigured, type DataSource } from './firebase/firebase-config';
 import { InMemoryAchievementRepository } from './in-memory/in-memory-achievement-repository';
 import { InMemoryAuthService } from './in-memory/in-memory-auth-service';
+import { InMemoryEconomyRepository } from './in-memory/in-memory-economy-repository';
 import { InMemoryPosterRepository } from './in-memory/in-memory-poster-repository';
 import { createInMemoryPushNotifications } from './in-memory/in-memory-push-notifications';
 import { InMemoryFeedbackRepository } from './in-memory/in-memory-feedback-repository';
@@ -69,6 +73,7 @@ type Adapters = {
   achievements: AchievementRepository;
   catalog: SpeciesCatalog;
   stickers: StickerRepository;
+  economy: EconomyRepository;
   profiles: UserProfileRepository;
   photos: PhotoStorage;
   posters: PosterRepository;
@@ -100,6 +105,10 @@ export type Dependencies = {
     listPosters: PosterRepository['listByUser'];
     savePoster: ReturnType<typeof makeSavePoster>;
     getProfile: UserProfileRepository['get'];
+    getEconomy: EconomyRepository['get'];
+    openPack: EconomyRepository['openPack'];
+    recyclePiece: EconomyRepository['recyclePiece'];
+    buyFinish: EconomyRepository['buyFinish'];
     proposeTrade: ReturnType<typeof makeProposeTrade>;
     getTrade: TradeRepository['get'];
     cancelTrade: TradeRepository['cancel'];
@@ -150,18 +159,26 @@ function createAdapters(): Adapters | Promise<Adapters> {
   if (dataSource === 'memory') {
     const stickers = new InMemoryStickerRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_STICKERS });
     const achievements = new InMemoryAchievementRepository();
+    // Lo que trae la cuenta de muestra, para ver en la web sobres, repetidas y compra.
+    const economy = new InMemoryEconomyRepository(stickers, {
+      userId: InMemoryAuthService.SAMPLE_UID,
+      wallet: { ...EMPTY_WALLET, feathers: 34, packSpecies: ['larus-belcheri'] },
+      packs: [{ id: 'sobre-de-muestra', speciesIds: ['calidris-alba', 'larus-belcheri', 'sternula-lorata'], design: 'nasca', createdAt: new Date(2026, 9, 24), opening: null }],
+      pieces: { 'larus-belcheri': { ...NO_PIECES, gold: 1 }, 'sternula-lorata': { ...NO_PIECES, silver: 2, ruby: 1 } },
+    });
     return {
       auth: new InMemoryAuthService(),
       achievements,
       catalog: sampleSpeciesCatalog,
       stickers,
+      economy,
       profiles: new InMemoryUserProfileRepository({ [InMemoryAuthService.SAMPLE_UID]: SAMPLE_PROFILE }),
       photos: inMemoryPhotoStorage,
       posters: new InMemoryPosterRepository(),
       trades: new InMemoryTradeRepository(stickers),
       feedback: new InMemoryFeedbackRepository(),
       queue: new InMemorySightingQueue(),
-      sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, identifier: testSpeciesIdentifier }),
+      sightings: new InMemorySightingRepository({ catalog: sampleSpeciesCatalog, stickers, achievements, economy, identifier: testSpeciesIdentifier }),
       identifier: testSpeciesIdentifier,
       push: createInMemoryPushNotifications(),
     };
@@ -173,7 +190,7 @@ function createAdapters(): Adapters | Promise<Adapters> {
 }
 
 export function createDependencies(adapters: Adapters): Dependencies {
-  const { auth, achievements, catalog, stickers, profiles, photos, posters, sightings, trades, feedback, queue, identifier, push } = adapters;
+  const { auth, achievements, catalog, stickers, economy, profiles, photos, posters, sightings, trades, feedback, queue, identifier, push } = adapters;
   return {
     useCases: {
       getAlbum: makeGetAlbum({ catalog, stickers }),
@@ -193,6 +210,10 @@ export function createDependencies(adapters: Adapters): Dependencies {
       listPosters: (userId) => posters.listByUser(userId),
       savePoster: makeSavePoster({ posters, now: () => new Date() }),
       getProfile: (userId) => profiles.get(userId),
+      getEconomy: (userId) => economy.get(userId),
+      openPack: (userId, packId) => economy.openPack(userId, packId),
+      recyclePiece: (userId, speciesId, finish) => economy.recyclePiece(userId, speciesId, finish),
+      buyFinish: (userId, speciesId, finish) => economy.buyFinish(userId, speciesId, finish),
       proposeTrade: makeProposeTrade({ trades, profiles, now: () => new Date() }),
       getTrade: (tradeId) => trades.get(tradeId),
       cancelTrade: (tradeId) => trades.cancel(tradeId),
@@ -204,7 +225,7 @@ export function createDependencies(adapters: Adapters): Dependencies {
       deleteAccount: makeDeleteAccount({ auth }),
       sendFeedback: makeSendFeedback({ feedback, now: () => new Date() }),
       uploadScreenshot: (userId, localUri) => photos.upload(userId, localUri, `comentario-${Date.now()}.jpg`),
-      exportUserData: makeExportUserData({ profiles, stickers, sightings, achievements, posters, photos, now: () => new Date() }),
+      exportUserData: makeExportUserData({ profiles, stickers, economy, sightings, achievements, posters, photos, now: () => new Date() }),
       enablePushNotifications: makeEnablePushNotifications({ push }),
       registerDevice: makeRegisterDevice({ push }),
     },

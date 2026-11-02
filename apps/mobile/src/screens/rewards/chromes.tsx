@@ -10,6 +10,7 @@ import { CATEGORY_LABELS, finishTitle, formatDayMonth } from '@/constants/cards'
 type Props = {
   chromes: ChromesView;
   onOpenCategories: () => void;
+  onOpenDuplicates: () => void;
   onOpenSticker: (speciesId: string) => void;
   onOpenSpecies: (speciesId: string) => void;
 };
@@ -18,7 +19,7 @@ type Props = {
 const CATEGORY_BAR = { holographic: '#8FA9D8', silver: '#7E8B95', gold: '#B9872A', ruby: '#A51E36', diamond: '#4F93B5' } as const;
 
 /** RecompensasStickers · Cromos: por acabado, los obtenidos y los que están por salir. */
-export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecies }: Props) {
+export function Chromes({ chromes, onOpenCategories, onOpenDuplicates, onOpenSticker, onOpenSpecies }: Props) {
   const { colors } = useTheme();
   const { closest } = chromes;
   const next = closest && nextFinishMilestone(closest.sticker!.observations);
@@ -108,7 +109,8 @@ export function Chromes({ chromes, onOpenCategories, onOpenSticker, onOpenSpecie
 
       <ThemedText variant="caption" color="textSecondary" style={styles.footnote}>
         <ThemedText variant="captionStrong">Cómo se gana un cromo: </ThemedText>
-        observando la misma especie en días distintos. Con 3, 5, 10, 20 y 35 observaciones ganas cada acabado.
+        observando la misma especie en días distintos, en sobres o con plumas.{' '}
+        <ThemedText variant="captionStrong" accessibilityRole="link" onPress={onOpenDuplicates}>Ver mis repetidas</ThemedText>
       </ThemedText>
     </View>
   );

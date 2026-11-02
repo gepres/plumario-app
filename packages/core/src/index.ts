@@ -18,6 +18,33 @@ export { CATEGORY_RANK, CHROME_CHANCE, MILESTONES, betterFinish, isFairTrade, ne
 export type { CardCategory, Milestone } from './domain/card';
 export { applyValidPhoto, countObservation, grantFinish, lastUnlocked, limaDay, newSticker, observationBlock, SERVER_DAILY_LIMIT, THREATENED_WAIT_DAYS } from './domain/sticker';
 export type { FinishSource, NotCounted, PhotoOutcome, Sticker, UnlockedFinish } from './domain/sticker';
+export {
+  EMPTY_ECONOMY,
+  EMPTY_WALLET,
+  FINISH_PRICES,
+  MILESTONE_FEATHERS,
+  NO_PIECES,
+  OBSERVATIONS_PER_PACK,
+  OBSERVATION_FEATHERS,
+  PACK_DESIGNS,
+  PACK_TABLE,
+  PIECE_FINISHES,
+  RECYCLE_FEATHERS,
+  applyPackPiece,
+  applyPurchase,
+  coveredMilestonePayment,
+  duplicatesByFinish,
+  limaMonth,
+  nextFinish,
+  packDesign,
+  packFinish,
+  packSpecies,
+  premiumAvailableAt,
+  purchaseProblem,
+  recyclePiece,
+  rewardObservation,
+} from './domain/economy';
+export type { CoveredMilestone, DuplicateGroup, Economy, ObservationReward, Pack, PackDesign, PackOpening, PieceCounts, PieceFinish, PurchaseProblem, SpeciesPieces, Wallet } from './domain/economy';
 export { EXPLORER_SPECIES, MILESTONE_STEP, achievementId, earnedAchievements, newAchievements, nextMilestone } from './domain/achievements';
 export type { Achievement } from './domain/achievements';
 export { POSTER_TITLE_MAX, isHabitatPosterUnlocked, pickPosterSpecies, posterSpecies, postersView, speciesPostersAvailable } from './domain/posters';
@@ -58,6 +85,8 @@ export type { SpeciesCatalog } from './application/ports/species-catalog';
 export { IdentifierError } from './application/ports/species-identifier';
 export type { SpeciesIdentifier, SpeciesSuggestion } from './application/ports/species-identifier';
 export type { StickerRepository } from './application/ports/sticker-repository';
+export { EconomyError } from './application/ports/economy-repository';
+export type { EconomyErrorCode, EconomyRepository } from './application/ports/economy-repository';
 export type { TradeRepository } from './application/ports/trade-repository';
 
 // Casos de uso.

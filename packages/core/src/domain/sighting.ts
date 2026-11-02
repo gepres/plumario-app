@@ -1,5 +1,6 @@
 import type { Achievement } from './achievements';
 import type { CardCategory, Milestone } from './card';
+import type { CoveredMilestone } from './economy';
 import type { RegionId, SpeciesId } from './species';
 import type { NotCounted, UnlockedFinish } from './sticker';
 
@@ -34,6 +35,14 @@ export type SightingResult =
       /** Especies del álbum después de esta foto. */
       registered: number;
       total: number;
+      /** Plumas que dio esta foto, contando el hito cubierto. */
+      feathers: number;
+      /** El hito que ya estaba cubierto y pagó plumas en lugar de dar un acabado. */
+      covered: CoveredMilestone | null;
+      /** Observaciones hacia el próximo sobre, de 0 a 2. */
+      packProgress: number;
+      /** Esta foto llenó un sobre: su id es el del registro. */
+      packReady: boolean;
     }
   | { outcome: 'rejected'; reason: string };
 

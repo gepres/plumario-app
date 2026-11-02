@@ -4,7 +4,7 @@ import type { Species, SpeciesId } from './species';
 // Un sticker por especie y por usuario. Una foto validada entra siempre en la galería, pero solo
 // avanza la carta si cuenta como observación (docs/card-progression.md).
 
-/** De dónde salió un acabado. Los sobres y la compra llegan en la fase 2A. */
+/** De dónde salió un acabado. */
 export type FinishSource = 'luck' | 'milestone' | 'pack' | 'purchase' | 'trade';
 
 export type UnlockedFinish = { finish: CardCategory; source: FinishSource; at: Date };
@@ -42,7 +42,7 @@ export type PhotoOutcome = {
   blocked: NotCounted | null;
   /** El acabado que subió la carta con esta foto. */
   unlocked: UnlockedFinish | null;
-  /** Hito alcanzado con un acabado que ya tenía: en la fase 2A pagará plumas. */
+  /** Hito alcanzado con un acabado que ya tenía: paga plumas (economy.ts). */
   coveredMilestone: number | null;
 };
 

@@ -17,13 +17,16 @@ import {
 } from '@plumario/core';
 import type { Gradient } from '@plumario/tokens';
 import { layout, radius, spacing } from '@plumario/tokens';
-import { BirdCardCover, Button, CARD_HEIGHT, CARD_WIDTH, FlipCard, GradientView, HOLOGRAPHIC, Icon, ProgressBar, Rays, ThemedText, useTheme } from '@plumario/ui';
+import { BirdCardCover, Button, CARD_HEIGHT, CARD_WIDTH, FeatherCoin, FlipCard, GradientView, HOLOGRAPHIC, Icon, ProgressBar, Rays, ThemedText, useTheme } from '@plumario/ui';
 
+import { PackProgress } from '@/components/pack-progress';
 import { SpeciesCard } from '@/components/species-card';
 import { SpeciesSticker } from '@/components/species-sticker';
 import { CARD_BACK } from '@/constants/card-art';
 import { CATEGORY_LABELS, CONSERVATION_LABELS, NOT_COUNTED_LABELS } from '@/constants/cards';
+import { coveredLabel, feathersLabel } from '@/constants/economy';
 import { invalidateAlbum } from '@/hooks/album-version';
+import { invalidateEconomy } from '@/hooks/economy-version';
 import { useAlbum } from '@/hooks/use-album';
 import { useSession } from '@/hooks/use-session';
 import { useDependencies } from '@/infrastructure/dependencies';
@@ -33,6 +36,7 @@ type Props = {
   speciesId: string;
   onClose: () => void;
   onOpenSpecies: (speciesId: string) => void;
+  onOpenPack: (packId: string) => void;
   onRegisterAnother: () => void;
   onRetry: (speciesId: string) => void;
 };
@@ -58,6 +62,7 @@ export function SightingResultScreen(props: Props) {
     celebrated.current = true;
     // El álbum, Inicio y la galería vuelven a leer los stickers.
     invalidateAlbum();
+    invalidateEconomy();
     void Haptics.notificationAsync(result.outcome === 'validated' ? Haptics.NotificationFeedbackType.Success : Haptics.NotificationFeedbackType.Warning);
   }, [result]);
 
@@ -115,7 +120,7 @@ const REVEAL_CARD_WIDTH = 270;
 const REVEAL_DELAY = 750;
 
 /** RevelarCromado / RevelarDiamante: la carta sale de espaldas sobre fondo de noche y gira para mostrarse. */
-function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: AlbumEntry; result: Validated }) {
+function Reveal({ entry, result, sightingId, onClose, onOpenSpecies, onOpenPack }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
@@ -195,6 +200,8 @@ function Reveal({ entry, result, onClose, onOpenSpecies }: Props & { entry: Albu
 
         {result.completed && <PosterProgress registered={result.registered} total={result.total} dark />}
 
+        <RewardSummary result={result} packId={sightingId} onOpenPack={onOpenPack} dark />
+
         <View style={styles.actions}>
           <Button label="Ver en el álbum" variant="light" onPress={() => onOpenSpecies(entry.species.id)} />
           <Pressable accessibilityRole="button" onPress={onClose} style={styles.ghostLight}>
@@ -225,7 +232,7 @@ function Sparkles({ width, colors }: { width: number; colors: readonly string[] 
 }
 
 /** RegistrarCompletado: especie nueva con sticker normal, y qué hito sigue. */
-function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
+function Completed({ entry, result, sightingId, onOpenSpecies, onOpenPack, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   return (
@@ -258,6 +265,8 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
         </Animated.View>
 
         <PosterProgress registered={result.registered} total={result.total} />
+
+        <RewardSummary result={result} packId={sightingId} onOpenPack={onOpenPack} />
 
         <View style={[styles.waysCard, { borderColor: colors.border }]}>
           <ThemedText variant="bodyStrong">Cómo sube su carta</ThemedText>
@@ -295,7 +304,7 @@ function Completed({ entry, result, onOpenSpecies, onRegisterAnother, onClose }:
 }
 
 /** Otra foto de una especie que ya estaba en el álbum: va a su galería y, si cuenta, avanza el hito. */
-function AddedToGallery({ entry, result, onOpenSpecies, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
+function AddedToGallery({ entry, result, sightingId, onOpenSpecies, onOpenPack, onRegisterAnother, onClose }: Props & { entry: AlbumEntry; result: Validated }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const { next, observations, blocked } = result;
@@ -332,6 +341,7 @@ function AddedToGallery({ entry, result, onOpenSpecies, onRegisterAnother, onClo
           <ProgressBar label="Observaciones" current={observations} total={next.observations} valueText={`${observations} de ${next.observations}`} />
         </View>
       )}
+      <RewardSummary result={result} packId={sightingId} onOpenPack={onOpenPack} />
       <View style={styles.pairActions}>
         <View style={styles.flex}>
           <Button label="Ver su galería" onPress={() => onOpenSpecies(entry.species.id)} />
@@ -355,6 +365,23 @@ function Rejected({ entry, reason, onRetry, onClose }: Props & { entry: AlbumEnt
         <Button label={`Probar con otra foto de ${entry.species.commonName}`} onPress={() => onRetry(entry.species.id)} />
         <Button label="Cerrar" variant="tertiary" onPress={onClose} />
       </View>
+    </View>
+  );
+}
+
+/** Lo que dio la foto: sus plumas, el hito ya cubierto si lo hubo, y el sobre o cuánto le falta. */
+function RewardSummary({ result, packId, onOpenPack, dark = false }: { result: Validated; packId: string; onOpenPack: (packId: string) => void; dark?: boolean }) {
+  const { colors } = useTheme();
+  if (!result.counted || result.feathers === 0) return null;
+  return (
+    <View style={dark ? styles.darkCard : [styles.lightCard, { backgroundColor: colors.surface, borderColor: colors.line }]}>
+      <View style={styles.reward}>
+        <FeatherCoin size={24} />
+        <ThemedText variant="label" style={[styles.flex, dark && styles.white]}>
+          {result.covered ? coveredLabel({ ...result.covered, feathers: result.feathers }) : `+${feathersLabel(result.feathers)}`}
+        </ThemedText>
+      </View>
+      {result.packReady ? <Button label="Abrir sobre" variant={dark ? 'light' : 'primary'} onPress={() => onOpenPack(packId)} /> : <PackProgress observed={result.packProgress} dark={dark} />}
     </View>
   );
 }
@@ -384,6 +411,11 @@ function PosterProgress({ registered, total, dark = false }: { registered: numbe
 const styles = StyleSheet.create({
   fill: {
     flex: 1,
+  },
+  reward: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[2],
   },
   flex: {
     flex: 1,

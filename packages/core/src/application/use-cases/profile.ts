@@ -3,6 +3,7 @@ import { FEEDBACK_MAX, type Feedback } from '../../domain/feedback';
 import type { UserId } from '../../domain/sighting';
 import type { AchievementRepository } from '../ports/achievement-repository';
 import { AuthError, type AuthService } from '../ports/auth-service';
+import type { EconomyRepository } from '../ports/economy-repository';
 import type { FeedbackRepository } from '../ports/feedback-repository';
 import type { PhotoStorage } from '../ports/photo-storage';
 import type { PosterRepository } from '../ports/poster-repository';
@@ -92,6 +93,7 @@ export function makeSendFeedback(deps: { feedback: FeedbackRepository; now: () =
 export function makeExportUserData(deps: {
   profiles: UserProfileRepository;
   stickers: StickerRepository;
+  economy: Pick<EconomyRepository, 'get'>;
   sightings: SightingRepository;
   achievements: AchievementRepository;
   posters: PosterRepository;
@@ -99,9 +101,10 @@ export function makeExportUserData(deps: {
   now: () => Date;
 }) {
   return async (userId: UserId) => {
-    const [profile, stickers, sightings, achievements, posters] = await Promise.all([
+    const [profile, stickers, economy, sightings, achievements, posters] = await Promise.all([
       deps.profiles.get(userId),
       deps.stickers.listByUser(userId),
+      deps.economy.get(userId),
       deps.sightings.listByUser(userId),
       deps.achievements.listByUser(userId),
       deps.posters.listByUser(userId),
@@ -109,6 +112,6 @@ export function makeExportUserData(deps: {
     const withPhotos = await Promise.all(
       sightings.map(async (s) => ({ ...s, photoUrl: s.photoPath ? await deps.photos.urlFor(s.photoPath).catch(() => null) : null })),
     );
-    return { exportedAt: deps.now(), userId, profile, stickers, sightings: withPhotos, achievements, posters };
+    return { exportedAt: deps.now(), userId, profile, stickers, economy, sightings: withPhotos, achievements, posters };
   };
 }

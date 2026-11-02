@@ -52,7 +52,7 @@ export function ChromeCategories({ onBack }: { onBack: () => void }) {
         ))}
         <InfoNote>
           <ThemedText variant="caption" color="textSecondary">
-            Los hitos son seguros. Cuenta 1 observación por especie y día, y 1 por semana en las aves amenazadas. Tu primera foto de cada especie puede salir cromada: 1 de cada 8.
+            Los hitos son seguros y la suerte viene en los sobres. Cuenta 1 observación por especie y día, y 1 por semana en las aves amenazadas. Tu primera foto de cada especie puede salir cromada: 1 de cada 8.
           </ThemedText>
         </InfoNote>
         <Button label="Listo" onPress={onBack} />

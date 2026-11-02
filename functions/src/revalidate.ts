@@ -5,9 +5,10 @@ import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { evaluateRevalidatedPhoto, nextFinishMilestone, type SightingResult } from '@plumario/core';
 
 import { GEMINI_API_KEY } from './ai.js';
+import { walletRef } from './economy.js';
 import { SCHEDULER_REGION } from './health.js';
-import { stickerDocument, toSpecies, toSticker } from './mappers.js';
-import { readPhoto, resultDocument, reviewPhoto } from './sightings.js';
+import { stickerDocument, toSpecies, toSticker, toWallet, walletDocument } from './mappers.js';
+import { newPack, packRef, readPhoto, resultDocument, reviewPhoto } from './sightings.js';
 
 // Si Gemini cae, la foto y el sticker entran y el registro queda con reviewPending. Esta tarea los
 // vuelve a revisar: si la IA aprueba, la observación cuenta como si hubiera contado al subirla; si
@@ -32,7 +33,7 @@ async function revalidate(snapshot: QueryDocumentSnapshot) {
 
   const stickerRef = db.collection('users').doc(uid).collection('stickers').doc(species.id);
   await db.runTransaction(async (tx) => {
-    const [current, stickerDoc] = await Promise.all([tx.get(snapshot.ref), tx.get(stickerRef)]);
+    const [current, stickerDoc, walletDoc] = await Promise.all([tx.get(snapshot.ref), tx.get(stickerRef), tx.get(walletRef(uid))]);
     if (current.data()?.reviewPending !== true || !stickerDoc.exists) return;
     const sticker = toSticker(species.id, stickerDoc.data()!);
     const now = new Date();
@@ -45,9 +46,12 @@ async function revalidate(snapshot: QueryDocumentSnapshot) {
     }
 
     const takenAt = sighting.takenAt instanceof Timestamp ? sighting.takenAt.toDate() : now;
-    const outcome = evaluateRevalidatedPhoto({ sticker, species, takenAt, at: now, roll: Math.random() });
+    const outcome = evaluateRevalidatedPhoto({ sticker, species, wallet: toWallet(walletDoc.data()), takenAt, at: now, roll: Math.random() });
+    const { reward } = outcome;
     const previous = current.data()?.result as Extract<SightingResult, { outcome: 'validated' }>;
     tx.set(stickerRef, stickerDocument(outcome.sticker));
+    if (reward.feathers > 0) tx.set(walletRef(uid), walletDocument(reward.wallet));
+    if (reward.pack) tx.set(packRef(uid, snapshot.id), newPack(reward.pack, now));
     tx.update(snapshot.ref, {
       reviewPending: false,
       result: resultDocument({
@@ -58,6 +62,10 @@ async function revalidate(snapshot: QueryDocumentSnapshot) {
         finish: outcome.sticker.best,
         observations: outcome.sticker.observations,
         next: nextFinishMilestone(outcome.sticker.observations),
+        feathers: reward.feathers,
+        covered: reward.covered,
+        packProgress: reward.wallet.packSpecies.length,
+        packReady: reward.pack !== null,
       }),
     });
   });

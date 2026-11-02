@@ -15,6 +15,10 @@ export default function ResultRoute() {
         close();
         router.push({ pathname: '/species/[id]', params: { id } });
       }}
+      onOpenPack={(id) => {
+        close();
+        router.push({ pathname: '/pack/[id]', params: { id } });
+      }}
       onRegisterAnother={() => router.dismissTo('/new-sighting')}
       onRetry={(id) => router.dismissTo({ pathname: '/new-sighting', params: { speciesId: id } })}
     />

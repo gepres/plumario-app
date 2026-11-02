@@ -3,11 +3,11 @@
 Las reglas de cromos, sobres, repetidas y plumas, aprobadas el 30 de octubre de 2026. Sustituyen a las
 reglas anteriores, en las que el acabado dependía de la especie.
 
-**Estado del código:** la fase 1 está en `packages/core/src/domain/card.ts`, `sticker.ts` y `trade.ts`:
-acabado ganado, hitos, elegibilidad, revalidación e intercambio en pausa. Sobres, repetidas y plumas
-empiezan en la fase 2A; `applyValidPhoto` ya informa `coveredMilestone` para pagar esas plumas. Los
-artboards de `design/project/` ya describen estas reglas. Si el código y este documento no coinciden,
-manda este documento.
+**Estado del código:** las fases 1 y 2A están en `packages/core/src/domain/`: `card.ts`, `sticker.ts` y
+`trade.ts` llevan acabado ganado, hitos, elegibilidad, revalidación e intercambio en pausa; `economy.ts`,
+plumas, sobres, repetidas y compra. Lo aplica el servidor en `functions/src/sightings.ts`, `revalidate.ts`
+y `economy.ts`. Los artboards de `design/project/` ya describen estas reglas. Si el código y este documento
+no coinciden, manda este documento.
 
 ## El ciclo
 
@@ -73,7 +73,7 @@ sticker como miniatura, con sus sellos y el destello del acabado.
 - **Datos:** dentro del paquete, sin tocar Firestore. Peso y ala salen de AVONET, la envergadura, de
   `data/species/ica-special-measures.json`, y los textos, de `data/species/ica-families.json`. El biólogo
   aprobó los textos y las medidas de AVONET, incluido el peso de 3,4 kg del Pelícano Peruano.
-- **Sobres:** los 3 diseños salen al azar en cada sobre y son solo apariencia. Llegan en la fase 2A.
+- **Sobres:** los 3 diseños salen al azar en cada sobre y son solo apariencia.
 - **Artboards:** `Carta`, `CartaReverso`, `CartaDorso`, `Sobre` y `SobresDisenos` en `design/project/`. Vienen de la
   maqueta [Cartas Plumario](https://claude.ai/artifact/KKe7hPAAPX9FTNExLSsuKk), página V2.
 
@@ -160,8 +160,8 @@ Solo escribe el servidor. El detalle se cierra en la fase que lo necesite.
 |---|---|---|
 | Colección | `users/{uid}/stickers/{speciesId}` | `best`, `unlocked` (acabado, origen y fecha) |
 | Progreso | el mismo documento | `observations`, `ownBest` (ganado sin intercambio), `claimedMilestone`, `countedDays` |
-| Saldo | `users/{uid}/economy/wallet` | `feathers`, avance del sobre, compras altas del mes |
-| Sobres | `users/{uid}/packs/{id}` | especies posibles, estado y resultado, que se decide al abrirlo |
+| Saldo | `users/{uid}/economy/wallet` | `feathers`, `packSpecies` (avance del sobre), `premiumMonth` (mes de la última compra alta) |
+| Sobres | `users/{uid}/packs/{id}` | `speciesIds`, `design`, `opened` y `opening`, que se decide al abrirlo. Su id es el del registro que lo llenó |
 | Repetidas | `users/{uid}/pieces/{speciesId}` | cantidad por acabado |
 | Propuesta | `trades/{id}` | especie y acabado de cada lado |
 | Eventos únicos | `result` del registro y de la aceptación, `photoClaims` | lo que ya se otorgó |

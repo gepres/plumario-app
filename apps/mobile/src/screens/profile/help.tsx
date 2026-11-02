@@ -14,6 +14,8 @@ type Props = {
 
 const FAQS: readonly { question: string; answer: string }[] = [
   { question: '¿Cómo sube de acabado una carta?', answer: 'Observando la misma especie en días distintos. Con 3, 5, 10, 20 y 35 observaciones ganas holográfico, plata, oro, rubí y diamante. Tu primera foto de cada especie también puede salir cromada: 1 de cada 8.' },
+  { question: '¿Qué son los sobres?', answer: 'Cada 3 observaciones válidas ganas un sobre con una pieza de una de esas aves. Si supera tu acabado se pega en el álbum; si no, queda como repetida.' },
+  { question: '¿Qué son las plumas?', answer: 'Las ganas con cada observación válida y reciclando repetidas. Sirven para subir un acabado. Nunca se venden.' },
   { question: 'Tomé otra foto de la misma ave. ¿Cuenta?', answer: 'Cuenta 1 observación por especie y día, y 1 por semana en las aves amenazadas, para no molestarlas. Las demás fotos igual van a su galería.' },
   { question: 'La app no reconoce mi foto', answer: 'Prueba con una foto donde el ave se vea entera y nítida. Si sabes qué especie es, puedes elegirla de la lista.' },
   { question: '¿Cuándo se habilita el póster de un hábitat?', answer: 'Al completar todas sus especies. Mientras, lo ves con las que faltan en sombra. Cada 10 especies también ganas un póster con tus aves.' },

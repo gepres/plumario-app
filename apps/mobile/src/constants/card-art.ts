@@ -1,6 +1,6 @@
 import type { ImageSourcePropType } from 'react-native';
 
-import type { CardCategory, Habitat, Seal } from '@plumario/core';
+import type { CardCategory, Habitat, PackDesign, Seal } from '@plumario/core';
 
 // El arte de las cartas: va dentro del paquete para que se vean sin señal. Los originales están en
 // data/cards/raw/ y se recortan con tools/cards/.
@@ -37,6 +37,13 @@ export const SEAL_ART: Record<Seal, ImageSourcePropType> = {
   nearThreatened: require('@/assets/cards/sello-casi.webp'),
   endemic: require('@/assets/cards/sello-endemica.webp'),
   emblematic: require('@/assets/cards/sello-emblematica.webp'),
+};
+
+/** Los 3 sobres: salen al azar y son solo apariencia. */
+export const PACK_ART: Record<PackDesign, ImageSourcePropType> = {
+  nasca: require('@/assets/cards/sobre-nasca.webp'),
+  pelicans: require('@/assets/cards/sobre-pelicanos.webp'),
+  paracas: require('@/assets/cards/sobre-paracas.webp'),
 };
 
 /** El relieve de plumas que enciende el destello. */

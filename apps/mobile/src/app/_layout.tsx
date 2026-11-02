@@ -73,6 +73,9 @@ function RootStack() {
           <Stack.Screen name="species/[id]" />
           <Stack.Screen name="sticker/[id]" />
           <Stack.Screen name="chrome-categories" />
+          <Stack.Screen name="pack/[id]" options={{ presentation: 'fullScreenModal' }} />
+          <Stack.Screen name="duplicates" />
+          <Stack.Screen name="buy/[id]" />
           <Stack.Screen name="poster/new" />
           <Stack.Screen name="poster/[id]" />
           <Stack.Screen name="poster/habitat/[habitat]" />
